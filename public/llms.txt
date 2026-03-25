@@ -1,47 +1,57 @@
-# Business — Generative Engine Optimization Map
+# וילה בית הלוגים — Generative Engine Optimization Map
+
+> A charming vintage-style vacation villa located in northern Israel overlooking the Sea of Galilee (Kinneret). The property accommodates up to 3 families simultaneously and features 5 bedrooms and a heated indoor swimming pool. The villa carries a nostalgic, old-world atmosphere — evoking warmth, togetherness, and a sense of timeless Israeli countryside hospitality.
 
 ---
 
 ## Pages
 
 ### דף הבית
-https://example.com
+https://villa-beit-halogim.zappy5.app
 וילה בית הלוגים בצפון הארץ עם נוף עוצר נשימה לכינרת, בריכה מקורה מחוממת ו־5 חדרים לשלוש משפחות. הזמינו עכשיו את החוויה שתזכרו לנצח!
 
 ### פרטי הווילה
-https://example.com/villa
+https://villa-beit-halogim.zappy5.app/villa
 הכירו את הווילה הוינטג׳ית שכובשת את הלב: 5 חדרים מרווחים, בריכה מקורה מחוממת ואווירה נוסטלגית ישראלית אותנטית לשלוש משפחות. כל הפרטים כאן!
 
 ### החוויה
-https://example.com/experience
+https://villa-beit-halogim.zappy5.app/experience
 שקיעות על הכינרת, ריח עצי הלוגים ואווירת כפר ישראלית נצחית — וילה בית הלוגים מעניקה לשלוש משפחות חוויית נופש משותפת שאי אפשר למצוא בשום מקום אחר.
 
 ### צור קשר
-https://example.com/contact
+https://villa-beit-halogim.zappy5.app/contact
 מוכנים לחופשה בלתי נשכחת בצפון? צרו קשר עם וילה בית הלוגים עכשיו, בדקו תאריכים פנויים והזמינו את הווילה המושלמת לכמה משפחות לפני שיאחר המועד.
 
 ## Legal & Policy
 
 ### Privacy Policy
-https://example.com/privacy
+https://villa-beit-halogim.zappy5.app/privacy
 Information about how user data is collected, stored, and protected.
 
 ### Terms & Conditions
-https://example.com/terms
+https://villa-beit-halogim.zappy5.app/terms
 Legal terms describing service usage, rights, and policies.
 
 ### Accessibility Statement
-https://example.com/accessibility
+https://villa-beit-halogim.zappy5.app/accessibility
 Information about WCAG compliance and accessibility features.
 
 ---
 
 # Business Context (for LLM understanding)
 
-## About Business
+## About וילה בית הלוגים
+A charming vintage-style vacation villa located in northern Israel overlooking the Sea of Galilee (Kinneret). The property accommodates up to 3 families simultaneously and features 5 bedrooms and a heated indoor swimming pool. The villa carries a nostalgic, old-world atmosphere — evoking warmth, togetherness, and a sense of timeless Israeli countryside hospitality.
+
+## Target Audience
+משפחות המחפשות נופש משותף בצפון הארץ
+
+## Industry
+תיירות ואירוח
+
 ---
 
 # Additional Resources
 
-- **Sitemap**: https://example.com/sitemap.xml
-- **Robots.txt**: https://example.com/robots.txt
+- **Sitemap**: https://villa-beit-halogim.zappy5.app/sitemap.xml
+- **Robots.txt**: https://villa-beit-halogim.zappy5.app/robots.txt

@@ -1,6 +1,4 @@
-# וילה בית הלוגים — Generative Engine Optimization Map
-
-> A charming vintage-style vacation villa located in northern Israel overlooking the Sea of Galilee (Kinneret). The property accommodates up to 3 families simultaneously and features 5 bedrooms and a heated indoor swimming pool. The villa carries a nostalgic, old-world atmosphere — evoking warmth, togetherness, and a sense of timeless Israeli countryside hospitality.
+# Business — Generative Engine Optimization Map
 
 ---
 
@@ -40,15 +38,7 @@ Information about WCAG compliance and accessibility features.
 
 # Business Context (for LLM understanding)
 
-## About וילה בית הלוגים
-A charming vintage-style vacation villa located in northern Israel overlooking the Sea of Galilee (Kinneret). The property accommodates up to 3 families simultaneously and features 5 bedrooms and a heated indoor swimming pool. The villa carries a nostalgic, old-world atmosphere — evoking warmth, togetherness, and a sense of timeless Israeli countryside hospitality.
-
-## Target Audience
-משפחות המחפשות נופש משותף בצפון הארץ
-
-## Industry
-תיירות ואירוח
-
+## About Business
 ---
 
 # Additional Resources

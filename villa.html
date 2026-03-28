@@ -783,13 +783,13 @@
 </script>
   
   <main>
-    <section class="villa-overview-section" data-layout-spec="פרטי הווילה-overview" dir="rtl">
+    <section class="villa-overview-section" data-layout-spec="פרטי הווילה-overview" dir="rtl" id="zappy-section-0">
   <div class="villa-overview-container">
 
     <!-- Text Column (START = RIGHT in RTL) -->
     <div class="villa-overview-content">
-      <span class="villa-overview-eyebrow">וילה בית הלוגים</span>
-      <h1 class="villa-overview-heading">הכירו את הוילה שלנו — מקום שמרגיש כמו בית</h1>
+      <p class="zappy-editable"><span class="villa-overview-eyebrow">וילה בית הלוגים</span>
+      </p><h1 class="villa-overview-heading">הכירו את הוילה שלנו — מקום שמרגיש כמו בית</h1>
       <p class="villa-overview-body">וילה בית הלוגים היא בית נופש ייחודי בצפון הארץ, ממוקמת מול נוף הכנרת הפסטורלי ועטורה אווירה נוסטלגית ומחממת לב. הוילה מתאימה בצורה מושלמת ל־3 משפחות המעוניינות לשתף חוויה משותפת מבלי לוותר על פרטיות — חדרי שינה נפרדים לכל משפחה לצד מרחבים משותפים לארוחות, שיחות ורגעי שיתוף. בסגנון של פעם, עם כל הנוחות של היום.</p>
 
       <!-- Fact Chips Row -->
@@ -828,7 +828,7 @@
 
     <!-- Image Column (END = LEFT in RTL) -->
     <figure class="villa-overview-figure">
-      <img data-placeholder="villa-overview-image-1" data-context="A charming vintage-style vacation villa exterior in northern Israel near the Sea of Galilee (Kinneret). The villa has warm stone and wood log construction, surrounded by lush greenery and mature trees. Soft golden afternoon light filters through the foliage. The architecture has an old-world nostalgic Israeli countryside feel with a tiled roof, wooden shutters, and a welcoming stone pathway leading to the entrance. The scene evokes warmth, togetherness, and a timeless rural retreat for families." width="600" height="400" src="/assets/site-villa-overview-image-1.webp" alt="חזית וילה בית הלוגים בצפון הארץ מול הכנרת" class="villa-overview-img">
+      <div data-zappy-zoom-wrapper="true" data-element-id="img-1774720551799-g36xzzsuf" data-element-type="image" data-zappy-zoom-wrapper-width="560px" data-zappy-zoom-wrapper-height="381px" data-zappy-zoom-wrapper-width-mode="px" data-zappy-zoom-clip="true" data-zappy-wrapper-margins-applied="true" style="position: relative !important; overflow: hidden !important; width: 560px !important; max-width: 100% !important; margin-left: auto !important; margin-right: auto !important; height: 381px !important; display: block !important;"><img data-placeholder="villa-overview-image-1" data-context="A charming vintage-style vacation villa exterior in northern Israel near the Sea of Galilee (Kinneret). The villa has warm stone and wood log construction, surrounded by lush greenery and mature trees. Soft golden afternoon light filters through the foliage. The architecture has an old-world nostalgic Israeli countryside feel with a tiled roof, wooden shutters, and a welcoming stone pathway leading to the entrance. The scene evokes warmth, togetherness, and a timeless rural retreat for families." width="600" height="400" src="/assets/business-general-service-upload-1774720578716.webp" alt="חזית וילה בית הלוגים בצפון הארץ מול הכנרת" class="villa-overview-img zappy-editable-image" data-element-type="image" data-element-id="img-1774720551799-g36xzzsuf" data-resize-handler-attached="true" data-original-position="static" style="position: absolute !important; object-position: 50% 50%; margin: 0px !important; left: -1% !important; top: -4.72126% !important; width: 102% !important; height: 109.443% !important; max-width: none !important; max-height: none !important; display: block; object-fit: cover;" data-zappy-zoom="1.02" data-zappy-original-width="560" data-zappy-original-height="381"></div>
       <div class="villa-overview-img-badge">
         <span class="villa-img-badge-icon">✦</span>
         <span>מול הכנרת</span>
@@ -1226,6 +1226,34 @@
       if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initMobileLangMenu); }
       else { initMobileLangMenu(); }
       window.addEventListener('resize', function() { clearTimeout(window._mlrt); window._mlrt = setTimeout(initMobileLangMenu, 250); });
+    })();
+    </script>
+
+    <script>
+    (function(){
+      if(window.innerWidth>768)return;
+      function fixZW(){
+        document.querySelectorAll('[data-zappy-zoom-wrapper="true"]').forEach(function(w){
+          var cw=w.style.getPropertyValue('width');
+          if(!cw||cw==='100%')return;
+          w.style.setProperty('width','100%','important');
+          w.style.setProperty('max-width','100%','important');
+          w.style.setProperty('height','auto','important');
+          var img=w.querySelector('img');
+          if(img){
+            img.style.setProperty('position','relative','important');
+            img.style.setProperty('width','100%','important');
+            img.style.setProperty('height','auto','important');
+            img.style.setProperty('max-width','100%','important');
+            img.style.setProperty('max-height','400px','important');
+            img.style.setProperty('object-fit','cover','important');
+            img.style.setProperty('left','0','important');
+            img.style.setProperty('top','0','important');
+          }
+        });
+      }
+      if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',fixZW);
+      else setTimeout(fixZW,50);
     })();
     </script>
 </body>

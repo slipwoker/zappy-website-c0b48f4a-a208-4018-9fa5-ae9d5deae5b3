@@ -242,369 +242,6 @@
     <script src="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.umd.js"></script>
     <!-- Mickidum Accessibility Toolbar -->
     <script src="https://cdn.jsdelivr.net/gh/mickidum/acc_toolbar/acctoolbar/acctoolbar.min.js"></script>
-
-<style data-zappy-section-v2-css="true">
-/* V2 Regenerated Section CSS */
-.experience-story-section {
-  position: relative;
-  overflow: visible;
-  background-color: #F6F0E6;
-  background-image:
-    radial-gradient(circle at 20% 20%, rgba(255,255,255,0.35) 0, rgba(255,255,255,0) 42%),
-    radial-gradient(circle at 80% 30%, rgba(255,255,255,0.22) 0, rgba(255,255,255,0) 36%),
-    radial-gradient(circle at 50% 80%, rgba(198,164,106,0.08) 0, rgba(198,164,106,0) 42%);
-  color: var(--text-dark);
-  padding: 120px 24px 100px;
-  direction: rtl;
-}
-
-/* Background Pattern */
-.experience-story-section .ess-bg-pattern {
-  position: absolute;
-  inset: 0;
-  background-image:
-    repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 48px,
-      rgba(185,111,82,0.04) 48px,
-      rgba(185,111,82,0.04) 49px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      transparent,
-      transparent 48px,
-      rgba(185,111,82,0.04) 48px,
-      rgba(185,111,82,0.04) 49px
-    );
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Container */
-.experience-story-section .ess-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 1;
-}
-
-/* Label Row */
-.experience-story-section .ess-label-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  margin-bottom: 56px;
-}
-
-.experience-story-section .ess-label-line {
-  display: block;
-  height: 1px;
-  width: 60px;
-  background: var(--accent);
-  opacity: 0.5;
-  flex-shrink: 0;
-}
-
-.experience-story-section .ess-label-text {
-  font-family: 'Nunito Sans', 'DM Sans', sans-serif;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--accent);
-}
-
-/* Main Grid */
-.experience-story-section .ess-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: center;
-  direction: rtl;
-}
-
-/* Text Column */
-.experience-story-section .ess-text-col {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-
-/* Headline */
-.experience-story-section .ess-headline {
-  font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
-  font-size: clamp(2.5rem, 4.5vw, 3.5rem);
-  font-weight: 500;
-  line-height: 1.15;
-  color: var(--text-dark);
-  margin: 0 0 28px 0;
-  text-align: right;
-}
-
-.experience-story-section .ess-headline em {
-  font-style: italic;
-  color: var(--accent);
-  -webkit-text-fill-color: var(--accent);
-}
-
-/* Body Large */
-.experience-story-section .ess-body-large {
-  font-family: 'Nunito Sans', 'DM Sans', sans-serif;
-  font-size: 1.0625rem !important;
-  line-height: 1.85;
-  color: var(--text-dark);
-  text-align: right;
-  margin: 0 0 20px 0;
-}
-
-/* Body */
-.experience-story-section .ess-body {
-  font-family: 'Nunito Sans', 'DM Sans', sans-serif;
-  font-size: 1rem !important;
-  line-height: 1.75;
-  color: var(--text-muted);
-  text-align: right;
-  margin: 0 0 36px 0;
-}
-
-/* Features List */
-.experience-story-section .ess-features {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  margin-bottom: 40px;
-  padding: 28px 24px;
-  background: rgba(255,255,255,0.55);
-  border-radius: 12px;
-  border: 1px solid var(--border-light);
-  box-shadow: 0 4px 18px rgba(88,60,29,0.06);
-}
-
-.experience-story-section .ess-feature-item {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 12px;
-  direction: rtl;
-}
-
-.experience-story-section .ess-feature-icon {
-  flex-shrink: 0;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: rgba(185,111,82,0.1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--accent);
-}
-
-.experience-story-section .ess-feature-text {
-  font-family: 'Nunito Sans', 'DM Sans', sans-serif;
-  font-size: 0.9375rem;
-  color: var(--text-dark);
-  text-align: right;
-  line-height: 1.5;
-}
-
-/* CTA Row */
-.experience-story-section .ess-cta-row {
-  display: flex;
-  justify-content: flex-start;
-  direction: rtl;
-}
-
-.experience-story-section .ess-cta-btn {
-  display: inline-block;
-  background: #7A8B4B;
-  color: #F8F3EA;
-  padding: 14px 34px;
-  border-radius: 8px;
-  border: 1px solid #6F7F42;
-  font-family: 'Nunito Sans', 'DM Sans', sans-serif;
-  font-weight: 500;
-  font-size: 1rem;
-  line-height: 1;
-  box-shadow: 0 2px 4px rgba(88,60,29,0.1);
-  text-decoration: none;
-  transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
-  white-space: nowrap;
-}
-
-.experience-story-section .ess-cta-btn:hover {
-  background: #6F7F42;
-  box-shadow: 0 6px 18px rgba(88,60,29,0.18);
-  transform: translateY(-2px);
-  color: #F8F3EA;
-}
-
-/* Image Column */
-.experience-story-section .ess-image-col {
-  position: relative;
-}
-
-.experience-story-section .ess-image-frame {
-  position: relative;
-  border-radius: 20px;
-  overflow: hidden;
-}
-
-.experience-story-section .ess-main-image {
-  width: 100%;
-  height: 580px;
-  object-fit: cover;
-  border-radius: 20px;
-  display: block;
-  box-shadow: 0 28px 64px rgba(88,60,29,0.18);
-  position: relative;
-  z-index: 1;
-}
-
-/* Image Badge */
-.experience-story-section .ess-image-badge {
-  position: absolute;
-  bottom: 28px;
-  inset-inline-start: -20px;
-  background: #F8F3EA;
-  border-radius: 14px;
-  padding: 16px 22px;
-  box-shadow: 0 12px 30px rgba(88,60,29,0.16);
-  border: 1px solid rgba(220,207,185,0.75);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  z-index: 10;
-  min-width: 80px;
-}
-
-.experience-story-section .ess-badge-number {
-  font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
-  font-size: 2.25rem;
-  font-weight: 600;
-  line-height: 1;
-  color: var(--accent);
-  display: block;
-}
-
-.experience-story-section .ess-badge-label {
-  font-family: 'Nunito Sans', 'DM Sans', sans-serif;
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  letter-spacing: 0.08em;
-  margin-top: 4px;
-  display: block;
-}
-
-/* Ornament behind image */
-.experience-story-section .ess-image-ornament {
-  position: absolute;
-  top: -18px;
-  inset-inline-end: -18px;
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  background: rgba(185,111,82,0.12);
-  z-index: 0;
-  pointer-events: none;
-}
-
-/* Bottom Divider */
-.experience-story-section .ess-divider-wrapper {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 60px;
-  pointer-events: none;
-  z-index: 5;
-}
-
-.experience-story-section .ess-divider-wrapper svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-/* ===================== TABLET ===================== */
-@media (max-width: 1024px) {
-  .experience-story-section {
-    padding: 100px 20px 90px;
-  }
-
-  .experience-story-section .ess-grid {
-    gap: 48px;
-  }
-
-  .experience-story-section .ess-main-image {
-    height: 480px;
-  }
-}
-
-/* ===================== MOBILE ===================== */
-@media (max-width: 768px) {
-  .experience-story-section {
-    padding: 100px 16px 80px;
-  }
-
-  .experience-story-section .ess-grid {
-    grid-template-columns: 1fr !important;
-    gap: 40px;
-  }
-
-  .experience-story-section .ess-label-row {
-    margin-bottom: 36px;
-  }
-
-  .experience-story-section .ess-headline {
-    font-size: 2.25rem;
-    margin-bottom: 20px;
-  }
-
-  .experience-story-section .ess-body-large {
-    margin-bottom: 16px;
-  }
-
-  .experience-story-section .ess-body {
-    margin-bottom: 24px;
-  }
-
-  .experience-story-section .ess-features {
-    padding: 20px 16px;
-    margin-bottom: 28px;
-  }
-
-  .experience-story-section .ess-image-col {
-    order: -1;
-  }
-
-  .experience-story-section .ess-main-image {
-    height: 320px;
-  }
-
-  .experience-story-section .ess-image-badge {
-    inset-inline-start: 12px;
-    bottom: 16px;
-    padding: 12px 16px;
-  }
-
-  .experience-story-section .ess-image-ornament {
-    display: none;
-  }
-
-  .experience-story-section .ess-cta-row {
-    justify-content: center;
-  }
-
-  .experience-story-section .ess-cta-btn {
-    width: 100%;
-    text-align: center;
-    padding: 16px 24px;
-  }
-}
-</style>
     <link rel="stylesheet" href="/styles.css">
 
     <style id="zappy-dropdown-submenu-styles">
@@ -1146,85 +783,46 @@
 </script>
   
   <main>
-    <section class="experience-story-section" data-layout-spec="החוויה-story" dir="rtl" data-zappy-section="true" id="zappy-section-0">
-  <div class="ess-bg-pattern" aria-hidden="true"></div>
+    <section class="experience-story-section" data-layout-spec="החוויה-story" dir="rtl" id="zappy-section-0" style="position: relative; overflow: hidden; background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url(&quot;assets/business-general-hero-upload-1774784364545.webp&quot;); background-size: cover; background-position: center center; background-repeat: no-repeat; --zappy-bg-overlay: rgba(0, 0, 0, 0); --zappy-bg-image: url(&quot;assets/business-general-hero-upload-1774784364545.webp&quot;); " data-zappy-bg-type="image" data-zappy-bg-color="" data-zappy-bg-image="assets/business-general-hero-upload-1774784364545.webp" data-zappy-bg-overlay-color="#000000" data-zappy-bg-overlay-opacity="0" data-zappy-bg-video-type="" data-zappy-bg-video-url="" data-element-id="zappy-hero-bg-zappy-section-0" data-element-type="background-image">
+  <div class="experience-story-container">
 
-  <div class="ess-container">
+    <!-- Text Column (START = RIGHT in RTL) -->
+    <div class="experience-story-text">
+      <p><span class="experience-story-eyebrow">הסיפור שלנו</span>
+      </p><h1 class="experience-story-heading"  data-element-id="move-1774786539770-c3u9kcpt">מקום שזמן<br>שכח לרוץ בו</h1>
+      
+      <p class="experience-story-body"><font color="#ffffff">הבריכה המקורה המחוממת מחכה לכם גם בימי חורף, וחמשת החדרים מאפשרים לכל משפחה את הפינה שלה — בלי לאבד את תחושת הביחד. וילה להשכרה לכמה משפחות בצפון שמרגישה כמו בית של סבא, רק עם כל הנוחות שצריך.</font></p><p class="experience-story-lead"  data-element-id="move-1774786453065-u5p10sm8"><font color="#ffffff">וילה בית הלוגים נמצאת בלב הצפון, מוקפת בשקט של בוקר . כאן, שלוש עד 4 משפחות יכולות לשתף ארוחת בוקר ארוכה על השולחן הגדול, לשמוע את הציפורים מבעד לחלונות, ולחוות מחדש את הפשטות שכבר כמעט שכחנו. הוילה עוצבה בסגנון של פעם — עם&nbsp; ריהוט כפרי חם, וחמישה חדרים שכל אחד מהם מספר סיפור משלו.</font></p>
+      <div class="experience-story-divider-line"></div>
+      <p><a href="#contact" class="btn-primary experience-story-cta" data-element-type="button" data-element-id="btn-1774720877995-hh5e6mh4v" data-native-element="true">לפרטים ותאריכים פנויים</a>
+    </p></div>
 
-    <!-- Label -->
-    <div class="ess-label-row">
-      <span class="ess-label-line" aria-hidden="true"></span>
-      <span class="ess-label-text">הסיפור שלנו</span>
-      <span class="ess-label-line" aria-hidden="true"></span>
-    </div>
-
-    <!-- Main Content Grid -->
-    <div class="ess-grid">
-
-      <!-- Text Column -->
-      <div class="ess-text-col">
-        <h1 class="ess-headline">מקום שזמן<br><em>שכח לרוץ בו</em></h1>
-
-        <p class="ess-body-large">וילה בית הלוגים נמצאת בלב הצפון, מוקפת בשקט של בוקר. כאן, שלוש עד 4 משפחות יכולות לשתף ארוחת בוקר ארוכה על השולחן הגדול, לשמוע את הציפורים מבעד לחלונות, ולחוות מחדש את הפשטות שכבר כמעט שכחנו. הוילה עוצבה בסגנון של פעם — עם ריהוט כפרי חם, וחמישה חדרים שכל אחד מהם מספר סיפור משלו.</p>
-
-        <p class="ess-body">הבריכה המקורה המחוממת מחכה לכם גם בימי חורף, וחמשת החדרים מאפשרים לכל משפחה את הפינה שלה — בלי לאבד את תחושת הביחד. וילה להשכרה לכמה משפחות בצפון שמרגישה כמו בית של סבא, רק עם כל הנוחות שצריך.</p>
-
-        <div class="ess-features">
-          <div class="ess-feature-item">
-            <span class="ess-feature-icon" aria-hidden="true">
-              <svg data-element-type="icon" data-icon-type="svg" width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M11 2C6.03 2 2 6.03 2 11s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 16.5A7.5 7.5 0 1 1 11 3.5a7.5 7.5 0 0 1 0 15zm.75-12.25h-1.5v5.25l4.5 2.7.75-1.23-3.75-2.22V6.25z" fill="currentColor"></path>
-              </svg>
-            </span>
-            <span class="ess-feature-text">שלוש עד ארבע משפחות בו-זמנית</span>
-          </div>
-          <div class="ess-feature-item">
-            <span class="ess-feature-icon" aria-hidden="true">
-              <svg data-element-type="icon" data-icon-type="svg" width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M4 10h14v8H4zM2 10V8a9 9 0 0 1 18 0v2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                <circle cx="11" cy="14" r="1.5" fill="currentColor"></circle>
-              </svg>
-            </span>
-            <span class="ess-feature-text">חמישה חדרים עם אופי ייחודי</span>
-          </div>
-          <div class="ess-feature-item">
-            <span class="ess-feature-icon" aria-hidden="true">
-              <svg data-element-type="icon" data-icon-type="svg" width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M3 15h16M5 15V9a6 6 0 0 1 12 0v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
-                <path d="M2 15h18v2a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-2z" fill="currentColor" opacity=".18"></path>
-                <path d="M2 15h18v2a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-2z" stroke="currentColor" stroke-width="1.5"></path>
-              </svg>
-            </span>
-            <span class="ess-feature-text">בריכה מקורה ומחוממת כל השנה</span>
-          </div>
-        </div>
-
-        <div class="ess-cta-row">
-          <a href="#contact" class="btn-primary ess-cta-btn">לפרטים ותאריכים פנויים</a>
-        </div>
+    <!-- Image Column (END = LEFT in RTL) -->
+    <figure class="experience-story-figure">
+      <div class="experience-story-img-wrapper">
+        
+        <div class="experience-story-img-grain"></div>
       </div>
-
-      <!-- Image Column -->
-      <div class="ess-image-col">
-        <div class="ess-image-frame">
-          <img data-placeholder="experience-story-image-1" data-context="Warm vintage-style vacation villa in northern Israel near the Sea of Galilee. Cozy interior with rustic wooden furniture, warm lighting, a large family dining table set for multiple families. Nostalgic countryside atmosphere with natural light streaming through windows, earthy tones, and a welcoming homely feel." width="600" height="750" src="" alt="וילה בית הלוגים — אווירה כפרית חמה בצפון הארץ" class="ess-main-image" style="object-fit: cover; object-position: center;">
-          <div class="ess-image-badge">
-            <span class="ess-badge-number">5</span>
-            <span class="ess-badge-label">חדרים</span>
-          </div>
-          <div class="ess-image-ornament" aria-hidden="true"></div>
-        </div>
+      <div class="experience-story-img-badge">
+        <span class="experience-story-badge-number">5</span>
+        <span class="experience-story-badge-label" id="zappy-drop-sjinb8t5v">חדרים<br>ל-4 משפחות</span>
       </div>
+    </figure>
 
-    </div>
   </div>
 
-  <!-- Bottom Divider -->
-  <div class="ess-divider-wrapper">
-    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0,60 L0,32 Q100,20 200,30 T400,22 Q500,16 600,28 T800,20 Q900,14 1000,26 T1200,18 L1200,60 Z" fill="#F1E7D8"></path>
+  <!-- Bottom Feathered Linen Fade Divider -->
+  <div class="experience-story-divider-wrapper">
+    <svg aria-hidden="true" viewBox="0 0 1200 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="linenFade" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#F6F1E7" stop-opacity="0"></stop>
+          <stop offset="100%" stop-color="#F6F1E7" stop-opacity="1"></stop>
+        </linearGradient>
+      </defs>
+      <rect width="1200" height="90" fill="url(#linenFade)"></rect>
     </svg>
   </div>
+
 </section>
 
 <section class="experience-lifestyle-section" data-layout-spec="החוויה-lifestyle" dir="rtl">

@@ -242,6 +242,359 @@
     <script src="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.umd.js"></script>
     <!-- Mickidum Accessibility Toolbar -->
     <script src="https://cdn.jsdelivr.net/gh/mickidum/acc_toolbar/acctoolbar/acctoolbar.min.js"></script>
+
+<style data-zappy-section-v2-css="true">
+/* V2 Regenerated Section CSS */
+.experience-story-section {
+  position: relative;
+  background-color: #F6F0E6;
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(255,255,255,0.35) 0, rgba(255,255,255,0) 42%),
+    radial-gradient(circle at 80% 30%, rgba(255,255,255,0.22) 0, rgba(255,255,255,0) 36%),
+    radial-gradient(circle at 50% 80%, rgba(198,164,106,0.08) 0, rgba(198,164,106,0) 42%);
+  color: var(--text-dark);
+  padding: 120px 24px 80px;
+  overflow: hidden;
+  direction: rtl;
+}
+
+.experience-story-section .experience-story-inner {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  z-index: 1;
+}
+
+/* Decorative background blobs */
+.experience-story-section .story-bg-blob {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+.experience-story-section .story-bg-blob--1 {
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(circle, rgba(185, 111, 82, 0.08) 0%, transparent 70%);
+  top: -80px;
+  inset-inline-end: -100px;
+}
+.experience-story-section .story-bg-blob--2 {
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle, rgba(122, 130, 100, 0.1) 0%, transparent 70%);
+  bottom: 40px;
+  inset-inline-start: -60px;
+}
+
+/* Eyebrow label */
+.experience-story-section .story-eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 52px;
+  position: relative;
+  z-index: 1;
+}
+.experience-story-section .story-eyebrow-text {
+  font-family: 'Nunito Sans', 'DM Sans', sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  white-space: nowrap;
+}
+.experience-story-section .story-eyebrow-line {
+  flex: 1;
+  max-width: 80px;
+  height: 1px;
+  background: linear-gradient(to left, transparent, var(--border-light));
+}
+.experience-story-section .story-eyebrow-line:last-child {
+  background: linear-gradient(to right, transparent, var(--border-light));
+}
+
+/* Main grid */
+.experience-story-section .story-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 72px;
+  align-items: center;
+  direction: rtl;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── IMAGE COLUMN ── */
+.experience-story-section .story-image-col {
+  position: relative;
+}
+
+.experience-story-section .story-image-frame {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 28px 64px rgba(88, 60, 29, 0.18);
+}
+.experience-story-section .story-image-frame img {
+  display: block;
+  width: 100%;
+  height: 520px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 20px;
+  transition: transform 0.6s ease;
+}
+.experience-story-section .story-image-frame:hover img {
+  transform: scale(1.03);
+}
+
+/* Badge on image */
+.experience-story-section .story-image-badge {
+  position: absolute;
+  bottom: 20px;
+  inset-inline-start: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(246, 240, 230, 0.92);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(220, 207, 185, 0.8);
+  border-radius: 999px;
+  padding: 8px 18px;
+  font-family: 'Nunito Sans', 'DM Sans', sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  box-shadow: 0 4px 16px rgba(88, 60, 29, 0.12);
+}
+.experience-story-section .story-image-badge i {
+  color: var(--primary);
+  font-size: 0.875rem;
+}
+
+/* Decorative tile */
+.experience-story-section .story-deco-tile {
+  position: absolute;
+  top: -28px;
+  inset-inline-end: -28px;
+  width: 110px;
+  height: 110px;
+  background: linear-gradient(135deg, #B96F52 0%, #8D542E 100%);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 12px 30px rgba(141, 84, 46, 0.28);
+  z-index: 2;
+}
+.experience-story-section .story-deco-year {
+  font-family: 'Cormorant Garamond', 'Playfair Display', serif;
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #F6F1E7;
+  line-height: 1;
+}
+.experience-story-section .story-deco-label {
+  font-family: 'Nunito Sans', 'DM Sans', sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: rgba(246, 241, 231, 0.8);
+  letter-spacing: 0.05em;
+  margin-top: 4px;
+}
+
+/* ── TEXT COLUMN ── */
+.experience-story-section .story-text-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: right;
+}
+
+.experience-story-section .story-headline {
+  font-family: 'Cormorant Garamond', 'Playfair Display', serif;
+  font-size: clamp(2.25rem, 4vw, 3.25rem);
+  font-weight: 500;
+  line-height: 1.15;
+  color: var(--text-dark);
+  margin: 0 0 24px;
+  text-align: right;
+}
+.experience-story-section .story-headline em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.experience-story-section .story-divider {
+  width: 56px;
+  height: 3px;
+  background: linear-gradient(to left, var(--accent), var(--primary));
+  border-radius: 2px;
+  margin-bottom: 28px;
+  align-self: flex-start;
+}
+
+.experience-story-section .story-body {
+  font-family: 'Nunito Sans', 'DM Sans', sans-serif;
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--text-dark);
+  margin: 0 0 20px;
+  text-align: right;
+}
+.experience-story-section .story-body--lead {
+  font-size: 1.0625rem;
+  color: #4C341F;
+}
+
+/* Feature items */
+.experience-story-section .story-features {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 28px 0 36px;
+  width: 100%;
+}
+
+.experience-story-section .story-feature-item {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 16px;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(220, 207, 185, 0.7);
+  border-radius: 12px;
+  padding: 14px 16px;
+  direction: rtl;
+}
+
+.experience-story-section .story-feature-icon {
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, rgba(122, 130, 100, 0.12) 0%, rgba(185, 111, 82, 0.1) 100%);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  font-size: 1.125rem;
+  flex-shrink: 0;
+}
+
+.experience-story-section .story-feature-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: right;
+}
+.experience-story-section .story-feature-text strong {
+  font-family: 'Nunito Sans', 'DM Sans', sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  line-height: 1.3;
+}
+.experience-story-section .story-feature-text span {
+  font-family: 'Nunito Sans', 'DM Sans', sans-serif;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* CTA button */
+.experience-story-section .story-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #7A8B4B;
+  color: #F8F3EA;
+  padding: 14px 34px;
+  border-radius: 8px;
+  border: 1px solid #6F7F42;
+  font-family: 'Nunito Sans', 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1;
+  text-decoration: none;
+  box-shadow: 0 2px 4px rgba(88, 60, 29, 0.1);
+  transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
+  align-self: flex-start;
+}
+.experience-story-section .story-cta:hover {
+  background: #6F7F42;
+  box-shadow: 0 8px 24px rgba(122, 139, 75, 0.28);
+  transform: translateY(-2px);
+  color: #F8F3EA;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .experience-story-section .story-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  .experience-story-section .story-image-col {
+    
+  }
+  .experience-story-section .story-text-col {
+    
+  }
+  .experience-story-section .story-deco-tile {
+    top: -20px;
+    inset-inline-end: 16px;
+    width: 90px;
+    height: 90px;
+  }
+  .experience-story-section .story-deco-year {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .experience-story-section {
+    padding: 100px 16px 60px;
+  }
+  .experience-story-section .story-grid {
+    grid-template-columns: 1fr !important;
+    gap: 36px;
+  }
+  .experience-story-section .story-eyebrow {
+    margin-bottom: 36px;
+  }
+  .experience-story-section .story-headline {
+    font-size: 2rem;
+  }
+  .experience-story-section .story-image-frame img {
+    height: 340px;
+  }
+  .experience-story-section .story-deco-tile {
+    position: static;
+    display: none;
+  }
+  .experience-story-section .story-features {
+    gap: 12px;
+    margin: 20px 0 28px;
+  }
+  .experience-story-section .story-feature-item {
+    padding: 12px 14px;
+  }
+  .experience-story-section .story-cta {
+    width: 100%;
+    justify-content: center;
+    align-self: stretch;
+  }
+  .experience-story-section .story-bg-blob--1,
+  .experience-story-section .story-bg-blob--2 {
+    display: none;
+  }
+}
+/* ZAPPY_POSTGEN_GUARD_RTL_ORDER:החוויה-story — stripped 2 order declaration(s) conflicting with RTL grid */
+
+</style>
     <link rel="stylesheet" href="/styles.css">
 
     <style id="zappy-dropdown-submenu-styles">
@@ -783,46 +1136,78 @@
 </script>
   
   <main>
-    <section class="experience-story-section" data-layout-spec="החוויה-story" dir="rtl" id="zappy-section-0" style="position: relative; overflow: hidden; background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url(&quot;assets/business-general-hero-upload-1774784364545.webp&quot;); background-size: cover; background-position: center center; background-repeat: no-repeat; --zappy-bg-overlay: rgba(0, 0, 0, 0); --zappy-bg-image: url(&quot;assets/business-general-hero-upload-1774784364545.webp&quot;); " data-zappy-bg-type="image" data-zappy-bg-color="" data-zappy-bg-image="assets/business-general-hero-upload-1774784364545.webp" data-zappy-bg-overlay-color="#000000" data-zappy-bg-overlay-opacity="0" data-zappy-bg-video-type="" data-zappy-bg-video-url="" data-element-id="zappy-hero-bg-zappy-section-0" data-element-type="background-image">
-  <div class="experience-story-container">
+    <section class="experience-story-section" data-layout-spec="החוויה-story" dir="rtl" data-zappy-section="true" id="zappy-section-0">
+  <div class="experience-story-inner">
 
-    <!-- Text Column (START = RIGHT in RTL) -->
-    <div class="experience-story-text">
-      <p><span class="experience-story-eyebrow">הסיפור שלנו</span>
-      </p><h1 class="experience-story-heading"  data-element-id="move-1774786539770-c3u9kcpt">מקום שזמן<br>שכח לרוץ בו</h1>
-      
-      <p class="experience-story-body"><font color="#ffffff">הבריכה המקורה המחוממת מחכה לכם גם בימי חורף, וחמשת החדרים מאפשרים לכל משפחה את הפינה שלה — בלי לאבד את תחושת הביחד. וילה להשכרה לכמה משפחות בצפון שמרגישה כמו בית של סבא, רק עם כל הנוחות שצריך.</font></p><p class="experience-story-lead"  data-element-id="move-1774786453065-u5p10sm8"><font color="#ffffff">וילה בית הלוגים נמצאת בלב הצפון, מוקפת בשקט של בוקר . כאן, שלוש עד 4 משפחות יכולות לשתף ארוחת בוקר ארוכה על השולחן הגדול, לשמוע את הציפורים מבעד לחלונות, ולחוות מחדש את הפשטות שכבר כמעט שכחנו. הוילה עוצבה בסגנון של פעם — עם&nbsp; ריהוט כפרי חם, וחמישה חדרים שכל אחד מהם מספר סיפור משלו.</font></p>
-      <div class="experience-story-divider-line"></div>
-      <p><a href="#contact" class="btn-primary experience-story-cta" data-element-type="button" data-element-id="btn-1774720877995-hh5e6mh4v" data-native-element="true">לפרטים ותאריכים פנויים</a>
-    </p></div>
+    <!-- Decorative background blobs -->
+    <div class="story-bg-blob story-bg-blob--1" aria-hidden="true"></div>
+    <div class="story-bg-blob story-bg-blob--2" aria-hidden="true"></div>
 
-    <!-- Image Column (END = LEFT in RTL) -->
-    <figure class="experience-story-figure">
-      <div class="experience-story-img-wrapper">
-        
-        <div class="experience-story-img-grain"></div>
+    <!-- Top label -->
+    <div class="story-eyebrow">
+      <span class="story-eyebrow-line"></span>
+      <span class="story-eyebrow-text">הסיפור שלנו</span>
+      <span class="story-eyebrow-line"></span>
+    </div>
+
+    <!-- Main content grid -->
+    <div class="story-grid">
+
+      <!-- Left column: image -->
+      <div class="story-image-col">
+        <div class="story-image-frame">
+          <img data-placeholder="experience-story-image-1" data-context="Warm vintage-style interior of a rustic northern Israel villa: a long wooden dining table set for multiple families with morning light streaming through large windows, surrounded by countryside wooden furniture and green views of the Galilee landscape outside" width="600" height="750" src="" alt="וילה בית הלוגים — שולחן ארוחת בוקר משפחתי בצפון" style="object-fit: cover; object-position: center;">
+          <div class="story-image-badge">
+            <i class="fa-solid fa-leaf" aria-hidden="true"></i>
+            <span>צפון הארץ</span>
+          </div>
+        </div>
+        <!-- Decorative offset tile -->
+        <div class="story-deco-tile" aria-hidden="true">
+          <span class="story-deco-year">1987</span>
+          <span class="story-deco-label">מאז ומתמיד</span>
+        </div>
       </div>
-      <div class="experience-story-img-badge">
-        <span class="experience-story-badge-number">5</span>
-        <span class="experience-story-badge-label" id="zappy-drop-sjinb8t5v">חדרים<br>ל-4 משפחות</span>
+
+      <!-- Right column: text -->
+      <div class="story-text-col">
+        <h1 class="story-headline">מקום שזמן<br><em>שכח לרוץ בו</em></h1>
+
+        <div class="story-divider" aria-hidden="true"></div>
+
+        <p class="story-body story-body--lead">וילה בית הלוגים נמצאת בלב הצפון, מוקפת בשקט של בוקר . כאן, שלוש עד 4 משפחות יכולות לשתף ארוחת בוקר ארוכה על השולחן הגדול, לשמוע את הציפורים מבעד לחלונות, ולחוות מחדש את הפשטות שכבר כמעט שכחנו. הוילה עוצבה בסגנון של פעם — עם  ריהוט כפרי חם, וחמישה חדרים שכל אחד מהם מספר סיפור משלו.</p>
+
+        <p class="story-body">הבריכה המקורה המחוממת מחכה לכם גם בימי חורף, וחמשת החדרים מאפשרים לכל משפחה את הפינה שלה — בלי לאבד את תחושת הביחד. וילה להשכרה לכמה משפחות בצפון שמרגישה כמו בית של סבא, רק עם כל הנוחות שצריך.</p>
+
+        <div class="story-features">
+          <div class="story-feature-item">
+            <div class="story-feature-icon"><i class="fa-solid fa-house-chimney" aria-hidden="true"></i></div>
+            <div class="story-feature-text">
+              <strong>5 חדרים</strong>
+              <span>לכל משפחה פינה משלה</span>
+            </div>
+          </div>
+          <div class="story-feature-item">
+            <div class="story-feature-icon"><i class="fa-solid fa-water-ladder" aria-hidden="true"></i></div>
+            <div class="story-feature-text">
+              <strong>בריכה מקורה</strong>
+              <span>מחוממת לאורך כל השנה</span>
+            </div>
+          </div>
+          <div class="story-feature-item">
+            <div class="story-feature-icon"><i class="fa-solid fa-users" aria-hidden="true"></i></div>
+            <div class="story-feature-text">
+              <strong>עד 4 משפחות</strong>
+              <span>ביחד, בלי לאבד פרטיות</span>
+            </div>
+          </div>
+        </div>
+
+        <a href="#contact" class="story-cta btn-primary">לפרטים ותאריכים פנויים</a>
       </div>
-    </figure>
 
+    </div>
   </div>
-
-  <!-- Bottom Feathered Linen Fade Divider -->
-  <div class="experience-story-divider-wrapper">
-    <svg aria-hidden="true" viewBox="0 0 1200 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="linenFade" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#F6F1E7" stop-opacity="0"></stop>
-          <stop offset="100%" stop-color="#F6F1E7" stop-opacity="1"></stop>
-        </linearGradient>
-      </defs>
-      <rect width="1200" height="90" fill="url(#linenFade)"></rect>
-    </svg>
-  </div>
-
 </section>
 
 <section class="experience-lifestyle-section" data-layout-spec="החוויה-lifestyle" dir="rtl">

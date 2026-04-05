@@ -3489,7 +3489,7 @@ main { margin-top: 0 !important; padding-top: 0 !important; }
   max-width: 720px;
   margin-inline-end: auto;
   margin-inline-start: 0;
-  margin-inline: auto 0px;
+  margin-inline: 0px auto;
 }
 
 .index-cta-section .index-cta-eyebrow {
@@ -7847,6 +7847,11 @@ body.accessibility-widget-visible ._access-menu {
   direction: rtl !important;
 }
 
+
+.index-cta-section .index-cta-text-block {
+  margin-inline-start: 0 !important;
+  margin-inline-end: auto !important;
+}
 
 /* ========== RTL MOBILE NAVBAR FIX (zappy-rtl-mobile-fix) ========== */
 /* High-specificity rules to ensure RTL positioning wins over any [lang="en"] conflicts */

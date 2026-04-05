@@ -7829,6 +7829,265 @@ body.accessibility-widget-visible ._access-menu {
   text-align: right !important;
 }
 
+/* Added Component Styles */
+/* =============================================
+   VILLA GALLERY SECTION
+   ============================================= */
+.villa-gallery-section {
+  background: #f4f5ef;
+  padding: 90px 20px;
+  font-family: system-ui, sans-serif;
+  direction: rtl;
+}
+
+.villa-gallery-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* --- Header --- */
+.villa-gallery-header {
+  text-align: center;
+  margin-bottom: 52px;
+}
+
+.villa-gallery-badge {
+  display: inline-block;
+  background: var(--gradient-primary, linear-gradient(180deg, #879757 0%, #6F7F42 100%));
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 5px 18px;
+  border-radius: 50px;
+  margin-bottom: 16px;
+}
+
+.villa-gallery-title {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 800;
+  color: #2c2e22;
+  margin: 0 0 14px 0;
+  line-height: 1.25;
+}
+
+.villa-gallery-subtitle {
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  color: #5a5e4a;
+  margin: 0 auto;
+  max-width: 520px;
+  line-height: 1.6;
+}
+
+/* --- Grid Layout --- */
+.villa-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto auto;
+  gap: 14px;
+}
+
+/* Main large image spans 2 columns and 2 rows */
+.villa-gallery-item--main {
+  grid-column: 1 / 3;
+  grid-row: 1 / 3;
+}
+
+/* Wide bottom image spans full width */
+.villa-gallery-item--wide {
+  grid-column: 1 / -1;
+}
+
+/* --- Individual Items --- */
+.villa-gallery-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+  cursor: pointer;
+  background: #d6d9c8;
+  box-shadow: 0 4px 18px rgba(122, 130, 100, 0.13);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.villa-gallery-item:hover {
+  box-shadow: 0 10px 36px rgba(122, 130, 100, 0.28);
+  transform: translateY(-3px);
+}
+
+.villa-gallery-item:focus-within {
+  outline: 3px solid var(--primary, #7A8264);
+  outline-offset: 3px;
+}
+
+/* --- Images --- */
+.villa-gallery-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 220px;
+  object-fit: cover;
+  transition: transform 0.45s ease;
+}
+
+.villa-gallery-item--main .villa-gallery-img {
+  min-height: 440px;
+}
+
+.villa-gallery-item--wide .villa-gallery-img {
+  min-height: 260px;
+}
+
+.villa-gallery-item:hover .villa-gallery-img {
+  transform: scale(1.06);
+}
+
+/* --- Overlay --- */
+.villa-gallery-overlay {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background: linear-gradient(to top, rgba(30, 35, 20, 0.72) 0%, transparent 100%);
+  padding: 36px 18px 16px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.villa-gallery-item:hover .villa-gallery-overlay {
+  opacity: 1;
+}
+
+.villa-gallery-label {
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+}
+
+/* --- CTA Button --- */
+.villa-gallery-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 44px;
+}
+
+.villa-gallery-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--gradient-primary, linear-gradient(180deg, #879757 0%, #6F7F42 100%));
+  color: #fff;
+  font-family: system-ui, sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-decoration: none;
+  padding: 15px 36px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 6px 22px rgba(111, 127, 66, 0.35);
+  transition: box-shadow 0.3s ease, transform 0.25s ease, filter 0.25s ease;
+}
+
+.villa-gallery-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 32px rgba(111, 127, 66, 0.48);
+  filter: brightness(1.07);
+}
+
+.villa-gallery-btn:focus-visible {
+  outline: 3px solid var(--primary, #7A8264);
+  outline-offset: 4px;
+}
+
+.villa-gallery-btn-icon {
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
+}
+
+.villa-gallery-btn:hover .villa-gallery-btn-icon {
+  transform: translateX(-4px);
+}
+
+/* =============================================
+   RESPONSIVE — TABLET
+   ============================================= */
+@media (max-width: 900px) {
+  .villa-gallery-section {
+    padding: 70px 16px;
+  }
+
+  .villa-gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+    gap: 12px;
+  }
+
+  .villa-gallery-item--main {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+
+  .villa-gallery-item--main .villa-gallery-img {
+    min-height: 320px;
+  }
+
+  .villa-gallery-item--wide {
+    grid-column: 1 / -1;
+  }
+}
+
+/* =============================================
+   RESPONSIVE — MOBILE
+   ============================================= */
+@media (max-width: 560px) {
+  .villa-gallery-section {
+    padding: 54px 12px;
+  }
+
+  .villa-gallery-header {
+    margin-bottom: 36px;
+  }
+
+  .villa-gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .villa-gallery-item--main {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .villa-gallery-item--main .villa-gallery-img {
+    min-height: 260px;
+  }
+
+  .villa-gallery-item--wide {
+    grid-column: 1;
+  }
+
+  .villa-gallery-img {
+    min-height: 200px;
+  }
+
+  .villa-gallery-item--wide .villa-gallery-img {
+    min-height: 200px;
+  }
+
+  .villa-gallery-overlay {
+    opacity: 1;
+  }
+
+  .villa-gallery-btn {
+    font-size: 0.97rem;
+    padding: 13px 28px;
+  }
+}
+
 /* ========== RTL MOBILE NAVBAR FIX (zappy-rtl-mobile-fix) ========== */
 /* High-specificity rules to ensure RTL positioning wins over any [lang="en"] conflicts */
 /* For RTL sites: hamburger on RIGHT, phone on LEFT (mirror of LTR layout) */

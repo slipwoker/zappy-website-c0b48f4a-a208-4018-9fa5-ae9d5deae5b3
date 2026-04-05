@@ -3480,7 +3480,6 @@ main { margin-top: 0 !important; padding-top: 0 !important; }
   gap: 0;
 }
 
-/* ── Text block ── */
 .index-cta-section .index-cta-text-block {
   padding: 52px 52px 40px;
   display: flex;
@@ -3490,6 +3489,7 @@ main { margin-top: 0 !important; padding-top: 0 !important; }
   max-width: 720px;
   margin-inline-end: auto;
   margin-inline-start: 0;
+  margin-inline: auto 0px;
 }
 
 .index-cta-section .index-cta-eyebrow {

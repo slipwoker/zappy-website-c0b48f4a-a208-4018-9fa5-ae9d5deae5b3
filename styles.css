@@ -7857,6 +7857,115 @@ body.accessibility-widget-visible ._access-menu {
   width: 100%;
 }
 
+.villa-gallery-section {
+  padding: 80px 24px;
+  background: var(--bg-light);
+}
+
+.villa-gallery-section .villa-gallery-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.villa-gallery-section .villa-gallery-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.villa-gallery-section .villa-gallery-badge {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+.villa-gallery-section .villa-gallery-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 0 0 12px;
+}
+
+.villa-gallery-section .villa-gallery-subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.villa-gallery-section .villa-gallery-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  gap: 12px;
+  align-items: stretch;
+}
+
+.villa-gallery-section .villa-gallery-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-img);
+  cursor: pointer;
+  background: var(--surface);
+}
+
+.villa-gallery-section .villa-gallery-item--main {
+  grid-row: span 2;
+}
+
+.villa-gallery-section .villa-gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+  min-height: 200px;
+}
+
+.villa-gallery-section .villa-gallery-item:hover img {
+  transform: scale(1.05);
+}
+
+.villa-gallery-section .villa-gallery-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 12px 16px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.55));
+}
+
+.villa-gallery-section .villa-gallery-label {
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.villa-gallery-section .villa-gallery-cta {
+  text-align: center;
+  margin-top: 32px;
+}
+
+.villa-gallery-section .villa-gallery-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border-radius: var(--radius-btn);
+  border: 2px solid var(--primary);
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 15px;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.villa-gallery-section .villa-gallery-btn:hover {
+  background: var(--primary);
+  color: #fff;
+}
+
 /* ========== RTL MOBILE NAVBAR FIX (zappy-rtl-mobile-fix) ========== */
 /* High-specificity rules to ensure RTL positioning wins over any [lang="en"] conflicts */
 /* For RTL sites: hamburger on RIGHT, phone on LEFT (mirror of LTR layout) */

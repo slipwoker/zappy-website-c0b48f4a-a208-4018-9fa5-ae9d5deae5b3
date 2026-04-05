@@ -7853,6 +7853,10 @@ body.accessibility-widget-visible ._access-menu {
   margin-inline-end: auto !important;
 }
 
+.index-cta-section .index-cta-heading, .index-cta-section .index-cta-eyebrow, .index-cta-section .index-cta-text-block > p {
+  width: 100%;
+}
+
 /* ========== RTL MOBILE NAVBAR FIX (zappy-rtl-mobile-fix) ========== */
 /* High-specificity rules to ensure RTL positioning wins over any [lang="en"] conflicts */
 /* For RTL sites: hamburger on RIGHT, phone on LEFT (mirror of LTR layout) */

@@ -7838,6 +7838,7 @@ body.accessibility-widget-visible ._access-menu {
 
 #zappy-section-5 .index-cta-content {
   align-items: flex-end !important;
+  direction: rtl !important;
 }
 
 #zappy-section-5 .index-cta-text-block {
@@ -7846,6 +7847,7 @@ body.accessibility-widget-visible ._access-menu {
   margin-inline-start: auto !important;
   margin-inline-end: 0 !important;
   align-self: flex-end !important;
+  margin-inline: auto 0px !important;
 }
 
 #zappy-section-5 .index-cta-heading {

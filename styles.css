@@ -7796,6 +7796,22 @@ body.accessibility-widget-visible ._access-menu {
 /* ZAPPY_POSTGEN_GUARD_RTL_ORDER:החוויה-story — stripped 2 order declaration(s) conflicting with RTL grid */
 
 
+.index-cta-section .index-cta-text-block {
+  align-items: flex-start !important;
+}
+
+.index-cta-section .index-cta-buttons {
+  justify-content: flex-start !important;
+}
+
+.index-cta-section .index-cta-heading {
+  text-align: right !important;
+}
+
+.index-cta-section .index-cta-body {
+  text-align: right !important;
+}
+
 /* ========== RTL MOBILE NAVBAR FIX (zappy-rtl-mobile-fix) ========== */
 /* High-specificity rules to ensure RTL positioning wins over any [lang="en"] conflicts */
 /* For RTL sites: hamburger on RIGHT, phone on LEFT (mirror of LTR layout) */

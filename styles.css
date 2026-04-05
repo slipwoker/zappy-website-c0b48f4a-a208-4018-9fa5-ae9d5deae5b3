@@ -7812,6 +7812,23 @@ body.accessibility-widget-visible ._access-menu {
   text-align: right !important;
 }
 
+.index-cta-section .index-cta-text-block {
+  align-items: flex-end !important;
+  text-align: right !important;
+}
+
+.index-cta-section .index-cta-buttons {
+  justify-content: flex-end !important;
+}
+
+.index-cta-section .index-cta-heading {
+  text-align: right !important;
+}
+
+.index-cta-section .index-cta-body {
+  text-align: right !important;
+}
+
 /* ========== RTL MOBILE NAVBAR FIX (zappy-rtl-mobile-fix) ========== */
 /* High-specificity rules to ensure RTL positioning wins over any [lang="en"] conflicts */
 /* For RTL sites: hamburger on RIGHT, phone on LEFT (mirror of LTR layout) */

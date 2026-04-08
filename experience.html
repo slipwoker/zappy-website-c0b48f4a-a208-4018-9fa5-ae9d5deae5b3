@@ -611,8 +611,8 @@
       .sub-menu a:hover { background-color: #f5f5f5; }
       /* RTL (Hebrew/Arabic) dropdown positioning */
       [dir="rtl"] .nav-menu .sub-menu, [dir="rtl"] nav .sub-menu, [dir="rtl"] .navbar .sub-menu, html[lang="he"] .nav-menu .sub-menu, html[lang="he"] nav .sub-menu, html[lang="he"] .navbar .sub-menu, html[lang="ar"] .nav-menu .sub-menu, html[lang="ar"] nav .sub-menu, html[lang="ar"] .navbar .sub-menu { left: auto !important; right: 0 !important; }
-      /* Hide empty dropdown menus */
-      .sub-menu:empty, .sub-menu:not(:has(li:not(.zappy-hidden-menu-item))), .sub-menu:not(:has(li)) { display: none !important; opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
+      /* Hide empty dropdown menus (exclude catalog sub-menus that use <a> children instead of <li>) */
+      .sub-menu:empty, .sub-menu:not(:has(li:not(.zappy-hidden-menu-item))):not(:has(> a)), .sub-menu:not(:has(li)):not(:has(> a)) { display: none !important; opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
       /* Desktop: show submenu on Menu Group hover */
       li:has(.menu-group-title):hover > .sub-menu { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; pointer-events: auto !important; }
       /* Menu Group title styling */
@@ -621,7 +621,7 @@
       /* ========== MOBILE SUBMENU STYLES ========== */
       @media (max-width: 768px) {
         .nav-menu .sub-menu, nav .sub-menu, .navbar .sub-menu, #navMenu .sub-menu { position: static !important; transform: none !important; box-shadow: none !important; background: transparent !important; max-height: 0; overflow: hidden; opacity: 0; visibility: hidden; transition: max-height 0.3s ease, opacity 0.3s ease; padding: 0 !important; border-radius: 0 !important; }
-        .sub-menu.mobile-expanded { max-height: 500px !important; opacity: 1 !important; visibility: visible !important; padding: 8px 0 8px 16px !important; }
+        .sub-menu.mobile-expanded { max-height: 60vh !important; overflow-y: auto !important; opacity: 1 !important; visibility: visible !important; padding: 8px 0 8px 16px !important; }
         [dir="rtl"] .sub-menu.mobile-expanded, html[lang="he"] .sub-menu.mobile-expanded { padding: 8px 16px 8px 0 !important; }
         /* Disable hover behavior on mobile */
         .nav-menu li:hover > .sub-menu, nav li:hover > .sub-menu, .navbar li:hover > .sub-menu, #navMenu li:hover > .sub-menu { opacity: 0; visibility: hidden; pointer-events: none; }
@@ -679,16 +679,16 @@
   <nav class="navbar" dir="rtl">
   <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
     <svg class="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
-      <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+      <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
     </svg>
     <svg class="close-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" style="display: none;">
-      <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+      <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
     </svg>
   </button>
 
   <button class="phone-header-btn" data-phone="971528282481" aria-label="Call">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
     </svg>
   </button>
 
@@ -697,7 +697,7 @@
       <a href="/" class="logo-link">
         <img src="/assets/business-logo.webp" alt="וילה בית הלוגים" class="logo">
       </a>
-    </div><ul class="nav-menu" id="navMenu"><li><a href="/villa">פרטי הווילה</a></li><li><a href="/experience">החוויה</a></li></ul></div>
+    </div><ul class="nav-menu" id="navMenu"><li><a href="/villa">פרטי הווילה</a></li><li><a href="/experience">החוויה</a></li><li><a href="/https://forms.gle/FKBPDNYCBhBJJfPU9" class>טופס הזמנה</a></li></ul></div>
 
     
 
@@ -1164,7 +1164,7 @@
         </div>
         <!-- Decorative offset tile -->
         <div class="story-deco-tile" aria-hidden="true">
-          <span class="story-deco-year" >1997</span>
+          <span class="story-deco-year" style>1997</span>
           <span class="story-deco-label">מאז ומתמיד</span>
         </div>
       </div>
@@ -1214,15 +1214,15 @@
   <div class="els-container">
     <div class="els-header">
       <h2 class="els-title">הרגעים שעושים את הנופש</h2>
-      <p class="els-intro" >בוילה בית הלוגים, ארבע משפחות יכולות לחיות יחד בלי להרגיש צפופות. כל רגע — ארוחת הבוקר, שעות הצהריים ליד הבריכה, הערב המשותף — מתגלגל בטבעיות, בחמימות, ובקצב שלכם.</p>
+      <p class="els-intro" style>בוילה בית הלוגים, ארבע משפחות יכולות לחיות יחד בלי להרגיש צפופות. כל רגע — ארוחת הבוקר, שעות הצהריים ליד הבריכה, הערב המשותף — מתגלגל בטבעיות, בחמימות, ובקצב שלכם.</p>
     </div>
 
     <!-- Moment 1: Breakfast -->
     <article class="els-moment els-moment--text-right">
       <div class="els-moment-text">
         <p><span class="els-moment-label">01</span>
-        </p><h3 class="els-moment-title" >על האש..</h3>
-        <p class="els-moment-desc" >בחצר התחתונה , יש שולחן גדול לארוחת בחוץ לצד המנגלים על גחלים או על גז - לבחירתכם</p>
+        </p><h3 class="els-moment-title" style>על האש..</h3>
+        <p class="els-moment-desc" style>בחצר התחתונה , יש שולחן גדול לארוחת בחוץ לצד המנגלים על גחלים או על גז - לבחירתכם</p>
       </div>
       <div class="els-moment-image-wrap">
         <div data-zappy-zoom-wrapper="true" data-element-id="img-1775371286486-1st7zgvts" data-element-type="image" data-zappy-zoom-wrapper-width="551px" data-zappy-zoom-wrapper-height="367px" data-zappy-zoom-wrapper-width-mode="px" data-zappy-zoom-clip="true" data-zappy-wrapper-margins-applied="true" style="position: relative !important; overflow: hidden !important; width: 551px !important; max-width: 100% !important; margin-left: auto !important; margin-right: auto !important; height: 367px !important; display: block !important;"><img data-placeholder="experience-lifestyle-image-1" data-context="Warm vintage-style villa kitchen and dining area in northern Israel. A large wooden table set for a shared family breakfast with fresh bread, Israeli salad, eggs, and coffee. Warm morning light streams through old wooden-framed windows. The atmosphere is cozy, nostalgic, and unhurried — multiple families gathered together in a rustic countryside setting." width="620" height="420" src="/assets/site-experience-lifestyle-image-1-1775371300328-nwc7ul.webp?v=1775371301998" alt="ארוחת בוקר משותפת בוילה בית הלוגים" class="els-moment-img" data-element-type="image" data-element-id="img-1775371286486-1st7zgvts" data-zappy-zoom="1.02" data-zappy-original-width="551" data-zappy-original-height="367" data-zappy-object-position="50% 50%" style="object-position: 50% 50% !important; margin: 0px !important; position: absolute !important; left: -1% !important; top: -2.06725% !important; width: 102% !important; height: 104.134% !important; max-width: none !important; max-height: none !important; display: block !important; object-fit: cover !important;"></div>
@@ -1240,8 +1240,8 @@
       </div>
       <div class="els-moment-text">
         <p><span class="els-moment-label">02</span>
-        </p><h3 class="els-moment-title" >שעות הצהריים בחצר ליד הבריכה</h3>
-        <p class="els-moment-desc" >הבריכה המקורה המחוממת פתוחה בכל עונות השנה, ומאפשרת לילדים לשחות בעוד המבוגרים נחים בנוחות לידם. המרחב מספיק גדול כדי שכולם ירגישו בנוח, ומספיק אינטימי כדי שהילדים לא ילכו לאיבוד.&nbsp;<br>ספות שיזוף ומקום ישיבה להרווח, בנוסף שולחן פינגפוג מול הנוף.</p>
+        </p><h3 class="els-moment-title" style>שעות הצהריים בחצר ליד הבריכה</h3>
+        <p class="els-moment-desc" style>הבריכה המקורה המחוממת פתוחה בכל עונות השנה, ומאפשרת לילדים לשחות בעוד המבוגרים נחים בנוחות לידם. המרחב מספיק גדול כדי שכולם ירגישו בנוח, ומספיק אינטימי כדי שהילדים לא ילכו לאיבוד.&nbsp;<br>ספות שיזוף ומקום ישיבה להרווח, בנוסף שולחן פינגפוג מול הנוף.</p>
       </div>
     </article>
 
@@ -1251,8 +1251,8 @@
     <article class="els-moment els-moment--text-right">
       <div class="els-moment-text">
         <p><span class="els-moment-label">03</span>
-        </p><h3 class="els-moment-title" >הגקוזי מול הנוף</h3>
-        <p class="els-moment-desc" >הגקוזי , גדול ומתאים ל 5 אורחים מוף נוף עוצר נשימה.</p>
+        </p><h3 class="els-moment-title" style>הגקוזי מול הנוף</h3>
+        <p class="els-moment-desc" style>הגקוזי , גדול ומתאים ל 5 אורחים מוף נוף עוצר נשימה.</p>
       </div>
       <div class="els-moment-image-wrap">
         <div data-zappy-zoom-wrapper="true" data-element-id="img-1775371286486-mf74hho6d" data-element-type="image" data-zappy-zoom-wrapper-width="551px" data-zappy-zoom-wrapper-height="367px" data-zappy-zoom-wrapper-width-mode="px" data-zappy-zoom-clip="true" data-zappy-wrapper-margins-applied="true" style="position: relative !important; overflow: hidden !important; width: 551px !important; max-width: 100% !important; margin-left: auto !important; margin-right: auto !important; height: 367px !important; display: block !important;"><img data-placeholder="experience-lifestyle-image-3" data-context="Cozy vintage-style villa living room in northern Israel at dusk. Three families gathered together in a warm, nostalgic interior with wooden furniture, soft warm lighting, a stone fireplace, and traditional Israeli countryside decor. Adults talking and laughing, children playing on rugs. The atmosphere is intimate, genuine, and full of warmth — a real home, not a hotel." width="620" height="420" src="/assets/site-experience-lifestyle-image-3-1775371595392-97dr4c.webp?v=1775371597015" alt="ערב משפחתי משותף בוילה בית הלוגים" class="els-moment-img" data-element-type="image" data-element-id="img-1775371286486-mf74hho6d" data-zappy-zoom="1.02" data-zappy-original-width="551" data-zappy-original-height="367" data-zappy-object-position="50% 50%" style="object-position: 50% 50% !important; margin: 0px !important; position: absolute !important; left: -1.17762% !important; top: -1% !important; width: 102.355% !important; height: 102% !important; max-width: none !important; max-height: none !important; display: block !important; object-fit: cover !important;"></div>
@@ -1264,14 +1264,14 @@
   <!-- Bottom Divider -->
   <div class="els-bottom-divider-wrapper">
     <svg aria-hidden="true" viewBox="0 0 1200 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0,72 L0,36 Q100,22 200,30 T400,24 Q500,18 600,28 T800,22 Q900,16 1000,26 T1200,20 L1200,72 Z" fill="var(--bg-dark)"></path>
+      <path d="M0,72 L0,36 Q100,22 200,30 T400,24 Q500,18 600,28 T800,22 Q900,16 1000,26 T1200,20 L1200,72 Z" fill="var(--bg-dark)"/>
     </svg>
   </div>
 </section>
 
 <section class="experience-location-section" data-layout-spec="החוויה-location" dir="rtl" id="zappy-section-2"><!-- Panoramic Image Band -->
   <div class="location-panorama-band">
-    <img data-placeholder="experience-location-image-1" data-context="Panoramic cinematic view of the Sea of Galilee (Kinneret) as seen from a northern hillside villa in Israel. Late afternoon golden hour light, misty blue haze over the water, rolling green hills, ancient cypress trees framing the edges. Atmospheric, dusty-blue and warm-umber tones, countryside calm, wide-angle landscape photography." width="1200" height="480" src="/assets/site-experience-location-image-1.webp" alt="נוף פנורמי על הכנרת מהווילה בצפון הארץ" data-element-type="image" data-element-id="img-1775371286486-zs9dnqava" >
+    <img data-placeholder="experience-location-image-1" data-context="Panoramic cinematic view of the Sea of Galilee (Kinneret) as seen from a northern hillside villa in Israel. Late afternoon golden hour light, misty blue haze over the water, rolling green hills, ancient cypress trees framing the edges. Atmospheric, dusty-blue and warm-umber tones, countryside calm, wide-angle landscape photography." width="1200" height="480" src="/assets/site-experience-location-image-1.webp" alt="נוף פנורמי על הכנרת מהווילה בצפון הארץ" data-element-type="image" data-element-id="img-1775371286486-zs9dnqava" style>
     <div class="panorama-scrim"></div>
     <div class="panorama-caption-wrap">
       <p class="zappy-editable"><span class="panorama-eyebrow">הצפון הקסום</span>
@@ -1287,8 +1287,8 @@
       <div class="location-main-copy">
         <p><span class="location-label">המיקום שלנו</span>
         </p><h3 class="location-heading">שקט כפרי, נוף שלא נגמר</h3>
-        <p class="location-body" >וילה בית הלוגים שוכנת בלב הצפון, על גבעה המשקיפה אל הכנרת — מרחב שבו הטבע, הדממה, והאור הים-תיכוני מתמזגים לחוויה שקשה לתאר במילים. מהרגע שאתם מגיעים, הנוף פורש לפניכם כמו ציור: מים כחולים-אפרפרים, מטעים&nbsp; ירוקים, ושמיים רחבים שמשתנים עם שעות היום.</p>
-        <p class="location-body" >הווילה נועדה לאפשר לשלוש עד ארבע משפחות לנפוש יחד, תוך שמירה על תחושת בית אמיתית — לא מלון, לא צימר סטנדרטי. כאן, בין 5 חדרים מרווחים ובריכה מקורה מחוממת, מתרחשים הרגעים שנזכרים בהם שנים אחר כך: ארוחות ערב משותפות, שיחות לילה, ושחרית עם קפה מול הנוף.</p>
+        <p class="location-body" style>וילה בית הלוגים שוכנת בלב הצפון, על גבעה המשקיפה אל הכנרת — מרחב שבו הטבע, הדממה, והאור הים-תיכוני מתמזגים לחוויה שקשה לתאר במילים. מהרגע שאתם מגיעים, הנוף פורש לפניכם כמו ציור: מים כחולים-אפרפרים, מטעים&nbsp; ירוקים, ושמיים רחבים שמשתנים עם שעות היום.</p>
+        <p class="location-body" style>הווילה נועדה לאפשר לשלוש עד ארבע משפחות לנפוש יחד, תוך שמירה על תחושת בית אמיתית — לא מלון, לא צימר סטנדרטי. כאן, בין 5 חדרים מרווחים ובריכה מקורה מחוממת, מתרחשים הרגעים שנזכרים בהם שנים אחר כך: ארוחות ערב משותפות, שיחות לילה, ושחרית עם קפה מול הנוף.</p>
         <p class="location-body">האזור מציע שקט כפרי אמיתי — רחוק מהעומס, קרוב לכל מה שחשוב. וילה בית הלוגים היא הבסיס המושלם לנופש משפחתי משותף בצפון הארץ, שבו כל יום מתחיל בנשימה עמוקה ומסתיים בסיפוק.</p>
         <p><a href="#contact" class="btn-primary location-cta" data-element-type="button" data-element-id="btn-1775371286484-h8wytcgsw" data-native-element="true">יצירת קשר ובירורים</a>
       </p></div>
@@ -1300,7 +1300,7 @@
           <ul class="advantages-list">
             <li class="advantage-item zappy-grid-item-nested-grid" data-grid-item-index="0">
               <span class="advantage-icon" aria-hidden="true">
-                <svg data-element-type="icon" data-icon-type="svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20A14.5 14.5 0 0 0 12 2"></path><line x1="2" y1="12" x2="22" y2="12"></line></svg>
+                <svg data-element-type="icon" data-icon-type="svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20A14.5 14.5 0 0 0 12 2"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
               </span>
               <div class="advantage-text">
                 <strong>נוף על הכנרת</strong>
@@ -1309,7 +1309,7 @@
             </li>
             <li class="advantage-item zappy-grid-item-nested-grid" data-grid-item-index="1">
               <span class="advantage-icon" aria-hidden="true">
-                <svg data-element-type="icon" data-icon-type="svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0"></path><path d="M12 8v4l3 3"></path></svg>
+                <svg data-element-type="icon" data-icon-type="svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0"/><path d="M12 8v4l3 3"/></svg>
               </span>
               <div class="advantage-text">
                 <strong>טיולי יום בסביבה</strong>
@@ -1318,7 +1318,7 @@
             </li>
             <li class="advantage-item zappy-grid-item-nested-grid" data-grid-item-index="2">
               <span class="advantage-icon" aria-hidden="true">
-                <svg data-element-type="icon" data-icon-type="svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
+                <svg data-element-type="icon" data-icon-type="svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
               </span>
               <div class="advantage-text">
                 <strong>מסעדות ושוקי אוכל</strong>
@@ -1327,23 +1327,23 @@
             </li>
             <li class="advantage-item zappy-grid-item-nested-grid" data-grid-item-index="3">
               <span class="advantage-icon" aria-hidden="true">
-                <svg data-element-type="icon" data-icon-type="svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                <svg data-element-type="icon" data-icon-type="svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
               </span>
-              <div class="advantage-text" >
+              <div class="advantage-text" style>
                 <strong>מתחם קניות פתוח 7 ימים בשבוע</strong>
                 <span>תצטידו בצפון , סופר גדול, ועוד מסעדות אוטנטיות</span>
               </div>
             </li>
             <li class="advantage-item zappy-grid-item-nested-grid" data-grid-item-index="4">
               <span class="advantage-icon" aria-hidden="true">
-                <svg data-element-type="icon" data-icon-type="svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                <svg data-element-type="icon" data-icon-type="svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
               </span>
-              <div class="advantage-text" >
+              <div class="advantage-text" style>
                 <strong>טיול רגלי - בצלמון המתחדש</strong>מסלול הליכה מהוילה לנחל צלמון המתחדש עם מים מוטפלים מים תיכון&nbsp;<br>(5 ק"מ - יפיפיים)</div>
             </li>
             <li class="advantage-item zappy-grid-item-nested-grid" data-grid-item-index="5">
               <span class="advantage-icon" aria-hidden="true">
-                <svg data-element-type="icon" data-icon-type="svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path><path d="M4.93 4.93a10 10 0 0 0 0 14.14"></path></svg>
+                <svg data-element-type="icon" data-icon-type="svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
               </span>
               <div class="advantage-text">
                 <strong>נגישות נוחה</strong>
@@ -1352,7 +1352,7 @@
             </li>
           </ul>
           <p class="zappy-editable"><a href="https://maps.google.com/?q=החרצית 47, מגדל, Israel, 14900, Israel" target="_blank" rel="noopener noreferrer" class="location-map-btn" style="display:flex;align-items:flex-start;gap:inherit" data-element-type="button" data-element-id="btn-1775371286484-o695bejxk" data-native-element="true">
-            <svg data-element-type="icon" data-icon-type="svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            <svg data-element-type="icon" data-icon-type="svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
             צפייה במפה
           </a>
         </p></div>
@@ -1364,7 +1364,7 @@
   <!-- Bottom diagonal divider -->
   <div class="location-divider-wrapper">
     <svg aria-hidden="true" viewBox="0 0 1200 70" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0,70 L0,28 L1200,0 L1200,70 Z" fill="#F6F1E7"></path>
+      <path d="M0,70 L0,28 L1200,0 L1200,70 Z" fill="#F6F1E7"/>
     </svg>
   </div>
 </section>
@@ -1382,15 +1382,15 @@
       <article class="guidance-card" data-grid-item-index="0">
         <div class="guidance-card-icon">
           <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-            <circle cx="9" cy="7" r="4"></circle>
-            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
           </svg>
         </div>
         <div class="guidance-card-content">
           <h3 class="guidance-card-title">למי הוילה מתאימה?</h3>
-          <p class="guidance-card-text" >אנחנו מארחים עד 3 עד 4 משפחות בו-זמנית — אחים ואחיות עם ילדיהם, משפחה מורחבת, או קבוצת חברים קרובים. מתאים במיוחד לאלה שרוצים לבלות יחד בלי לוותר על פרטיות ונוחות.</p>
+          <p class="guidance-card-text" style>אנחנו מארחים עד 3 עד 4 משפחות בו-זמנית — אחים ואחיות עם ילדיהם, משפחה מורחבת, או קבוצת חברים קרובים. מתאים במיוחד לאלה שרוצים לבלות יחד בלי לוותר על פרטיות ונוחות.</p>
           <ul class="guidance-card-list">
             <li><i class="fas fa-check" aria-hidden="true" data-element-type="icon" data-element-id="icon-1775371286486-p296hpez7" data-icon-type="fontawesome" style="pointer-events: auto; cursor: pointer;"></i><span>משפחות מורחבות עם ילדים</span></li>
             <li><i class="fas fa-check" aria-hidden="true" data-element-type="icon" data-element-id="icon-1775371286486-rv4xcmdb7" data-icon-type="fontawesome" style="pointer-events: auto; cursor: pointer;"></i><span>אחים/אחיות עם משפחות</span></li>
@@ -1402,10 +1402,10 @@
       <article class="guidance-card" data-grid-item-index="1">
         <div class="guidance-card-icon">
           <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-            <line x1="16" y1="2" x2="16" y2="6"></line>
-            <line x1="8" y1="2" x2="8" y2="6"></line>
-            <line x1="3" y1="10" x2="21" y2="10"></line>
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
           </svg>
         </div>
         <div class="guidance-card-content">
@@ -1422,13 +1422,13 @@
       <article class="guidance-card" data-grid-item-index="2">
         <div class="guidance-card-icon">
           <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
           </svg>
         </div>
         <div class="guidance-card-content">
           <h3 class="guidance-card-title">מה הופך את השהות לנעימה?</h3>
-          <p class="guidance-card-text" >5 חדרי שינה עם 3 חדרי אמבטיה נפרדים מבטיחים שכל משפחה שומרת על עצמאותה. המרחב המשותף — הסלון, המטבח, והבריכה — הם הלב הפועם שמחבר בין כולם ברגעים שחשובים באמת.</p>
+          <p class="guidance-card-text" style>5 חדרי שינה עם 3 חדרי אמבטיה נפרדים מבטיחים שכל משפחה שומרת על עצמאותה. המרחב המשותף — הסלון, המטבח, והבריכה — הם הלב הפועם שמחבר בין כולם ברגעים שחשובים באמת.</p>
           <ul class="guidance-card-list">
             <li><i class="fas fa-check" aria-hidden="true" data-element-type="icon" data-element-id="icon-1775371286486-ecfby536d" data-icon-type="fontawesome" style="pointer-events: auto; cursor: pointer;"></i><span>5 חדרים עם פרטיות מלאה</span></li>
             <li><i class="fas fa-check" aria-hidden="true" data-element-type="icon" data-element-id="icon-1775371286486-m3ijg156e" data-icon-type="fontawesome" style="pointer-events: auto; cursor: pointer;"></i><span>בריכה מקורה מחוממת משותפת</span></li>
@@ -1639,24 +1639,10 @@
       var _applied=false;
       function _isHeroBg(w){var img=w.querySelector('img');if(img&&(img.getAttribute('data-hero-bg')==='true'||img.getAttribute('data-hero-background')==='true'))return true;var p=(w.style.position||'').replace(/\s*!important\s*/g,'').trim();var ww=(w.style.width||'').replace(/\s*!important\s*/g,'').trim();var hh=(w.style.height||'').replace(/\s*!important\s*/g,'').trim();return p==='absolute'&&ww==='100%'&&hh==='100%';}
       function fixDesktopWrappers(){
-        if(window.innerWidth<=768)return;
-        document.querySelectorAll('[data-zappy-zoom-wrapper="true"]').forEach(function(w){
-          var mode=w.getAttribute('data-zappy-zoom-wrapper-width-mode');
-          if(mode==='full'||mode==='grid-responsive')return;
-          if(_isHeroBg(w))return;
-          var storedW=parseFloat(w.getAttribute('data-zappy-zoom-wrapper-width'));
-          if(!storedW||!isFinite(storedW))return;
-          var parent=w.parentElement;
-          if(!parent)return;
-          var parentW=parent.getBoundingClientRect().width;
-          if(parentW>0&&storedW<parentW*0.6&&storedW<=400){
-            var ratio=storedW/parseFloat(w.getAttribute('data-zappy-zoom-wrapper-height')||'1');
-            var newW=Math.round(Math.min(parentW,800));
-            var newH=Math.round(newW/ratio);
-            w.style.setProperty('width',newW+'px','important');
-            w.style.setProperty('height',newH+'px','important');
-          }
-        });
+        // No-op: desktop wrapper restoration is handled by ZAPPY_PUBLISHED_ZOOM_WRAPPER_RUNTIME
+        // in script.js (restoreWrapperDimensions). The old inflation logic here was expanding
+        // small wrappers (e.g. 139px logo wrappers) to their parent width, conflicting with
+        // the correct stored dimensions.
       }
       function applyMobile(){
         if(_applied)return;_applied=true;
@@ -1670,8 +1656,14 @@
           var mobileZoom=parseFloat(img.getAttribute('data-zappy-mobile-zoom'));
           var mobileSrc=img.getAttribute('data-zappy-mobile-src');
           var mobilePos=img.getAttribute('data-zappy-mobile-object-position');
-          w.style.setProperty('width','100%','important');
-          w.style.setProperty('max-width','100%','important');
+          var parentOvf=w.parentElement?((w.parentElement.style.overflow||'')+(window.getComputedStyle(w.parentElement).overflow||'')).trim():'';
+          var inConstrainedParent=parentOvf.indexOf('hidden')!==-1||parentOvf.indexOf('clip')!==-1;
+          if(inConstrainedParent){
+            w.style.setProperty('max-width','100%','important');
+          }else{
+            w.style.setProperty('width','100%','important');
+            w.style.setProperty('max-width','100%','important');
+          }
           if(mobileSrc)img.src=mobileSrc;
           var pos=mobilePos||img.style.getPropertyValue('object-position')||'50% 50%';
           if(mobileZoom>1){
@@ -1690,12 +1682,12 @@
             img.style.setProperty('transform','scale('+mobileZoom+')','important');
             img.style.setProperty('transform-origin',pos,'important');
           }else{
-            w.style.setProperty('height','auto','important');
+            if(!inConstrainedParent)w.style.setProperty('height','auto','important');
             img.style.setProperty('position','relative','important');
             img.style.setProperty('width','100%','important');
             img.style.setProperty('height','auto','important');
             img.style.setProperty('max-width','100%','important');
-            img.style.setProperty('max-height','400px','important');
+            img.style.setProperty('max-height',inConstrainedParent?'none':'400px','important');
             img.style.setProperty('object-fit','cover','important');
             img.style.setProperty('left','0','important');
             img.style.setProperty('top','0','important');

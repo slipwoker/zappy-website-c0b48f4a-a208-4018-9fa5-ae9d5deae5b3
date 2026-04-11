@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://villa-beit-halogim.zappy5.app/sitemap.xml
+Sitemap: https://villabethalogim.co.il/sitemap.xml

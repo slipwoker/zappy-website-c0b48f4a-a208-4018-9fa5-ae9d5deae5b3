@@ -5,36 +5,36 @@
 ## Pages
 
 ### דף הבית
-https://villa-beit-halogim.zappy5.app
+https://villabethalogim.co.il
 וילה בית הלוגים בצפון הארץ עם נוף עוצר נשימה לכינרת, בריכה מקורה מחוממת ו־5 חדרים לשלוש משפחות. הזמינו עכשיו את החוויה שתזכרו לנצח!
 
 ### פרטי הווילה
-https://villa-beit-halogim.zappy5.app/villa
+https://villabethalogim.co.il/villa
 הכירו את הווילה הוינטג׳ית שכובשת את הלב: 5 חדרים מרווחים, בריכה מקורה מחוממת ואווירה נוסטלגית ישראלית אותנטית לשלוש משפחות. כל הפרטים כאן!
 
 ### החוויה
-https://villa-beit-halogim.zappy5.app/experience
+https://villabethalogim.co.il/experience
 שקיעות על הכינרת, ריח עצי הלוגים ואווירת כפר ישראלית נצחית — וילה בית הלוגים מעניקה לשלוש משפחות חוויית נופש משותפת שאי אפשר למצוא בשום מקום אחר.
 
 ### צור קשר
-https://villa-beit-halogim.zappy5.app/contact
+https://villabethalogim.co.il/contact
 מוכנים לחופשה בלתי נשכחת בצפון? צרו קשר עם וילה בית הלוגים עכשיו, בדקו תאריכים פנויים והזמינו את הווילה המושלמת לכמה משפחות לפני שיאחר המועד.
 
 ### Page
-https://villa-beit-halogim.zappy5.app/https://forms.gle/FKBPDNYCBhBJJfPU9
+https://villabethalogim.co.il/https://forms.gle/FKBPDNYCBhBJJfPU9
 
 ## Legal & Policy
 
 ### Privacy Policy
-https://villa-beit-halogim.zappy5.app/privacy
+https://villabethalogim.co.il/privacy
 Information about how user data is collected, stored, and protected.
 
 ### Terms & Conditions
-https://villa-beit-halogim.zappy5.app/terms
+https://villabethalogim.co.il/terms
 Legal terms describing service usage, rights, and policies.
 
 ### Accessibility Statement
-https://villa-beit-halogim.zappy5.app/accessibility
+https://villabethalogim.co.il/accessibility
 Information about WCAG compliance and accessibility features.
 
 ---
@@ -46,5 +46,5 @@ Information about WCAG compliance and accessibility features.
 
 # Additional Resources
 
-- **Sitemap**: https://villa-beit-halogim.zappy5.app/sitemap.xml
-- **Robots.txt**: https://villa-beit-halogim.zappy5.app/robots.txt
+- **Sitemap**: https://villabethalogim.co.il/sitemap.xml
+- **Robots.txt**: https://villabethalogim.co.il/robots.txt

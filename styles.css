@@ -3795,10 +3795,9 @@ main { margin-top: 0 !important; padding-top: 0 !important; }
   line-height: 1.4;
 }
 
-/* ── IMAGE COLUMN ────────────────────────────────────────────── */
 .villa-overview-section .villa-overview-figure {
-  flex: 0 0 48%;
-  max-width: 560px;
+  flex: 0 0 52%;
+  max-width: 680px;
   position: relative;
   margin: 0;
   z-index: 1;

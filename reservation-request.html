@@ -2524,7 +2524,8 @@
               </div>
               <div class="rrcf-field" data-grid-item-index="2">
                 <label for="contact-email" class="rrcf-label">דוא״ל <span class="rrcf-required">*</span></label>
-                <input type="email" id="contact-email" name="contact_email" class="rrcf-input" placeholder="your@email.com" required="">
+                <input type="email" id="contact-email" name="contact_email" class="rrcf-input" placeholder="your@email.com" required="" oninput="document.getElementById('hidden-email').value=this.value">
+                <input type="hidden" id="hidden-email" name="email" value="">
               </div>
               <div class="rrcf-field" data-grid-item-index="3">
                 <label for="contact-city" class="rrcf-label">עיר מגורים</label>

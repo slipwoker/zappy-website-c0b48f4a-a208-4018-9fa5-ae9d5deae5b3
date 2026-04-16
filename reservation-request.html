@@ -2874,45 +2874,32 @@
       btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> שולח...';
       btn.disabled = true;
 
-      // Submit via Formspree
-      fetch('https://formspree.io/f/xpwzgpkn', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({
-          _subject: subject,
-          _replyto: data.get('contact_email') || '',
-          message: body,
-          name: data.get('contact_name') || '',
-          email: data.get('contact_email') || '',
-          phone: data.get('contact_phone') || ''
-        })
-      })
-      .then(function(res) {
-        if (res.ok) {
+      // Submit via mailto (opens email client with all form data)
+      try {
+        var mailtoLink = 'mailto:askayoe@walla.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+        window.location.href = mailtoLink;
+
+        // Show success message after short delay
+        setTimeout(function() {
+          btn.innerHTML = '<i class="fa-solid fa-check"></i> נשלח!';
+          btn.disabled = false;
+          btn.style.background = '#7A8264';
           msgDiv.style.display = 'block';
           msgDiv.style.background = '#F0F7ED';
           msgDiv.style.border = '1px solid #7A8264';
           msgDiv.style.color = '#3A4F2A';
-          msgDiv.innerHTML = '<strong>✓ הבקשה נשלחה בהצלחה!</strong><br>תודה, נחזור אליכם תוך 24 שעות לאישור פרטי ההזמנה.';
-          form.reset();
-          btn.innerHTML = '<i class="fa-solid fa-check"></i> נשלח!';
-          btn.style.background = '#7A8264';
-        } else {
-          throw new Error('server error');
-        }
-      })
-      .catch(function() {
-        // Fallback: open mailto
-        var mailtoLink = 'mailto:askayoe@walla.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-        window.location.href = mailtoLink;
+          msgDiv.innerHTML = '<strong>✓ נפתח חלון שליחת מייל!</strong><br>אם לא נפתח אוטומטית, שלחו מייל ישירות אל: <a href="mailto:askayoe@walla.com" style="color:#7A8264;font-weight:700;">askayoe@walla.com</a>';
+          msgDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 800);
+      } catch(err) {
         btn.innerHTML = originalHTML;
         btn.disabled = false;
         msgDiv.style.display = 'block';
         msgDiv.style.background = '#FFF8ED';
         msgDiv.style.border = '1px solid #B96F52';
         msgDiv.style.color = '#6B3A10';
-        msgDiv.innerHTML = '<strong>נפתח חלון מייל לשליחה ידנית.</strong><br>אם לא נפתח, שלחו מייל ישירות ל־askayoe@walla.com';
-      });
+        msgDiv.innerHTML = '<strong>שגיאה בשליחה.</strong><br>אנא שלחו מייל ישירות ל־<a href="mailto:askayoe@walla.com" style="color:#B96F52;">askayoe@walla.com</a>';
+      }
     });
   })();
   </script>

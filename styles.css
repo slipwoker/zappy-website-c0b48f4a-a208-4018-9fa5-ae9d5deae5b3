@@ -8190,6 +8190,11 @@ body.accessibility-widget-visible ._access-menu {
 .reservation-request-contact-form-section .rrcf-cancellation-group .rrcf-group-title i {
   color: var(--primary) !important;
 }
+
+.reservation-request-contact-form-section #checkin-date,
+.reservation-request-contact-form-section #checkout-date {
+  cursor: pointer;
+}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,

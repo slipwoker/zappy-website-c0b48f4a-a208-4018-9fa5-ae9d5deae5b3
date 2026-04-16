@@ -8225,6 +8225,43 @@ body.accessibility-widget-visible ._access-menu {
 .reservation-request-contact-form-section .rrcf-commitment-group .rrcf-group-title i {
   color: var(--text-dark) !important;
 }
+
+.site-footer ~ .flatpickr-calendar .flatpickr-prev-month,
+.site-footer ~ .flatpickr-calendar .flatpickr-next-month,
+body > .flatpickr-calendar .flatpickr-prev-month,
+body > .flatpickr-calendar .flatpickr-next-month {
+  width: 30px !important;
+  height: 30px !important;
+  padding: 4px !important;
+  overflow: hidden !important;
+  top: 8px !important;
+}
+
+body > .flatpickr-calendar .flatpickr-prev-month svg,
+body > .flatpickr-calendar .flatpickr-next-month svg,
+.site-footer ~ .flatpickr-calendar .flatpickr-prev-month svg,
+.site-footer ~ .flatpickr-calendar .flatpickr-next-month svg {
+  width: 14px !important;
+  height: 14px !important;
+  max-width: 14px !important;
+  max-height: 14px !important;
+}
+
+body > .flatpickr-calendar {
+  overflow: hidden !important;
+  direction: rtl !important;
+  font-family: 'Nunito Sans', 'DM Sans', sans-serif !important;
+}
+
+body > .flatpickr-calendar .flatpickr-prev-month {
+  right: 8px !important;
+  left: auto !important;
+}
+
+body > .flatpickr-calendar .flatpickr-next-month {
+  left: 8px !important;
+  right: auto !important;
+}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,

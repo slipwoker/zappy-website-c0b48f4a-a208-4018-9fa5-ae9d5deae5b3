@@ -7991,6 +7991,85 @@ body.accessibility-widget-visible ._access-menu {
   background-repeat: no-repeat;
   background-position: left 14px center;
 }
+
+.reservation-request-contact-form-section .rrcf-checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.reservation-request-contact-form-section .rrcf-check-option {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  padding: 12px 16px;
+  background: #ffffff;
+  border: 1.5px solid rgba(122, 130, 100, 0.35);
+  border-radius: 12px;
+  transition: border-color 0.2s ease, background 0.2s ease;
+  direction: rtl;
+  text-align: right;
+}
+
+.reservation-request-contact-form-section .rrcf-check-option:hover {
+  border-color: var(--primary);
+  background: rgba(122, 130, 100, 0.05);
+}
+
+.reservation-request-contact-form-section .rrcf-check-input {
+  display: none;
+}
+
+.reservation-request-contact-form-section .rrcf-check-box {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(122, 130, 100, 0.5);
+  border-radius: 6px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, border-color 0.2s ease;
+  position: relative;
+}
+
+.reservation-request-contact-form-section .rrcf-check-input:checked + .rrcf-check-box {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+.reservation-request-contact-form-section .rrcf-check-input:checked + .rrcf-check-box::after {
+  content: '';
+  display: block;
+  width: 5px;
+  height: 9px;
+  border: 2px solid #ffffff;
+  border-top: none;
+  border-right: none;
+  transform: rotate(-45deg) translate(1px, -1px);
+}
+
+.reservation-request-contact-form-section .rrcf-check-input:checked ~ .rrcf-check-label {
+  color: var(--text-dark);
+  font-weight: 600;
+}
+
+.reservation-request-contact-form-section .rrcf-check-option:has(.rrcf-check-input:checked) {
+  border-color: var(--primary);
+  background: rgba(122, 130, 100, 0.07);
+}
+
+.reservation-request-contact-form-section .rrcf-check-label {
+  font-family: 'Nunito Sans', 'DM Sans', sans-serif;
+  font-size: 0.9375rem;
+  color: var(--text-dark);
+  line-height: 1.4;
+  flex: 1;
+}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,

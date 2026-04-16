@@ -8262,6 +8262,10 @@ body > .flatpickr-calendar .flatpickr-next-month {
   left: 8px !important;
   right: auto !important;
 }
+
+.reservation-request-contact-form-section .rrcf-date-input {
+  appearance: auto !important;
+}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,

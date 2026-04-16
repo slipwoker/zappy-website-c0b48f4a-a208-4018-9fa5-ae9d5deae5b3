@@ -2472,7 +2472,7 @@
 
 
 
-<section class="reservation-request-contact-form-section" data-layout-spec="טופס הזמנה לוילה בית הלוגים-contact-form" dir="rtl">
+<section class="reservation-request-contact-form-section" data-layout-spec="טופס הזמנה לוילה בית הלוגים-contact-form" dir="rtl" id="reservation-request-contact-form-section">
   <div class="rrcf-container">
     <div class="rrcf-layout">
 
@@ -2483,26 +2483,26 @@
 
         <div class="rrcf-reassurance-box">
           <div class="rrcf-reassurance-item">
-            <span class="rrcf-reassurance-icon"><i class="fa-solid fa-phone-volume"></i></span>
+            <span class="rrcf-reassurance-icon"><i class="fa-solid fa-phone-volume" data-element-type="icon" data-element-id="icon-1776338550612-2vwnys3e4" data-icon-type="fontawesome"></i></span>
             <div>
-              <strong>נשמח לענות על כל שאלה</strong>
-              <p>צוות הוילה זמין לכם לכל בירור לפני ההזמנה.</p>
+              <p class="zappy-editable"><strong>נשמח לענות על כל שאלה</strong>
+              </p><p>צוות הוילה זמין לכם לכל בירור לפני ההזמנה.</p>
             </div>
           </div>
           <div class="rrcf-divider-thin"></div>
           <div class="rrcf-reassurance-item">
-            <span class="rrcf-reassurance-icon"><i class="fa-solid fa-envelope-open-text"></i></span>
+            <span class="rrcf-reassurance-icon"><i class="fa-solid fa-envelope-open-text" data-element-type="icon" data-element-id="icon-1776338550612-qr2l2m6jr" data-icon-type="fontawesome"></i></span>
             <div>
-              <strong>מענה תוך 24 שעות</strong>
-              <p>כל פנייה מקבלת מענה אישי מהצוות שלנו.</p>
+              <p class="zappy-editable"><strong>מענה תוך 24 שעות</strong>
+              </p><p>כל פנייה מקבלת מענה אישי מהצוות שלנו.</p>
             </div>
           </div>
           <div class="rrcf-divider-thin"></div>
           <div class="rrcf-contact-direct">
             <p class="rrcf-contact-label">יצירת קשר ישיר:</p>
-            <a href="tel:[business_phone]" class="rrcf-contact-link"><i class="fa-solid fa-phone"></i> [business_phone]</a>
-            <a href="mailto:[business_email]" class="rrcf-contact-link"><i class="fa-solid fa-envelope"></i> [business_email]</a>
-          </div>
+            <p class="zappy-editable"><a href="tel:[business_phone]" class="rrcf-contact-link"><i class="fa-solid fa-phone" data-element-type="icon" data-element-id="icon-1776338550612-xrjafbeu0" data-icon-type="fontawesome"></i> [business_phone]</a>
+            <a href="mailto:[business_email]" class="rrcf-contact-link"><i class="fa-solid fa-envelope" data-element-type="icon" data-element-id="icon-1776338550612-8mtwxw3pk" data-icon-type="fontawesome"></i> [business_email]</a>
+          </p></div>
         </div>
 
         <p class="rrcf-privacy-note"><i class="fa-solid fa-lock"></i> פרטיכם נשמרים בסודיות מוחלטת ולא יועברו לצד שלישי.</p>
@@ -2514,21 +2514,21 @@
 
           <!-- Group 1: פרטי יוצר הקשר -->
           <div class="rrcf-group">
-            <h3 class="rrcf-group-title"><i class="fa-solid fa-user"></i> פרטי יוצר הקשר</h3>
-            <div class="rrcf-fields-grid rrcf-two-col">
-              <div class="rrcf-field">
+            <h3 class="rrcf-group-title" style=""><i class="fa-solid fa-user" data-element-type="icon" data-element-id="icon-1776338550613-te117bqif" data-icon-type="fontawesome" style="cursor: pointer;"></i> פרטי יוצר הקשר</h3>
+            <div class="rrcf-fields-grid rrcf-two-col zappy-preserve-css-grid" id="zappy-auto-grid-1776338550636-cm8h3i" data-zappy-auto-grid="true" data-original-item-width="320" data-original-gap="16px" style="--zappy-grid-cols: 320.2px 320.2px; grid-template-columns: 320.2px 320.2px; align-items: stretch !important;" data-zappy-explicit-columns="true">
+              <div class="rrcf-field" data-grid-item-index="0">
                 <label for="contact-name" class="rrcf-label">שם מלא <span class="rrcf-required">*</span></label>
-                <input type="text" id="contact-name" name="contact_name" class="rrcf-input" placeholder="ישראל ישראלי" required="">
-              </div>
-              <div class="rrcf-field">
+                <input type="text" id="contact-name" name="contact_name" class="rrcf-input is-invalid" placeholder="ישראל ישראלי" required="" aria-invalid="true" aria-describedby="error-contact-name">
+              <span class="form-error-message" role="alert" aria-live="polite" id="error-contact-name">contact_name is required.</span></div>
+              <div class="rrcf-field" data-grid-item-index="1">
                 <label for="contact-phone" class="rrcf-label">טלפון נייד <span class="rrcf-required">*</span></label>
                 <input type="tel" id="contact-phone" name="contact_phone" class="rrcf-input" placeholder="05X-XXXXXXX" required="">
               </div>
-              <div class="rrcf-field">
+              <div class="rrcf-field" data-grid-item-index="2">
                 <label for="contact-email" class="rrcf-label">דוא״ל <span class="rrcf-required">*</span></label>
                 <input type="email" id="contact-email" name="contact_email" class="rrcf-input" placeholder="your@email.com" required="">
               </div>
-              <div class="rrcf-field">
+              <div class="rrcf-field" data-grid-item-index="3">
                 <label for="contact-city" class="rrcf-label">עיר מגורים</label>
                 <input type="text" id="contact-city" name="contact_city" class="rrcf-input" placeholder="תל אביב">
               </div>
@@ -2539,21 +2539,21 @@
 
           <!-- Group 2: פרטי השהייה -->
           <div class="rrcf-group">
-            <h3 class="rrcf-group-title"><i class="fa-solid fa-calendar-days"></i> פרטי השהייה המבוקשת</h3>
-            <div class="rrcf-fields-grid rrcf-two-col">
-              <div class="rrcf-field">
+            <h3 class="rrcf-group-title"><i class="fa-solid fa-calendar-days" data-element-type="icon" data-element-id="icon-1776338550613-pg21g96oc" data-icon-type="fontawesome"></i> פרטי השהייה המבוקשת</h3>
+            <div class="rrcf-fields-grid rrcf-two-col zappy-preserve-css-grid" id="zappy-auto-grid-1776338550651-hggaxa" data-zappy-auto-grid="true" data-original-item-width="320" data-original-gap="16px" style="--zappy-grid-cols: 320.2px 320.2px; grid-template-columns: 320.2px 320.2px; align-items: stretch !important;" data-zappy-explicit-columns="true">
+              <div class="rrcf-field" data-grid-item-index="0">
                 <label for="checkin-date" class="rrcf-label">תאריך הגעה מבוקש <span class="rrcf-required">*</span></label>
                 <input type="text" id="checkin-date" name="checkin_date" class="rrcf-input" placeholder="לדוגמה: 15/08/2025" required="">
               </div>
-              <div class="rrcf-field">
+              <div class="rrcf-field" data-grid-item-index="1">
                 <label for="checkout-date" class="rrcf-label">תאריך עזיבה מבוקש <span class="rrcf-required">*</span></label>
                 <input type="text" id="checkout-date" name="checkout_date" class="rrcf-input" placeholder="לדוגמה: 18/08/2025">
               </div>
-              <div class="rrcf-field">
+              <div class="rrcf-field" data-grid-item-index="2">
                 <label for="num-nights" class="rrcf-label">מספר לילות</label>
                 <input type="text" id="num-nights" name="num_nights" class="rrcf-input" placeholder="לדוגמה: 3">
               </div>
-              <div class="rrcf-field">
+              <div class="rrcf-field" data-grid-item-index="3">
                 <label for="num-families" class="rrcf-label">מספר משפחות <span class="rrcf-required">*</span></label>
                 <input type="text" id="num-families" name="num_families" class="rrcf-input" placeholder="עד 3 משפחות" required="">
               </div>
@@ -2564,17 +2564,17 @@
 
           <!-- Group 3: הרכב האורחים -->
           <div class="rrcf-group">
-            <h3 class="rrcf-group-title"><i class="fa-solid fa-people-roof"></i> הרכב האורחים</h3>
-            <div class="rrcf-fields-grid rrcf-two-col">
-              <div class="rrcf-field">
+            <h3 class="rrcf-group-title"><i class="fa-solid fa-people-roof" data-element-type="icon" data-element-id="icon-1776338550613-nl9wrau1e" data-icon-type="fontawesome"></i> הרכב האורחים</h3>
+            <div class="rrcf-fields-grid rrcf-two-col zappy-preserve-css-grid" id="zappy-auto-grid-1776338550655-xzpzl5" data-zappy-auto-grid="true" data-original-item-width="320" data-original-gap="16px" style="--zappy-grid-cols: 320.2px 320.2px; grid-template-columns: 320.2px 320.2px; align-items: stretch !important;" data-zappy-explicit-columns="true">
+              <div class="rrcf-field" data-grid-item-index="0">
                 <label for="num-adults" class="rrcf-label">מספר מבוגרים <span class="rrcf-required">*</span></label>
                 <input type="text" id="num-adults" name="num_adults" class="rrcf-input" placeholder="לדוגמה: 6" required="">
               </div>
-              <div class="rrcf-field">
+              <div class="rrcf-field" data-grid-item-index="1">
                 <label for="num-children" class="rrcf-label">מספר ילדים</label>
                 <input type="text" id="num-children" name="num_children" class="rrcf-input" placeholder="לדוגמה: 4">
               </div>
-              <div class="rrcf-field rrcf-full-width">
+              <div class="rrcf-field rrcf-full-width" data-grid-item-index="2">
                 <label for="children-ages" class="rrcf-label">גילאי הילדים (אם רלוונטי)</label>
                 <input type="text" id="children-ages" name="children_ages" class="rrcf-input" placeholder="לדוגמה: 3, 7, 10, 12">
               </div>
@@ -2585,16 +2585,16 @@
 
           <!-- Group 4: בקשות מיוחדות -->
           <div class="rrcf-group">
-            <h3 class="rrcf-group-title"><i class="fa-solid fa-star"></i> בקשות ומידע נוסף</h3>
+            <h3 class="rrcf-group-title"><i class="fa-solid fa-star" data-element-type="icon" data-element-id="icon-1776338550613-b4b4m5nzj" data-icon-type="fontawesome"></i> בקשות ומידע נוסף</h3>
             <div class="rrcf-fields-grid">
-              <div class="rrcf-field rrcf-full-width">
+              <div class="rrcf-field rrcf-full-width" data-grid-item-index="0">
                 <label for="special-requests" class="rrcf-label">בקשות מיוחדות / מידע שחשוב לנו לדעת</label>
                 <textarea id="special-requests" name="special_requests" class="rrcf-textarea" rows="4" placeholder="לדוגמה: חגיגת יום הולדת, אלרגיות, צורך בעריסה לתינוק, העדפות חדרים..."></textarea>
               </div>
-              <div class="rrcf-field rrcf-full-width">
+              <div class="rrcf-field rrcf-full-width" data-grid-item-index="1">
                 <label for="how-heard" class="rrcf-label">איך הגעתם אלינו?</label>
-                <select id="how-heard" name="how_heard" class="rrcf-input rrcf-select">
-                  <option value="" disabled selected>בחרו אפשרות...</option>
+                <select id="how-heard" name="how_heard" class="rrcf-input rrcf-select zappy-editable-dropdown">
+                  <option value="" disabled="" selected="">בחרו אפשרות...</option>
                   <option value="airbnb">Airbnb</option>
                   <option value="booking">Booking</option>
                   <option value="google">גוגל</option>
@@ -2613,7 +2613,7 @@
               </label>
             </div>
             <div class="rrcf-submit-row">
-              <button type="submit" class="btn-primary rrcf-submit-btn">
+              <button type="submit" class="btn-primary rrcf-submit-btn" data-element-type="button" data-element-id="btn-1776338550610-1hnns5cul" data-native-element="true">
                 <i class="fa-solid fa-paper-plane"></i> שלחו את בקשת ההזמנה
               </button>
             </div>

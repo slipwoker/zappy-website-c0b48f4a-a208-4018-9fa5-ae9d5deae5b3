@@ -2592,8 +2592,14 @@
                 <textarea id="special-requests" name="special_requests" class="rrcf-textarea" rows="4" placeholder="לדוגמה: חגיגת יום הולדת, אלרגיות, צורך בעריסה לתינוק, העדפות חדרים..."></textarea>
               </div>
               <div class="rrcf-field rrcf-full-width">
-                <label for="how-heard" class="rrcf-label">כיצד שמעתם עלינו?</label>
-                <input type="text" id="how-heard" name="how_heard" class="rrcf-input" placeholder="המלצה, גוגל, רשתות חברתיות...">
+                <label for="how-heard" class="rrcf-label">איך הגעתם אלינו?</label>
+                <select id="how-heard" name="how_heard" class="rrcf-input rrcf-select">
+                  <option value="" disabled selected>בחרו אפשרות...</option>
+                  <option value="airbnb">Airbnb</option>
+                  <option value="booking">Booking</option>
+                  <option value="google">גוגל</option>
+                  <option value="other">אחר</option>
+                </select>
               </div>
             </div>
           </div>

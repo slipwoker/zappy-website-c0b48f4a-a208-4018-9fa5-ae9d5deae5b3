@@ -219,13 +219,16 @@
 </script>
 <!-- End Zappy Analytics -->
     <meta property="og:title" content="תחושו את קסם הכינרת מקרוב — וילה בית הלוגים">
-  <meta property="og:description" content="שקיעות על הכינרת, ריח עצי הלוגים ואווירת כפר ישראלית נצחית — וילה בית הלוגים מעניקה לשלוש משפחות חוויית נופש משותפת שאי אפשר למצוא בשום מקום אחר.">
-  <meta property="og:type" content="website">
+    <meta property="og:description" content="שקיעות על הכינרת, ריח עצי הלוגים ואווירת כפר ישראלית נצחית — וילה בית הלוגים מעניקה לשלוש משפחות חוויית נופש משותפת שאי אפשר למצוא בשום מקום אחר.">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="תחושו את קסם הכינרת מקרוב — וילה בית הלוגים">
+    <meta name="twitter:description" content="שקיעות על הכינרת, ריח עצי הלוגים ואווירת כפר ישראלית נצחית — וילה בית הלוגים מעניקה לשלוש משפחות חוויית נופש משותפת שאי אפשר למצוא בשום מקום אחר.">
+    <meta property="og:type" content="website">
   <meta property="og:locale" content="he_IL">
   
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="תחושו את קסם הכינרת מקרוב — וילה בית הלוגים">
-  <meta name="twitter:description" content="שקיעות על הכינרת, ריח עצי הלוגים ואווירת כפר ישראלית נצחית — וילה בית הלוגים מעניקה לשלוש משפחות חוויית נופש משותפת שאי אפשר למצוא בשום מקום אחר.">
+  
+  
+  
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -595,50 +598,444 @@
 /* ZAPPY_POSTGEN_GUARD_RTL_ORDER:החוויה-story — stripped 2 order declaration(s) conflicting with RTL grid */
 
 </style>
-    <link rel="stylesheet" href="/styles.css">
 
-    <style id="zappy-dropdown-submenu-styles">
-      /* ========== DESKTOP DROPDOWN SUBMENU STYLES ========== */
-      /* Base styles for dropdown submenus - parent must be positioned */
-      .nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu) { position: relative; }
-      /* Submenu base - hidden by default */
-      .nav-menu .sub-menu, nav .sub-menu, .navbar .sub-menu, #navMenu .sub-menu { display: block !important; position: absolute !important; top: 100%; left: 0; min-width: 220px; background: white; border-radius: 8px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); padding: 8px 0; opacity: 0; visibility: hidden; transform: translateY(10px); transition: all 0.3s ease; z-index: 1000; list-style: none; pointer-events: none; }
-      /* CRITICAL: Desktop hover styles to show dropdown */
-      .nav-menu li:hover > .sub-menu, nav li:hover > .sub-menu, .navbar li:hover > .sub-menu, #navMenu li:hover > .sub-menu { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; pointer-events: auto !important; }
-      /* Submenu item styling */
-      .sub-menu li { list-style: none; margin: 0; padding: 0; }
-      .sub-menu a { display: block !important; padding: 10px 16px !important; color: var(--text-dark, #333) !important; font-weight: 500; text-decoration: none; white-space: nowrap; transition: background-color 0.2s; }
-      .sub-menu a:hover { background-color: #f5f5f5; }
-      /* RTL (Hebrew/Arabic) dropdown positioning */
-      [dir="rtl"] .nav-menu .sub-menu, [dir="rtl"] nav .sub-menu, [dir="rtl"] .navbar .sub-menu, html[lang="he"] .nav-menu .sub-menu, html[lang="he"] nav .sub-menu, html[lang="he"] .navbar .sub-menu, html[lang="ar"] .nav-menu .sub-menu, html[lang="ar"] nav .sub-menu, html[lang="ar"] .navbar .sub-menu { left: auto !important; right: 0 !important; }
-      /* Hide empty dropdown menus (exclude catalog sub-menus that use <a> children instead of <li>) */
-      .sub-menu:empty, .sub-menu:not(:has(li:not(.zappy-hidden-menu-item))):not(:has(> a)), .sub-menu:not(:has(li)):not(:has(> a)) { display: none !important; opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
-      /* Desktop: show submenu on Menu Group hover */
-      li:has(.menu-group-title):hover > .sub-menu { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; pointer-events: auto !important; }
-      /* Menu Group title styling */
-      .nav-menu > li > .menu-group-title, #navMenu > li > .menu-group-title { display: inline-block; padding: 0.5rem 1rem; cursor: default; user-select: none; }
-      
-      /* ========== MOBILE SUBMENU STYLES ========== */
-      @media (max-width: 768px) {
-        .nav-menu .sub-menu, nav .sub-menu, .navbar .sub-menu, #navMenu .sub-menu { position: static !important; transform: none !important; box-shadow: none !important; background: transparent !important; max-height: 0; overflow: hidden; opacity: 0; visibility: hidden; transition: max-height 0.3s ease, opacity 0.3s ease; padding: 0 !important; border-radius: 0 !important; }
-        .sub-menu.mobile-expanded { max-height: 60vh !important; overflow-y: auto !important; opacity: 1 !important; visibility: visible !important; padding: 8px 0 8px 16px !important; }
-        [dir="rtl"] .sub-menu.mobile-expanded, html[lang="he"] .sub-menu.mobile-expanded { padding: 8px 16px 8px 0 !important; }
-        /* Disable hover behavior on mobile */
-        .nav-menu li:hover > .sub-menu, nav li:hover > .sub-menu, .navbar li:hover > .sub-menu, #navMenu li:hover > .sub-menu { opacity: 0; visibility: hidden; pointer-events: none; }
-        .nav-menu li > .sub-menu.mobile-expanded, nav li > .sub-menu.mobile-expanded, .navbar li > .sub-menu.mobile-expanded, #navMenu li > .sub-menu.mobile-expanded { opacity: 1 !important; visibility: visible !important; pointer-events: auto !important; }
-        .nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu) { display: flex !important; flex-wrap: wrap !important; align-items: center !important; position: relative !important; min-height: 44px !important; }
-        .nav-menu li:has(.sub-menu) > a, nav li:has(.sub-menu) > a, .navbar li:has(.sub-menu) > a, #navMenu li:has(.sub-menu) > a { flex: 1 !important; min-width: 0 !important; }
-        .nav-menu li:has(.sub-menu) > .menu-group-title, nav li:has(.sub-menu) > .menu-group-title, .navbar li:has(.sub-menu) > .menu-group-title, #navMenu li:has(.sub-menu) > .menu-group-title { flex: 1 !important; min-width: 0 !important; padding: 0 !important; line-height: inherit !important; }
-        .nav-menu li:has(.sub-menu) > .sub-menu, nav li:has(.sub-menu) > .sub-menu, .navbar li:has(.sub-menu) > .sub-menu, #navMenu li:has(.sub-menu) > .sub-menu { flex-basis: 100% !important; width: 100% !important; }
-        .nav-menu li:has(.sub-menu) > a [class*="chevron"], .nav-menu li:has(.sub-menu) > a [class*="arrow"], .nav-menu li:has(.sub-menu) > a .fa-chevron-down, .nav-menu li:has(.sub-menu) > a .fa-angle-down, nav li:has(.sub-menu) > a [class*="chevron"], nav li:has(.sub-menu) > a [class*="arrow"], #navMenu li:has(.sub-menu) > a [class*="chevron"], #navMenu li:has(.sub-menu) > a [class*="arrow"] { display: none !important; visibility: hidden !important; }
-        .mobile-submenu-toggle { display: flex !important; align-items: center !important; justify-content: center !important; width: 44px !important; height: auto !important; background: transparent !important; border: none !important; cursor: pointer !important; color: var(--text-dark) !important; position: static !important; flex-shrink: 0 !important; align-self: stretch !important; z-index: 2 !important; padding: 0 !important; margin: 0 !important; }
-        .mobile-submenu-toggle::after { content: '' !important; width: 0 !important; height: 0 !important; border-left: 6px solid transparent !important; border-right: 6px solid transparent !important; border-top: 7px solid currentColor !important; transition: transform 0.3s ease !important; }
-        .mobile-submenu-toggle.expanded::after { transform: rotate(180deg) !important; }
-        .sub-menu a { padding: 10px 0 !important; display: block !important; color: var(--text-dark) !important; }
-        .navbar .sub-menu li a, nav.navbar .sub-menu li a, .zappy-products-dropdown .sub-menu a { color: var(--text-dark) !important; }
-      }
-      @media (min-width: 769px) { .mobile-submenu-toggle { display: none !important; } }
-    </style>
+          <style id="zappy-cta-mobile-style">
+            /* Hide CTA list item on desktop (tablets and up) */
+            @media (min-width: 769px) {
+              .nav-cta-item-mobile {
+                display: none !important;
+              }
+            }
+            /* Show CTA list item on mobile */
+            @media (max-width: 768px) {
+              .nav-cta-item-mobile {
+                display: list-item !important;
+              }
+            }
+          </style>
+        
+          <style id="zappy-nested-menu-style">
+            /* Desktop only: vertically center nav items */
+            @media (min-width: 769px) {
+              .nav-menu,
+              #navMenu {
+                align-items: center !important;
+              }
+            }
+            
+            /* Menu Group styling (non-clickable parent) - TOP LEVEL ONLY with ultra-specific selector */
+            .nav-menu > li > .menu-group-title,
+            #navMenu > li > .menu-group-title {
+              display: inline-block !important;
+              padding: 0.5rem 1rem !important;
+              color: var(--nav-color) !important;
+              font-weight: 500 !important;
+              line-height: 1.7 !important;
+              cursor: default !important;
+              user-select: none !important;
+              vertical-align: middle !important;
+              text-decoration: none !important;
+              margin: 0 !important;
+              transition: color 0.3s ease !important;
+            }
+            
+            .nav-menu > li > .menu-group-title:hover,
+            #navMenu > li > .menu-group-title:hover {
+              color: var(--nav-hover-color) !important;
+            }
+            
+            /* Desktop: show submenu on Menu Group hover */
+            li:has(.menu-group-title):hover > .sub-menu {
+              opacity: 1 !important;
+              visibility: visible !important;
+              transform: translateY(0) !important;
+              pointer-events: auto !important; /* Enable interaction when hovering */
+            }
+            
+            /* Hide menu items marked as hidden (overrides hover states) */
+            .zappy-hidden-menu-item,
+            li:has(.menu-group-title):hover > .sub-menu .zappy-hidden-menu-item {
+              display: none !important;
+              opacity: 0 !important;
+              visibility: hidden !important;
+              pointer-events: none !important;
+            }
+            
+            /* Keep submenu visible when hovering over the submenu itself */
+            .sub-menu:hover {
+              opacity: 1 !important;
+              visibility: visible !important;
+              pointer-events: auto !important;
+            }
+            
+            /* Nested dropdown menu styles - using more specific selectors */
+            .nav-menu .sub-menu,
+            nav .sub-menu,
+            .navbar .sub-menu {
+              display: block !important; /* Ensure submenu is in the DOM */
+              position: absolute !important;
+              top: 100%;
+              left: 0;
+              right: auto;
+              min-width: 200px;
+              background: white;
+              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+              border-radius: 8px;
+              padding: 8px 0;
+              margin-top: 0px; /* Remove gap to prevent hover loss */
+              opacity: 0 !important;
+              visibility: hidden !important;
+              transform: translateY(-10px);
+              transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+              z-index: 1000;
+              list-style: none;
+              pointer-events: none; /* Prevent interaction when hidden */
+            }
+            
+            /* RTL (Hebrew/Arabic) submenu positioning - align to right instead of left */
+            [dir="rtl"] .nav-menu .sub-menu,
+            [dir="rtl"] nav .sub-menu,
+            [dir="rtl"] .navbar .sub-menu,
+            html[lang="he"] .nav-menu .sub-menu,
+            html[lang="he"] nav .sub-menu,
+            html[lang="he"] .navbar .sub-menu,
+            html[lang="ar"] .nav-menu .sub-menu,
+            html[lang="ar"] nav .sub-menu,
+            html[lang="ar"] .navbar .sub-menu {
+              left: auto;
+              right: 0;
+            }
+            
+            /* Show submenu on parent hover - more specific selectors */
+            .nav-menu li:hover > .sub-menu,
+            nav li:hover > .sub-menu,
+            .navbar li:hover > .sub-menu {
+              opacity: 1 !important;
+              visibility: visible !important;
+              transform: translateY(0) !important;
+              pointer-events: auto !important; /* Enable interaction when visible */
+            }
+            
+            /* Parent item must be relatively positioned */
+            .nav-menu li:has(.sub-menu),
+            nav li:has(.sub-menu),
+            .navbar li:has(.sub-menu) {
+              position: relative;
+            }
+            
+            /* Style for submenu items */
+            .sub-menu li {
+              list-style: none;
+              margin: 0;
+              padding: 0;
+            }
+            
+            .sub-menu a,
+            .sub-menu .menu-group-title {
+              display: block !important;
+              padding: 10px 12px !important;
+              color: #333 !important;
+              font-weight: 600 !important;
+              text-decoration: none;
+              transition: background-color 0.2s;
+              white-space: nowrap;
+              cursor: default;
+            }
+            
+            .sub-menu a:hover {
+              background-color: #f5f5f5;
+            }
+            
+            /* CRITICAL: Override submenu styles for TOP-LEVEL Menu Groups only - must come AFTER submenu styles */
+            .nav-menu > li > .menu-group-title,
+            #navMenu > li > .menu-group-title {
+              display: inline-block !important;
+              padding: 0.5rem 1rem !important;
+              color: var(--nav-color) !important;
+              font-weight: 500 !important;
+              line-height: 1.7 !important;
+              cursor: default !important;
+              user-select: none !important;
+              vertical-align: middle !important;
+              text-decoration: none !important;
+              margin: 0 !important;
+              transition: color 0.3s ease !important;
+            }
+            
+            .nav-menu > li > .menu-group-title:hover,
+            #navMenu > li > .menu-group-title:hover {
+              color: var(--nav-hover-color) !important;
+              background-color: transparent !important;
+            }
+            
+            /* On mobile, show nested menus as expandable accordion */
+            @media (max-width: 768px) {
+              /* Mobile submenu styling */
+              .nav-menu .sub-menu,
+              nav .sub-menu,
+              .navbar .sub-menu {
+                position: static !important;
+                transform: none !important;
+                box-shadow: none !important;
+                background: transparent !important;
+                margin-top: 0 !important;
+                max-height: 0;
+                overflow: hidden;
+                opacity: 0;
+                visibility: hidden;
+                transition: max-height 0.3s ease, opacity 0.3s ease, visibility 0.3s ease, padding 0.3s ease;
+                padding: 0 !important;
+                border-radius: 0 !important;
+              }
+              
+              /* Expanded state — no internal scroll; parent navMenu scrolls */
+              .sub-menu.mobile-expanded {
+                max-height: none !important;
+                overflow-y: visible !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+                padding: 8px 0 8px 16px !important;
+              }
+              
+              /* RTL padding adjustment */
+              [dir="rtl"] .sub-menu.mobile-expanded,
+              html[lang="he"] .sub-menu.mobile-expanded,
+              html[lang="ar"] .sub-menu.mobile-expanded {
+                padding: 8px 16px 8px 0 !important;
+              }
+              
+              /* Disable hover behavior on mobile */
+              .nav-menu li:hover > .sub-menu,
+              nav li:hover > .sub-menu,
+              .navbar li:hover > .sub-menu {
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+              }
+              
+              /* Enable visibility for expanded submenus */
+              .nav-menu li > .sub-menu.mobile-expanded,
+              nav li > .sub-menu.mobile-expanded,
+              .navbar li > .sub-menu.mobile-expanded {
+                opacity: 1 !important;
+                visibility: visible !important;
+                pointer-events: auto !important;
+              }
+              
+              .sub-menu a {
+                padding: 10px 0 !important;
+                display: block !important;
+                font-size: 14px !important;
+                white-space: normal !important;
+              }
+              
+              .sub-menu a:hover {
+                background-color: transparent !important;
+              }
+              
+              /* Parent item wrapper - flex layout with relative positioning for absolute toggle */
+              .nav-menu li:has(.sub-menu),
+              nav li:has(.sub-menu),
+              .navbar li:has(.sub-menu) {
+                display: flex !important;
+                flex-wrap: wrap !important;
+                align-items: center !important;
+                position: relative !important;
+                min-height: 44px !important;
+              }
+              
+              /* Parent link - takes full width since toggle is absolute (not a flex child) */
+              .nav-menu li:has(.sub-menu) > a,
+              nav li:has(.sub-menu) > a,
+              .navbar li:has(.sub-menu) > a,
+              .nav-menu > li > .menu-group-title,
+              #navMenu > li > .menu-group-title {
+                flex: 1 !important;
+                min-width: 0 !important;
+              }
+              
+              /* Normalize menu-group-title in mobile nav to match link alignment */
+              .nav-menu > li > .menu-group-title,
+              #navMenu > li > .menu-group-title {
+                padding: 0 !important;
+                line-height: inherit !important;
+              }
+              
+              /* Submenu takes full width below parent */
+              .nav-menu li:has(.sub-menu) > .sub-menu,
+              nav li:has(.sub-menu) > .sub-menu,
+              .navbar li:has(.sub-menu) > .sub-menu {
+                flex-basis: 100% !important;
+                width: 100% !important;
+              }
+              
+              /* HIDE EXISTING CHEVRONS/ARROWS from cloned sites to prevent duplicates */
+              .nav-menu li:has(.sub-menu) > a .fa-chevron-down,
+              .nav-menu li:has(.sub-menu) > a .fa-angle-down,
+              .nav-menu li:has(.sub-menu) > a [class*="chevron"],
+              .nav-menu li:has(.sub-menu) > a [class*="arrow"],
+              nav li:has(.sub-menu) > a [class*="chevron"],
+              nav li:has(.sub-menu) > a [class*="arrow"],
+              #navMenu li:has(.sub-menu) > a [class*="chevron"],
+              #navMenu li:has(.sub-menu) > a [class*="arrow"] {
+                display: none !important;
+                visibility: hidden !important;
+              }
+              
+              /* Toggle arrow button - flex child that stretches to match nav-link height */
+              .mobile-submenu-toggle {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                width: 44px !important;
+                height: auto !important;
+                background: transparent !important;
+                border: none !important;
+                cursor: pointer !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                position: static !important;
+                flex-shrink: 0 !important;
+                align-self: stretch !important;
+                z-index: 2 !important;
+                -webkit-tap-highlight-color: transparent;
+              }
+              
+              .mobile-submenu-toggle::after {
+                content: '' !important;
+                display: block !important;
+                width: 0 !important;
+                height: 0 !important;
+                border-left: 6px solid transparent !important;
+                border-right: 6px solid transparent !important;
+                border-top: 7px solid currentColor !important;
+                transition: transform 0.3s ease !important;
+              }
+              
+              /* Rotate arrow when expanded */
+              .mobile-submenu-toggle.expanded::after {
+                transform: rotate(180deg) !important;
+              }
+            }
+            
+            /* Hide toggle button on desktop */
+            @media (min-width: 769px) {
+              .mobile-submenu-toggle {
+                display: none !important;
+              }
+            }
+          </style>
+          
+          <script id="zappy-mobile-menu-script">
+            // Mobile menu toggle for nested submenus (including Menu Groups)
+            // Uses separate toggle button - link navigates, arrow toggles submenu
+            (function() {
+              function initMobileMenuToggles() {
+                // Only run on mobile
+                if (window.innerWidth > 768) {
+                  // Remove any toggle buttons on desktop
+                  document.querySelectorAll('.mobile-submenu-toggle').forEach(btn => btn.remove());
+                  document.querySelectorAll('.sub-menu.mobile-expanded').forEach(menu => {
+                    menu.classList.remove('mobile-expanded');
+                  });
+                  console.log('[MOBILE MENU] Desktop mode - cleanup done');
+                  return;
+                }
+                
+                console.log('[MOBILE MENU] Initializing mobile menu toggles...');
+                
+                // Find all parent menu items (items with .sub-menu)
+                const menuItemsWithSubmenus = document.querySelectorAll(
+                  '.nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu)'
+                );
+                
+                console.log('[MOBILE MENU] Found', menuItemsWithSubmenus.length, 'items with submenus');
+                
+                menuItemsWithSubmenus.forEach(function(li) {
+                  // Skip if already has toggle button
+                  if (li.querySelector('.mobile-submenu-toggle')) {
+                    return;
+                  }
+                  
+                  const submenu = li.querySelector('.sub-menu');
+                  const parentLink = li.querySelector(':scope > a') || li.querySelector(':scope > .menu-group-title');
+                  
+                  if (!submenu || !parentLink) return;
+                  
+                  // Create toggle button
+                  const toggleBtn = document.createElement('button');
+                  toggleBtn.className = 'mobile-submenu-toggle';
+                  toggleBtn.setAttribute('aria-label', 'Toggle submenu');
+                  toggleBtn.setAttribute('type', 'button');
+
+                  // Insert toggle button after the link
+                  parentLink.insertAdjacentElement('afterend', toggleBtn);
+                  
+                  console.log('[MOBILE MENU] Created toggle button for:', parentLink.textContent?.trim());
+                  
+                  // Handle toggle button click - only toggles submenu
+                  toggleBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    const isExpanded = submenu.classList.contains('mobile-expanded');
+                    
+                    // Close all other submenus first
+                    document.querySelectorAll('.sub-menu.mobile-expanded').forEach(function(menu) {
+                      if (menu !== submenu) {
+                        menu.classList.remove('mobile-expanded');
+                        const otherToggle = menu.parentElement.querySelector('.mobile-submenu-toggle');
+                        if (otherToggle) otherToggle.classList.remove('expanded');
+                      }
+                    });
+                    
+                    // Toggle this submenu
+                    submenu.classList.toggle('mobile-expanded');
+                    toggleBtn.classList.toggle('expanded');
+                    
+                    console.log('[MOBILE MENU] Toggled submenu:', !isExpanded ? 'expanded' : 'collapsed');
+                  });
+                  
+                  // Parent link navigates normally - no preventDefault
+                });
+              }
+              
+              // Initialize on DOM load
+              if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initMobileMenuToggles);
+              } else {
+                initMobileMenuToggles();
+              }
+              
+              // Re-initialize on window resize (but use debounce to avoid too many calls)
+              let resizeTimer;
+              window.addEventListener('resize', function() {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(initMobileMenuToggles, 250);
+              });
+              
+              // Also initialize when mobile menu becomes visible
+              // This handles cases where the mobile menu is hidden initially
+              const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                  if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                    const target = mutation.target;
+                    if (target.classList.contains('active') || target.style.display !== 'none') {
+                      console.log('[MOBILE MENU] Mobile menu became visible, re-initializing...');
+                      setTimeout(initMobileMenuToggles, 100);
+                    }
+                  }
+                });
+              });
+              
+              // Observe mobile menu containers
+              const mobileMenus = document.querySelectorAll('.mobile-menu, .nav-menu, #navMenu');
+              mobileMenus.forEach(function(menu) {
+                observer.observe(menu, { attributes: true, attributeFilter: ['class', 'style'] });
+              });
+            })();
+          </script>
+    <link rel="stylesheet" href="/styles.css">
 
     <style id="mobile-lang-menu-deployed-css">
     @media (max-width: 768px) {
@@ -679,16 +1076,16 @@
   <nav class="navbar" dir="rtl">
   <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
     <svg class="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
-      <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+      <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
     </svg>
     <svg class="close-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" style="display: none;">
-      <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+      <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
     </svg>
   </button>
 
   <button class="phone-header-btn" data-phone="971528282481" aria-label="Call">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
     </svg>
   </button>
 
@@ -697,7 +1094,7 @@
       <a href="/" class="logo-link">
         <img src="/assets/business-logo.webp" alt="וילה בית הלוגים" class="logo">
       </a>
-    </div><ul class="nav-menu" id="navMenu"><li><a href="/villa">פרטי הווילה</a></li><li><a href="/experience">החוויה</a></li><li><a href="/https://forms.gle/FKBPDNYCBhBJJfPU9" class="">טופס הזמנה</a></li></ul></div>
+    </div><ul class="nav-menu" id="navMenu"><li><a href="/villa">פרטי הווילה</a></li><li><a href="/experience">החוויה</a></li><li><a href="/https://forms.gle/FKBPDNYCBhBJJfPU9" class>טופס הזמנה</a></li><li><a href="https://forms.gle/FKBPDNYCBhBJJfPU9" target="_blank" rel="noopener noreferrer">XXX</a></li><li class="nav-cta-item-mobile"><a href="/contact">צור קשר</a></li></ul></div>
 
     
 
@@ -1164,7 +1561,7 @@
         </div>
         <!-- Decorative offset tile -->
         <div class="story-deco-tile" aria-hidden="true">
-          <span class="story-deco-year" >1997</span>
+          <span class="story-deco-year" style>1997</span>
           <span class="story-deco-label">מאז ומתמיד</span>
         </div>
       </div>
@@ -1214,15 +1611,15 @@
   <div class="els-container">
     <div class="els-header">
       <h2 class="els-title">הרגעים שעושים את הנופש</h2>
-      <p class="els-intro" >בוילה בית הלוגים, ארבע משפחות יכולות לחיות יחד בלי להרגיש צפופות. כל רגע — ארוחת הבוקר, שעות הצהריים ליד הבריכה, הערב המשותף — מתגלגל בטבעיות, בחמימות, ובקצב שלכם.</p>
+      <p class="els-intro" style>בוילה בית הלוגים, ארבע משפחות יכולות לחיות יחד בלי להרגיש צפופות. כל רגע — ארוחת הבוקר, שעות הצהריים ליד הבריכה, הערב המשותף — מתגלגל בטבעיות, בחמימות, ובקצב שלכם.</p>
     </div>
 
     <!-- Moment 1: Breakfast -->
     <article class="els-moment els-moment--text-right">
       <div class="els-moment-text">
         <p><span class="els-moment-label">01</span>
-        </p><h3 class="els-moment-title" >על האש..</h3>
-        <p class="els-moment-desc" >בחצר התחתונה , יש שולחן גדול לארוחת בחוץ לצד המנגלים על גחלים או על גז - לבחירתכם</p>
+        </p><h3 class="els-moment-title" style>על האש..</h3>
+        <p class="els-moment-desc" style>בחצר התחתונה , יש שולחן גדול לארוחת בחוץ לצד המנגלים על גחלים או על גז - לבחירתכם</p>
       </div>
       <div class="els-moment-image-wrap">
         <div data-zappy-zoom-wrapper="true" data-element-id="img-1775371286486-1st7zgvts" data-element-type="image" data-zappy-zoom-wrapper-width="551px" data-zappy-zoom-wrapper-height="367px" data-zappy-zoom-wrapper-width-mode="px" data-zappy-zoom-clip="true" data-zappy-wrapper-margins-applied="true" style="position: relative !important; overflow: hidden !important; width: 551px !important; max-width: 100% !important; margin-left: auto !important; margin-right: auto !important; height: 367px !important; display: block !important;"><img data-placeholder="experience-lifestyle-image-1" data-context="Warm vintage-style villa kitchen and dining area in northern Israel. A large wooden table set for a shared family breakfast with fresh bread, Israeli salad, eggs, and coffee. Warm morning light streams through old wooden-framed windows. The atmosphere is cozy, nostalgic, and unhurried — multiple families gathered together in a rustic countryside setting." width="620" height="420" src="/assets/site-experience-lifestyle-image-1-1775371300328-nwc7ul.webp?v=1775371301998" alt="ארוחת בוקר משותפת בוילה בית הלוגים" class="els-moment-img" data-element-type="image" data-element-id="img-1775371286486-1st7zgvts" data-zappy-zoom="1.02" data-zappy-original-width="551" data-zappy-original-height="367" data-zappy-object-position="50% 50%" style="object-position: 50% 50% !important; margin: 0px !important; position: absolute !important; left: -1% !important; top: -2.06725% !important; width: 102% !important; height: 104.134% !important; max-width: none !important; max-height: none !important; display: block !important; object-fit: cover !important;"></div>
@@ -1240,8 +1637,8 @@
       </div>
       <div class="els-moment-text">
         <p><span class="els-moment-label">02</span>
-        </p><h3 class="els-moment-title" >שעות הצהריים בחצר ליד הבריכה</h3>
-        <p class="els-moment-desc" >הבריכה המקורה המחוממת פתוחה בכל עונות השנה, ומאפשרת לילדים לשחות בעוד המבוגרים נחים בנוחות לידם. המרחב מספיק גדול כדי שכולם ירגישו בנוח, ומספיק אינטימי כדי שהילדים לא ילכו לאיבוד.&nbsp;<br>ספות שיזוף ומקום ישיבה להרווח, בנוסף שולחן פינגפוג מול הנוף.</p>
+        </p><h3 class="els-moment-title" style>שעות הצהריים בחצר ליד הבריכה</h3>
+        <p class="els-moment-desc" style>הבריכה המקורה המחוממת פתוחה בכל עונות השנה, ומאפשרת לילדים לשחות בעוד המבוגרים נחים בנוחות לידם. המרחב מספיק גדול כדי שכולם ירגישו בנוח, ומספיק אינטימי כדי שהילדים לא ילכו לאיבוד.&nbsp;<br>ספות שיזוף ומקום ישיבה להרווח, בנוסף שולחן פינגפוג מול הנוף.</p>
       </div>
     </article>
 
@@ -1251,8 +1648,8 @@
     <article class="els-moment els-moment--text-right">
       <div class="els-moment-text">
         <p><span class="els-moment-label">03</span>
-        </p><h3 class="els-moment-title" >הגקוזי מול הנוף</h3>
-        <p class="els-moment-desc" >הגקוזי , גדול ומתאים ל 5 אורחים מוף נוף עוצר נשימה.</p>
+        </p><h3 class="els-moment-title" style>הגקוזי מול הנוף</h3>
+        <p class="els-moment-desc" style>הגקוזי , גדול ומתאים ל 5 אורחים מוף נוף עוצר נשימה.</p>
       </div>
       <div class="els-moment-image-wrap">
         <div data-zappy-zoom-wrapper="true" data-element-id="img-1775371286486-mf74hho6d" data-element-type="image" data-zappy-zoom-wrapper-width="551px" data-zappy-zoom-wrapper-height="367px" data-zappy-zoom-wrapper-width-mode="px" data-zappy-zoom-clip="true" data-zappy-wrapper-margins-applied="true" style="position: relative !important; overflow: hidden !important; width: 551px !important; max-width: 100% !important; margin-left: auto !important; margin-right: auto !important; height: 367px !important; display: block !important;"><img data-placeholder="experience-lifestyle-image-3" data-context="Cozy vintage-style villa living room in northern Israel at dusk. Three families gathered together in a warm, nostalgic interior with wooden furniture, soft warm lighting, a stone fireplace, and traditional Israeli countryside decor. Adults talking and laughing, children playing on rugs. The atmosphere is intimate, genuine, and full of warmth — a real home, not a hotel." width="620" height="420" src="/assets/site-experience-lifestyle-image-3-1775371595392-97dr4c.webp?v=1775371597015" alt="ערב משפחתי משותף בוילה בית הלוגים" class="els-moment-img" data-element-type="image" data-element-id="img-1775371286486-mf74hho6d" data-zappy-zoom="1.02" data-zappy-original-width="551" data-zappy-original-height="367" data-zappy-object-position="50% 50%" style="object-position: 50% 50% !important; margin: 0px !important; position: absolute !important; left: -1.17762% !important; top: -1% !important; width: 102.355% !important; height: 102% !important; max-width: none !important; max-height: none !important; display: block !important; object-fit: cover !important;"></div>
@@ -1264,14 +1661,14 @@
   <!-- Bottom Divider -->
   <div class="els-bottom-divider-wrapper">
     <svg aria-hidden="true" viewBox="0 0 1200 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0,72 L0,36 Q100,22 200,30 T400,24 Q500,18 600,28 T800,22 Q900,16 1000,26 T1200,20 L1200,72 Z" fill="var(--bg-dark)"></path>
+      <path d="M0,72 L0,36 Q100,22 200,30 T400,24 Q500,18 600,28 T800,22 Q900,16 1000,26 T1200,20 L1200,72 Z" fill="var(--bg-dark)"/>
     </svg>
   </div>
 </section>
 
 <section class="experience-location-section" data-layout-spec="החוויה-location" dir="rtl" id="zappy-section-2"><!-- Panoramic Image Band -->
   <div class="location-panorama-band">
-    <img data-placeholder="experience-location-image-1" data-context="Panoramic cinematic view of the Sea of Galilee (Kinneret) as seen from a northern hillside villa in Israel. Late afternoon golden hour light, misty blue haze over the water, rolling green hills, ancient cypress trees framing the edges. Atmospheric, dusty-blue and warm-umber tones, countryside calm, wide-angle landscape photography." width="1200" height="480" src="/assets/site-experience-location-image-1.webp" alt="נוף פנורמי על הכנרת מהווילה בצפון הארץ" data-element-type="image" data-element-id="img-1775371286486-zs9dnqava" >
+    <img data-placeholder="experience-location-image-1" data-context="Panoramic cinematic view of the Sea of Galilee (Kinneret) as seen from a northern hillside villa in Israel. Late afternoon golden hour light, misty blue haze over the water, rolling green hills, ancient cypress trees framing the edges. Atmospheric, dusty-blue and warm-umber tones, countryside calm, wide-angle landscape photography." width="1200" height="480" src="/assets/site-experience-location-image-1.webp" alt="נוף פנורמי על הכנרת מהווילה בצפון הארץ" data-element-type="image" data-element-id="img-1775371286486-zs9dnqava" style>
     <div class="panorama-scrim"></div>
     <div class="panorama-caption-wrap">
       <p class="zappy-editable"><span class="panorama-eyebrow">הצפון הקסום</span>
@@ -1287,8 +1684,8 @@
       <div class="location-main-copy">
         <p><span class="location-label">המיקום שלנו</span>
         </p><h3 class="location-heading">שקט כפרי, נוף שלא נגמר</h3>
-        <p class="location-body" >וילה בית הלוגים שוכנת בלב הצפון, על גבעה המשקיפה אל הכנרת — מרחב שבו הטבע, הדממה, והאור הים-תיכוני מתמזגים לחוויה שקשה לתאר במילים. מהרגע שאתם מגיעים, הנוף פורש לפניכם כמו ציור: מים כחולים-אפרפרים, מטעים&nbsp; ירוקים, ושמיים רחבים שמשתנים עם שעות היום.</p>
-        <p class="location-body" >הווילה נועדה לאפשר לשלוש עד ארבע משפחות לנפוש יחד, תוך שמירה על תחושת בית אמיתית — לא מלון, לא צימר סטנדרטי. כאן, בין 5 חדרים מרווחים ובריכה מקורה מחוממת, מתרחשים הרגעים שנזכרים בהם שנים אחר כך: ארוחות ערב משותפות, שיחות לילה, ושחרית עם קפה מול הנוף.</p>
+        <p class="location-body" style>וילה בית הלוגים שוכנת בלב הצפון, על גבעה המשקיפה אל הכנרת — מרחב שבו הטבע, הדממה, והאור הים-תיכוני מתמזגים לחוויה שקשה לתאר במילים. מהרגע שאתם מגיעים, הנוף פורש לפניכם כמו ציור: מים כחולים-אפרפרים, מטעים&nbsp; ירוקים, ושמיים רחבים שמשתנים עם שעות היום.</p>
+        <p class="location-body" style>הווילה נועדה לאפשר לשלוש עד ארבע משפחות לנפוש יחד, תוך שמירה על תחושת בית אמיתית — לא מלון, לא צימר סטנדרטי. כאן, בין 5 חדרים מרווחים ובריכה מקורה מחוממת, מתרחשים הרגעים שנזכרים בהם שנים אחר כך: ארוחות ערב משותפות, שיחות לילה, ושחרית עם קפה מול הנוף.</p>
         <p class="location-body">האזור מציע שקט כפרי אמיתי — רחוק מהעומס, קרוב לכל מה שחשוב. וילה בית הלוגים היא הבסיס המושלם לנופש משפחתי משותף בצפון הארץ, שבו כל יום מתחיל בנשימה עמוקה ומסתיים בסיפוק.</p>
         <p><a href="#contact" class="btn-primary location-cta" data-element-type="button" data-element-id="btn-1775371286484-h8wytcgsw" data-native-element="true">יצירת קשר ובירורים</a>
       </p></div>
@@ -1300,7 +1697,7 @@
           <ul class="advantages-list">
             <li class="advantage-item zappy-grid-item-nested-grid" data-grid-item-index="0">
               <span class="advantage-icon" aria-hidden="true">
-                <svg data-element-type="icon" data-icon-type="svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20A14.5 14.5 0 0 0 12 2"></path><line x1="2" y1="12" x2="22" y2="12"></line></svg>
+                <svg data-element-type="icon" data-icon-type="svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20A14.5 14.5 0 0 0 12 2"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
               </span>
               <div class="advantage-text">
                 <strong>נוף על הכנרת</strong>
@@ -1309,7 +1706,7 @@
             </li>
             <li class="advantage-item zappy-grid-item-nested-grid" data-grid-item-index="1">
               <span class="advantage-icon" aria-hidden="true">
-                <svg data-element-type="icon" data-icon-type="svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0"></path><path d="M12 8v4l3 3"></path></svg>
+                <svg data-element-type="icon" data-icon-type="svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0"/><path d="M12 8v4l3 3"/></svg>
               </span>
               <div class="advantage-text">
                 <strong>טיולי יום בסביבה</strong>
@@ -1318,7 +1715,7 @@
             </li>
             <li class="advantage-item zappy-grid-item-nested-grid" data-grid-item-index="2">
               <span class="advantage-icon" aria-hidden="true">
-                <svg data-element-type="icon" data-icon-type="svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
+                <svg data-element-type="icon" data-icon-type="svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
               </span>
               <div class="advantage-text">
                 <strong>מסעדות ושוקי אוכל</strong>
@@ -1327,23 +1724,23 @@
             </li>
             <li class="advantage-item zappy-grid-item-nested-grid" data-grid-item-index="3">
               <span class="advantage-icon" aria-hidden="true">
-                <svg data-element-type="icon" data-icon-type="svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                <svg data-element-type="icon" data-icon-type="svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
               </span>
-              <div class="advantage-text" >
+              <div class="advantage-text" style>
                 <strong>מתחם קניות פתוח 7 ימים בשבוע</strong>
                 <span>תצטידו בצפון , סופר גדול, ועוד מסעדות אוטנטיות</span>
               </div>
             </li>
             <li class="advantage-item zappy-grid-item-nested-grid" data-grid-item-index="4">
               <span class="advantage-icon" aria-hidden="true">
-                <svg data-element-type="icon" data-icon-type="svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                <svg data-element-type="icon" data-icon-type="svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
               </span>
-              <div class="advantage-text" >
+              <div class="advantage-text" style>
                 <strong>טיול רגלי - בצלמון המתחדש</strong>מסלול הליכה מהוילה לנחל צלמון המתחדש עם מים מוטפלים מים תיכון&nbsp;<br>(5 ק"מ - יפיפיים)</div>
             </li>
             <li class="advantage-item zappy-grid-item-nested-grid" data-grid-item-index="5">
               <span class="advantage-icon" aria-hidden="true">
-                <svg data-element-type="icon" data-icon-type="svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path><path d="M4.93 4.93a10 10 0 0 0 0 14.14"></path></svg>
+                <svg data-element-type="icon" data-icon-type="svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
               </span>
               <div class="advantage-text">
                 <strong>נגישות נוחה</strong>
@@ -1352,7 +1749,7 @@
             </li>
           </ul>
           <p class="zappy-editable"><a href="https://maps.google.com/?q=החרצית 47, מגדל, Israel, 14900, Israel" target="_blank" rel="noopener noreferrer" class="location-map-btn" style="display:flex;align-items:flex-start;gap:inherit" data-element-type="button" data-element-id="btn-1775371286484-o695bejxk" data-native-element="true">
-            <svg data-element-type="icon" data-icon-type="svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            <svg data-element-type="icon" data-icon-type="svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
             צפייה במפה
           </a>
         </p></div>
@@ -1364,7 +1761,7 @@
   <!-- Bottom diagonal divider -->
   <div class="location-divider-wrapper">
     <svg aria-hidden="true" viewBox="0 0 1200 70" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0,70 L0,28 L1200,0 L1200,70 Z" fill="#F6F1E7"></path>
+      <path d="M0,70 L0,28 L1200,0 L1200,70 Z" fill="#F6F1E7"/>
     </svg>
   </div>
 </section>
@@ -1382,15 +1779,15 @@
       <article class="guidance-card" data-grid-item-index="0">
         <div class="guidance-card-icon">
           <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-            <circle cx="9" cy="7" r="4"></circle>
-            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
           </svg>
         </div>
         <div class="guidance-card-content">
           <h3 class="guidance-card-title">למי הוילה מתאימה?</h3>
-          <p class="guidance-card-text" >אנחנו מארחים עד 3 עד 4 משפחות בו-זמנית — אחים ואחיות עם ילדיהם, משפחה מורחבת, או קבוצת חברים קרובים. מתאים במיוחד לאלה שרוצים לבלות יחד בלי לוותר על פרטיות ונוחות.</p>
+          <p class="guidance-card-text" style>אנחנו מארחים עד 3 עד 4 משפחות בו-זמנית — אחים ואחיות עם ילדיהם, משפחה מורחבת, או קבוצת חברים קרובים. מתאים במיוחד לאלה שרוצים לבלות יחד בלי לוותר על פרטיות ונוחות.</p>
           <ul class="guidance-card-list">
             <li><i class="fas fa-check" aria-hidden="true" data-element-type="icon" data-element-id="icon-1775371286486-p296hpez7" data-icon-type="fontawesome" style="pointer-events: auto; cursor: pointer;"></i><span>משפחות מורחבות עם ילדים</span></li>
             <li><i class="fas fa-check" aria-hidden="true" data-element-type="icon" data-element-id="icon-1775371286486-rv4xcmdb7" data-icon-type="fontawesome" style="pointer-events: auto; cursor: pointer;"></i><span>אחים/אחיות עם משפחות</span></li>
@@ -1402,10 +1799,10 @@
       <article class="guidance-card" data-grid-item-index="1">
         <div class="guidance-card-icon">
           <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-            <line x1="16" y1="2" x2="16" y2="6"></line>
-            <line x1="8" y1="2" x2="8" y2="6"></line>
-            <line x1="3" y1="10" x2="21" y2="10"></line>
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
           </svg>
         </div>
         <div class="guidance-card-content">
@@ -1422,13 +1819,13 @@
       <article class="guidance-card" data-grid-item-index="2">
         <div class="guidance-card-icon">
           <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
           </svg>
         </div>
         <div class="guidance-card-content">
           <h3 class="guidance-card-title">מה הופך את השהות לנעימה?</h3>
-          <p class="guidance-card-text" >5 חדרי שינה עם 3 חדרי אמבטיה נפרדים מבטיחים שכל משפחה שומרת על עצמאותה. המרחב המשותף — הסלון, המטבח, והבריכה — הם הלב הפועם שמחבר בין כולם ברגעים שחשובים באמת.</p>
+          <p class="guidance-card-text" style>5 חדרי שינה עם 3 חדרי אמבטיה נפרדים מבטיחים שכל משפחה שומרת על עצמאותה. המרחב המשותף — הסלון, המטבח, והבריכה — הם הלב הפועם שמחבר בין כולם ברגעים שחשובים באמת.</p>
           <ul class="guidance-card-list">
             <li><i class="fas fa-check" aria-hidden="true" data-element-type="icon" data-element-id="icon-1775371286486-ecfby536d" data-icon-type="fontawesome" style="pointer-events: auto; cursor: pointer;"></i><span>5 חדרים עם פרטיות מלאה</span></li>
             <li><i class="fas fa-check" aria-hidden="true" data-element-type="icon" data-element-id="icon-1775371286486-m3ijg156e" data-icon-type="fontawesome" style="pointer-events: auto; cursor: pointer;"></i><span>בריכה מקורה מחוממת משותפת</span></li>
@@ -1644,6 +2041,8 @@
         // small wrappers (e.g. 139px logo wrappers) to their parent width, conflicting with
         // the correct stored dimensions.
       }
+      function _parsePos(s){var x=50,y=50;try{var m=(s||'').match(/(-?d+(?:.d+)?)%s+(-?d+(?:.d+)?)%/);if(m){x=parseFloat(m[1]);y=parseFloat(m[2]);}}catch(e){}if(!isFinite(x))x=50;if(!isFinite(y))y=50;return{x:Math.max(0,Math.min(100,x)),y:Math.max(0,Math.min(100,y))};}
+      function _coverPct(iA,cA){if(!isFinite(iA)||iA<=0||!isFinite(cA)||cA<=0)return{w:100,h:100};if(iA>=cA)return{w:(iA/cA)*100,h:100};return{w:100,h:(cA/iA)*100};}
       function applyMobile(){
         if(_applied)return;_applied=true;
         document.querySelectorAll('[data-zappy-zoom-wrapper="true"]').forEach(function(w){
@@ -1653,9 +2052,11 @@
           var img=w.querySelector('img');
           if(!img)return;
           if(!img._zappyDesktop)img._zappyDesktop={src:img.getAttribute('src'),style:img.getAttribute('style')};
-          var mobileZoom=parseFloat(img.getAttribute('data-zappy-mobile-zoom'));
+          var mobileZoomStr=img.getAttribute('data-zappy-mobile-zoom');
+          var mobileZoom=parseFloat(mobileZoomStr);
           var mobileSrc=img.getAttribute('data-zappy-mobile-src');
           var mobilePos=img.getAttribute('data-zappy-mobile-object-position');
+          var hasMobileOverrides=mobilePos||mobileZoomStr;
           var parentOvf=w.parentElement?((w.parentElement.style.overflow||'')+(window.getComputedStyle(w.parentElement).overflow||'')).trim():'';
           var inConstrainedParent=parentOvf.indexOf('hidden')!==-1||parentOvf.indexOf('clip')!==-1;
           if(inConstrainedParent){
@@ -1665,22 +2066,46 @@
             w.style.setProperty('max-width','100%','important');
           }
           if(mobileSrc)img.src=mobileSrc;
-          var pos=mobilePos||img.style.getPropertyValue('object-position')||'50% 50%';
-          if(mobileZoom>1){
-            var wH=w.getAttribute('data-zappy-zoom-wrapper-height');
-            w.style.setProperty('height',wH||'200px','important');
-            img.style.setProperty('position','relative','important');
-            img.style.setProperty('width','100%','important');
-            img.style.setProperty('height','auto','important');
-            img.style.setProperty('min-height','100%','important');
-            img.style.setProperty('max-width','none','important');
-            img.style.setProperty('max-height','none','important');
-            img.style.setProperty('object-fit','cover','important');
-            img.style.setProperty('left','0','important');
-            img.style.setProperty('top','0','important');
-            img.style.setProperty('object-position',pos,'important');
-            img.style.setProperty('transform','scale('+mobileZoom+')','important');
-            img.style.setProperty('transform-origin',pos,'important');
+          if(hasMobileOverrides){
+            var effZoom=(isFinite(mobileZoom)&&mobileZoom>0)?mobileZoom:(parseFloat(img.getAttribute('data-zappy-zoom'))||1);
+            var effPos=mobilePos||'50% 50%';
+            w.style.setProperty('overflow','hidden','important');
+            w.style.setProperty('position','relative','important');
+            w.style.setProperty('width','100%','important');
+            w.style.setProperty('max-width','100%','important');
+            var _sW=parseFloat(w.getAttribute('data-zappy-zoom-wrapper-width'))||0;
+            var _sH=parseFloat(w.getAttribute('data-zappy-zoom-wrapper-height'))||0;
+            if(_sW>0&&_sH>0){w.style.setProperty('aspect-ratio',_sW+'/'+_sH,'important');w.style.setProperty('height','auto','important');}
+            function _applyZoomCrop(_img,_w,_ePos,_eZoom){
+              var rect=_w.getBoundingClientRect();
+              if(!rect||!rect.width||!rect.height)return;
+              var nW=_img.naturalWidth||0,nH=_img.naturalHeight||0;
+              if(!(nW>0&&nH>0))return;
+              var iA=nW/nH,cA=rect.width/rect.height;
+              var cv=_coverPct(iA,cA);
+              var wP=100,hP=100;
+              if(_eZoom>=1){wP=cv.w*_eZoom;hP=cv.h*_eZoom;}
+              else{var t2=(_eZoom-0.5)/0.5;if(!isFinite(t2))t2=0;t2=Math.max(0,Math.min(1,t2));wP=100+t2*(cv.w-100);hP=100+t2*(cv.h-100);}
+              var p2=_parsePos(_ePos);
+              var lP=(100-wP)*(p2.x/100);
+              var tP=(100-hP)*(p2.y/100);
+              _img.style.setProperty('position','absolute','important');
+              _img.style.setProperty('left',lP+'%','important');
+              _img.style.setProperty('top',tP+'%','important');
+              _img.style.setProperty('width',wP+'%','important');
+              _img.style.setProperty('height',hP+'%','important');
+              _img.style.setProperty('max-width','none','important');
+              _img.style.setProperty('max-height','none','important');
+              _img.style.setProperty('display','block','important');
+              _img.style.setProperty('object-fit',_eZoom<1?'fill':'cover','important');
+              _img.style.setProperty('transform','none','important');
+              _img.style.setProperty('margin','0','important');
+            }
+            _applyZoomCrop(img,w,effPos,effZoom);
+            if(mobileSrc&&!(img.complete&&img.naturalWidth>0)){
+              (function(_i,_w2,_p,_z){_i.addEventListener('load',function _ol(){_i.removeEventListener('load',_ol);try{_applyZoomCrop(_i,_w2,_p,_z);}catch(e){}});
+              })(img,w,effPos,effZoom);
+            }
           }else{
             if(!inConstrainedParent)w.style.setProperty('height','auto','important');
             img.style.setProperty('position','relative','important');
@@ -1692,7 +2117,6 @@
             img.style.setProperty('left','0','important');
             img.style.setProperty('top','0','important');
             img.style.setProperty('transform','none','important');
-            if(mobilePos)img.style.setProperty('object-position',pos,'important');
           }
         });
         document.querySelectorAll('img[data-zappy-mobile-src],img[data-zappy-mobile-object-position],img[data-zappy-mobile-zoom]').forEach(function(img){

@@ -219,13 +219,16 @@
 </script>
 <!-- End Zappy Analytics -->
     <meta property="og:title" content="פנו אלינו ותתחילו לתכנן את הנופש — וילה בית הלוגים">
-  <meta property="og:description" content="מוכנים לחופשה בלתי נשכחת בצפון? צרו קשר עם וילה בית הלוגים עכשיו, בדקו תאריכים פנויים והזמינו את הווילה המושלמת לכמה משפחות לפני שיאחר המועד.">
-  <meta property="og:type" content="website">
+    <meta property="og:description" content="מוכנים לחופשה בלתי נשכחת בצפון? צרו קשר עם וילה בית הלוגים עכשיו, בדקו תאריכים פנויים והזמינו את הווילה המושלמת לכמה משפחות לפני שיאחר המועד.">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="פנו אלינו ותתחילו לתכנן את הנופש — וילה בית הלוגים">
+    <meta name="twitter:description" content="מוכנים לחופשה בלתי נשכחת בצפון? צרו קשר עם וילה בית הלוגים עכשיו, בדקו תאריכים פנויים והזמינו את הווילה המושלמת לכמה משפחות לפני שיאחר המועד.">
+    <meta property="og:type" content="website">
   <meta property="og:locale" content="he_IL">
   
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="פנו אלינו ותתחילו לתכנן את הנופש — וילה בית הלוגים">
-  <meta name="twitter:description" content="מוכנים לחופשה בלתי נשכחת בצפון? צרו קשר עם וילה בית הלוגים עכשיו, בדקו תאריכים פנויים והזמינו את הווילה המושלמת לכמה משפחות לפני שיאחר המועד.">
+  
+  
+  
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -242,50 +245,444 @@
     <script src="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.umd.js"></script>
     <!-- Mickidum Accessibility Toolbar -->
     <script src="https://cdn.jsdelivr.net/gh/mickidum/acc_toolbar/acctoolbar/acctoolbar.min.js"></script>
-    <link rel="stylesheet" href="/styles.css">
 
-    <style id="zappy-dropdown-submenu-styles">
-      /* ========== DESKTOP DROPDOWN SUBMENU STYLES ========== */
-      /* Base styles for dropdown submenus - parent must be positioned */
-      .nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu) { position: relative; }
-      /* Submenu base - hidden by default */
-      .nav-menu .sub-menu, nav .sub-menu, .navbar .sub-menu, #navMenu .sub-menu { display: block !important; position: absolute !important; top: 100%; left: 0; min-width: 220px; background: white; border-radius: 8px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); padding: 8px 0; opacity: 0; visibility: hidden; transform: translateY(10px); transition: all 0.3s ease; z-index: 1000; list-style: none; pointer-events: none; }
-      /* CRITICAL: Desktop hover styles to show dropdown */
-      .nav-menu li:hover > .sub-menu, nav li:hover > .sub-menu, .navbar li:hover > .sub-menu, #navMenu li:hover > .sub-menu { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; pointer-events: auto !important; }
-      /* Submenu item styling */
-      .sub-menu li { list-style: none; margin: 0; padding: 0; }
-      .sub-menu a { display: block !important; padding: 10px 16px !important; color: var(--text-dark, #333) !important; font-weight: 500; text-decoration: none; white-space: nowrap; transition: background-color 0.2s; }
-      .sub-menu a:hover { background-color: #f5f5f5; }
-      /* RTL (Hebrew/Arabic) dropdown positioning */
-      [dir="rtl"] .nav-menu .sub-menu, [dir="rtl"] nav .sub-menu, [dir="rtl"] .navbar .sub-menu, html[lang="he"] .nav-menu .sub-menu, html[lang="he"] nav .sub-menu, html[lang="he"] .navbar .sub-menu, html[lang="ar"] .nav-menu .sub-menu, html[lang="ar"] nav .sub-menu, html[lang="ar"] .navbar .sub-menu { left: auto !important; right: 0 !important; }
-      /* Hide empty dropdown menus (exclude catalog sub-menus that use <a> children instead of <li>) */
-      .sub-menu:empty, .sub-menu:not(:has(li:not(.zappy-hidden-menu-item))):not(:has(> a)), .sub-menu:not(:has(li)):not(:has(> a)) { display: none !important; opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
-      /* Desktop: show submenu on Menu Group hover */
-      li:has(.menu-group-title):hover > .sub-menu { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; pointer-events: auto !important; }
-      /* Menu Group title styling */
-      .nav-menu > li > .menu-group-title, #navMenu > li > .menu-group-title { display: inline-block; padding: 0.5rem 1rem; cursor: default; user-select: none; }
-      
-      /* ========== MOBILE SUBMENU STYLES ========== */
-      @media (max-width: 768px) {
-        .nav-menu .sub-menu, nav .sub-menu, .navbar .sub-menu, #navMenu .sub-menu { position: static !important; transform: none !important; box-shadow: none !important; background: transparent !important; max-height: 0; overflow: hidden; opacity: 0; visibility: hidden; transition: max-height 0.3s ease, opacity 0.3s ease; padding: 0 !important; border-radius: 0 !important; }
-        .sub-menu.mobile-expanded { max-height: 60vh !important; overflow-y: auto !important; opacity: 1 !important; visibility: visible !important; padding: 8px 0 8px 16px !important; }
-        [dir="rtl"] .sub-menu.mobile-expanded, html[lang="he"] .sub-menu.mobile-expanded { padding: 8px 16px 8px 0 !important; }
-        /* Disable hover behavior on mobile */
-        .nav-menu li:hover > .sub-menu, nav li:hover > .sub-menu, .navbar li:hover > .sub-menu, #navMenu li:hover > .sub-menu { opacity: 0; visibility: hidden; pointer-events: none; }
-        .nav-menu li > .sub-menu.mobile-expanded, nav li > .sub-menu.mobile-expanded, .navbar li > .sub-menu.mobile-expanded, #navMenu li > .sub-menu.mobile-expanded { opacity: 1 !important; visibility: visible !important; pointer-events: auto !important; }
-        .nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu) { display: flex !important; flex-wrap: wrap !important; align-items: center !important; position: relative !important; min-height: 44px !important; }
-        .nav-menu li:has(.sub-menu) > a, nav li:has(.sub-menu) > a, .navbar li:has(.sub-menu) > a, #navMenu li:has(.sub-menu) > a { flex: 1 !important; min-width: 0 !important; }
-        .nav-menu li:has(.sub-menu) > .menu-group-title, nav li:has(.sub-menu) > .menu-group-title, .navbar li:has(.sub-menu) > .menu-group-title, #navMenu li:has(.sub-menu) > .menu-group-title { flex: 1 !important; min-width: 0 !important; padding: 0 !important; line-height: inherit !important; }
-        .nav-menu li:has(.sub-menu) > .sub-menu, nav li:has(.sub-menu) > .sub-menu, .navbar li:has(.sub-menu) > .sub-menu, #navMenu li:has(.sub-menu) > .sub-menu { flex-basis: 100% !important; width: 100% !important; }
-        .nav-menu li:has(.sub-menu) > a [class*="chevron"], .nav-menu li:has(.sub-menu) > a [class*="arrow"], .nav-menu li:has(.sub-menu) > a .fa-chevron-down, .nav-menu li:has(.sub-menu) > a .fa-angle-down, nav li:has(.sub-menu) > a [class*="chevron"], nav li:has(.sub-menu) > a [class*="arrow"], #navMenu li:has(.sub-menu) > a [class*="chevron"], #navMenu li:has(.sub-menu) > a [class*="arrow"] { display: none !important; visibility: hidden !important; }
-        .mobile-submenu-toggle { display: flex !important; align-items: center !important; justify-content: center !important; width: 44px !important; height: auto !important; background: transparent !important; border: none !important; cursor: pointer !important; color: var(--text-dark) !important; position: static !important; flex-shrink: 0 !important; align-self: stretch !important; z-index: 2 !important; padding: 0 !important; margin: 0 !important; }
-        .mobile-submenu-toggle::after { content: '' !important; width: 0 !important; height: 0 !important; border-left: 6px solid transparent !important; border-right: 6px solid transparent !important; border-top: 7px solid currentColor !important; transition: transform 0.3s ease !important; }
-        .mobile-submenu-toggle.expanded::after { transform: rotate(180deg) !important; }
-        .sub-menu a { padding: 10px 0 !important; display: block !important; color: var(--text-dark) !important; }
-        .navbar .sub-menu li a, nav.navbar .sub-menu li a, .zappy-products-dropdown .sub-menu a { color: var(--text-dark) !important; }
-      }
-      @media (min-width: 769px) { .mobile-submenu-toggle { display: none !important; } }
-    </style>
+          <style id="zappy-cta-mobile-style">
+            /* Hide CTA list item on desktop (tablets and up) */
+            @media (min-width: 769px) {
+              .nav-cta-item-mobile {
+                display: none !important;
+              }
+            }
+            /* Show CTA list item on mobile */
+            @media (max-width: 768px) {
+              .nav-cta-item-mobile {
+                display: list-item !important;
+              }
+            }
+          </style>
+        
+          <style id="zappy-nested-menu-style">
+            /* Desktop only: vertically center nav items */
+            @media (min-width: 769px) {
+              .nav-menu,
+              #navMenu {
+                align-items: center !important;
+              }
+            }
+            
+            /* Menu Group styling (non-clickable parent) - TOP LEVEL ONLY with ultra-specific selector */
+            .nav-menu > li > .menu-group-title,
+            #navMenu > li > .menu-group-title {
+              display: inline-block !important;
+              padding: 0.5rem 1rem !important;
+              color: var(--nav-color) !important;
+              font-weight: 500 !important;
+              line-height: 1.7 !important;
+              cursor: default !important;
+              user-select: none !important;
+              vertical-align: middle !important;
+              text-decoration: none !important;
+              margin: 0 !important;
+              transition: color 0.3s ease !important;
+            }
+            
+            .nav-menu > li > .menu-group-title:hover,
+            #navMenu > li > .menu-group-title:hover {
+              color: var(--nav-hover-color) !important;
+            }
+            
+            /* Desktop: show submenu on Menu Group hover */
+            li:has(.menu-group-title):hover > .sub-menu {
+              opacity: 1 !important;
+              visibility: visible !important;
+              transform: translateY(0) !important;
+              pointer-events: auto !important; /* Enable interaction when hovering */
+            }
+            
+            /* Hide menu items marked as hidden (overrides hover states) */
+            .zappy-hidden-menu-item,
+            li:has(.menu-group-title):hover > .sub-menu .zappy-hidden-menu-item {
+              display: none !important;
+              opacity: 0 !important;
+              visibility: hidden !important;
+              pointer-events: none !important;
+            }
+            
+            /* Keep submenu visible when hovering over the submenu itself */
+            .sub-menu:hover {
+              opacity: 1 !important;
+              visibility: visible !important;
+              pointer-events: auto !important;
+            }
+            
+            /* Nested dropdown menu styles - using more specific selectors */
+            .nav-menu .sub-menu,
+            nav .sub-menu,
+            .navbar .sub-menu {
+              display: block !important; /* Ensure submenu is in the DOM */
+              position: absolute !important;
+              top: 100%;
+              left: 0;
+              right: auto;
+              min-width: 200px;
+              background: white;
+              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+              border-radius: 8px;
+              padding: 8px 0;
+              margin-top: 0px; /* Remove gap to prevent hover loss */
+              opacity: 0 !important;
+              visibility: hidden !important;
+              transform: translateY(-10px);
+              transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+              z-index: 1000;
+              list-style: none;
+              pointer-events: none; /* Prevent interaction when hidden */
+            }
+            
+            /* RTL (Hebrew/Arabic) submenu positioning - align to right instead of left */
+            [dir="rtl"] .nav-menu .sub-menu,
+            [dir="rtl"] nav .sub-menu,
+            [dir="rtl"] .navbar .sub-menu,
+            html[lang="he"] .nav-menu .sub-menu,
+            html[lang="he"] nav .sub-menu,
+            html[lang="he"] .navbar .sub-menu,
+            html[lang="ar"] .nav-menu .sub-menu,
+            html[lang="ar"] nav .sub-menu,
+            html[lang="ar"] .navbar .sub-menu {
+              left: auto;
+              right: 0;
+            }
+            
+            /* Show submenu on parent hover - more specific selectors */
+            .nav-menu li:hover > .sub-menu,
+            nav li:hover > .sub-menu,
+            .navbar li:hover > .sub-menu {
+              opacity: 1 !important;
+              visibility: visible !important;
+              transform: translateY(0) !important;
+              pointer-events: auto !important; /* Enable interaction when visible */
+            }
+            
+            /* Parent item must be relatively positioned */
+            .nav-menu li:has(.sub-menu),
+            nav li:has(.sub-menu),
+            .navbar li:has(.sub-menu) {
+              position: relative;
+            }
+            
+            /* Style for submenu items */
+            .sub-menu li {
+              list-style: none;
+              margin: 0;
+              padding: 0;
+            }
+            
+            .sub-menu a,
+            .sub-menu .menu-group-title {
+              display: block !important;
+              padding: 10px 12px !important;
+              color: #333 !important;
+              font-weight: 600 !important;
+              text-decoration: none;
+              transition: background-color 0.2s;
+              white-space: nowrap;
+              cursor: default;
+            }
+            
+            .sub-menu a:hover {
+              background-color: #f5f5f5;
+            }
+            
+            /* CRITICAL: Override submenu styles for TOP-LEVEL Menu Groups only - must come AFTER submenu styles */
+            .nav-menu > li > .menu-group-title,
+            #navMenu > li > .menu-group-title {
+              display: inline-block !important;
+              padding: 0.5rem 1rem !important;
+              color: var(--nav-color) !important;
+              font-weight: 500 !important;
+              line-height: 1.7 !important;
+              cursor: default !important;
+              user-select: none !important;
+              vertical-align: middle !important;
+              text-decoration: none !important;
+              margin: 0 !important;
+              transition: color 0.3s ease !important;
+            }
+            
+            .nav-menu > li > .menu-group-title:hover,
+            #navMenu > li > .menu-group-title:hover {
+              color: var(--nav-hover-color) !important;
+              background-color: transparent !important;
+            }
+            
+            /* On mobile, show nested menus as expandable accordion */
+            @media (max-width: 768px) {
+              /* Mobile submenu styling */
+              .nav-menu .sub-menu,
+              nav .sub-menu,
+              .navbar .sub-menu {
+                position: static !important;
+                transform: none !important;
+                box-shadow: none !important;
+                background: transparent !important;
+                margin-top: 0 !important;
+                max-height: 0;
+                overflow: hidden;
+                opacity: 0;
+                visibility: hidden;
+                transition: max-height 0.3s ease, opacity 0.3s ease, visibility 0.3s ease, padding 0.3s ease;
+                padding: 0 !important;
+                border-radius: 0 !important;
+              }
+              
+              /* Expanded state — no internal scroll; parent navMenu scrolls */
+              .sub-menu.mobile-expanded {
+                max-height: none !important;
+                overflow-y: visible !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+                padding: 8px 0 8px 16px !important;
+              }
+              
+              /* RTL padding adjustment */
+              [dir="rtl"] .sub-menu.mobile-expanded,
+              html[lang="he"] .sub-menu.mobile-expanded,
+              html[lang="ar"] .sub-menu.mobile-expanded {
+                padding: 8px 16px 8px 0 !important;
+              }
+              
+              /* Disable hover behavior on mobile */
+              .nav-menu li:hover > .sub-menu,
+              nav li:hover > .sub-menu,
+              .navbar li:hover > .sub-menu {
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+              }
+              
+              /* Enable visibility for expanded submenus */
+              .nav-menu li > .sub-menu.mobile-expanded,
+              nav li > .sub-menu.mobile-expanded,
+              .navbar li > .sub-menu.mobile-expanded {
+                opacity: 1 !important;
+                visibility: visible !important;
+                pointer-events: auto !important;
+              }
+              
+              .sub-menu a {
+                padding: 10px 0 !important;
+                display: block !important;
+                font-size: 14px !important;
+                white-space: normal !important;
+              }
+              
+              .sub-menu a:hover {
+                background-color: transparent !important;
+              }
+              
+              /* Parent item wrapper - flex layout with relative positioning for absolute toggle */
+              .nav-menu li:has(.sub-menu),
+              nav li:has(.sub-menu),
+              .navbar li:has(.sub-menu) {
+                display: flex !important;
+                flex-wrap: wrap !important;
+                align-items: center !important;
+                position: relative !important;
+                min-height: 44px !important;
+              }
+              
+              /* Parent link - takes full width since toggle is absolute (not a flex child) */
+              .nav-menu li:has(.sub-menu) > a,
+              nav li:has(.sub-menu) > a,
+              .navbar li:has(.sub-menu) > a,
+              .nav-menu > li > .menu-group-title,
+              #navMenu > li > .menu-group-title {
+                flex: 1 !important;
+                min-width: 0 !important;
+              }
+              
+              /* Normalize menu-group-title in mobile nav to match link alignment */
+              .nav-menu > li > .menu-group-title,
+              #navMenu > li > .menu-group-title {
+                padding: 0 !important;
+                line-height: inherit !important;
+              }
+              
+              /* Submenu takes full width below parent */
+              .nav-menu li:has(.sub-menu) > .sub-menu,
+              nav li:has(.sub-menu) > .sub-menu,
+              .navbar li:has(.sub-menu) > .sub-menu {
+                flex-basis: 100% !important;
+                width: 100% !important;
+              }
+              
+              /* HIDE EXISTING CHEVRONS/ARROWS from cloned sites to prevent duplicates */
+              .nav-menu li:has(.sub-menu) > a .fa-chevron-down,
+              .nav-menu li:has(.sub-menu) > a .fa-angle-down,
+              .nav-menu li:has(.sub-menu) > a [class*="chevron"],
+              .nav-menu li:has(.sub-menu) > a [class*="arrow"],
+              nav li:has(.sub-menu) > a [class*="chevron"],
+              nav li:has(.sub-menu) > a [class*="arrow"],
+              #navMenu li:has(.sub-menu) > a [class*="chevron"],
+              #navMenu li:has(.sub-menu) > a [class*="arrow"] {
+                display: none !important;
+                visibility: hidden !important;
+              }
+              
+              /* Toggle arrow button - flex child that stretches to match nav-link height */
+              .mobile-submenu-toggle {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                width: 44px !important;
+                height: auto !important;
+                background: transparent !important;
+                border: none !important;
+                cursor: pointer !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                position: static !important;
+                flex-shrink: 0 !important;
+                align-self: stretch !important;
+                z-index: 2 !important;
+                -webkit-tap-highlight-color: transparent;
+              }
+              
+              .mobile-submenu-toggle::after {
+                content: '' !important;
+                display: block !important;
+                width: 0 !important;
+                height: 0 !important;
+                border-left: 6px solid transparent !important;
+                border-right: 6px solid transparent !important;
+                border-top: 7px solid currentColor !important;
+                transition: transform 0.3s ease !important;
+              }
+              
+              /* Rotate arrow when expanded */
+              .mobile-submenu-toggle.expanded::after {
+                transform: rotate(180deg) !important;
+              }
+            }
+            
+            /* Hide toggle button on desktop */
+            @media (min-width: 769px) {
+              .mobile-submenu-toggle {
+                display: none !important;
+              }
+            }
+          </style>
+          
+          <script id="zappy-mobile-menu-script">
+            // Mobile menu toggle for nested submenus (including Menu Groups)
+            // Uses separate toggle button - link navigates, arrow toggles submenu
+            (function() {
+              function initMobileMenuToggles() {
+                // Only run on mobile
+                if (window.innerWidth > 768) {
+                  // Remove any toggle buttons on desktop
+                  document.querySelectorAll('.mobile-submenu-toggle').forEach(btn => btn.remove());
+                  document.querySelectorAll('.sub-menu.mobile-expanded').forEach(menu => {
+                    menu.classList.remove('mobile-expanded');
+                  });
+                  console.log('[MOBILE MENU] Desktop mode - cleanup done');
+                  return;
+                }
+                
+                console.log('[MOBILE MENU] Initializing mobile menu toggles...');
+                
+                // Find all parent menu items (items with .sub-menu)
+                const menuItemsWithSubmenus = document.querySelectorAll(
+                  '.nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu)'
+                );
+                
+                console.log('[MOBILE MENU] Found', menuItemsWithSubmenus.length, 'items with submenus');
+                
+                menuItemsWithSubmenus.forEach(function(li) {
+                  // Skip if already has toggle button
+                  if (li.querySelector('.mobile-submenu-toggle')) {
+                    return;
+                  }
+                  
+                  const submenu = li.querySelector('.sub-menu');
+                  const parentLink = li.querySelector(':scope > a') || li.querySelector(':scope > .menu-group-title');
+                  
+                  if (!submenu || !parentLink) return;
+                  
+                  // Create toggle button
+                  const toggleBtn = document.createElement('button');
+                  toggleBtn.className = 'mobile-submenu-toggle';
+                  toggleBtn.setAttribute('aria-label', 'Toggle submenu');
+                  toggleBtn.setAttribute('type', 'button');
+
+                  // Insert toggle button after the link
+                  parentLink.insertAdjacentElement('afterend', toggleBtn);
+                  
+                  console.log('[MOBILE MENU] Created toggle button for:', parentLink.textContent?.trim());
+                  
+                  // Handle toggle button click - only toggles submenu
+                  toggleBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    const isExpanded = submenu.classList.contains('mobile-expanded');
+                    
+                    // Close all other submenus first
+                    document.querySelectorAll('.sub-menu.mobile-expanded').forEach(function(menu) {
+                      if (menu !== submenu) {
+                        menu.classList.remove('mobile-expanded');
+                        const otherToggle = menu.parentElement.querySelector('.mobile-submenu-toggle');
+                        if (otherToggle) otherToggle.classList.remove('expanded');
+                      }
+                    });
+                    
+                    // Toggle this submenu
+                    submenu.classList.toggle('mobile-expanded');
+                    toggleBtn.classList.toggle('expanded');
+                    
+                    console.log('[MOBILE MENU] Toggled submenu:', !isExpanded ? 'expanded' : 'collapsed');
+                  });
+                  
+                  // Parent link navigates normally - no preventDefault
+                });
+              }
+              
+              // Initialize on DOM load
+              if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initMobileMenuToggles);
+              } else {
+                initMobileMenuToggles();
+              }
+              
+              // Re-initialize on window resize (but use debounce to avoid too many calls)
+              let resizeTimer;
+              window.addEventListener('resize', function() {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(initMobileMenuToggles, 250);
+              });
+              
+              // Also initialize when mobile menu becomes visible
+              // This handles cases where the mobile menu is hidden initially
+              const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                  if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                    const target = mutation.target;
+                    if (target.classList.contains('active') || target.style.display !== 'none') {
+                      console.log('[MOBILE MENU] Mobile menu became visible, re-initializing...');
+                      setTimeout(initMobileMenuToggles, 100);
+                    }
+                  }
+                });
+              });
+              
+              // Observe mobile menu containers
+              const mobileMenus = document.querySelectorAll('.mobile-menu, .nav-menu, #navMenu');
+              mobileMenus.forEach(function(menu) {
+                observer.observe(menu, { attributes: true, attributeFilter: ['class', 'style'] });
+              });
+            })();
+          </script>
+    <link rel="stylesheet" href="/styles.css">
 
     <style id="mobile-lang-menu-deployed-css">
     @media (max-width: 768px) {
@@ -326,16 +723,16 @@
   <nav class="navbar" dir="rtl">
   <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
     <svg class="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
-      <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+      <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
     </svg>
     <svg class="close-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" style="display: none;">
-      <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+      <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
     </svg>
   </button>
 
   <button class="phone-header-btn" data-phone="971528282481" aria-label="Call">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
     </svg>
   </button>
 
@@ -344,7 +741,7 @@
       <a href="/" class="logo-link">
         <img src="/assets/business-logo.webp" alt="וילה בית הלוגים" class="logo">
       </a>
-    </div><ul class="nav-menu" id="navMenu"><li><a href="/villa">פרטי הווילה</a></li><li><a href="/experience">החוויה</a></li><li><a href="/https://forms.gle/FKBPDNYCBhBJJfPU9" class="">טופס הזמנה</a></li></ul></div>
+    </div><ul class="nav-menu" id="navMenu"><li><a href="/villa">פרטי הווילה</a></li><li><a href="/experience">החוויה</a></li><li><a href="/https://forms.gle/FKBPDNYCBhBJJfPU9" class>טופס הזמנה</a></li><li><a href="https://forms.gle/FKBPDNYCBhBJJfPU9" target="_blank" rel="noopener noreferrer">XXX</a></li><li class="nav-cta-item-mobile"><a href="/contact">צור קשר</a></li></ul></div>
 
     
 
@@ -790,37 +1187,37 @@
       <p class="zappy-editable"><span class="contact-intro-eyebrow">דברו איתנו</span>
       </p><h1 class="contact-intro-heading">שמחים לשמוע מכם</h1>
       <p class="contact-intro-lead">אנחנו כאן לענות על כל שאלה — בין אם אתם בודקים זמינות לתאריכים שלכם, רוצים לדעת אם הוילה מתאימה לקבוצת המשפחות שלכם, או פשוט רוצים להכיר את המקום לפני שמחליטים. כתבו לנו, ונחזור אליכם בשמחה.</p>
-      <ul class="contact-intro-topics" ><li data-grid-item-index="0">
+      <ul class="contact-intro-topics" style><li data-grid-item-index="0">
           <span class="contact-intro-topic-icon" aria-hidden="true">
             <svg data-element-type="icon" data-icon-type="svg" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="cursor: pointer;">
-              <circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"></circle>
-              <path d="M10 6v4l2.5 2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+              <circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M10 6v4l2.5 2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
           </span>
           <span>בדיקת זמינות לתאריכים שלכם</span>
         </li><li data-grid-item-index="1">
           <span class="contact-intro-topic-icon" aria-hidden="true">
             <svg data-element-type="icon" data-icon-type="svg" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="cursor: pointer;">
-              <path d="M4 10a6 6 0 1 1 12 0A6 6 0 0 1 4 10z" stroke="currentColor" stroke-width="1.5"></path>
-              <path d="M10 7v3l2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
-              <path d="M2 18c1.5-2 4-3 8-3s6.5 1 8 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+              <path d="M4 10a6 6 0 1 1 12 0A6 6 0 0 1 4 10z" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M10 7v3l2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M2 18c1.5-2 4-3 8-3s6.5 1 8 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
           </span>
           <span>התאמת הוילה לגודל ואופי הקבוצה</span>
         </li><li data-grid-item-index="2">
           <span class="contact-intro-topic-icon" aria-hidden="true">
             <svg data-element-type="icon" data-icon-type="svg" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="cursor: pointer;">
-              <rect x="3" y="5" width="14" height="11" rx="2" stroke="currentColor" stroke-width="1.5"></rect>
-              <path d="M3 9h14" stroke="currentColor" stroke-width="1.5"></path>
-              <path d="M7 3v4M13 3v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+              <rect x="3" y="5" width="14" height="11" rx="2" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M3 9h14" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M7 3v4M13 3v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
           </span>
           <span>מחירים, תנאים ופרטים מעשיים</span>
         </li><li data-grid-item-index="3">
           <span class="contact-intro-topic-icon" aria-hidden="true">
             <svg data-element-type="icon" data-icon-type="svg" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="cursor: pointer;">
-              <path d="M10 2C7.24 2 5 4.24 5 7c0 4 5 11 5 11s5-7 5-11c0-2.76-2.24-5-5-5z" stroke="currentColor" stroke-width="1.5"></path>
-              <circle cx="10" cy="7" r="1.5" stroke="currentColor" stroke-width="1.5"></circle>
+              <path d="M10 2C7.24 2 5 4.24 5 7c0 4 5 11 5 11s5-7 5-11c0-2.76-2.24-5-5-5z" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="10" cy="7" r="1.5" stroke="currentColor" stroke-width="1.5"/>
             </svg>
           </span>
           <span>הסעות, פעילויות ומה שיש בסביבה</span>
@@ -839,7 +1236,7 @@
   <!-- Bottom divider -->
   <div class="contact-intro-divider-wrapper">
     <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0,60 L0,28 Q60,20 120,28 T240,24 Q300,30 360,22 T480,26 Q540,20 600,28 T720,22 Q780,28 840,20 T960,26 Q1020,22 1080,28 T1200,24 L1200,60 Z" fill="#F1E7D8"></path>
+      <path d="M0,60 L0,28 Q60,20 120,28 T240,24 Q300,30 360,22 T480,26 Q540,20 600,28 T720,22 Q780,28 840,20 T960,26 Q1020,22 1080,28 T1200,24 L1200,60 Z" fill="#F1E7D8"/>
     </svg>
   </div>
 </section>
@@ -857,7 +1254,7 @@
       <ul class="contact-info-list">
         <li class="contact-info-item" data-grid-item-index="0">
           <span class="contact-info-icon">
-            <svg data-element-type="icon" data-icon-type="svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 12 19.79 19.79 0 01.22 3.41 2 2 0 012.2 1.22h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.91A16 16 0 0015.09 17.09l.56-.56a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"></path></svg>
+            <svg data-element-type="icon" data-icon-type="svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 12 19.79 19.79 0 01.22 3.41 2 2 0 012.2 1.22h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.91A16 16 0 0015.09 17.09l.56-.56a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
           </span>
           <div class="contact-info-text">
             <span class="contact-info-label">טלפון</span>
@@ -866,7 +1263,7 @@
         </li>
         <li class="contact-info-item" data-grid-item-index="1">
           <span class="contact-info-icon">
-            <svg data-element-type="icon" data-icon-type="svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            <svg data-element-type="icon" data-icon-type="svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
           </span>
           <div class="contact-info-text">
             <span class="contact-info-label">דוא"ל</span>
@@ -875,7 +1272,7 @@
         </li>
         <li class="contact-info-item" data-grid-item-index="2">
           <span class="contact-info-icon">
-            <svg data-element-type="icon" data-icon-type="svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            <svg data-element-type="icon" data-icon-type="svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
           </span>
           <div class="contact-info-text">
             <span class="contact-info-label">מיקום</span>
@@ -887,7 +1284,7 @@
       <!-- Business Hours Section -->
       <div class="contact-hours-block" data-element-id="element-ai-1774723302033-bh7x2k" data-element-type="business-hours">
         <p class="zappy-editable"><span class="contact-info-label contact-hours-heading">שעות פעילות</span>
-        </p><ul class="contact-hours-list" ><li class="contact-hours-item" data-grid-item-index="0">כל ימי השבוע&nbsp; 08:00-22:00,&nbsp;</li><li class="contact-hours-item" data-grid-item-index="0">בזמן האירוח - זמינות 24/7</li></ul>
+        </p><ul class="contact-hours-list" style><li class="contact-hours-item" data-grid-item-index="0">כל ימי השבוע&nbsp; 08:00-22:00,&nbsp;</li><li class="contact-hours-item" data-grid-item-index="0">בזמן האירוח - זמינות 24/7</li></ul>
       </div>
 
       <div class="contact-social-row">
@@ -911,14 +1308,14 @@
       <div class="contact-form-card">
         <h3 class="contact-form-title">שלחו לנו הודעה</h3>
         <p class="contact-form-subtitle">נחזור אליכם בהקדם האפשרי</p>
-        <form class="contact-form" novalidate="">
+        <form class="contact-form" novalidate>
           <div class="form-field">
             <label for="contact-name" class="form-label">שם מלא</label>
-            <input type="text" id="contact-name" name="name" class="form-input" placeholder="השם שלכם" required="">
+            <input type="text" id="contact-name" name="name" class="form-input" placeholder="השם שלכם" required>
           </div>
           <div class="form-field">
             <label for="contact-email" class="form-label">כתובת דוא"ל</label>
-            <input type="email" id="contact-email" name="email" class="form-input" placeholder="your@email.com" required="">
+            <input type="email" id="contact-email" name="email" class="form-input" placeholder="your@email.com" required>
           </div>
           <div class="form-field">
             <label for="contact-phone" class="form-label">טלפון</label>
@@ -926,11 +1323,11 @@
           </div>
           <div class="form-field">
             <label for="contact-message" class="form-label">הודעה</label>
-            <textarea id="contact-message" name="message" class="form-input form-textarea" placeholder="ספרו לנו על המשפחות שלכם, מה חשוב לכם, ומה תרצו לדעת על הוילה..." rows="5" required=""></textarea>
+            <textarea id="contact-message" name="message" class="form-input form-textarea" placeholder="ספרו לנו על המשפחות שלכם, מה חשוב לכם, ומה תרצו לדעת על הוילה..." rows="5" required></textarea>
           </div>
           <div class="privacy-consent">
             <label class="privacy-consent-label">
-              <input type="checkbox" name="privacy_consent" class="privacy-consent-checkbox" required="">
+              <input type="checkbox" name="privacy_consent" class="privacy-consent-checkbox" required>
               <span>קראתי ואני מסכים/ה ל<a href="/terms" target="_blank">תנאי השימוש</a> ול<a href="/privacy" target="_blank">מדיניות הפרטיות</a></span>
             </label>
           </div>
@@ -944,7 +1341,7 @@
   <!-- Bottom divider: rounded-corner sand beige block -->
   <div class="contact-form-divider-wrapper">
     <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0,80 L0,40 Q300,10 600,30 Q900,50 1200,20 L1200,80 Z" fill="#F6F0E6"></path>
+      <path d="M0,80 L0,40 Q300,10 600,30 Q900,50 1200,20 L1200,80 Z" fill="#F6F0E6"/>
     </svg>
   </div>
 
@@ -963,8 +1360,8 @@
       <article class="contact-detail-card">
         <div class="contact-detail-card-icon">
           <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="40" height="40" aria-hidden="true">
-            <circle cx="24" cy="24" r="18"></circle>
-            <path d="M24 14v10l6 4"></path>
+            <circle cx="24" cy="24" r="18"/>
+            <path d="M24 14v10l6 4"/>
           </svg>
         </div>
         <div class="contact-detail-card-content">
@@ -981,8 +1378,8 @@
       <article class="contact-detail-card">
         <div class="contact-detail-card-icon">
           <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="40" height="40" aria-hidden="true">
-            <path d="M24 6C15.163 6 8 13.163 8 22c0 12 16 22 16 22s16-10 16-22c0-8.837-7.163-16-16-16z"></path>
-            <circle cx="24" cy="22" r="5"></circle>
+            <path d="M24 6C15.163 6 8 13.163 8 22c0 12 16 22 16 22s16-10 16-22c0-8.837-7.163-16-16-16z"/>
+            <circle cx="24" cy="22" r="5"/>
           </svg>
         </div>
         <div class="contact-detail-card-content">
@@ -999,9 +1396,9 @@
       <article class="contact-detail-card">
         <div class="contact-detail-card-icon">
           <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="40" height="40" aria-hidden="true">
-            <rect x="8" y="10" width="32" height="28" rx="4"></rect>
-            <path d="M8 18h32"></path>
-            <path d="M20 10v8M28 10v8"></path>
+            <rect x="8" y="10" width="32" height="28" rx="4"/>
+            <path d="M8 18h32"/>
+            <path d="M20 10v8M28 10v8"/>
           </svg>
         </div>
         <div class="contact-detail-card-content">
@@ -1018,9 +1415,9 @@
       <article class="contact-detail-card">
         <div class="contact-detail-card-icon">
           <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="40" height="40" aria-hidden="true">
-            <path d="M8 36V18l16-10 16 10v18"></path>
-            <rect x="18" y="26" width="12" height="10"></rect>
-            <path d="M18 26v10M30 26v10"></path>
+            <path d="M8 36V18l16-10 16 10v18"/>
+            <rect x="18" y="26" width="12" height="10"/>
+            <path d="M18 26v10M30 26v10"/>
           </svg>
         </div>
         <div class="contact-detail-card-content">
@@ -1042,13 +1439,13 @@
     <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 64" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="cdDividerGrad" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stop-color="#8EA7B2" stop-opacity="0.18"></stop>
-          <stop offset="50%" stop-color="#8EA7B2" stop-opacity="0.32"></stop>
-          <stop offset="100%" stop-color="#8EA7B2" stop-opacity="0.18"></stop>
+          <stop offset="0%" stop-color="#8EA7B2" stop-opacity="0.18"/>
+          <stop offset="50%" stop-color="#8EA7B2" stop-opacity="0.32"/>
+          <stop offset="100%" stop-color="#8EA7B2" stop-opacity="0.18"/>
         </linearGradient>
       </defs>
-      <path d="M0,64 L0,28 Q100,18 200,26 T400,22 Q550,16 600,24 T800,20 Q950,14 1000,22 T1200,18 L1200,64 Z" fill="#2F2925"></path>
-      <path d="M0,64 L0,40 Q150,32 300,38 T600,34 Q800,28 1000,36 T1200,32 L1200,64 Z" fill="#2F2925" opacity="0.55"></path>
+      <path d="M0,64 L0,28 Q100,18 200,26 T400,22 Q550,16 600,24 T800,20 Q950,14 1000,22 T1200,18 L1200,64 Z" fill="#2F2925"/>
+      <path d="M0,64 L0,40 Q150,32 300,38 T600,34 Q800,28 1000,36 T1200,32 L1200,64 Z" fill="#2F2925" opacity="0.55"/>
     </svg>
   </div>
 
@@ -1060,7 +1457,7 @@
       <div class="contact-reassurance-content">
         <p><span class="contact-reassurance-eyebrow">וילה בית הלוגים</span>
         </p><h2 class="contact-reassurance-heading">המקום המושלם לנופש משפחתי משותף בצפון</h2>
-        <p class="contact-reassurance-text" >וילה בית הלוגים תוכננה מתוך אהבה לרגעים שנשארים בזיכרון — שלוש משפחות, חמישה חדרים, בריכה מקורה מחוממת, ונוף אל הכנרת שמחכה לכם בכל בוקר. אם אתם מחפשים מקום שמרגיש כמו בית, רק יפה יותר — אנחנו כאן לענות על כל שאלה ולעזור לכם לתכנן את הנופש שתספרו עליו שנים.</p>
+        <p class="contact-reassurance-text" style>וילה בית הלוגים תוכננה מתוך אהבה לרגעים שנשארים בזיכרון — שלוש משפחות, חמישה חדרים, בריכה מקורה מחוממת, ונוף אל הכנרת שמחכה לכם בכל בוקר. אם אתם מחפשים מקום שמרגיש כמו בית, רק יפה יותר — אנחנו כאן לענות על כל שאלה ולעזור לכם לתכנן את הנופש שתספרו עליו שנים.</p>
         <p><a href="#contact-form" class="contact-reassurance-btn" data-element-type="button" data-element-id="btn-1775475761007-4v68rctyi" data-native-element="true">דברו איתנו</a>
       </p></div>
       <div class="contact-reassurance-image-wrapper">
@@ -1268,6 +1665,8 @@
         // small wrappers (e.g. 139px logo wrappers) to their parent width, conflicting with
         // the correct stored dimensions.
       }
+      function _parsePos(s){var x=50,y=50;try{var m=(s||'').match(/(-?d+(?:.d+)?)%s+(-?d+(?:.d+)?)%/);if(m){x=parseFloat(m[1]);y=parseFloat(m[2]);}}catch(e){}if(!isFinite(x))x=50;if(!isFinite(y))y=50;return{x:Math.max(0,Math.min(100,x)),y:Math.max(0,Math.min(100,y))};}
+      function _coverPct(iA,cA){if(!isFinite(iA)||iA<=0||!isFinite(cA)||cA<=0)return{w:100,h:100};if(iA>=cA)return{w:(iA/cA)*100,h:100};return{w:100,h:(cA/iA)*100};}
       function applyMobile(){
         if(_applied)return;_applied=true;
         document.querySelectorAll('[data-zappy-zoom-wrapper="true"]').forEach(function(w){
@@ -1277,9 +1676,11 @@
           var img=w.querySelector('img');
           if(!img)return;
           if(!img._zappyDesktop)img._zappyDesktop={src:img.getAttribute('src'),style:img.getAttribute('style')};
-          var mobileZoom=parseFloat(img.getAttribute('data-zappy-mobile-zoom'));
+          var mobileZoomStr=img.getAttribute('data-zappy-mobile-zoom');
+          var mobileZoom=parseFloat(mobileZoomStr);
           var mobileSrc=img.getAttribute('data-zappy-mobile-src');
           var mobilePos=img.getAttribute('data-zappy-mobile-object-position');
+          var hasMobileOverrides=mobilePos||mobileZoomStr;
           var parentOvf=w.parentElement?((w.parentElement.style.overflow||'')+(window.getComputedStyle(w.parentElement).overflow||'')).trim():'';
           var inConstrainedParent=parentOvf.indexOf('hidden')!==-1||parentOvf.indexOf('clip')!==-1;
           if(inConstrainedParent){
@@ -1289,22 +1690,46 @@
             w.style.setProperty('max-width','100%','important');
           }
           if(mobileSrc)img.src=mobileSrc;
-          var pos=mobilePos||img.style.getPropertyValue('object-position')||'50% 50%';
-          if(mobileZoom>1){
-            var wH=w.getAttribute('data-zappy-zoom-wrapper-height');
-            w.style.setProperty('height',wH||'200px','important');
-            img.style.setProperty('position','relative','important');
-            img.style.setProperty('width','100%','important');
-            img.style.setProperty('height','auto','important');
-            img.style.setProperty('min-height','100%','important');
-            img.style.setProperty('max-width','none','important');
-            img.style.setProperty('max-height','none','important');
-            img.style.setProperty('object-fit','cover','important');
-            img.style.setProperty('left','0','important');
-            img.style.setProperty('top','0','important');
-            img.style.setProperty('object-position',pos,'important');
-            img.style.setProperty('transform','scale('+mobileZoom+')','important');
-            img.style.setProperty('transform-origin',pos,'important');
+          if(hasMobileOverrides){
+            var effZoom=(isFinite(mobileZoom)&&mobileZoom>0)?mobileZoom:(parseFloat(img.getAttribute('data-zappy-zoom'))||1);
+            var effPos=mobilePos||'50% 50%';
+            w.style.setProperty('overflow','hidden','important');
+            w.style.setProperty('position','relative','important');
+            w.style.setProperty('width','100%','important');
+            w.style.setProperty('max-width','100%','important');
+            var _sW=parseFloat(w.getAttribute('data-zappy-zoom-wrapper-width'))||0;
+            var _sH=parseFloat(w.getAttribute('data-zappy-zoom-wrapper-height'))||0;
+            if(_sW>0&&_sH>0){w.style.setProperty('aspect-ratio',_sW+'/'+_sH,'important');w.style.setProperty('height','auto','important');}
+            function _applyZoomCrop(_img,_w,_ePos,_eZoom){
+              var rect=_w.getBoundingClientRect();
+              if(!rect||!rect.width||!rect.height)return;
+              var nW=_img.naturalWidth||0,nH=_img.naturalHeight||0;
+              if(!(nW>0&&nH>0))return;
+              var iA=nW/nH,cA=rect.width/rect.height;
+              var cv=_coverPct(iA,cA);
+              var wP=100,hP=100;
+              if(_eZoom>=1){wP=cv.w*_eZoom;hP=cv.h*_eZoom;}
+              else{var t2=(_eZoom-0.5)/0.5;if(!isFinite(t2))t2=0;t2=Math.max(0,Math.min(1,t2));wP=100+t2*(cv.w-100);hP=100+t2*(cv.h-100);}
+              var p2=_parsePos(_ePos);
+              var lP=(100-wP)*(p2.x/100);
+              var tP=(100-hP)*(p2.y/100);
+              _img.style.setProperty('position','absolute','important');
+              _img.style.setProperty('left',lP+'%','important');
+              _img.style.setProperty('top',tP+'%','important');
+              _img.style.setProperty('width',wP+'%','important');
+              _img.style.setProperty('height',hP+'%','important');
+              _img.style.setProperty('max-width','none','important');
+              _img.style.setProperty('max-height','none','important');
+              _img.style.setProperty('display','block','important');
+              _img.style.setProperty('object-fit',_eZoom<1?'fill':'cover','important');
+              _img.style.setProperty('transform','none','important');
+              _img.style.setProperty('margin','0','important');
+            }
+            _applyZoomCrop(img,w,effPos,effZoom);
+            if(mobileSrc&&!(img.complete&&img.naturalWidth>0)){
+              (function(_i,_w2,_p,_z){_i.addEventListener('load',function _ol(){_i.removeEventListener('load',_ol);try{_applyZoomCrop(_i,_w2,_p,_z);}catch(e){}});
+              })(img,w,effPos,effZoom);
+            }
           }else{
             if(!inConstrainedParent)w.style.setProperty('height','auto','important');
             img.style.setProperty('position','relative','important');
@@ -1316,7 +1741,6 @@
             img.style.setProperty('left','0','important');
             img.style.setProperty('top','0','important');
             img.style.setProperty('transform','none','important');
-            if(mobilePos)img.style.setProperty('object-position',pos,'important');
           }
         });
         document.querySelectorAll('img[data-zappy-mobile-src],img[data-zappy-mobile-object-position],img[data-zappy-mobile-zoom]').forEach(function(img){

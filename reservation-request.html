@@ -2759,48 +2759,50 @@
     <i class="fab fa-whatsapp"></i>
   </a>
   
-  <!-- Flatpickr Date Picker -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-  <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/he.js"></script>
-  <style>
-    .flatpickr-calendar { position: fixed !important; z-index: 99999 !important; }
-    body > .flatpickr-calendar { display: none; }
-    body > .flatpickr-calendar.open { display: block; }
-  </style>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       var today = new Date();
-      today.setHours(0, 0, 0, 0);
+      var yyyy = today.getFullYear();
+      var mm = String(today.getMonth() + 1).padStart(2, '0');
+      var dd = String(today.getDate()).padStart(2, '0');
+      var todayStr = yyyy + '-' + mm + '-' + dd;
 
-      var checkinPicker = flatpickr('#checkin-date', {
-        locale: 'he',
-        dateFormat: 'd/m/Y',
-        minDate: 'today',
-        static: false,
-        inline: false,
-        appendTo: document.body,
-        onChange: function(selectedDates) {
-          if (selectedDates.length > 0) {
-            var nextDay = new Date(selectedDates[0]);
+      var checkinInput = document.getElementById('checkin-date');
+      var checkoutInput = document.getElementById('checkout-date');
+
+      if (checkinInput) {
+        checkinInput.type = 'date';
+        checkinInput.min = todayStr;
+        checkinInput.style.cursor = 'pointer';
+        checkinInput.removeAttribute('readonly');
+        checkinInput.removeAttribute('placeholder');
+        checkinInput.addEventListener('change', function() {
+          if (this.value && checkoutInput) {
+            var nextDay = new Date(this.value);
             nextDay.setDate(nextDay.getDate() + 1);
-            checkoutPicker.set('minDate', nextDay);
-            var checkoutVal = document.getElementById('checkout-date').value;
-            if (!checkoutVal) {
-              setTimeout(function() { checkoutPicker.open(); }, 250);
+            var ny = nextDay.getFullYear();
+            var nm = String(nextDay.getMonth() + 1).padStart(2, '0');
+            var nd = String(nextDay.getDate()).padStart(2, '0');
+            checkoutInput.min = ny + '-' + nm + '-' + nd;
+            if (!checkoutInput.value) {
+              checkoutInput.focus();
             }
           }
-        }
-      });
+        });
+      }
 
-      var checkoutPicker = flatpickr('#checkout-date', {
-        locale: 'he',
-        dateFormat: 'd/m/Y',
-        minDate: new Date(today.getTime() + 86400000),
-        static: false,
-        inline: false,
-        appendTo: document.body
-      });
+      if (checkoutInput) {
+        checkoutInput.type = 'date';
+        var tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        var ty = tomorrow.getFullYear();
+        var tm = String(tomorrow.getMonth() + 1).padStart(2, '0');
+        var td = String(tomorrow.getDate()).padStart(2, '0');
+        checkoutInput.min = ty + '-' + tm + '-' + td;
+        checkoutInput.style.cursor = 'pointer';
+        checkoutInput.removeAttribute('readonly');
+        checkoutInput.removeAttribute('placeholder');
+      }
     });
   </script>
 

@@ -2508,7 +2508,7 @@
 
       <!-- Left Form Panel -->
       <div class="rrcf-form-panel">
-        <form class="contact-form rrcf-form" action="#" method="post" novalidate="">
+        <form class="contact-form rrcf-form" id="reservation-form" action="#" method="post" novalidate="">
 
           <!-- Group 1: פרטי יוצר הקשר -->
           <div class="rrcf-group">
@@ -2808,6 +2808,114 @@
   </script>
 
     <div data-integration="accessibility:toolbar"></div>
+
+  <script>
+  (function() {
+    var form = document.getElementById('reservation-form');
+    if (!form) return;
+
+    // Success/error message container
+    var msgDiv = document.createElement('div');
+    msgDiv.id = 'rrcf-submit-msg';
+    msgDiv.style.cssText = 'display:none; margin-top:16px; padding:16px 20px; border-radius:12px; font-family:"Nunito Sans","DM Sans",sans-serif; font-size:0.95rem; line-height:1.6; direction:rtl; text-align:right;';
+    form.appendChild(msgDiv);
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      var btn = form.querySelector('.rrcf-submit-btn');
+      var originalHTML = btn.innerHTML;
+
+      // Basic required field validation
+      var required = form.querySelectorAll('[required]');
+      var valid = true;
+      required.forEach(function(el) {
+        if (el.type === 'checkbox' && !el.checked) { valid = false; el.style.outline = '2px solid #B96F52'; }
+        else if (el.type !== 'checkbox' && !el.value.trim()) { valid = false; el.style.border = '2px solid #B96F52'; }
+        else { el.style.outline = ''; el.style.border = ''; }
+      });
+
+      if (!valid) {
+        msgDiv.style.display = 'block';
+        msgDiv.style.background = '#FFF3F0';
+        msgDiv.style.border = '1px solid #B96F52';
+        msgDiv.style.color = '#8D2E10';
+        msgDiv.innerHTML = '<strong>נא למלא את כל השדות החובה המסומנים</strong>';
+        msgDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        return;
+      }
+
+      // Collect all form data
+      var data = new FormData(form);
+      var lines = [];
+      lines.push('=== בקשת הזמנה חדשה — וילה בית הלוגים ===\n');
+
+      var labels = {
+        contact_name: 'שם מלא', contact_phone: 'טלפון', contact_email: 'דוא"ל',
+        contact_city: 'עיר', contact_id: 'ת.ז.', checkin_date: 'תאריך הגעה',
+        checkout_date: 'תאריך עזיבה', num_nights: 'לילות', num_families: 'משפחות',
+        num_adults: 'מבוגרים', num_children: 'ילדים', children_ages: 'גילאי ילדים',
+        special_requests: 'בקשות מיוחדות', how_heard: 'מאיפה הגיעו'
+      };
+
+      Object.keys(labels).forEach(function(key) {
+        var val = data.get(key);
+        if (val && val.trim()) lines.push(labels[key] + ': ' + val.trim());
+      });
+
+      // Sleeping arrangements (checkboxes)
+      var sleeping = data.getAll('sleeping_arrangement[]');
+      if (sleeping.length) lines.push('לינה: ' + sleeping.join(', '));
+
+      var body = lines.join('\n');
+      var subject = 'בקשת הזמנה חדשה מ-' + (data.get('contact_name') || 'אורח') + ' | וילה בית הלוגים';
+
+      // Show loading state
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> שולח...';
+      btn.disabled = true;
+
+      // Submit via Formspree
+      fetch('https://formspree.io/f/xpwzgpkn', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          _subject: subject,
+          _replyto: data.get('contact_email') || '',
+          message: body,
+          name: data.get('contact_name') || '',
+          email: data.get('contact_email') || '',
+          phone: data.get('contact_phone') || ''
+        })
+      })
+      .then(function(res) {
+        if (res.ok) {
+          msgDiv.style.display = 'block';
+          msgDiv.style.background = '#F0F7ED';
+          msgDiv.style.border = '1px solid #7A8264';
+          msgDiv.style.color = '#3A4F2A';
+          msgDiv.innerHTML = '<strong>✓ הבקשה נשלחה בהצלחה!</strong><br>תודה, נחזור אליכם תוך 24 שעות לאישור פרטי ההזמנה.';
+          form.reset();
+          btn.innerHTML = '<i class="fa-solid fa-check"></i> נשלח!';
+          btn.style.background = '#7A8264';
+        } else {
+          throw new Error('server error');
+        }
+      })
+      .catch(function() {
+        // Fallback: open mailto
+        var mailtoLink = 'mailto:askayoe@walla.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+        window.location.href = mailtoLink;
+        btn.innerHTML = originalHTML;
+        btn.disabled = false;
+        msgDiv.style.display = 'block';
+        msgDiv.style.background = '#FFF8ED';
+        msgDiv.style.border = '1px solid #B96F52';
+        msgDiv.style.color = '#6B3A10';
+        msgDiv.innerHTML = '<strong>נפתח חלון מייל לשליחה ידנית.</strong><br>אם לא נפתח, שלחו מייל ישירות ל־askayoe@walla.com';
+      });
+    });
+  })();
+  </script>
 
     <script src="/script.js"></script>
 

@@ -1,0 +1,3405 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <title>הכל במרחק נגיעה</title>
+    <meta name="description" content="וילה בית הלוגים - הכל במרחק נגיעה">
+    <meta name="keywords" content="">
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon-512x512.png">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <!-- Zappy Analytics -->
+<script>
+(function() {
+  'use strict';
+  
+  // Configuration
+  var config = {
+    websiteId: 'c0b48f4a-a208-4018-9fa5-ae9d5deae5b3',
+    apiUrl: 'https://api.zappy5.com/api/analytics/track',
+    sessionDuration: 30 * 60 * 1000, // 30 minutes
+    visitorDuration: 30 * 24 * 60 * 60 * 1000, // 30 days
+    trackPageViews: true,
+    trackClicks: true,
+    trackFormSubmissions: true
+  };
+  
+  // Generate or retrieve persistent visitor ID (30 days)
+  function getVisitorId() {
+    var visitorKey = 'zappy_visitor_' + config.websiteId;
+    var visitor = null;
+    
+    try {
+      visitor = localStorage.getItem(visitorKey);
+      if (visitor) {
+        var visitorData = JSON.parse(visitor);
+        var now = Date.now();
+        
+        // Check if visitor ID is still valid (30 days)
+        if (now - visitorData.created < config.visitorDuration) {
+          // Update last seen timestamp
+          visitorData.lastSeen = now;
+          localStorage.setItem(visitorKey, JSON.stringify(visitorData));
+          return visitorData.id;
+        }
+      }
+    } catch (e) {
+      console.warn('Zappy Analytics: LocalStorage not available');
+    }
+    
+    // Generate new visitor ID
+    var newVisitorId = 'zv_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    
+    try {
+      localStorage.setItem(visitorKey, JSON.stringify({
+        id: newVisitorId,
+        created: Date.now(),
+        lastSeen: Date.now()
+      }));
+    } catch (e) {
+      // Continue without local storage
+    }
+    
+    return newVisitorId;
+  }
+  
+  // Generate or retrieve session ID (30 minutes)
+  function getSessionId() {
+    var sessionKey = 'zappy_session_' + config.websiteId;
+    var session = null;
+    
+    try {
+      session = sessionStorage.getItem(sessionKey);
+      if (session) {
+        var sessionData = JSON.parse(session);
+        var now = Date.now();
+        
+        // Check if session is still valid
+        if (now - sessionData.timestamp < config.sessionDuration) {
+          // Update timestamp
+          sessionData.timestamp = now;
+          sessionStorage.setItem(sessionKey, JSON.stringify(sessionData));
+          return sessionData.id;
+        }
+      }
+    } catch (e) {
+      console.warn('Zappy Analytics: SessionStorage not available');
+    }
+    
+    // Generate new session ID
+    var newSessionId = 'zs_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    
+    try {
+      sessionStorage.setItem(sessionKey, JSON.stringify({
+        id: newSessionId,
+        timestamp: Date.now()
+      }));
+    } catch (e) {
+      // Continue without session storage
+    }
+    
+    return newSessionId;
+  }
+  
+  var visitorId = getVisitorId();
+  var sessionId = getSessionId();
+  
+  // Track an event
+  function trackEvent(eventType, data) {
+    data = data || {};
+    
+    var eventData = {
+      website_id: config.websiteId,
+      event_type: eventType,
+      page_path: window.location.pathname,
+      referrer: document.referrer || 'direct',
+      visitor_id: visitorId,
+      session_id: sessionId,
+      metadata: data
+    };
+    
+    // Use sendBeacon if available (better for page unload events)
+    if (navigator.sendBeacon) {
+      var blob = new Blob([JSON.stringify(eventData)], { type: 'application/json' });
+      navigator.sendBeacon(config.apiUrl, blob);
+    } else {
+      // Fallback to fetch
+      fetch(config.apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(eventData),
+        keepalive: true
+      }).catch(function(error) {
+        console.warn('Zappy Analytics: Failed to track event', error);
+      });
+    }
+  }
+  
+  // Track page view
+  if (config.trackPageViews) {
+    trackEvent('pageview', {
+      title: document.title,
+      url: window.location.href
+    });
+  }
+  
+  // Track clicks on important elements
+  if (config.trackClicks) {
+    document.addEventListener('click', function(e) {
+      var target = e.target;
+      
+      // Track button clicks (counted as actions)
+      if (target.tagName === 'BUTTON' || target.closest('button')) {
+        var button = target.tagName === 'BUTTON' ? target : target.closest('button');
+        trackEvent('click', {
+          element: 'button',
+          text: button.textContent.trim().substring(0, 100),
+          id: button.id || null,
+          class: button.className || null
+        });
+      }
+      
+      // Track link clicks (navigation - not counted as actions)
+      else if (target.tagName === 'A' || target.closest('a')) {
+        var link = target.tagName === 'A' ? target : target.closest('a');
+        trackEvent('navigation', {
+          element: 'link',
+          text: link.textContent.trim().substring(0, 100),
+          href: link.href,
+          external: link.hostname !== window.location.hostname
+        });
+      }
+    }, true);
+  }
+  
+  // Track form submissions
+  if (config.trackFormSubmissions) {
+    document.addEventListener('submit', function(e) {
+      var form = e.target;
+      
+      trackEvent('form_submit', {
+        form_id: form.id || null,
+        form_name: form.name || null,
+        form_action: form.action || null,
+        form_method: form.method || 'GET'
+      });
+    }, true);
+  }
+  
+  // Track time on page (send on page unload)
+  var pageLoadTime = Date.now();
+  
+  window.addEventListener('beforeunload', function() {
+    var timeOnPage = Math.floor((Date.now() - pageLoadTime) / 1000); // in seconds
+    
+    trackEvent('page_unload', {
+      time_on_page: timeOnPage,
+      page_path: window.location.pathname
+    });
+  });
+  
+  // Expose tracking function globally for custom events
+  window.zappyAnalytics = {
+    track: trackEvent,
+    getVisitorId: function() { return visitorId; },
+    getSessionId: function() { return sessionId; }
+  };
+  
+})();
+</script>
+<!-- End Zappy Analytics -->
+    <meta property="og:title" content="הכל במרחק נגיעה">
+    <meta property="og:description" content="וילה בית הלוגים - הכל במרחק נגיעה">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="הכל במרחק נגיעה">
+    <meta name="twitter:description" content="וילה בית הלוגים - הכל במרחק נגיעה">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon-512x512.png">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <!-- Cookie Consent -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.css">
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.umd.js"></script>
+    <!-- Mickidum Accessibility Toolbar -->
+    <script src="https://cdn.jsdelivr.net/gh/mickidum/acc_toolbar/acctoolbar/acctoolbar.min.js"></script>
+
+          <style id="zappy-cta-mobile-style">
+            /* Hide CTA list item on desktop (tablets and up) */
+            @media (min-width: 769px) {
+              .nav-cta-item-mobile {
+                display: none !important;
+              }
+            }
+            /* Show CTA list item on mobile */
+            @media (max-width: 768px) {
+              .nav-cta-item-mobile {
+                display: list-item !important;
+              }
+            }
+          </style>
+        
+          <style id="zappy-nested-menu-style">
+            /* Desktop only: vertically center nav items */
+            @media (min-width: 769px) {
+              .nav-menu,
+              #navMenu {
+                align-items: center !important;
+              }
+            }
+            
+            /* Menu Group styling (non-clickable parent) - TOP LEVEL ONLY with ultra-specific selector */
+            .nav-menu > li > .menu-group-title,
+            #navMenu > li > .menu-group-title {
+              display: inline-block !important;
+              padding: 0.5rem 1rem !important;
+              color: var(--nav-color) !important;
+              font-weight: 500 !important;
+              line-height: 1.7 !important;
+              cursor: default !important;
+              user-select: none !important;
+              vertical-align: middle !important;
+              text-decoration: none !important;
+              margin: 0 !important;
+              transition: color 0.3s ease !important;
+            }
+            
+            .nav-menu > li > .menu-group-title:hover,
+            #navMenu > li > .menu-group-title:hover {
+              color: var(--nav-hover-color) !important;
+            }
+            
+            /* Desktop: show submenu on Menu Group hover */
+            li:has(.menu-group-title):hover > .sub-menu {
+              opacity: 1 !important;
+              visibility: visible !important;
+              transform: translateY(0) !important;
+              pointer-events: auto !important; /* Enable interaction when hovering */
+            }
+            
+            /* Hide menu items marked as hidden (overrides hover states) */
+            .zappy-hidden-menu-item,
+            li:has(.menu-group-title):hover > .sub-menu .zappy-hidden-menu-item {
+              display: none !important;
+              opacity: 0 !important;
+              visibility: hidden !important;
+              pointer-events: none !important;
+            }
+            
+            /* Keep submenu visible when hovering over the submenu itself */
+            .sub-menu:hover {
+              opacity: 1 !important;
+              visibility: visible !important;
+              pointer-events: auto !important;
+            }
+            
+            /* Nested dropdown menu styles - using more specific selectors */
+            .nav-menu .sub-menu,
+            nav .sub-menu,
+            .navbar .sub-menu {
+              display: block !important; /* Ensure submenu is in the DOM */
+              position: absolute !important;
+              top: 100%;
+              left: 0;
+              right: auto;
+              min-width: 200px;
+              background: white;
+              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+              border-radius: 8px;
+              padding: 8px 0;
+              margin-top: 0px; /* Remove gap to prevent hover loss */
+              opacity: 0 !important;
+              visibility: hidden !important;
+              transform: translateY(-10px);
+              transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+              z-index: 1000;
+              list-style: none;
+              pointer-events: none; /* Prevent interaction when hidden */
+            }
+            
+            /* RTL (Hebrew/Arabic) submenu positioning - align to right instead of left */
+            [dir="rtl"] .nav-menu .sub-menu,
+            [dir="rtl"] nav .sub-menu,
+            [dir="rtl"] .navbar .sub-menu,
+            html[lang="he"] .nav-menu .sub-menu,
+            html[lang="he"] nav .sub-menu,
+            html[lang="he"] .navbar .sub-menu,
+            html[lang="ar"] .nav-menu .sub-menu,
+            html[lang="ar"] nav .sub-menu,
+            html[lang="ar"] .navbar .sub-menu {
+              left: auto;
+              right: 0;
+            }
+            
+            /* Show submenu on parent hover - more specific selectors */
+            .nav-menu li:hover > .sub-menu,
+            nav li:hover > .sub-menu,
+            .navbar li:hover > .sub-menu {
+              opacity: 1 !important;
+              visibility: visible !important;
+              transform: translateY(0) !important;
+              pointer-events: auto !important; /* Enable interaction when visible */
+            }
+            
+            /* Parent item must be relatively positioned */
+            .nav-menu li:has(.sub-menu),
+            nav li:has(.sub-menu),
+            .navbar li:has(.sub-menu) {
+              position: relative;
+            }
+            
+            /* Style for submenu items */
+            .sub-menu li {
+              list-style: none;
+              margin: 0;
+              padding: 0;
+            }
+            
+            .sub-menu a,
+            .sub-menu .menu-group-title {
+              display: block !important;
+              padding: 10px 12px !important;
+              color: #333 !important;
+              font-weight: 600 !important;
+              text-decoration: none;
+              transition: background-color 0.2s;
+              white-space: nowrap;
+              cursor: default;
+            }
+            
+            .sub-menu a:hover {
+              background-color: #f5f5f5;
+            }
+            
+            /* CRITICAL: Override submenu styles for TOP-LEVEL Menu Groups only - must come AFTER submenu styles */
+            .nav-menu > li > .menu-group-title,
+            #navMenu > li > .menu-group-title {
+              display: inline-block !important;
+              padding: 0.5rem 1rem !important;
+              color: var(--nav-color) !important;
+              font-weight: 500 !important;
+              line-height: 1.7 !important;
+              cursor: default !important;
+              user-select: none !important;
+              vertical-align: middle !important;
+              text-decoration: none !important;
+              margin: 0 !important;
+              transition: color 0.3s ease !important;
+            }
+            
+            .nav-menu > li > .menu-group-title:hover,
+            #navMenu > li > .menu-group-title:hover {
+              color: var(--nav-hover-color) !important;
+              background-color: transparent !important;
+            }
+            
+            /* On mobile, show nested menus as expandable accordion */
+            @media (max-width: 768px) {
+              /* Mobile submenu styling */
+              .nav-menu .sub-menu,
+              nav .sub-menu,
+              .navbar .sub-menu {
+                position: static !important;
+                transform: none !important;
+                box-shadow: none !important;
+                background: transparent !important;
+                margin-top: 0 !important;
+                max-height: 0;
+                overflow: hidden;
+                opacity: 0;
+                visibility: hidden;
+                transition: max-height 0.3s ease, opacity 0.3s ease, visibility 0.3s ease, padding 0.3s ease;
+                padding: 0 !important;
+                border-radius: 0 !important;
+              }
+              
+              /* Expanded state — no internal scroll; parent navMenu scrolls */
+              .sub-menu.mobile-expanded {
+                max-height: none !important;
+                overflow-y: visible !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+                padding: 8px 0 8px 16px !important;
+              }
+              
+              /* RTL padding adjustment */
+              [dir="rtl"] .sub-menu.mobile-expanded,
+              html[lang="he"] .sub-menu.mobile-expanded,
+              html[lang="ar"] .sub-menu.mobile-expanded {
+                padding: 8px 16px 8px 0 !important;
+              }
+              
+              /* Disable hover behavior on mobile */
+              .nav-menu li:hover > .sub-menu,
+              nav li:hover > .sub-menu,
+              .navbar li:hover > .sub-menu {
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+              }
+              
+              /* Enable visibility for expanded submenus */
+              .nav-menu li > .sub-menu.mobile-expanded,
+              nav li > .sub-menu.mobile-expanded,
+              .navbar li > .sub-menu.mobile-expanded {
+                opacity: 1 !important;
+                visibility: visible !important;
+                pointer-events: auto !important;
+              }
+              
+              .sub-menu a {
+                padding: 10px 0 !important;
+                display: block !important;
+                font-size: 14px !important;
+                white-space: normal !important;
+              }
+              
+              .sub-menu a:hover {
+                background-color: transparent !important;
+              }
+              
+              /* Parent item wrapper - flex layout with relative positioning for absolute toggle */
+              .nav-menu li:has(.sub-menu),
+              nav li:has(.sub-menu),
+              .navbar li:has(.sub-menu) {
+                display: flex !important;
+                flex-wrap: wrap !important;
+                align-items: center !important;
+                position: relative !important;
+                min-height: 44px !important;
+              }
+              
+              /* Parent link - takes full width since toggle is absolute (not a flex child) */
+              .nav-menu li:has(.sub-menu) > a,
+              nav li:has(.sub-menu) > a,
+              .navbar li:has(.sub-menu) > a,
+              .nav-menu > li > .menu-group-title,
+              #navMenu > li > .menu-group-title {
+                flex: 1 !important;
+                min-width: 0 !important;
+              }
+              
+              /* Normalize menu-group-title in mobile nav to match link alignment */
+              .nav-menu > li > .menu-group-title,
+              #navMenu > li > .menu-group-title {
+                padding: 0 !important;
+                line-height: inherit !important;
+              }
+              
+              /* Submenu takes full width below parent */
+              .nav-menu li:has(.sub-menu) > .sub-menu,
+              nav li:has(.sub-menu) > .sub-menu,
+              .navbar li:has(.sub-menu) > .sub-menu {
+                flex-basis: 100% !important;
+                width: 100% !important;
+              }
+              
+              /* HIDE EXISTING CHEVRONS/ARROWS from cloned sites to prevent duplicates */
+              .nav-menu li:has(.sub-menu) > a .fa-chevron-down,
+              .nav-menu li:has(.sub-menu) > a .fa-angle-down,
+              .nav-menu li:has(.sub-menu) > a [class*="chevron"],
+              .nav-menu li:has(.sub-menu) > a [class*="arrow"],
+              nav li:has(.sub-menu) > a [class*="chevron"],
+              nav li:has(.sub-menu) > a [class*="arrow"],
+              #navMenu li:has(.sub-menu) > a [class*="chevron"],
+              #navMenu li:has(.sub-menu) > a [class*="arrow"] {
+                display: none !important;
+                visibility: hidden !important;
+              }
+              
+              /* Toggle arrow button - flex child that stretches to match nav-link height */
+              .mobile-submenu-toggle {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                width: 44px !important;
+                height: auto !important;
+                background: transparent !important;
+                border: none !important;
+                cursor: pointer !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                position: static !important;
+                flex-shrink: 0 !important;
+                align-self: stretch !important;
+                z-index: 2 !important;
+                -webkit-tap-highlight-color: transparent;
+              }
+              
+              .mobile-submenu-toggle::after {
+                content: '' !important;
+                display: block !important;
+                width: 0 !important;
+                height: 0 !important;
+                border-left: 6px solid transparent !important;
+                border-right: 6px solid transparent !important;
+                border-top: 7px solid currentColor !important;
+                transition: transform 0.3s ease !important;
+              }
+              
+              /* Rotate arrow when expanded */
+              .mobile-submenu-toggle.expanded::after {
+                transform: rotate(180deg) !important;
+              }
+            }
+            
+            /* Hide toggle button on desktop */
+            @media (min-width: 769px) {
+              .mobile-submenu-toggle {
+                display: none !important;
+              }
+            }
+          </style>
+          
+          <script id="zappy-mobile-menu-script">
+            // Mobile menu toggle for nested submenus (including Menu Groups)
+            // Uses separate toggle button - link navigates, arrow toggles submenu
+            (function() {
+              function initMobileMenuToggles() {
+                // Only run on mobile
+                if (window.innerWidth > 768) {
+                  // Remove any toggle buttons on desktop
+                  document.querySelectorAll('.mobile-submenu-toggle').forEach(btn => btn.remove());
+                  document.querySelectorAll('.sub-menu.mobile-expanded').forEach(menu => {
+                    menu.classList.remove('mobile-expanded');
+                  });
+                  console.log('[MOBILE MENU] Desktop mode - cleanup done');
+                  return;
+                }
+                
+                console.log('[MOBILE MENU] Initializing mobile menu toggles...');
+                
+                // Find all parent menu items (items with .sub-menu)
+                const menuItemsWithSubmenus = document.querySelectorAll(
+                  '.nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu)'
+                );
+                
+                console.log('[MOBILE MENU] Found', menuItemsWithSubmenus.length, 'items with submenus');
+                
+                menuItemsWithSubmenus.forEach(function(li) {
+                  // Skip if already has toggle button
+                  if (li.querySelector('.mobile-submenu-toggle')) {
+                    return;
+                  }
+                  
+                  const submenu = li.querySelector('.sub-menu');
+                  const parentLink = li.querySelector(':scope > a') || li.querySelector(':scope > .menu-group-title');
+                  
+                  if (!submenu || !parentLink) return;
+                  
+                  // Create toggle button
+                  const toggleBtn = document.createElement('button');
+                  toggleBtn.className = 'mobile-submenu-toggle';
+                  toggleBtn.setAttribute('aria-label', 'Toggle submenu');
+                  toggleBtn.setAttribute('type', 'button');
+
+                  // Insert toggle button after the link
+                  parentLink.insertAdjacentElement('afterend', toggleBtn);
+                  
+                  console.log('[MOBILE MENU] Created toggle button for:', parentLink.textContent?.trim());
+                  
+                  // Handle toggle button click - only toggles submenu
+                  toggleBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    const isExpanded = submenu.classList.contains('mobile-expanded');
+                    
+                    // Close all other submenus first
+                    document.querySelectorAll('.sub-menu.mobile-expanded').forEach(function(menu) {
+                      if (menu !== submenu) {
+                        menu.classList.remove('mobile-expanded');
+                        const otherToggle = menu.parentElement.querySelector('.mobile-submenu-toggle');
+                        if (otherToggle) otherToggle.classList.remove('expanded');
+                      }
+                    });
+                    
+                    // Toggle this submenu
+                    submenu.classList.toggle('mobile-expanded');
+                    toggleBtn.classList.toggle('expanded');
+                    
+                    console.log('[MOBILE MENU] Toggled submenu:', !isExpanded ? 'expanded' : 'collapsed');
+                  });
+                  
+                  // Parent link navigates normally - no preventDefault
+                });
+              }
+              
+              // Initialize on DOM load
+              if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initMobileMenuToggles);
+              } else {
+                initMobileMenuToggles();
+              }
+              
+              // Re-initialize on window resize (but use debounce to avoid too many calls)
+              let resizeTimer;
+              window.addEventListener('resize', function() {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(initMobileMenuToggles, 250);
+              });
+              
+              // Also initialize when mobile menu becomes visible
+              // This handles cases where the mobile menu is hidden initially
+              const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                  if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                    const target = mutation.target;
+                    if (target.classList.contains('active') || target.style.display !== 'none') {
+                      console.log('[MOBILE MENU] Mobile menu became visible, re-initializing...');
+                      setTimeout(initMobileMenuToggles, 100);
+                    }
+                  }
+                });
+              });
+              
+              // Observe mobile menu containers
+              const mobileMenus = document.querySelectorAll('.mobile-menu, .nav-menu, #navMenu');
+              mobileMenus.forEach(function(menu) {
+                observer.observe(menu, { attributes: true, attributeFilter: ['class', 'style'] });
+              });
+            })();
+          </script>
+        
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:url" content="https://villabethalogim.co.il/nearby">
+    <meta property="og:type" content="article">
+    
+    
+    
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:alt" content="הכל במרחק נגיעה">
+    <meta property="og:locale" content="he_IL">
+    <!-- Twitter Card Meta Tags -->
+    
+    
+    
+    
+    <meta name="twitter:image:alt" content="הכל במרחק נגיעה"><style id="zappy-ai-page-styles">.nearby-hero-section {
+  position: relative;
+  width: 100%;
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: visible;
+  padding-bottom: 80px;
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+  direction: rtl;
+}
+
+/* ── Background Image ── */
+.nearby-hero-section .nearby-hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.nearby-hero-section .nearby-hero-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+  display: block;
+}
+
+/* ── Scrim Overlay ── */
+.nearby-hero-section .nearby-hero-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(135deg, rgba(47,41,37,0.72) 0%, rgba(47,41,37,0.45) 55%, rgba(47,41,37,0.15) 100%),
+    linear-gradient(180deg, rgba(47,41,37,0.25) 0%, rgba(47,41,37,0.55) 100%);
+}
+
+/* ── Container ── */
+.nearby-hero-section .nearby-hero-container {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 120px 40px 40px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+/* ── Glass Card ── */
+.nearby-hero-section .nearby-hero-card {
+  position: relative;
+  max-width: 560px;
+  width: 100%;
+  background: rgba(246, 241, 231, 0.14);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(246, 241, 231, 0.22);
+  border-radius: 28px;
+  padding: 48px 44px 44px;
+  box-shadow: 0 28px 64px rgba(47,41,37,0.28), inset 0 1px 0 rgba(255,255,255,0.12);
+  color: var(--text-light);
+  overflow: hidden;
+}
+
+/* ── Label ── */
+.nearby-hero-section .nearby-hero-label {
+  display: inline-block;
+  font-family: 'Nunito Sans', 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(246, 241, 231, 0.75);
+  margin-bottom: 18px;
+  text-align: right;
+}
+
+/* ── H1 ── */
+.nearby-hero-section .nearby-hero-h1 {
+  font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  font-size: 3rem;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--text-light);
+  margin: 0 0 20px 0;
+  text-align: right;
+  text-shadow: 0 2px 12px rgba(47,41,37,0.45);
+}
+
+/* ── Subtitle ── */
+.nearby-hero-section .nearby-hero-subtitle {
+  font-family: 'Nunito Sans', 'DM Sans', sans-serif;
+  font-size: 1.0625rem;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.7;
+  color: rgba(246, 241, 231, 0.88);
+  margin: 0 0 36px 0;
+  text-align: right;
+  text-shadow: 0 1px 6px rgba(47,41,37,0.35);
+}
+
+/* ── CTA Row ── */
+.nearby-hero-section .nearby-hero-ctas {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+/* ── Primary Button ── */
+.nearby-hero-section .nearby-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Nunito Sans', 'DM Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1;
+  color: #F8F3EA;
+  background: #7A8B4B;
+  border: 1px solid #6F7F42;
+  border-radius: 8px;
+  padding: 14px 28px;
+  text-decoration: none;
+  box-shadow: 0 4px 16px rgba(122,139,75,0.35);
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.nearby-hero-section .nearby-btn-primary:hover {
+  background: #6F7F42;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(122,139,75,0.45);
+}
+
+/* ── Secondary Button ── */
+.nearby-hero-section .nearby-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Nunito Sans', 'DM Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1;
+  color: rgba(246, 241, 231, 0.9);
+  background: transparent;
+  border: 1px solid rgba(246, 241, 231, 0.35);
+  border-radius: 8px;
+  padding: 13px 22px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.nearby-hero-section .nearby-btn-secondary:hover {
+  background: rgba(246, 241, 231, 0.1);
+  border-color: rgba(246, 241, 231, 0.6);
+  color: var(--text-light);
+}
+
+.nearby-hero-section .nearby-btn-secondary svg {
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.nearby-hero-section .nearby-btn-secondary:hover svg {
+  transform: translateY(3px);
+}
+
+/* ── Botanical Decorative SVGs ── */
+.nearby-hero-section .nearby-botanical-left {
+  position: absolute;
+  bottom: 16px;
+  inset-inline-start: 18px;
+  width: 80px;
+  height: 80px;
+  color: rgba(246, 241, 231, 0.18);
+  pointer-events: none;
+  z-index: 0;
+  aria-hidden: true;
+}
+
+.nearby-hero-section .nearby-botanical-right {
+  position: absolute;
+  bottom: 16px;
+  inset-inline-end: 18px;
+  width: 80px;
+  height: 80px;
+  color: rgba(246, 241, 231, 0.18);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Bottom Divider ── */
+.nearby-hero-section .nearby-hero-divider-wrapper {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.nearby-hero-section .nearby-hero-divider-wrapper svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* ══════════════════════════════
+   RESPONSIVE — MOBILE
+══════════════════════════════ */
+@media (max-width: 768px) {
+  .nearby-hero-section {
+    min-height: 100svh;
+    align-items: flex-start;
+    padding-bottom: 80px;
+  }
+
+  .nearby-hero-section .nearby-hero-scrim {
+    background-image:
+      linear-gradient(160deg, rgba(47,41,37,0.82) 0%, rgba(47,41,37,0.60) 50%, rgba(47,41,37,0.30) 100%),
+      linear-gradient(180deg, rgba(47,41,37,0.30) 0%, rgba(47,41,37,0.65) 100%);
+  }
+
+  .nearby-hero-section .nearby-hero-container {
+    padding: 110px 16px 32px;
+    justify-content: center;
+  }
+
+  .nearby-hero-section .nearby-hero-card {
+    max-width: 100%;
+    padding: 32px 24px 28px;
+    border-radius: 20px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .nearby-hero-section .nearby-hero-h1 {
+    font-size: 2.1rem;
+    margin-bottom: 16px;
+  }
+
+  .nearby-hero-section .nearby-hero-subtitle {
+    font-size: 0.9375rem;
+    margin-bottom: 28px;
+  }
+
+  .nearby-hero-section .nearby-hero-ctas {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .nearby-hero-section .nearby-btn-primary,
+  .nearby-hero-section .nearby-btn-secondary {
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+  }
+
+  .nearby-hero-section .nearby-botanical-left,
+  .nearby-hero-section .nearby-botanical-right {
+    width: 56px;
+    height: 56px;
+    opacity: 0.7;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .nearby-hero-section .nearby-hero-container {
+    padding: 130px 32px 48px;
+  }
+
+  .nearby-hero-section .nearby-hero-card {
+    max-width: 500px;
+    padding: 40px 36px;
+  }
+
+  .nearby-hero-section .nearby-hero-h1 {
+    font-size: 2.5rem;
+  }
+}
+
+@media (min-width: 1025px) {
+  .nearby-hero-section {
+    min-height: 70vh;
+  }
+
+  .nearby-hero-section .nearby-hero-container {
+    padding: 140px 60px 60px;
+  }
+}
+
+
+.nearby-overview-section {
+  position: relative;
+  background-color: #F6F1E7;
+  background-image: linear-gradient(180deg, #F8F3EA 0%, #F1E7D8 100%);
+  color: var(--text-dark);
+  padding: 80px 24px 64px;
+  overflow: visible;
+  direction: rtl;
+}
+
+/* Botanical decorative SVGs */
+.nearby-overview-section .nearby-botanical-left,
+.nearby-overview-section .nearby-botanical-right {
+  position: absolute;
+  bottom: 48px;
+  width: 96px;
+  height: 120px;
+  pointer-events: none;
+  z-index: 0;
+  color: var(--accent);
+}
+
+.nearby-overview-section .nearby-botanical-left {
+  inset-inline-start: 16px;
+}
+
+.nearby-overview-section .nearby-botanical-right {
+  inset-inline-end: 16px;
+}
+
+/* Container */
+.nearby-overview-section .nearby-overview-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* Two-column grid: content right, image left (RTL: column 1 = right) */
+.nearby-overview-section .nearby-overview-grid {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 64px;
+  align-items: start;
+  direction: rtl;
+}
+
+/* RIGHT COLUMN: Content */
+.nearby-overview-section .nearby-overview-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.nearby-overview-section .nearby-overview-heading {
+  font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  font-size: 2.375rem;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0;
+  color: var(--accent);
+  margin: 0;
+  text-align: right;
+}
+
+.nearby-overview-section .nearby-overview-lead {
+  font-family: 'Nunito Sans', 'DM Sans', sans-serif;
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: var(--text-dark);
+  margin: 0;
+  text-align: right;
+}
+
+.nearby-overview-section .nearby-overview-body {
+  font-family: 'Nunito Sans', 'DM Sans', sans-serif;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+  margin: 0;
+  text-align: right;
+}
+
+/* Distance cards row */
+.nearby-overview-section .nearby-distance-cards {
+  display: flex;
+  flex-direction: row;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.nearby-overview-section .nearby-distance-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  background: #F6F0E6;
+  border: 1px solid var(--border-light);
+  border-radius: 20px;
+  padding: 14px 18px;
+  flex: 1 1 160px;
+  min-width: 160px;
+  box-shadow: 0 4px 14px rgba(88, 60, 29, 0.07);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.nearby-overview-section .nearby-distance-card:hover {
+  box-shadow: 0 8px 24px rgba(88, 60, 29, 0.13);
+  transform: translateY(-2px);
+}
+
+.nearby-overview-section .nearby-card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(185, 111, 82, 0.1);
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.nearby-overview-section .nearby-card-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  text-align: right;
+}
+
+.nearby-overview-section .nearby-card-title {
+  font-family: 'Nunito Sans', 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  line-height: 1.3;
+}
+
+.nearby-overview-section .nearby-card-distance {
+  font-family: 'Nunito Sans', 'DM Sans', sans-serif;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* LEFT COLUMN: Image */
+.nearby-overview-section .nearby-overview-image-col {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.nearby-overview-section .nearby-image-frame {
+  width: 100%;
+  border-radius: 24px;
+  border: 1px solid var(--border-light);
+  overflow: hidden;
+  box-shadow: 0 18px 40px rgba(88, 60, 29, 0.12);
+  line-height: 0;
+}
+
+.nearby-overview-section .nearby-image-frame img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  border-radius: 24px;
+  aspect-ratio: 3 / 4;
+}
+
+/* Bottom separator */
+.nearby-overview-section .nearby-overview-separator {
+  max-width: 1200px;
+  margin: 60px auto 0;
+  height: 1px;
+  background: linear-gradient(to left, transparent, var(--border-light) 20%, var(--border-light) 80%, transparent);
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1024px) {
+  .nearby-overview-section .nearby-overview-grid {
+    grid-template-columns: 1fr 340px;
+    gap: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .nearby-overview-section {
+    padding: 48px 16px 48px;
+  }
+
+  .nearby-overview-section .nearby-overview-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  /* On mobile, image comes first (top), then content below */
+  .nearby-overview-section .nearby-overview-image-col {
+    order: -1;
+  }
+
+  .nearby-overview-section .nearby-image-frame img {
+    aspect-ratio: 4 / 3;
+  }
+
+  .nearby-overview-section .nearby-overview-heading {
+    font-size: 1.875rem;
+  }
+
+  .nearby-overview-section .nearby-distance-cards {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .nearby-overview-section .nearby-distance-card {
+    flex: 1 1 auto;
+    min-width: unset;
+  }
+
+  .nearby-overview-section .nearby-botanical-left,
+  .nearby-overview-section .nearby-botanical-right {
+    display: none;
+  }
+
+  .nearby-overview-section .nearby-overview-separator {
+    margin-top: 40px;
+  }
+}
+
+.nearby-features-section {
+  position: relative;
+  background-color: #F6F0E6;
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(255,255,255,0.35) 0, rgba(255,255,255,0) 42%),
+    radial-gradient(circle at 80% 30%, rgba(255,255,255,0.22) 0, rgba(255,255,255,0) 36%),
+    radial-gradient(circle at 50% 80%, rgba(198,164,106,0.08) 0, rgba(198,164,106,0) 42%);
+  color: var(--text-dark);
+  padding: 100px 24px 80px;
+  overflow: visible;
+  direction: rtl;
+}
+
+/* Botanical decorations */
+.nearby-botanical-right,
+.nearby-botanical-left {
+  position: absolute;
+  bottom: 60px;
+  width: 96px;
+  height: 120px;
+  pointer-events: none;
+  z-index: 0;
+}
+.nearby-botanical-right {
+  inset-inline-end: 0;
+  bottom: 40px;
+}
+.nearby-botanical-left {
+  inset-inline-start: 0;
+  bottom: 40px;
+}
+
+/* Container */
+.nearby-features-section .nearby-features-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* Header */
+.nearby-features-section .nearby-features-header {
+  text-align: center;
+  margin-bottom: 56px;
+}
+
+.nearby-features-section .nearby-features-label {
+  display: inline-block;
+  font-family: 'Nunito Sans', 'DM Sans', sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 12px;
+  padding: 5px 16px;
+  border: 1px solid rgba(185,111,82,0.3);
+  border-radius: 999px;
+  background: rgba(185,111,82,0.07);
+}
+
+.nearby-features-section .nearby-features-title {
+  font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  font-size: 2.375rem;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--text-dark);
+  margin: 0 0 16px;
+  max-width: none !important;
+}
+
+.nearby-features-section .nearby-features-subtitle {
+  font-family: 'Nunito Sans', 'DM Sans', sans-serif;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Grid */
+.nearby-features-section .nearby-features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto auto;
+  gap: 28px;
+  direction: rtl;
+  align-items: stretch;
+}
+
+/* Wide cards in row 2 */
+.nearby-features-section .nearby-feature-card--wide {
+  grid-column: span 1;
+}
+
+/* Row 2: 2 cards centered — using subgrid trick with offset */
+.nearby-features-section .nearby-feature-card:nth-child(4) {
+  grid-column: 1 / 2;
+}
+.nearby-features-section .nearby-feature-card:nth-child(5) {
+  grid-column: 2 / 3;
+}
+
+/* Card base */
+.nearby-features-section .nearby-feature-card {
+  background: #F6F0E6;
+  border-radius: 24px;
+  border: 1px solid rgba(122,130,100,0.22);
+  box-shadow: 0 10px 28px rgba(88,60,29,0.08);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.28s ease, transform 0.28s ease;
+}
+
+.nearby-features-section .nearby-feature-card:hover {
+  box-shadow: 0 18px 40px rgba(88,60,29,0.15);
+  transform: translateY(-4px);
+}
+
+/* Card image wrap */
+.nearby-features-section .nearby-card-image-wrap {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.nearby-features-section .nearby-card-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.nearby-features-section .nearby-feature-card:hover .nearby-card-image-wrap img {
+  transform: scale(1.04);
+}
+
+/* Card tag */
+.nearby-features-section .nearby-card-tag {
+  position: absolute;
+  top: 12px;
+  inset-inline-start: 12px;
+  background: rgba(246,240,230,0.92);
+  color: var(--text-dark);
+  font-family: 'Nunito Sans', 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(122,130,100,0.25);
+  backdrop-filter: blur(4px);
+}
+
+/* Card body */
+.nearby-features-section .nearby-card-body {
+  padding: 22px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  text-align: right;
+}
+
+.nearby-features-section .nearby-card-title {
+  font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  font-size: 1.375rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--text-dark);
+  margin: 0 0 10px;
+}
+
+.nearby-features-section .nearby-card-desc {
+  font-family: 'Nunito Sans', 'DM Sans', sans-serif;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+  margin: 0 0 16px;
+  flex: 1;
+}
+
+.nearby-features-section .nearby-card-type {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: 'Nunito Sans', 'DM Sans', sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin-top: auto;
+}
+
+.nearby-features-section .nearby-card-type i {
+  font-size: 0.875rem;
+  color: var(--accent);
+}
+
+/* Bottom note */
+.nearby-features-section .nearby-features-note {
+  text-align: center;
+  font-family: 'Nunito Sans', 'DM Sans', sans-serif;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin-top: 48px;
+  padding: 18px 28px;
+  background: rgba(122,130,100,0.07);
+  border-radius: 12px;
+  border: 1px solid rgba(122,130,100,0.15);
+  max-width: 680px;
+  margin-inline: auto;
+  margin-top: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.nearby-features-section .nearby-features-note i {
+  color: var(--accent);
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+/* ─── RESPONSIVE ─── */
+
+@media (max-width: 1024px) {
+  .nearby-features-section .nearby-features-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .nearby-features-section .nearby-feature-card:nth-child(4) {
+    grid-column: 1 / 2;
+  }
+  .nearby-features-section .nearby-feature-card:nth-child(5) {
+    grid-column: 2 / 3;
+  }
+}
+
+@media (max-width: 768px) {
+  .nearby-features-section {
+    padding: 100px 16px 60px;
+  }
+
+  .nearby-features-section .nearby-features-header {
+    margin-bottom: 36px;
+  }
+
+  .nearby-features-section .nearby-features-title {
+    font-size: 1.875rem;
+  }
+
+  .nearby-features-section .nearby-features-grid {
+    grid-template-columns: 1fr !important;
+    gap: 18px;
+  }
+
+  .nearby-features-section .nearby-feature-card:nth-child(4),
+  .nearby-features-section .nearby-feature-card:nth-child(5) {
+    grid-column: 1 / -1 !important;
+  }
+
+  .nearby-features-section .nearby-card-image-wrap {
+    height: 200px;
+  }
+
+  .nearby-botanical-right,
+  .nearby-botanical-left {
+    display: none;
+  }
+
+  .nearby-features-section .nearby-features-note {
+    font-size: 0.875rem;
+    padding: 14px 18px;
+    flex-direction: column;
+    gap: 6px;
+    text-align: center;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 900px) {
+  .nearby-features-section .nearby-features-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .nearby-features-section .nearby-feature-card:nth-child(3) {
+    grid-column: 1 / -1;
+  }
+  .nearby-features-section .nearby-feature-card:nth-child(4) {
+    grid-column: 1 / 2;
+  }
+  .nearby-features-section .nearby-feature-card:nth-child(5) {
+    grid-column: 2 / 3;
+  }
+}
+
+.nearby-gallery-section {
+  background-color: #F6F1E7;
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(255,255,255,0.35) 0, rgba(255,255,255,0) 42%),
+    radial-gradient(circle at 80% 30%, rgba(255,255,255,0.22) 0, rgba(255,255,255,0) 36%),
+    radial-gradient(circle at 50% 80%, rgba(198,164,106,0.08) 0, rgba(198,164,106,0) 42%),
+    linear-gradient(180deg, #F8F3EA 0%, #F1E7D8 100%);
+  color: var(--text-dark);
+  padding: 80px 24px 100px;
+  position: relative;
+  overflow: visible;
+  direction: rtl;
+}
+
+.nearby-gallery-section .nearby-gallery-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Header ── */
+.nearby-gallery-section .nearby-gallery-header {
+  text-align: right;
+  margin-bottom: 52px;
+  max-width: 640px;
+}
+
+.nearby-gallery-section .nearby-gallery-title {
+  font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--text-dark);
+  margin: 0 0 18px 0;
+}
+
+.nearby-gallery-section .nearby-gallery-intro {
+  font-family: 'Nunito Sans', 'DM Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* ── Asymmetric Grid ── */
+.nearby-gallery-section .nearby-gallery-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: stretch;
+  direction: rtl;
+}
+
+/* ── Figures ── */
+.nearby-gallery-section .nearby-gallery-figure {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border-radius: 26px;
+  border: 1px solid var(--border-light);
+  box-shadow: 0 10px 28px rgba(88,60,29,0.08);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  display: block;
+}
+
+.nearby-gallery-section .nearby-gallery-figure:hover {
+  box-shadow: 0 18px 40px rgba(88,60,29,0.14);
+  transform: translateY(-4px);
+}
+
+.nearby-gallery-section .nearby-gallery-figure img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
+}
+
+/* Large image fills the full height of the grid row */
+.nearby-gallery-section .nearby-gallery-figure--large {
+  grid-column: 1;
+  grid-row: 1;
+  aspect-ratio: 4 / 5;
+  height: 100%;
+}
+
+.nearby-gallery-section .nearby-gallery-figure--large img {
+  height: 100%;
+  min-height: 400px;
+}
+
+/* Stack column */
+.nearby-gallery-section .nearby-gallery-stack {
+  grid-column: 2;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.nearby-gallery-section .nearby-gallery-figure--top,
+.nearby-gallery-section .nearby-gallery-figure--bottom {
+  flex: 1;
+  aspect-ratio: 16 / 9;
+  min-height: 0;
+}
+
+.nearby-gallery-section .nearby-gallery-figure--top img,
+.nearby-gallery-section .nearby-gallery-figure--bottom img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+/* ── Caption row ── */
+.nearby-gallery-section .nearby-gallery-caption {
+  font-family: 'Nunito Sans', 'DM Sans', sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-muted);
+  text-align: center;
+  margin: 36px auto 0;
+  max-width: 600px;
+  letter-spacing: 0.01em;
+  font-style: italic;
+}
+
+/* ── Botanical Decorations ── */
+.nearby-gallery-section .nearby-gallery-botanical {
+  position: absolute;
+  width: 96px;
+  height: 120px;
+  pointer-events: none;
+  color: var(--primary);
+  z-index: 0;
+}
+
+.nearby-gallery-section .nearby-gallery-botanical--right {
+  bottom: 20px;
+  inset-inline-end: 16px;
+}
+
+.nearby-gallery-section .nearby-gallery-botanical--left {
+  bottom: 20px;
+  inset-inline-start: 16px;
+  transform: scaleX(-1);
+}
+
+/* ── RESPONSIVE: Tablet ── */
+@media (min-width: 768px) {
+  .nearby-gallery-section {
+    padding: 100px 48px 120px;
+  }
+
+  .nearby-gallery-section .nearby-gallery-title {
+    font-size: 2rem;
+  }
+}
+
+/* ── RESPONSIVE: Desktop ── */
+@media (min-width: 1024px) {
+  .nearby-gallery-section .nearby-gallery-title {
+    font-size: 2.2rem;
+  }
+
+  .nearby-gallery-section .nearby-gallery-header {
+    margin-bottom: 60px;
+  }
+}
+
+/* ── RESPONSIVE: Mobile ── */
+@media (max-width: 767px) {
+  .nearby-gallery-section {
+    padding: 60px 16px 72px;
+  }
+
+  .nearby-gallery-section .nearby-gallery-header {
+    margin-bottom: 32px;
+    max-width: 100%;
+  }
+
+  .nearby-gallery-section .nearby-gallery-title {
+    font-size: 1.6rem;
+  }
+
+  .nearby-gallery-section .nearby-gallery-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px;
+  }
+
+  .nearby-gallery-section .nearby-gallery-figure--large {
+    grid-column: 1 !important;
+    grid-row: auto !important;
+    aspect-ratio: 4 / 5;
+  }
+
+  .nearby-gallery-section .nearby-gallery-figure--large img {
+    min-height: 0;
+    height: 100%;
+  }
+
+  .nearby-gallery-section .nearby-gallery-stack {
+    grid-column: 1 !important;
+    grid-row: auto !important;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .nearby-gallery-section .nearby-gallery-figure--top,
+  .nearby-gallery-section .nearby-gallery-figure--bottom {
+    aspect-ratio: 16 / 9;
+    flex: none;
+  }
+
+  .nearby-gallery-section .nearby-gallery-caption {
+    margin-top: 24px;
+    font-size: 14px;
+  }
+
+  .nearby-gallery-section .nearby-gallery-botanical {
+    display: none;
+  }
+}
+
+.nearby-guidance-section {
+  position: relative;
+  background-color: #F8F3EA;
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(255,255,255,0.35) 0, rgba(255,255,255,0) 42%),
+    radial-gradient(circle at 80% 30%, rgba(255,255,255,0.22) 0, rgba(255,255,255,0) 36%),
+    radial-gradient(circle at 50% 80%, rgba(198,164,106,0.08) 0, rgba(198,164,106,0) 42%),
+    linear-gradient(180deg, #F8F3EA 0%, #F1E7D8 100%);
+  color: var(--text-dark);
+  padding: 80px 24px 90px;
+  overflow: visible;
+  direction: rtl;
+  font-family: 'Nunito Sans', 'DM Sans', sans-serif;
+}
+
+.nearby-guidance-section .nearby-guidance-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+/* ── Header ── */
+.nearby-guidance-section .nearby-guidance-header {
+  text-align: center;
+  margin-bottom: 52px;
+  max-width: 680px;
+  margin-inline: auto;
+  margin-bottom: 52px;
+}
+
+.nearby-guidance-section .nearby-guidance-title {
+  font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  font-size: 2.375rem;
+  font-weight: 500;
+  line-height: 1.2;
+  color: #8D542E;
+  margin: 0 0 18px;
+  letter-spacing: 0;
+}
+
+.nearby-guidance-section .nearby-guidance-intro {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--text-muted);
+  margin: 0;
+  text-align: center;
+}
+
+/* ── Grid ── */
+.nearby-guidance-section .nearby-guidance-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  direction: rtl;
+  margin-bottom: 52px;
+}
+
+/* ── Card ── */
+.nearby-guidance-section .nearby-guidance-card {
+  background: #FFFFFF;
+  border: 1px solid var(--border-light);
+  border-radius: 22px;
+  padding: 32px 28px 28px;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+  position: relative;
+  overflow: hidden;
+  text-align: right;
+  min-width: 0;
+}
+
+.nearby-guidance-section .nearby-guidance-card::before {
+  content: '';
+  position: absolute;
+  inset-inline-start: 0;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--accent) 0%, transparent 100%);
+  border-radius: 22px 0 0 22px;
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.nearby-guidance-section .nearby-guidance-card:hover {
+  box-shadow: 0 18px 40px rgba(88,60,29,0.12);
+  transform: translateY(-3px);
+}
+
+/* ── Card Icon ── */
+.nearby-guidance-section .nearby-guidance-card-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 52px;
+  height: 52px;
+  background: linear-gradient(135deg, #F6F0E6 0%, #EDE3D2 100%);
+  border-radius: 14px;
+  margin-bottom: 18px;
+  margin-inline-start: auto;
+  color: #8D542E;
+  padding: 6px;
+  box-shadow: 0 2px 8px rgba(88,60,29,0.08);
+}
+
+.nearby-guidance-section .nearby-guidance-card-icon-wrap svg {
+  display: block;
+  flex-shrink: 0;
+}
+
+/* ── Card Title ── */
+.nearby-guidance-section .nearby-guidance-card-title {
+  font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  font-size: 1.375rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: #8D542E;
+  margin: 0 0 16px;
+  text-align: right;
+}
+
+/* ── Card Lines ── */
+.nearby-guidance-section .nearby-guidance-card-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.nearby-guidance-section .nearby-guidance-card-line {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-dark);
+  margin: 0;
+  padding-inline-end: 0;
+  text-align: right;
+  position: relative;
+  padding-inline-end: 14px;
+}
+
+.nearby-guidance-section .nearby-guidance-card-line::before {
+  content: '·';
+  position: absolute;
+  inset-inline-end: 0;
+  top: 0;
+  color: var(--accent);
+  font-size: 1.2rem;
+  line-height: 1.5;
+}
+
+/* ── Closing Paragraph ── */
+.nearby-guidance-section .nearby-guidance-closing {
+  font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: var(--text-muted);
+  text-align: center;
+  max-width: 620px;
+  margin: 0 auto;
+  font-style: italic;
+  letter-spacing: 0.01em;
+}
+
+/* ── Botanical Decorations ── */
+.nearby-guidance-section .nearby-botanical-left,
+.nearby-guidance-section .nearby-botanical-right {
+  position: absolute;
+  bottom: 24px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.12;
+  color: var(--text-dark);
+}
+
+.nearby-guidance-section .nearby-botanical-left {
+  inset-inline-start: 16px;
+}
+
+.nearby-guidance-section .nearby-botanical-right {
+  inset-inline-end: 16px;
+  transform: scaleX(-1);
+}
+
+/* ── Responsive: Tablet ── */
+@media (max-width: 900px) {
+  .nearby-guidance-section .nearby-guidance-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+  }
+}
+
+/* ── Responsive: Mobile ── */
+@media (max-width: 768px) {
+  .nearby-guidance-section {
+    padding: 60px 16px 72px;
+  }
+
+  .nearby-guidance-section .nearby-guidance-grid {
+    grid-template-columns: 1fr !important;
+    gap: 18px;
+  }
+
+  .nearby-guidance-section .nearby-guidance-title {
+    font-size: 1.85rem;
+  }
+
+  .nearby-guidance-section .nearby-guidance-header {
+    margin-bottom: 36px;
+  }
+
+  .nearby-guidance-section .nearby-guidance-card {
+    padding: 24px 20px 20px;
+  }
+
+  .nearby-guidance-section .nearby-guidance-closing {
+    font-size: 1rem;
+    padding: 0 4px;
+  }
+
+  .nearby-guidance-section .nearby-botanical-left,
+  .nearby-guidance-section .nearby-botanical-right {
+    opacity: 0.07;
+    width: 64px;
+    height: auto;
+  }
+}
+
+.nearby-cta-section {
+  position: relative;
+  overflow: visible;
+  direction: rtl;
+  background-color: #2F2925;
+  background-image:
+    radial-gradient(ellipse at 60% 0%, rgba(185,111,82,0.08) 0%, transparent 55%),
+    radial-gradient(ellipse at 10% 100%, rgba(122,130,100,0.10) 0%, transparent 50%),
+    linear-gradient(180deg, #3D302A 0%, #2F2925 55%, #261F1B 100%);
+  color: var(--text-light);
+  padding: 96px 24px 80px;
+  font-family: 'Nunito Sans', 'DM Sans', sans-serif;
+}
+
+/* Topographic texture overlay */
+.nearby-cta-section__texture {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.03;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 28px,
+      rgba(246,241,231,0.6) 28px,
+      rgba(246,241,231,0.6) 29px
+    ),
+    repeating-linear-gradient(
+      60deg,
+      transparent,
+      transparent 40px,
+      rgba(246,241,231,0.3) 40px,
+      rgba(246,241,231,0.3) 41px
+    );
+}
+
+/* Botanical decorations */
+.nearby-cta-section__botanical {
+  position: absolute;
+  bottom: 24px;
+  width: 96px;
+  height: 160px;
+  pointer-events: none;
+  z-index: 1;
+  color: var(--text-light);
+  opacity: 0.12;
+}
+
+.nearby-cta-section__botanical--right {
+  inset-inline-end: 32px;
+}
+
+.nearby-cta-section__botanical--left {
+  inset-inline-start: 32px;
+}
+
+/* Container */
+.nearby-cta-section__container {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Card */
+.nearby-cta-section__card {
+  background-color: rgba(255,255,255,0.04);
+  border: 1px solid rgba(222,211,194,0.12);
+  border-radius: 20px;
+  padding: 56px 52px 48px;
+  max-width: 680px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.06);
+  backdrop-filter: blur(2px);
+}
+
+/* Ornament */
+.nearby-cta-section__ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 28px;
+  color: var(--accent);
+  opacity: 0.7;
+}
+
+.nearby-cta-section__ornament-line {
+  display: block;
+  width: 48px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.5;
+}
+
+/* Heading */
+.nearby-cta-section__heading {
+  font-family: 'Cormorant Garamond', 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--text-light);
+  margin: 0 0 20px;
+  text-align: center;
+  letter-spacing: 0.01em;
+}
+
+/* Body */
+.nearby-cta-section .nearby-cta-section__body {
+  color: rgba(246,241,231,0.78);
+  line-height: 1.8;
+  margin: 0 0 36px;
+  text-align: center;
+  max-width: none !important;
+}
+
+/* Actions */
+.nearby-cta-section__actions {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+/* Primary button */
+.nearby-cta-section__btn-primary {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--text-light);
+  font-family: 'Nunito Sans', 'DM Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1;
+  padding: 15px 34px;
+  border-radius: 10px;
+  border: 1px solid rgba(185,111,82,0.6);
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(185,111,82,0.30);
+  transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+  white-space: nowrap;
+}
+
+.nearby-cta-section__btn-primary:hover {
+  background: #c97a5e;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(185,111,82,0.40);
+  color: var(--text-light);
+  text-decoration: none;
+}
+
+/* Ghost button */
+.nearby-cta-section__btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: rgba(246,241,231,0.72);
+  font-family: 'Nunito Sans', 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1;
+  padding: 14px 22px;
+  border-radius: 10px;
+  border: 1px solid rgba(222,211,194,0.20);
+  text-decoration: none;
+  transition: color 0.22s ease, border-color 0.22s ease, background 0.22s ease;
+  white-space: nowrap;
+}
+
+.nearby-cta-section__btn-ghost:hover {
+  color: var(--text-light);
+  border-color: rgba(222,211,194,0.45);
+  background: rgba(255,255,255,0.05);
+  text-decoration: none;
+}
+
+.nearby-cta-section__btn-ghost .fa {
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+/* Note */
+.nearby-cta-section .nearby-cta-section__note {
+  font-size: 0.875rem;
+  color: rgba(246,241,231,0.45);
+  text-align: center;
+  margin: 0;
+  line-height: 1.6;
+  max-width: none !important;
+}
+
+.nearby-cta-section__note .fa {
+  color: var(--primary);
+  opacity: 0.8;
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .nearby-cta-section {
+    padding: 64px 16px 56px;
+  }
+
+  .nearby-cta-section__card {
+    padding: 36px 24px 32px;
+    border-radius: 16px;
+  }
+
+  .nearby-cta-section__heading {
+    font-size: 1.6rem;
+  }
+
+  .nearby-cta-section__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .nearby-cta-section__btn-primary,
+  .nearby-cta-section__btn-ghost {
+    text-align: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .nearby-cta-section__botanical {
+    display: none;
+  }
+}
+
+/* ── Desktop ── */
+@media (min-width: 769px) {
+  .nearby-cta-section__heading {
+    font-size: 2.1rem;
+  }
+}</style>
+    <link rel="stylesheet" href="/styles.css">
+
+    <style id="mobile-lang-menu-deployed-css">
+    @media (max-width: 768px) {
+      .lang-switcher,
+      .nav-cta-container .lang-switcher,
+      .nav-container .lang-switcher,
+      .navbar .lang-switcher,
+      .navbar .nav-cta-container .lang-switcher,
+      .nav-icons-left .lang-switcher,
+      .nav-ecommerce-icons .lang-switcher { display: none !important; }
+      .mobile-lang-menu { width: 100%; border-top: 1px solid rgba(128,128,128,0.2); padding: 8px 0 0 0; margin-top: 8px; }
+      .mobile-lang-toggle { display: flex !important; align-items: center; justify-content: space-between; width: 100%; padding: 12px 16px; background: none; border: none; cursor: pointer; font-size: 15px; color: inherit; font-family: inherit; }
+      .mobile-lang-toggle::after { content: ''; display: inline-block; width: 8px; height: 8px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg); transition: transform 0.3s ease; margin-left: 8px; }
+      .mobile-lang-toggle.expanded::after { transform: rotate(-135deg); }
+      .mobile-lang-options { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+      .mobile-lang-options.expanded { max-height: 300px; }
+      .mobile-lang-option { display: flex !important; align-items: center; gap: 10px; padding: 10px 24px; text-decoration: none; color: inherit; font-size: 14px; font-family: inherit; }
+      .mobile-lang-option:hover { background: rgba(128,128,128,0.1); }
+      .mobile-lang-option.active { font-weight: 600; opacity: 0.7; pointer-events: none; }
+      .mobile-lang-option img { width: 20px; height: 20px; border-radius: 50%; }
+    }
+    @media (min-width: 769px) {
+      .mobile-lang-menu { display: none !important; }
+    }
+    </style>
+
+    <style id="zappy-widget-visibility">
+      #mic-access-tool-general-button, .mic-access-tool-general-button,
+      #mic-init-access-tool .mic-access-tool-general-button, #mic-init-access-tool #mic-access-tool-general-button,
+      ._access-icon, #mic-access-tool-box, .mic-access-tool-box,
+      #mic-init-access-tool #mic-access-tool-box, div[id*="mic-access-tool-box"], ._access-menu {
+        display: none !important; visibility: hidden !important; opacity: 0 !important; pointer-events: none !important;
+      }
+    </style>
+</head>
+<body>
+
+  <nav class="navbar" dir="rtl">
+  <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+    <svg class="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+    </svg>
+    <svg class="close-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" style="display: none;">
+      <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+    </svg>
+  </button>
+
+  <button class="phone-header-btn" data-phone="0528282481" aria-label="Call">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+    </svg>
+  </button>
+
+  <div class="nav-container">
+    <div class="nav-right-group"><div class="nav-brand">
+      <a href="/" class="logo-link">
+        <img src="/assets/business-logo.webp" alt="וילה בית הלוגים" class="logo">
+      </a>
+    </div><ul class="nav-menu" id="navMenu"><li><a href="/villa">פרטי הווילה</a></li><li><a href="/experience">החוויה</a></li><li style="display: none !important;" class="zappy-hidden-menu-item"><a href="/page-1776336586661" class="">טופס הזמנה</a></li><li class="nav-cta-item-mobile"><a href="/contact">צור קשר</a></li><li><a href="/reservation-request" class="nav-link">הזמנה</a></li><li><a href="/nearby" class="nav-link">בסביבה</a></li></ul></div>
+
+    
+
+    <div class="nav-cta-container">
+      <a href="/contact" class="nav-cta-btn">צור קשר</a>
+    </div>
+  </div>
+</nav>
+<script>
+
+// Navbar Mobile Menu Toggle and Contrast Fix
+(function() {
+  // Use 'load' event instead of 'DOMContentLoaded' to ensure we run AFTER all other scripts
+  window.addEventListener('load', function() {
+    
+    // FIX MOBILE BUTTON CONTRAST
+    // Detect navbar background color and apply contrasting color to mobile buttons
+    const navbar = document.querySelector('.navbar, nav, header');
+    if (!navbar) {
+      console.log('[Navbar] Navbar element not found');
+      return;
+    }
+    
+    // DECLARE VARIABLES EARLY to avoid Temporal Dead Zone errors
+    // These are used in multiple places below
+    let mobileToggle = document.getElementById('mobileToggle') ||
+                       document.querySelector('.mobile-toggle') ||
+                       document.querySelector('.hamburger') ||
+                       document.querySelector('.hamburger-menu') ||
+                       document.querySelector('.menu-toggle') ||
+                       document.querySelector('.burger-menu') ||
+                       document.querySelector('[aria-label="Menu"]') ||
+                       document.querySelector('[aria-label="תפריט"]');
+    
+    const phoneBtn = document.querySelector('.phone-header-btn');
+    
+    const computedStyle = window.getComputedStyle(navbar);
+    let bgColor = computedStyle.backgroundColor;
+    
+    console.log('[Navbar] Initial navbar background:', bgColor);
+    
+    // Check if background is transparent or rgba with 0 alpha
+    const isTransparent = bgColor === 'transparent' || 
+                         bgColor === 'rgba(0, 0, 0, 0)' ||
+                         (bgColor.startsWith('rgba') && bgColor.includes(', 0)'));
+    
+    if (isTransparent) {
+      // Check for background-image or gradient
+      const bgImage = computedStyle.backgroundImage;
+      if (bgImage && bgImage !== 'none') {
+        console.log('[Navbar] Navbar has background image/gradient, using dark text');
+        bgColor = 'rgb(240, 240, 240)'; // Assume light background
+      } else {
+        // Transparent navbar - check body background
+        const bodyBg = window.getComputedStyle(document.body).backgroundColor;
+        console.log('[Navbar] Navbar transparent, using body background:', bodyBg);
+        bgColor = bodyBg;
+      }
+    }
+    
+    // Calculate luminance to determine if background is light or dark
+    const rgb = bgColor.match(/\d+/g);
+    if (rgb && rgb.length >= 3) {
+      const r = parseInt(rgb[0]);
+      const g = parseInt(rgb[1]);
+      const b = parseInt(rgb[2]);
+      const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+      
+      // Mobile button colors are set by Claude's AI-generated CSS (same as .nav-menu a)
+      // No dynamic color overrides needed - colors come from the generated navbar CSS
+      console.log('[Navbar] Mobile button colors preserved from Claude CSS (luminance:', luminance.toFixed(2) + ')');
+      
+      // FIX ICON SIZES - Ensure SVGs are properly sized and visible
+      // INJECT CRITICAL CSS TO OVERRIDE ANY CONFLICTING RULES
+      const criticalCSS = document.createElement('style');
+      criticalCSS.id = 'zappy-mobile-nav-fix';
+      const htmlLang = document.documentElement.lang || 'en';
+      const htmlDir = document.documentElement.dir || 'ltr';
+      // Check both dir attribute AND lang for RTL detection
+      // dir="rtl" is the most reliable indicator
+      const isRTL = htmlDir === 'rtl' || htmlLang === 'he' || htmlLang === 'ar';
+      
+      criticalCSS.textContent = `
+        /* Hide mobile buttons on desktop, show only on mobile */
+        @media (min-width: 769px) {
+          .mobile-toggle,
+          .phone-header-btn {
+            display: none !important;
+          }
+        }
+        
+        /* Show and position mobile buttons correctly on mobile */
+        @media (max-width: 768px) {
+          .mobile-toggle,
+          .phone-header-btn {
+            position: absolute !important;
+            top: 50% !important;
+            transform: translateY(-50%) !important;
+            z-index: 1001 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 36px !important;
+            height: 36px !important;
+            border-radius: 50% !important;
+            border: none !important;
+            cursor: pointer !important;
+            padding: 6px !important;
+            background: none !important;
+            color: var(--nav-text, var(--text-dark)) !important;
+          }
+          
+          /* LTR positioning (default): hamburger LEFT, phone RIGHT */
+          html:not([dir="rtl"]):not([lang="he"]):not([lang="ar"]) .mobile-toggle,
+          html[dir="ltr"] .mobile-toggle {
+            left: 12px !important;
+            right: auto !important;
+          }
+          html:not([dir="rtl"]):not([lang="he"]):not([lang="ar"]) .phone-header-btn,
+          html[dir="ltr"] .phone-header-btn {
+            right: 12px !important;
+            left: auto !important;
+          }
+          
+          /* RTL positioning: hamburger RIGHT, phone LEFT */
+          html[dir="rtl"] .mobile-toggle,
+          html[lang="he"] .mobile-toggle,
+          html[lang="ar"] .mobile-toggle {
+            right: 12px !important;
+            left: auto !important;
+          }
+          html[dir="rtl"] .phone-header-btn,
+          html[lang="he"] .phone-header-btn,
+          html[lang="ar"] .phone-header-btn {
+            left: 12px !important;
+            right: auto !important;
+          }
+          
+          /* CRITICAL: Ensure nav-container has min-height on mobile */
+          /* All children are positioned absolutely/fixed on mobile, so height:auto collapses to 0 */
+          .nav-container {
+            min-height: 70px !important;
+            position: relative !important;
+          }
+          
+          /* Ensure SVG icons are properly sized and inherit color */
+          .mobile-toggle svg,
+          .phone-header-btn svg {
+            width: 24px !important;
+            height: 24px !important;
+            /* Don't force display - let JavaScript control hamburger/close toggle */
+          }
+          
+          /* Reset nav-cta-container on mobile - remove desktop box-shadow/padding */
+          /* that creates a visible ghost box when CTA button is hidden */
+          .nav-cta-container {
+            box-shadow: none !important;
+            padding: 0 !important;
+          }
+          
+          /* Hide nav-cta-container entirely on mobile when there's no lang-switcher */
+          /* (only the CTA button is inside, and it's hidden on mobile) */
+          .nav-cta-container:not(:has(.lang-switcher)) {
+            display: none !important;
+          }
+          
+          /* CRITICAL: Prevent hero image fade gradient from bleeding over headline text */
+          /* The .image-fade-gradient has bottom: -30px (extends below parent) */
+          /* On mobile stacked layout, this overlaps the h1 text below the image */
+          .hero-image-column {
+            overflow: hidden !important;
+          }
+          .image-fade-gradient {
+            bottom: 0 !important;
+          }
+          
+          /* Hide desktop language switcher on mobile - hamburger menu handles it */
+          /* High specificity to override stored CSS */
+          .lang-switcher,
+          .nav-cta-container .lang-switcher,
+          .nav-container .lang-switcher,
+          .navbar .lang-switcher,
+          .navbar .nav-cta-container .lang-switcher {
+            display: none !important;
+          }
+        }
+      `;
+      
+      // Remove existing fix if present and inject new one
+      const existing = document.getElementById('zappy-mobile-nav-fix');
+      if (existing) existing.remove();
+      document.head.appendChild(criticalCSS);
+      
+      console.log('[Navbar] Critical CSS injected for mobile nav positioning');
+      
+      // ONLY apply inline positioning styles on mobile viewport
+      // On desktop, the CSS handles hiding these buttons with display: none
+      // Inline styles were breaking desktop layout by overriding CSS
+      const isMobileViewport = window.innerWidth <= 768;
+      
+      if (mobileToggle) {
+        // Icon sizing applies to all viewports for consistency
+        const hamburgerIcon = mobileToggle.querySelector('.hamburger-icon');
+        const closeIcon = mobileToggle.querySelector('.close-icon');
+        
+        if (hamburgerIcon) {
+          hamburgerIcon.style.setProperty('width', '24px', 'important');
+          hamburgerIcon.style.setProperty('height', '24px', 'important');
+          hamburgerIcon.style.setProperty('display', 'block', 'important'); // Show hamburger by default
+        }
+        if (closeIcon) {
+          closeIcon.style.setProperty('width', '24px', 'important');
+          closeIcon.style.setProperty('height', '24px', 'important');
+          closeIcon.style.setProperty('display', 'none', 'important'); // Hide close icon by default
+        }
+        
+        // ONLY set positioning inline styles on mobile
+        if (isMobileViewport) {
+          mobileToggle.style.setProperty('position', 'absolute', 'important');
+          mobileToggle.style.setProperty('top', '50%', 'important');
+          mobileToggle.style.setProperty('transform', 'translateY(-50%)', 'important');
+          mobileToggle.style.setProperty('z-index', '1001', 'important');
+          
+          // Clear any inline left/right so CSS can take over based on html[dir]
+          mobileToggle.style.removeProperty('left');
+          mobileToggle.style.removeProperty('right');
+          
+          console.log('[Navbar] Mobile toggle positioning applied (mobile viewport)');
+        } else {
+          // On desktop, clear any positioning styles to let CSS handle it
+          mobileToggle.style.removeProperty('position');
+          mobileToggle.style.removeProperty('top');
+          mobileToggle.style.removeProperty('transform');
+          mobileToggle.style.removeProperty('z-index');
+          mobileToggle.style.removeProperty('left');
+          mobileToggle.style.removeProperty('right');
+          console.log('[Navbar] Desktop viewport - cleared mobile toggle inline positioning');
+        }
+      }
+      
+      if (phoneBtn) {
+        // Icon sizing applies to all viewports
+        const phoneIcon = phoneBtn.querySelector('svg');
+        if (phoneIcon) {
+          phoneIcon.style.width = '24px';
+          phoneIcon.style.height = '24px';
+          phoneIcon.setAttribute('width', '24');
+          phoneIcon.setAttribute('height', '24');
+        }
+        
+        // ONLY set positioning inline styles on mobile
+        if (isMobileViewport) {
+          phoneBtn.style.setProperty('position', 'absolute', 'important');
+          phoneBtn.style.setProperty('top', '50%', 'important');
+          phoneBtn.style.setProperty('transform', 'translateY(-50%)', 'important');
+          phoneBtn.style.setProperty('z-index', '1001', 'important');
+          
+          // Clear any inline left/right so CSS can take over based on html[dir]
+          phoneBtn.style.removeProperty('left');
+          phoneBtn.style.removeProperty('right');
+          
+          console.log('[Navbar] Phone button positioning applied (mobile viewport)');
+        } else {
+          // On desktop, clear any positioning styles to let CSS handle it
+          phoneBtn.style.removeProperty('position');
+          phoneBtn.style.removeProperty('top');
+          phoneBtn.style.removeProperty('transform');
+          phoneBtn.style.removeProperty('z-index');
+          phoneBtn.style.removeProperty('left');
+          phoneBtn.style.removeProperty('right');
+          console.log('[Navbar] Desktop viewport - cleared phone button inline positioning');
+        }
+      }
+    } else {
+      console.log('[Navbar] Could not parse background color:', bgColor);
+    }
+    
+    // MOBILE MENU TOGGLE
+    // Re-query in case DOM changed (mobileToggle already declared at top of function)
+    mobileToggle = document.getElementById('mobileToggle') ||
+                   document.querySelector('.mobile-toggle') ||
+                   document.querySelector('.hamburger') ||
+                   document.querySelector('.hamburger-menu') ||
+                   document.querySelector('.menu-toggle') ||
+                   document.querySelector('.burger-menu') ||
+                   document.querySelector('[aria-label="Menu"]') ||
+                   document.querySelector('[aria-label="תפריט"]');
+    
+    // EXPANDED SEARCH: Find nav menu by ID or class
+    const navMenu = document.getElementById('navMenu') ||
+                  document.querySelector('.nav-menu') ||
+                  document.querySelector('.nav-links') ||
+                  document.querySelector('nav ul:not(.submenu)');
+    
+    if (!mobileToggle || !navMenu) {
+      console.log('[Navbar] Mobile toggle or menu not found:', { toggle: !!mobileToggle, menu: !!navMenu });
+      return;
+    }
+    
+    // Ensure navMenu has ID for CSS targeting
+    if (!navMenu.id) {
+      navMenu.id = 'navMenu';
+    }
+    
+    console.log('[Navbar] Initializing mobile menu...');
+    
+    // Remove any existing event listeners by cloning the button
+    const newToggle = mobileToggle.cloneNode(true);
+    mobileToggle.parentNode.replaceChild(newToggle, mobileToggle);
+    
+    // Toggle menu on button click - use newToggle now
+    newToggle.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const hamburgerIcon = this.querySelector('.hamburger-icon');
+      const closeIcon = this.querySelector('.close-icon');
+      const isActive = navMenu.classList.contains('active');
+      
+      if (isActive) {
+        // Close menu
+        navMenu.classList.remove('active');
+        if (hamburgerIcon) hamburgerIcon.style.setProperty('display', 'block', 'important');
+        if (closeIcon) closeIcon.style.setProperty('display', 'none', 'important');
+        document.body.style.overflow = '';
+        console.log('[Navbar] Menu closed');
+      } else {
+        // Open menu
+        navMenu.classList.add('active');
+        if (hamburgerIcon) hamburgerIcon.style.setProperty('display', 'none', 'important');
+        if (closeIcon) closeIcon.style.setProperty('display', 'block', 'important');
+        document.body.style.overflow = 'hidden';
+        console.log('[Navbar] Menu opened');
+      }
+    });
+    
+    // Close menu when clicking nav links (but NOT dropdown toggles)
+    const navLinks = navMenu.querySelectorAll('a');
+    navLinks.forEach(function(link) {
+      link.addEventListener('click', function() {
+        // Don't close if it's a dropdown child (unless it's a real navigation link)
+        if (this.getAttribute('href') === '#') return;
+        
+        const hamburgerIcon = newToggle.querySelector('.hamburger-icon');
+        const closeIcon = newToggle.querySelector('.close-icon');
+        
+        navMenu.classList.remove('active');
+        if (hamburgerIcon) hamburgerIcon.style.setProperty('display', 'block', 'important');
+        if (closeIcon) closeIcon.style.setProperty('display', 'none', 'important');
+        document.body.style.overflow = '';
+        console.log('[Navbar] Menu closed (link clicked)');
+      });
+    });
+    
+    // DROPDOWN MENU TOGGLE (for mobile and touch devices)
+    var dropdownToggles = navMenu.querySelectorAll('.dropdown-toggle');
+    dropdownToggles.forEach(function(toggle) {
+      toggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var parent = this.closest('.nav-dropdown');
+        if (!parent) return;
+        
+        // Close other open dropdowns at the same level
+        var siblings = parent.parentNode.querySelectorAll('.nav-dropdown.open');
+        siblings.forEach(function(sib) {
+          if (sib !== parent) sib.classList.remove('open');
+        });
+        
+        parent.classList.toggle('open');
+        console.log('[Navbar] Dropdown toggled:', parent.classList.contains('open') ? 'open' : 'closed');
+      });
+    });
+    
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.nav-dropdown')) {
+        var openDropdowns = document.querySelectorAll('.nav-dropdown.open');
+        openDropdowns.forEach(function(dd) { dd.classList.remove('open'); });
+      }
+    });
+    
+    console.log('[Navbar] Dropdown handlers initialized for ' + dropdownToggles.length + ' dropdowns');
+    
+    // Phone button functionality (phoneBtn already declared at top of function)
+    if (phoneBtn) {
+      phoneBtn.addEventListener('click', function() {
+        // Get phone number from placeholder in page or use default
+        const phoneLinks = document.querySelectorAll('a[href^="tel:"]');
+        const phoneNumber = phoneLinks.length > 0 
+          ? phoneLinks[0].getAttribute('href').replace('tel:', '')
+          : '971528282481';
+        
+        window.location.href = 'tel:' + phoneNumber;
+        console.log('[Navbar] Phone button clicked');
+      });
+    }
+    
+    console.log('[Navbar] Mobile menu initialized successfully');
+    
+    // === WHATSAPP BUTTON VISIBILITY FIX ===
+    // Ensure WhatsApp floating button is hidden on desktop and visible on mobile
+    // IMPORTANT: Only target the floating button by its class, NOT generic wa.me links
+    const handleWhatsAppVisibility = function() {
+      const whatsappBtn = document.querySelector('.whatsapp-float');
+      if (whatsappBtn) {
+        const isDesktop = window.innerWidth >= 769;
+        if (isDesktop) {
+          whatsappBtn.style.setProperty('display', 'none', 'important');
+          whatsappBtn.style.setProperty('visibility', 'hidden', 'important');
+          whatsappBtn.style.setProperty('opacity', '0', 'important');
+          whatsappBtn.style.setProperty('pointer-events', 'none', 'important');
+          console.log('[WhatsApp] Button hidden on desktop');
+        } else {
+          whatsappBtn.style.removeProperty('display');
+          whatsappBtn.style.removeProperty('visibility');
+          whatsappBtn.style.removeProperty('opacity');
+          whatsappBtn.style.removeProperty('pointer-events');
+          console.log('[WhatsApp] Button visible on mobile');
+        }
+      }
+    };
+    
+    // Run on load
+    handleWhatsAppVisibility();
+    
+    // Run on resize with debouncing
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(handleWhatsAppVisibility, 100);
+    });
+  });
+})();
+
+</script>
+  
+  <main class="blog-page ai-generated-page"><section class="nearby-hero-section" data-layout-spec="הכל במרחק נגיעה-hero" dir="rtl" data-hero-type="fullscreen-scrim">
+
+  <!-- Background Image Layer -->
+  <div class="nearby-hero-bg">
+    <img data-hero-bg="true" data-context="Aerial panoramic view of the Sea of Galilee (Kinneret) in northern Israel at golden hour, with lush green Galilean hills, ancient stone terraces, wild sage and oak trees in the foreground, warm amber light reflecting off the calm water, a rustic stone villa partially visible among the trees, cinematic landscape photography, warm earthy tones" width="1440" height="900" src="/assets/section-hero-nearby-hero-image-1.webp" alt="נוף הכנרת והגליל — וילה בית הלוגים">
+  </div>
+
+  <!-- Scrim Overlay -->
+  <div class="nearby-hero-scrim" aria-hidden="true"></div>
+
+  <!-- Content Card -->
+  <div class="nearby-hero-container">
+    <div class="nearby-hero-card">
+
+      <!-- Label -->
+      <span class="nearby-hero-label">וילה בית הלוגים · הצפון</span>
+
+      <!-- Headline -->
+      <h1 class="nearby-hero-h1">כשהמשפחה מתכנסת,<br>הגליל מחכה</h1>
+
+      <!-- Subtitle -->
+      <h3 class="nearby-hero-subtitle">וילה נוסטלגית עם בריכה מחוממת, 5 חדרים ונוף לכנרת — המקום המושלם לנופש משפחתי משותף בצפון הארץ</h3>
+
+      <!-- CTA Buttons -->
+      <div class="nearby-hero-ctas">
+        <a href="/contact" class="nearby-btn-primary">צרו קשר לבדיקת זמינות</a>
+        <a href="#nearby-next" class="nearby-btn-secondary">
+          <span>גלו עוד</span>
+          <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </a>
+      </div>
+
+      <!-- Decorative botanical motifs -->
+      <svg class="nearby-botanical-left" data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 86 Q18 70 14 54 Q10 38 22 26 Q28 20 36 22" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" fill="none"></path>
+        <path d="M14 54 Q4 50 6 40 Q8 32 16 34" stroke="currentColor" stroke-width="1" stroke-linecap="round" fill="none"></path>
+        <path d="M22 26 Q14 18 18 8" stroke="currentColor" stroke-width="1" stroke-linecap="round" fill="none"></path>
+        <path d="M36 22 Q42 10 52 14" stroke="currentColor" stroke-width="1" stroke-linecap="round" fill="none"></path>
+        <circle cx="52" cy="14" r="2.5" fill="currentColor" opacity="0.4"></circle>
+        <circle cx="6" cy="40" r="2" fill="currentColor" opacity="0.3"></circle>
+        <circle cx="18" cy="8" r="2" fill="currentColor" opacity="0.3"></circle>
+      </svg>
+
+      <svg class="nearby-botanical-right" data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M86 86 Q78 70 82 54 Q86 38 74 26 Q68 20 60 22" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" fill="none"></path>
+        <path d="M82 54 Q92 50 90 40 Q88 32 80 34" stroke="currentColor" stroke-width="1" stroke-linecap="round" fill="none"></path>
+        <path d="M74 26 Q82 18 78 8" stroke="currentColor" stroke-width="1" stroke-linecap="round" fill="none"></path>
+        <path d="M60 22 Q54 10 44 14" stroke="currentColor" stroke-width="1" stroke-linecap="round" fill="none"></path>
+        <circle cx="44" cy="14" r="2.5" fill="currentColor" opacity="0.4"></circle>
+        <circle cx="90" cy="40" r="2" fill="currentColor" opacity="0.3"></circle>
+        <circle cx="78" cy="8" r="2" fill="currentColor" opacity="0.3"></circle>
+      </svg>
+
+    </div>
+  </div>
+
+  <!-- Bottom Transition Divider -->
+  <div class="nearby-hero-divider-wrapper">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,80 L0,42 Q120,28 240,38 T480,32 Q600,28 720,36 T960,30 Q1080,26 1200,34 T1440,38 L1440,80 Z" fill="#F6F1E7"></path>
+    </svg>
+  </div>
+
+</section>
+
+<section class="nearby-overview-section" data-layout-spec="הכל במרחק נגיעה-overview" dir="rtl">
+  <!-- Botanical decorative motifs -->
+  <svg class="nearby-botanical-left" aria-hidden="true" data-no-icon-edit="true" viewBox="0 0 96 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g opacity="0.12" stroke="currentColor" stroke-width="1.5" fill="none">
+      <path d="M48 110 C48 80, 20 60, 10 30"></path>
+      <path d="M48 90 C35 75, 15 70, 8 50"></path>
+      <path d="M48 70 C38 60, 22 55, 18 38"></path>
+      <ellipse cx="12" cy="28" rx="8" ry="12" transform="rotate(-20 12 28)"></ellipse>
+      <ellipse cx="9" cy="48" rx="6" ry="10" transform="rotate(-30 9 48)"></ellipse>
+      <ellipse cx="19" cy="36" rx="5" ry="9" transform="rotate(10 19 36)"></ellipse>
+      <path d="M48 110 C55 85, 70 65, 80 40"></path>
+      <ellipse cx="78" cy="38" rx="7" ry="11" transform="rotate(15 78 38)"></ellipse>
+    </g>
+  </svg>
+  <svg class="nearby-botanical-right" aria-hidden="true" data-no-icon-edit="true" viewBox="0 0 96 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g opacity="0.12" stroke="currentColor" stroke-width="1.5" fill="none">
+      <path d="M48 110 C48 80, 76 60, 86 30"></path>
+      <path d="M48 90 C61 75, 81 70, 88 50"></path>
+      <path d="M48 70 C58 60, 74 55, 78 38"></path>
+      <ellipse cx="84" cy="28" rx="8" ry="12" transform="rotate(20 84 28)"></ellipse>
+      <ellipse cx="87" cy="48" rx="6" ry="10" transform="rotate(30 87 48)"></ellipse>
+      <ellipse cx="77" cy="36" rx="5" ry="9" transform="rotate(-10 77 36)"></ellipse>
+      <path d="M48 110 C41 85, 26 65, 16 40"></path>
+      <ellipse cx="18" cy="38" rx="7" ry="11" transform="rotate(-15 18 38)"></ellipse>
+    </g>
+  </svg>
+
+  <div class="nearby-overview-container">
+    <!-- Two-column layout: content right, image left -->
+    <div class="nearby-overview-grid">
+
+      <!-- RIGHT COLUMN: Text content -->
+      <div class="nearby-overview-content">
+        <h2 class="nearby-overview-heading">הכל במרחק נגיעה</h2>
+        <p class="nearby-overview-lead">וילה בית הלוגים שוכנת בלב הגליל, מוקפת בנוף עשיר ומרגש — בין כרמים ירוקים לשמי הכנרת הנשקפים באופק. מכאן, כל יעד קסום בצפון הארץ נמצא ממש מעבר לפינה.</p>
+        <p class="nearby-overview-body">בין אם תבחרו לטייל לאורך חופי הכנרת, לבקר בשווקים העתיקים של צפת, לטעום יין בגולן, או פשוט לנוח ולנשום אוויר הרים — הווילה מהווה בסיס מושלם לחוויה משפחתית מלאה בצפון הארץ, עם כל הנוחיות שתצטרכו בסיום כל יום.</p>
+
+        <!-- Distance cards row -->
+        <div class="nearby-distance-cards">
+          <div class="nearby-distance-card">
+            <div class="nearby-card-icon">
+              <svg data-element-type="icon" data-icon-type="svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+            </div>
+            <div class="nearby-card-text">
+              <strong class="nearby-card-title">הכנרת</strong>
+              <span class="nearby-card-distance">5 דקות נסיעה</span>
+            </div>
+          </div>
+
+          <div class="nearby-distance-card">
+            <div class="nearby-card-icon">
+              <svg data-element-type="icon" data-icon-type="svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
+              </svg>
+            </div>
+            <div class="nearby-card-text">
+              <strong class="nearby-card-title">צפת העתיקה</strong>
+              <span class="nearby-card-distance">20 דקות נסיעה</span>
+            </div>
+          </div>
+
+          <div class="nearby-distance-card">
+            <div class="nearby-card-icon">
+              <svg data-element-type="icon" data-icon-type="svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+            </div>
+            <div class="nearby-card-text">
+              <strong class="nearby-card-title">שווקים ומסעדות</strong>
+              <span class="nearby-card-distance">10 דקות נסיעה</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LEFT COLUMN: Vertical image -->
+      <div class="nearby-overview-image-col">
+        <div class="nearby-image-frame">
+          <img data-context="A vertical portrait-orientation photograph of the lush green Galilee countryside in northern Israel, with the shimmering blue Sea of Galilee (Kinneret) visible in the background. Foreground shows a winding stone path through olive trees and wildflowers, evoking a warm, nostalgic Israeli countryside atmosphere. Soft golden afternoon light, earthy tones." width="480" height="640" src="/assets/section-overview-nearby-overview-image-1.webp" alt="נוף הגליל והכנרת הנשקפים מהסביבה">
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Bottom separator line -->
+  <div class="nearby-overview-separator" aria-hidden="true"></div>
+</section>
+
+<section class="nearby-features-section" data-layout-spec="הכל במרחק נגיעה-features" dir="rtl">
+  <!-- Botanical decorative corners -->
+  <svg class="nearby-botanical-right" aria-hidden="true" data-no-icon-edit="true" viewBox="0 0 96 120" xmlns="http://www.w3.org/2000/svg">
+    <g fill="none" stroke="var(--primary)" stroke-width="1.2" opacity="0.13">
+      <path d="M80,110 Q60,90 40,70 Q30,55 50,40"></path>
+      <path d="M70,115 Q55,95 38,78 Q25,60 45,48"></path>
+      <path d="M50,40 Q60,30 55,18 Q48,8 40,12"></path>
+      <path d="M45,48 Q52,35 48,22 Q42,12 36,16"></path>
+      <path d="M50,40 Q38,42 30,36 Q22,28 28,22"></path>
+      <path d="M45,48 Q34,50 26,44 Q18,36 24,30"></path>
+      <ellipse cx="50" cy="38" rx="6" ry="9" transform="rotate(-20 50 38)"></ellipse>
+      <ellipse cx="45" cy="46" rx="5" ry="8" transform="rotate(-30 45 46)"></ellipse>
+      <path d="M60,70 Q72,65 78,55 Q80,45 72,42"></path>
+      <path d="M55,75 Q68,70 74,60 Q76,50 68,47"></path>
+    </g>
+  </svg>
+  <svg class="nearby-botanical-left" aria-hidden="true" data-no-icon-edit="true" viewBox="0 0 96 120" xmlns="http://www.w3.org/2000/svg">
+    <g fill="none" stroke="var(--primary)" stroke-width="1.2" opacity="0.13">
+      <path d="M16,110 Q36,90 56,70 Q66,55 46,40"></path>
+      <path d="M26,115 Q41,95 58,78 Q71,60 51,48"></path>
+      <path d="M46,40 Q36,30 41,18 Q48,8 56,12"></path>
+      <path d="M51,48 Q44,35 48,22 Q54,12 60,16"></path>
+      <path d="M46,40 Q58,42 66,36 Q74,28 68,22"></path>
+      <path d="M51,48 Q62,50 70,44 Q78,36 72,30"></path>
+      <ellipse cx="46" cy="38" rx="6" ry="9" transform="rotate(20 46 38)"></ellipse>
+      <ellipse cx="51" cy="46" rx="5" ry="8" transform="rotate(30 51 46)"></ellipse>
+      <path d="M36,70 Q24,65 18,55 Q16,45 24,42"></path>
+      <path d="M41,75 Q28,70 22,60 Q20,50 28,47"></path>
+    </g>
+  </svg>
+
+  <div class="nearby-features-container">
+    <!-- Section Header -->
+    <header class="nearby-features-header">
+      <p class="nearby-features-label">סביבת הוילה</p>
+      <h2 class="nearby-features-title">הכל במרחק נגיעה</h2>
+      <p class="nearby-features-subtitle">בית הלוגים שוכן בלב אחד האזורים העשירים ביותר בנופים ובחוויות בצפון הארץ — ים הכנרת, הרי הגולן, ועמק הירדן פרושים לפניכם</p>
+    </header>
+
+    <!-- Cards Grid -->
+    <div class="nearby-features-grid">
+
+      <!-- Card 1 -->
+      <article class="nearby-feature-card">
+        <div class="nearby-card-image-wrap">
+          <img data-context="Sea of Galilee (Kinneret) shore at golden hour, calm blue water reflecting sunlight, northern Israel landscape, serene and beautiful" width="400" height="200" src="/assets/section-features-kinneret-sea-view.webp" alt="חוף הכנרת">
+          <div class="nearby-card-tag">טבע ומים</div>
+        </div>
+        <div class="nearby-card-body">
+          <h3 class="nearby-card-title">ים הכנרת</h3>
+          <p class="nearby-card-desc">פסיעות קצרות מהוילה ואתם כבר על שפת הכנרת. בוקר שקט עם קפה, שחייה בצהריים, ושקיעה שתישאר בזיכרון — זו חוויה שלמה בפני עצמה.</p>
+          <span class="nearby-card-type"><i class="fa-solid fa-water" aria-hidden="true"></i> חוף ושחייה</span>
+        </div>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="nearby-feature-card">
+        <div class="nearby-card-image-wrap">
+          <img data-context="Golan Heights panoramic landscape, green rolling hills, vineyards, dramatic sky, northern Israel nature" width="400" height="200" src="/assets/section-features-golan-heights-landscape.webp" alt="רמת הגולן">
+          <div class="nearby-card-tag">טיולים</div>
+        </div>
+        <div class="nearby-card-body">
+          <h3 class="nearby-card-title">רמת הגולן</h3>
+          <p class="nearby-card-desc">שבילי טיול, מצפורים ויקבים מרהיבים — הגולן מציע שפע של חוויות לכל הגילאים. יום שלם של טבע ירוק ואוויר הר צלול.</p>
+          <span class="nearby-card-type"><i class="fa-solid fa-mountain" aria-hidden="true"></i> טיולים ויקבים</span>
+        </div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="nearby-feature-card">
+        <div class="nearby-card-image-wrap">
+          <img data-context="Tiberias old city streets, historic stone buildings, restaurants and promenade along the Sea of Galilee, warm evening atmosphere" width="400" height="200" src="/assets/section-features-tiberias-old-city.webp" alt="טבריה">
+          <div class="nearby-card-tag">עיר ותרבות</div>
+        </div>
+        <div class="nearby-card-body">
+          <h3 class="nearby-card-title">טבריה העתיקה</h3>
+          <p class="nearby-card-desc">עיר עם אלפי שנות היסטוריה, שווקים עשירים, מסעדות דגים טריים ותרבות ייחודית — כל זה ממתין לכם במרחק נסיעה קצרה.</p>
+          <span class="nearby-card-type"><i class="fa-solid fa-utensils" aria-hidden="true"></i> היסטוריה ואוכל</span>
+        </div>
+      </article>
+
+      <!-- Card 4 (wider) -->
+      <article class="nearby-feature-card nearby-feature-card--wide">
+        <div class="nearby-card-image-wrap">
+          <img data-context="Jordan River park, lush green vegetation along the river, families enjoying nature, northern Israel, peaceful and verdant" width="500" height="200" src="/assets/section-features-jordan-river-park.webp" alt="גן לאומי נהר הירדן">
+          <div class="nearby-card-tag">פארקים</div>
+        </div>
+        <div class="nearby-card-body">
+          <h3 class="nearby-card-title">גן לאומי נהר הירדן</h3>
+          <p class="nearby-card-desc">ירק עשיר, צל של עצים ותיקים ומים זורמים — הגן הלאומי הוא מקום מושלם לפיקניק משפחתי, לטיול רגלי קל ולהתרעננות בטבע ללא מאמץ.</p>
+          <span class="nearby-card-type"><i class="fa-solid fa-tree" aria-hidden="true"></i> פיקניק ומשפחה</span>
+        </div>
+      </article>
+
+      <!-- Card 5 (wider) -->
+      <article class="nearby-feature-card nearby-feature-card--wide">
+        <div class="nearby-card-image-wrap">
+          <img data-context="Galilee winery tasting room, rustic wooden barrels, wine glasses, warm candlelight, Israeli northern winery atmosphere, romantic and cozy" width="500" height="200" src="/assets/section-features-galilee-winery-wine-tasting.webp" alt="יקבי הגליל">
+          <div class="nearby-card-tag">גסטרונומיה</div>
+        </div>
+        <div class="nearby-card-body">
+          <h3 class="nearby-card-title">יקבי הגליל</h3>
+          <p class="nearby-card-desc">אזור הגליל העליון והגולן הוא אחד מאזורי הייננות המובילים בישראל. סיור ביקב מקומי, טעימות יין ואוכל מקומי — חוויה שמשלימה ערב נינוח בוילה.</p>
+          <span class="nearby-card-type"><i class="fa-solid fa-wine-glass" aria-hidden="true"></i> יין ואוכל מקומי</span>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- Bottom note -->
+    <p class="nearby-features-note">
+      <i class="fa-regular fa-sun" aria-hidden="true"></i>
+      טיפ לתכנון: יום אחד רגוע מספיק לשתי חוויות שונות — בוקר בכנרת, אחר הצהריים ביקב. אל תמהרו.
+    </p>
+  </div>
+</section>
+
+<section class="nearby-gallery-section" data-layout-spec="הכל במרחק נגיעה-gallery" dir="rtl">
+  <div class="nearby-gallery-container">
+
+    <!-- Header -->
+    <div class="nearby-gallery-header">
+      <h2 class="nearby-gallery-title">מה שעיניכם רואות,<br>הלב לא שוכח</h2>
+      <p class="nearby-gallery-intro">בית הלוגים הוא לא רק מקום לישון — הוא מרחב שלם של נוף, שקט ויופי. מגרש ירוק, בריכה חמה, וסביבה כפרית שמזמינה לנשום לאט ולהיות יחד.</p>
+    </div>
+
+    <!-- Asymmetric Grid -->
+    <div class="nearby-gallery-grid">
+
+      <!-- Large image: right column -->
+      <figure class="nearby-gallery-figure nearby-gallery-figure--large">
+        <img data-context="Charming vintage-style vacation villa in northern Israel overlooking the Sea of Galilee (Kinneret). Stone and wood facade surrounded by lush green garden, warm afternoon sunlight, nostalgic rustic atmosphere, countryside hospitality feel." width="600" height="750" src="/assets/section-gallery-nearby-gallery-image-1.webp" alt="חזית הווילה הכפרית מוקפת גינה ירוקה בצפון הארץ">
+      </figure>
+
+      <!-- Two stacked images: left column -->
+      <div class="nearby-gallery-stack">
+
+        <figure class="nearby-gallery-figure nearby-gallery-figure--top">
+          <img data-context="Heated indoor swimming pool inside a warm rustic villa in northern Israel. Wooden ceiling beams, stone walls, calm turquoise water, soft ambient lighting, cozy and inviting atmosphere for families." width="560" height="340" src="/assets/section-gallery-nearby-gallery-image-2.webp" alt="בריכת שחייה מחוממת בתוך הווילה">
+        </figure>
+
+        <figure class="nearby-gallery-figure nearby-gallery-figure--bottom">
+          <img data-context="Panoramic view of the Sea of Galilee (Kinneret) from a hillside villa terrace in northern Israel. Early morning golden light, calm water, green hills, serene and peaceful landscape, vintage countryside feel." width="560" height="340" src="/assets/section-gallery-nearby-gallery-image-3.webp" alt="נוף פנורמי לכנרת מהמרפסת">
+        </figure>
+
+      </div>
+    </div>
+
+    <!-- Caption row -->
+    <p class="nearby-gallery-caption">נוף הכנרת, אוויר הגליל, ושקט שרק הצפון יודע לתת — הכל ממתין לכם כאן.</p>
+
+    <!-- Botanical decorations -->
+    <svg class="nearby-gallery-botanical nearby-gallery-botanical--right" aria-hidden="true" data-no-icon-edit="true" viewBox="0 0 96 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M48 110 C48 80 20 70 10 40 M48 110 C48 75 70 65 80 35 M48 110 C30 90 28 60 35 30 M48 110 C66 88 68 58 62 28" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.12"></path>
+      <ellipse cx="10" cy="38" rx="7" ry="11" transform="rotate(-20 10 38)" fill="currentColor" opacity="0.08"></ellipse>
+      <ellipse cx="80" cy="33" rx="7" ry="11" transform="rotate(20 80 33)" fill="currentColor" opacity="0.08"></ellipse>
+      <ellipse cx="35" cy="28" rx="5" ry="9" transform="rotate(-10 35 28)" fill="currentColor" opacity="0.07"></ellipse>
+      <ellipse cx="62" cy="26" rx="5" ry="9" transform="rotate(10 62 26)" fill="currentColor" opacity="0.07"></ellipse>
+    </svg>
+
+    <svg class="nearby-gallery-botanical nearby-gallery-botanical--left" aria-hidden="true" data-no-icon-edit="true" viewBox="0 0 96 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M48 110 C48 80 20 70 10 40 M48 110 C48 75 70 65 80 35 M48 110 C30 90 28 60 35 30 M48 110 C66 88 68 58 62 28" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.12"></path>
+      <ellipse cx="10" cy="38" rx="7" ry="11" transform="rotate(-20 10 38)" fill="currentColor" opacity="0.08"></ellipse>
+      <ellipse cx="80" cy="33" rx="7" ry="11" transform="rotate(20 80 33)" fill="currentColor" opacity="0.08"></ellipse>
+      <ellipse cx="35" cy="28" rx="5" ry="9" transform="rotate(-10 35 28)" fill="currentColor" opacity="0.07"></ellipse>
+      <ellipse cx="62" cy="26" rx="5" ry="9" transform="rotate(10 62 26)" fill="currentColor" opacity="0.07"></ellipse>
+    </svg>
+
+  </div>
+</section>
+
+<section class="nearby-guidance-section" data-layout-spec="הכל במרחק נגיעה-guidance" dir="rtl">
+  <div class="nearby-guidance-container">
+
+    <!-- Section Header -->
+    <div class="nearby-guidance-header">
+      <h2 class="nearby-guidance-title">הכל במרחק נגיעה</h2>
+      <p class="nearby-guidance-intro">הכינרת מתנצנצת מבין העצים, הרוח מביאה ריחות של בוקר צפוני, והיום שייך לכם. בין אם אתם מחפשים הרפתקה קטנה לילדים, שקט מוחלט לנפש, או רגע שיישאר בזיכרון — הסביבה כאן מזמינה אתכם לגלות.</p>
+    </div>
+
+    <!-- Cards Grid -->
+    <div class="nearby-guidance-grid">
+
+      <!-- Card 1 -->
+      <article class="nearby-guidance-card">
+        <div class="nearby-guidance-card-icon-wrap">
+          <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="40" height="40" fill="none" aria-hidden="true">
+            <circle cx="24" cy="18" r="7" stroke="currentColor" stroke-width="2"></circle>
+            <path d="M10 38c0-7.732 6.268-14 14-14s14 6.268 14 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+            <circle cx="36" cy="16" r="5" stroke="currentColor" stroke-width="1.5"></circle>
+            <path d="M42 32c0-5.523-2.686-8-6-8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+            <circle cx="12" cy="16" r="5" stroke="currentColor" stroke-width="1.5"></circle>
+            <path d="M6 32c0-5.523 2.686-8 6-8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+          </svg>
+        </div>
+        <h3 class="nearby-guidance-card-title">למשפחות עם ילדים</h3>
+        <div class="nearby-guidance-card-lines">
+          <p class="nearby-guidance-card-line">חוף ציבורי שקט של הכינרת — פחות מעשר דקות נסיעה</p>
+          <p class="nearby-guidance-card-line">פארק חוות חיות ומשחקיות ירוקות בסביבה</p>
+          <p class="nearby-guidance-card-line">שבילי אופניים ומסלולי טבע מתאימים לגיל הרך</p>
+          <p class="nearby-guidance-card-line">שוק איכרים שבועי עם סדנאות לילדים</p>
+        </div>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="nearby-guidance-card">
+        <div class="nearby-guidance-card-icon-wrap">
+          <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="40" height="40" fill="none" aria-hidden="true">
+            <path d="M8 20C8 12.268 15.163 6 24 6s16 6.268 16 14c0 4-1.8 7.6-4.7 10.2L24 42l-11.3-11.8C9.8 27.6 8 24 8 20z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"></path>
+            <circle cx="24" cy="20" r="4" stroke="currentColor" stroke-width="2"></circle>
+            <path d="M18 8.5C13 10.5 10 14.8 10 20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+          </svg>
+        </div>
+        <h3 class="nearby-guidance-card-title">לבוקר רגוע</h3>
+        <div class="nearby-guidance-card-lines">
+          <p class="nearby-guidance-card-line">טיול בוקר על שפת הכינרת לפני שהעולם מתעורר</p>
+          <p class="nearby-guidance-card-line">בתי קפה כפריים עם נוף פתוח ואפייה ביתית</p>
+          <p class="nearby-guidance-card-line">שוק ירקות טרי בכפר הסמוך — ממש כמו פעם</p>
+          <p class="nearby-guidance-card-line">מסלול הליכה שקט בין פרדסים ושדות ירוקים</p>
+        </div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="nearby-guidance-card">
+        <div class="nearby-guidance-card-icon-wrap">
+          <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="40" height="40" fill="none" aria-hidden="true">
+            <circle cx="24" cy="24" r="10" stroke="currentColor" stroke-width="2"></circle>
+            <path d="M24 4v4M24 40v4M4 24h4M40 24h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+            <path d="M8 8l3 3M37 37l3 3M37 11l-3 3M11 37l-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+            <path d="M16 24c0-4.418 3.582-8 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+          </svg>
+        </div>
+        <h3 class="nearby-guidance-card-title">לשעת השקיעה</h3>
+        <div class="nearby-guidance-card-lines">
+          <p class="nearby-guidance-card-line">נקודת תצפית מרהיבה על הכינרת — שתי דקות מהווילה</p>
+          <p class="nearby-guidance-card-line">טיול ערב ביין ישראלי ממרפסת הבית עם נוף לאגם</p>
+          <p class="nearby-guidance-card-line">מסעדות שף אזוריות עם תפריטי ערב עונתיים</p>
+          <p class="nearby-guidance-card-line">שמי הגליל הצפוני — כוכבים ללא הפרעה</p>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- Closing Paragraph -->
+    <p class="nearby-guidance-closing">בסוף היום, כשהילדים נרדמים והמבוגרים יושבים בשקט על המרפסת עם כוס תה — תבינו שלא היה צריך לנסוע רחוק. כל מה שחיפשתם היה כאן, ממש מסביב.</p>
+
+  </div>
+
+  <!-- Botanical Decorations -->
+  <svg class="nearby-botanical-left" aria-hidden="true" data-no-icon-edit="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 140" width="96" height="140">
+    <g fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
+      <path d="M48 130 C48 100, 30 80, 18 60"></path>
+      <path d="M48 110 C40 95, 20 90, 10 75"></path>
+      <path d="M48 90 C44 78, 28 70, 22 55"></path>
+      <path d="M48 110 C56 95, 68 88, 76 72"></path>
+      <path d="M48 90 C55 78, 70 72, 78 58"></path>
+      <ellipse cx="18" cy="58" rx="8" ry="12" transform="rotate(-30 18 58)"></ellipse>
+      <ellipse cx="10" cy="73" rx="7" ry="11" transform="rotate(-45 10 73)"></ellipse>
+      <ellipse cx="22" cy="53" rx="7" ry="11" transform="rotate(-20 22 53)"></ellipse>
+      <ellipse cx="76" cy="70" rx="7" ry="11" transform="rotate(30 76 70)"></ellipse>
+      <ellipse cx="78" cy="56" rx="7" ry="10" transform="rotate(20 78 56)"></ellipse>
+    </g>
+  </svg>
+
+  <svg class="nearby-botanical-right" aria-hidden="true" data-no-icon-edit="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 140" width="96" height="140">
+    <g fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
+      <path d="M48 130 C48 100, 66 80, 78 60"></path>
+      <path d="M48 110 C56 95, 76 90, 86 75"></path>
+      <path d="M48 90 C52 78, 68 70, 74 55"></path>
+      <path d="M48 110 C40 95, 28 88, 20 72"></path>
+      <path d="M48 90 C41 78, 26 72, 18 58"></path>
+      <ellipse cx="78" cy="58" rx="8" ry="12" transform="rotate(30 78 58)"></ellipse>
+      <ellipse cx="86" cy="73" rx="7" ry="11" transform="rotate(45 86 73)"></ellipse>
+      <ellipse cx="74" cy="53" rx="7" ry="11" transform="rotate(20 74 53)"></ellipse>
+      <ellipse cx="20" cy="70" rx="7" ry="11" transform="rotate(-30 20 70)"></ellipse>
+      <ellipse cx="18" cy="56" rx="7" ry="10" transform="rotate(-20 18 56)"></ellipse>
+    </g>
+  </svg>
+
+</section>
+
+<section class="nearby-cta-section" data-layout-spec="הכל במרחק נגיעה-cta" dir="rtl">
+  <!-- Topographic texture overlay -->
+  <div class="nearby-cta-section__texture" aria-hidden="true"></div>
+
+  <!-- Botanical decorations -->
+  <svg class="nearby-cta-section__botanical nearby-cta-section__botanical--right" aria-hidden="true" data-no-icon-edit="true" viewBox="0 0 96 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M80 10 C70 30, 50 40, 48 80 C46 120, 60 130, 48 155" stroke="currentColor" stroke-width="1.5" fill="none"></path>
+    <path d="M48 50 C35 45, 20 55, 18 70" stroke="currentColor" stroke-width="1.2" fill="none"></path>
+    <path d="M48 75 C38 65, 25 68, 20 80" stroke="currentColor" stroke-width="1.2" fill="none"></path>
+    <path d="M48 100 C60 90, 72 95, 76 108" stroke="currentColor" stroke-width="1.2" fill="none"></path>
+    <ellipse cx="18" cy="70" rx="6" ry="4" stroke="currentColor" stroke-width="1" fill="none" transform="rotate(-20 18 70)"></ellipse>
+    <ellipse cx="20" cy="80" rx="5" ry="3.5" stroke="currentColor" stroke-width="1" fill="none" transform="rotate(10 20 80)"></ellipse>
+    <ellipse cx="76" cy="108" rx="6" ry="4" stroke="currentColor" stroke-width="1" fill="none" transform="rotate(15 76 108)"></ellipse>
+  </svg>
+
+  <svg class="nearby-cta-section__botanical nearby-cta-section__botanical--left" aria-hidden="true" data-no-icon-edit="true" viewBox="0 0 96 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M16 10 C26 30, 46 40, 48 80 C50 120, 36 130, 48 155" stroke="currentColor" stroke-width="1.5" fill="none"></path>
+    <path d="M48 50 C61 45, 76 55, 78 70" stroke="currentColor" stroke-width="1.2" fill="none"></path>
+    <path d="M48 75 C58 65, 71 68, 76 80" stroke="currentColor" stroke-width="1.2" fill="none"></path>
+    <path d="M48 100 C36 90, 24 95, 20 108" stroke="currentColor" stroke-width="1.2" fill="none"></path>
+    <ellipse cx="78" cy="70" rx="6" ry="4" stroke="currentColor" stroke-width="1" fill="none" transform="rotate(20 78 70)"></ellipse>
+    <ellipse cx="76" cy="80" rx="5" ry="3.5" stroke="currentColor" stroke-width="1" fill="none" transform="rotate(-10 76 80)"></ellipse>
+    <ellipse cx="20" cy="108" rx="6" ry="4" stroke="currentColor" stroke-width="1" fill="none" transform="rotate(-15 20 108)"></ellipse>
+  </svg>
+
+  <!-- Content block -->
+  <div class="nearby-cta-section__container">
+    <div class="nearby-cta-section__card">
+      <!-- Ornament line -->
+      <div class="nearby-cta-section__ornament" aria-hidden="true">
+        <span class="nearby-cta-section__ornament-line"></span>
+        <svg data-no-icon-edit="true" aria-hidden="true" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="9" cy="9" r="3" fill="currentColor" opacity="0.6"></circle>
+          <circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="0.8" opacity="0.3"></circle>
+        </svg>
+        <span class="nearby-cta-section__ornament-line"></span>
+      </div>
+
+      <h2 class="nearby-cta-section__heading">מוכנים לחוות את הכינרת יחד?</h2>
+      <p class="nearby-cta-section__body">וילה בית הלוגים מחכה לכם — מקום שבו שלוש משפחות יכולות לנוח, לשחק ולהיזכר. בואו נתכנן יחד את החופשה שתישאר בזיכרון לשנים.</p>
+
+      <div class="nearby-cta-section__actions">
+        <a href="/contact" class="nearby-cta-section__btn-primary">צרו קשר לתיאום הגעה</a>
+        <a href="/gallery" class="nearby-cta-section__btn-ghost">לגלריית הוילה <i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+      </div>
+
+      <!-- Small reassurance note -->
+      <p class="nearby-cta-section__note"><i class="fa fa-phone" aria-hidden="true"></i>&nbsp;נשמח לענות על כל שאלה בשיחה אישית</p>
+    </div>
+  </div>
+</section></main>
+  
+  <footer class="site-footer"><div class="footer-container"><div class="footer-top"><div class="footer-col footer-brand"><img src="/assets/business-logo.webp" alt="וילה בית הלוגים" class="logo"><p class="footer-tagline">מקום לנשום, לחוות ולהתחבר מחדש עם הטבע ועם האנשים שאוהבים.</p><div class="footer-social"><a href="https://facebook.com/vila.beit.halogim" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a><a href="#" aria-label="Instagram" style="display:none !important;"><i class="fab fa-instagram"></i></a><a href="https://wa.me/971528282481" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a></div></div><div class="footer-col"><h4 class="footer-heading">ניווט מהיר</h4><ul class="footer-links"><li><a href="/villa">פרטי הווילה</a></li><li><a href="/experience">החוויה</a></li><li><a href="/contact">צור קשר</a></li></ul></div><div class="footer-col"><h4 class="footer-heading">יצירת קשר</h4><ul class="footer-contact"><li><span class="contact-icon"><i class="fas fa-envelope"></i></span><a href="mailto:askayoe@walla.com">askayoe@walla.com</a></li><li><span class="contact-icon"><i class="fas fa-phone"></i></span><a href="tel:0528282481">0528282481</a></li><li><a href="/"><span class="contact-icon"><i class="fas fa-map-marker-alt"></i></span><span>החרצית 47, מגדל, Israel, 14900, Israel</span></a></li></ul></div></div><div class="footer-divider"></div><div class="footer-bottom"><p class="footer-copyright">© 2026 וילה בית הלוגים. כל הזכויות שמורות.</p><div class="footer-legal"><a href="/privacy">מדיניות פרטיות</a><span class="legal-sep"></span><a href="/terms">תנאי שימוש</a><span class="legal-sep"></span><a href="/accessibility">נגישות</a><span class="legal-sep"></span><a href="https://zappy5.com" target="_blank" class="zappy-attribution">נוצר באמצעות Zappy</a></div></div></div></footer>
+  
+  <a href="https://wa.me/971528282481" class="whatsapp-float" aria-label="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+  
+  <div data-integration="accessibility:toolbar"></div>
+
+    <script src="/script.js"></script>
+
+    <script id="zappy-mobile-submenu-script">
+    (function() {
+      function initMobileSubmenuToggles() {
+        if (window.innerWidth > 768) {
+          document.querySelectorAll('.mobile-submenu-toggle').forEach(function(btn) { btn.remove(); });
+          document.querySelectorAll('.sub-menu.mobile-expanded').forEach(function(menu) { menu.classList.remove('mobile-expanded'); });
+          return;
+        }
+        var items = document.querySelectorAll('.nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu)');
+        items.forEach(function(li) {
+          if (li.querySelector('.mobile-submenu-toggle')) return;
+          var submenu = li.querySelector('.sub-menu');
+          var parentLink = li.querySelector(':scope > a');
+          if (!submenu || !parentLink) return;
+          var toggleBtn = document.createElement('button');
+          toggleBtn.className = 'mobile-submenu-toggle';
+          toggleBtn.setAttribute('aria-label', 'Toggle submenu');
+          toggleBtn.setAttribute('type', 'button');
+          parentLink.insertAdjacentElement('afterend', toggleBtn);
+          toggleBtn.addEventListener('click', function(e) {
+            e.preventDefault(); e.stopPropagation();
+            document.querySelectorAll('.sub-menu.mobile-expanded').forEach(function(menu) {
+              if (menu !== submenu) { menu.classList.remove('mobile-expanded'); var t = menu.parentElement.querySelector('.mobile-submenu-toggle'); if(t) t.classList.remove('expanded'); }
+            });
+            submenu.classList.toggle('mobile-expanded');
+            toggleBtn.classList.toggle('expanded');
+          });
+        });
+      }
+      if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initMobileSubmenuToggles); }
+      else { initMobileSubmenuToggles(); }
+      var resizeTimer; window.addEventListener('resize', function() { clearTimeout(resizeTimer); resizeTimer = setTimeout(initMobileSubmenuToggles, 250); });
+      // Re-initialize when mobile menu becomes visible (MutationObserver)
+      var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          if (mutation.type === 'attributes') {
+            var target = mutation.target;
+            if (target.classList && (target.classList.contains('active') || target.classList.contains('open'))) {
+              setTimeout(initMobileSubmenuToggles, 100);
+            }
+          }
+        });
+      });
+      setTimeout(function() {
+        document.querySelectorAll('.mobile-menu, .nav-menu, #navMenu, nav').forEach(function(menu) {
+          observer.observe(menu, { attributes: true, attributeFilter: ['class', 'style'] });
+        });
+      }, 500);
+    })();
+    </script>
+
+    <script id="zappy-navbar-scroll-effect">
+    (function(){
+      var nb=document.querySelector('nav.navbar,.navbar:not(.zappy-catalog-menu)');
+      var cm=document.querySelector('.zappy-catalog-menu,#zappy-catalog-menu');
+      if(!nb)return;
+      var fb='rgba(246,241,231,0.85)';
+      var th=60;
+      var rs=getComputedStyle(document.documentElement);
+      var td=rs.getPropertyValue('--text-dark').trim()||'#1a1a1a';
+      var tl=rs.getPropertyValue('--text-light').trim()||'#ffffff';
+      var st=true?td:tl;
+      nb.style.transition='background 0.3s ease,backdrop-filter 0.3s ease,-webkit-backdrop-filter 0.3s ease,box-shadow 0.3s ease';
+      if(cm)cm.style.transition='background 0.3s ease,backdrop-filter 0.3s ease,-webkit-backdrop-filter 0.3s ease';
+      var neSel='a,.navbar-brand,.navbar-brand a,.dropdown-toggle,.mobile-toggle,.phone-header-btn,.mobile-hamburger-btn,.mobile-close-btn,.mobile-submenu-toggle,.nav-link';
+      var skipCls=['cart-link','login-link','nav-search-toggle','search-toggle'];
+      function sTC(c,clr){var els=c.querySelectorAll(neSel);for(var i=0;i<els.length;i++){var sk=false;if(els[i].closest('.sub-menu')||els[i].closest('.dropdown-menu')){sk=true;}for(var j=0;j<skipCls.length;j++){if(els[i].classList.contains(skipCls[j])){sk=true;break;}}if(!sk)els[i].style.setProperty('color',clr,'important');}}
+      function cTC(c){var els=c.querySelectorAll(neSel);for(var i=0;i<els.length;i++){if(els[i].closest('.sub-menu')||els[i].closest('.dropdown-menu'))continue;els[i].style.removeProperty('color');}}
+      function applyScrolled(){
+        nb.classList.add('scrolled');
+        if(window.innerWidth>768){
+          nb.style.setProperty('--frosted-text',st);
+          nb.style.setProperty('background-image','none','important');
+          nb.style.setProperty('background-color',fb,'important');
+          nb.style.backdropFilter='blur(12px)';nb.style.webkitBackdropFilter='blur(12px)';nb.style.boxShadow='0 2px 16px rgba(0,0,0,0.12)';
+          sTC(nb,st);
+        }
+        if(cm){cm.classList.add('scrolled');if(window.innerWidth>768){cm.style.setProperty('background',fb,'important');cm.style.setProperty('backdrop-filter','blur(12px)','important');cm.style.setProperty('-webkit-backdrop-filter','blur(12px)','important');sTC(cm,st);}}
+      }
+      function onS(){
+        if(window._zappyNavNoDarkHero) return;
+        if(window.innerWidth<=768){nb.classList.remove('scrolled');cTC(nb);if(cm){cm.classList.remove('scrolled');cTC(cm);}return;}
+        var y=window.scrollY||window.pageYOffset;
+        if(y>th){
+          nb.classList.add('scrolled');nb.style.setProperty('background-color',fb,'important');nb.style.setProperty('background-image','none','important');
+          nb.style.setProperty('--frosted-text',st);nb.style.backdropFilter='blur(12px)';nb.style.webkitBackdropFilter='blur(12px)';nb.style.boxShadow='0 2px 16px rgba(0,0,0,0.12)';
+          sTC(nb,st);
+          if(cm){cm.classList.add('scrolled');cm.style.setProperty('background',fb,'important');cm.style.setProperty('backdrop-filter','blur(12px)','important');cm.style.setProperty('-webkit-backdrop-filter','blur(12px)','important');sTC(cm,st);}
+        }else{
+          nb.classList.remove('scrolled');nb.style.setProperty('background-color','transparent','important');nb.style.removeProperty('background-image');
+          nb.style.removeProperty('--frosted-text');nb.style.backdropFilter='none';nb.style.webkitBackdropFilter='none';nb.style.boxShadow='none';
+          cTC(nb);
+          if(cm){cm.classList.remove('scrolled');cm.style.setProperty('background','transparent','important');cm.style.setProperty('backdrop-filter','none','important');cm.style.setProperty('-webkit-backdrop-filter','none','important');cTC(cm);}
+        }
+      }
+      function sLum(rv,gv,bv){rv/=255;gv/=255;bv/=255;rv=rv<=0.03928?rv/12.92:Math.pow((rv+0.055)/1.055,2.4);gv=gv<=0.03928?gv/12.92:Math.pow((gv+0.055)/1.055,2.4);bv=bv<=0.03928?bv/12.92:Math.pow((bv+0.055)/1.055,2.4);return 0.2126*rv+0.7152*gv+0.0722*bv;}
+      window.addEventListener('scroll',onS,{passive:true});
+      window.addEventListener('resize',onS,{passive:true});
+      onS();
+      var heroEl=document.querySelector('section[class*="hero"],[data-hero-type],main>section:first-child');
+      var hasDH=false;
+      if(heroEl){var hCs=getComputedStyle(heroEl);var hBI=hCs.backgroundImage;if(hBI&&hBI!=='none'){if(hBI.indexOf('url(')!==-1){var hM2=hCs.backgroundColor.match(/\d+/g);if(hM2&&hM2.length>=3){hasDH=sLum(parseInt(hM2[0]),parseInt(hM2[1]),parseInt(hM2[2]))<0.4;}else{hasDH=true;}}else if(hBI.indexOf('gradient')!==-1){var cM=hBI.match(/rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/g);if(cM&&cM.length>0){var tLm=0;for(var ci=0;ci<cM.length;ci++){var pts=cM[ci].match(/\d+/g);tLm+=sLum(parseInt(pts[0]),parseInt(pts[1]),parseInt(pts[2]));}hasDH=(tLm/cM.length)<0.4;}else{hasDH=true;}}else{hasDH=true;}}else{var hM=hCs.backgroundColor.match(/\d+/g);if(hM&&hM.length>=3){hasDH=sLum(parseInt(hM[0]),parseInt(hM[1]),parseInt(hM[2]))<0.4;}}}
+      if(!hasDH){window.removeEventListener('scroll',onS);window.removeEventListener('resize',onS);applyScrolled();window._zappyNavNoDarkHero=true;}
+    })();
+    </script>
+
+    <script id="zappy-mobile-lang-menu-script">
+    (function() {
+      function initMobileLangMenu() {
+        if (window.innerWidth > 768) {
+          var existingMenu = document.querySelector('.mobile-lang-menu');
+          if (existingMenu) existingMenu.remove();
+          return;
+        }
+        if (document.querySelector('.mobile-lang-menu')) return;
+        var switcher = document.querySelector('.lang-switcher');
+        if (!switcher) return;
+        var dropdown = switcher.querySelector('.lang-switcher-dropdown');
+        if (!dropdown) return;
+        var options = dropdown.querySelectorAll('.lang-option');
+        if (options.length === 0) return;
+        var navMenu = document.getElementById('navMenu') || document.querySelector('.nav-menu') || document.querySelector('nav ul');
+        if (!navMenu) return;
+        var currentLang = document.documentElement.lang || 'en';
+        var langConfigs = {
+          he: {name:'עברית',flag:'https://api.iconify.design/circle-flags/il.svg'},
+          en: {name:'English',flag:'https://api.iconify.design/circle-flags/us.svg'},
+          ar: {name:'العربية',flag:'https://api.iconify.design/circle-flags/sa.svg'},
+          fr: {name:'Français',flag:'https://api.iconify.design/circle-flags/fr.svg'},
+          es: {name:'Español',flag:'https://api.iconify.design/circle-flags/es.svg'},
+          de: {name:'Deutsch',flag:'https://api.iconify.design/circle-flags/de.svg'},
+          ru: {name:'Русский',flag:'https://api.iconify.design/circle-flags/ru.svg'},
+          zh: {name:'中文',flag:'https://api.iconify.design/circle-flags/cn.svg'},
+          ja: {name:'日本語',flag:'https://api.iconify.design/circle-flags/jp.svg'},
+          pt: {name:'Português',flag:'https://api.iconify.design/circle-flags/br.svg'},
+          it: {name:'Italiano',flag:'https://api.iconify.design/circle-flags/it.svg'},
+          ko: {name:'한국어',flag:'https://api.iconify.design/circle-flags/kr.svg'}
+        };
+        var container = document.createElement('div');
+        container.className = 'mobile-lang-menu';
+        var currentConfig = langConfigs[currentLang] || {name:currentLang,flag:''};
+        var toggleBtn = document.createElement('button');
+        toggleBtn.className = 'mobile-lang-toggle';
+        toggleBtn.type = 'button';
+        var currentFlagHtml = currentConfig.flag ? '<img src="' + currentConfig.flag + '" width="20" height="20" alt="" style="border-radius:50%;margin-right:8px;margin-left:8px;">' : '';
+        toggleBtn.innerHTML = currentFlagHtml + currentConfig.name;
+        container.appendChild(toggleBtn);
+        var optionsDiv = document.createElement('div');
+        optionsDiv.className = 'mobile-lang-options';
+        var currentLink = document.createElement('a');
+        currentLink.className = 'mobile-lang-option active';
+        currentLink.href = '#';
+        currentLink.innerHTML = currentFlagHtml + currentConfig.name;
+        optionsDiv.appendChild(currentLink);
+        options.forEach(function(opt) {
+          var link = document.createElement('a');
+          link.className = 'mobile-lang-option';
+          link.href = opt.getAttribute('href');
+          link.innerHTML = opt.innerHTML;
+          optionsDiv.appendChild(link);
+        });
+        container.appendChild(optionsDiv);
+        navMenu.appendChild(container);
+        toggleBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          toggleBtn.classList.toggle('expanded');
+          optionsDiv.classList.toggle('expanded');
+        });
+      }
+      if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initMobileLangMenu); }
+      else { initMobileLangMenu(); }
+      window.addEventListener('resize', function() { clearTimeout(window._mlrt); window._mlrt = setTimeout(initMobileLangMenu, 250); });
+    })();
+    </script>
+</body>
+</html>

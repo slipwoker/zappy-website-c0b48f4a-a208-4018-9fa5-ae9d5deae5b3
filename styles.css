@@ -4266,10 +4266,9 @@ main { margin-top: 0 !important; padding-top: 0 !important; }
   text-align: center;
 }
 
-/* ── GRID ────────────────────────────────────────────────────────────────── */
 .villa-amenities-section .villa-amenities-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--spacing-card-gap, 24px);
   direction: rtl;
 }

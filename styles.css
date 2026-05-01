@@ -8265,6 +8265,34 @@ body > .flatpickr-calendar .flatpickr-next-month {
 .reservation-request-contact-form-section .rrcf-date-input {
   appearance: auto !important;
 }
+
+.villa-amenities-section .villa-amenities-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+}
+
+.villa-amenities-section .villa-amenity-card[data-grid-item-index="0"] {
+  align-self: stretch;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.villa-amenities-section .villa-amenity-card[data-grid-item-index="0"] .villa-amenity-image-wrap {
+  flex: 1;
+  height: auto;
+}
+
+.villa-amenities-section .villa-amenity-card[data-grid-item-index="0"] .villa-amenity-image-wrap img {
+  height: 100%;
+  min-height: 300px;
+  object-fit: cover;
+}
+
+.villa-amenities-section .villa-amenity-card[data-grid-item-index="0"] [data-zappy-zoom-wrapper] {
+  height: 100% !important;
+  flex: 1;
+}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,

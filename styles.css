@@ -4271,7 +4271,6 @@ main { margin-top: 0 !important; padding-top: 0 !important; }
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--spacing-card-gap, 24px);
   direction: rtl;
-  grid-template-rows: auto auto;
 }
 
 /* ── CARDS SHARED ─────────────────────────────────────────────────────────── */

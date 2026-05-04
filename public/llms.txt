@@ -1,4 +1,6 @@
-# Business — Generative Engine Optimization Map
+# וילה בית הלוגים — Generative Engine Optimization Map
+
+> A charming vintage-style vacation villa located in northern Israel overlooking the Sea of Galilee (Kinneret). The property accommodates up to 3 families simultaneously and features 5 bedrooms and a heated indoor swimming pool. The villa carries a nostalgic, old-world atmosphere — evoking warmth, togetherness, and a sense of timeless Israeli countryside hospitality.
 
 ---
 
@@ -47,12 +49,42 @@ Information about WCAG compliance and accessibility features.
 
 ---
 
-# Business Context (for LLM understanding)
+## How to Contact Us
 
-## About Business
+- Email: askayoe@walla.com
+- Phone: 0528282481
+- Phone (tel): tel:0528282481
+- Address: החרצית 47, מגדל, Israel, 14900, Israel
+
+### Contact form
+- URL: https://villabethalogim.co.il/contact
+- Endpoint: https://villabethalogim.co.il/api/email/contact-form
+- Method: POST
+- Content-Type: application/json
+- Fields:
+  - `name` (text, required)
+  - `email` (email, required)
+  - `phone` (tel)
+  - `message` (textarea, required)
+  - `privacy_consent` (checkbox, required)
+
 ---
 
-# Additional Resources
+# Business Context (for LLM understanding)
 
-- **Sitemap**: https://villabethalogim.co.il/sitemap.xml
-- **Robots.txt**: https://villabethalogim.co.il/robots.txt
+## About וילה בית הלוגים
+A charming vintage-style vacation villa located in northern Israel overlooking the Sea of Galilee (Kinneret). The property accommodates up to 3 families simultaneously and features 5 bedrooms and a heated indoor swimming pool. The villa carries a nostalgic, old-world atmosphere — evoking warmth, togetherness, and a sense of timeless Israeli countryside hospitality.
+
+## Target Audience
+משפחות המחפשות נופש משותף בצפון הארץ
+
+## Industry
+תיירות ואירוח
+
+---
+
+# Machine-readable feeds
+
+- Sitemap (XML): https://villabethalogim.co.il/sitemap.xml
+- Robots: https://villabethalogim.co.il/robots.txt
+- Flattened page text (for LLMs): https://villabethalogim.co.il/llms-full.txt

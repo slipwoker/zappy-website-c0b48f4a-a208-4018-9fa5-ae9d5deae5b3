@@ -8575,6 +8575,10 @@ body > .flatpickr-calendar .flatpickr-next-month {
     transition: none;
   }
 }
+
+.index-gallery-section .index-gallery-caption {
+  color: #ffffff !important;
+}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,

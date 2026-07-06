@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html lang="he" dir="rtl">
-<head>
+<!DOCTYPE html><html lang="he" dir="rtl"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="index, follow">
@@ -161,26 +159,31 @@
       // Track button clicks (counted as actions)
       if (target.tagName === 'BUTTON' || target.closest('button')) {
         var button = target.tagName === 'BUTTON' ? target : target.closest('button');
-        trackEvent('click', {
+        var clickMeta = {
           element: 'button',
           text: button.textContent.trim().substring(0, 100),
           id: button.id || null,
           class: button.className || null
-        });
+        };
+        
+        trackEvent('click', clickMeta);
       }
       
       // Track link clicks (navigation - not counted as actions)
       else if (target.tagName === 'A' || target.closest('a')) {
         var link = target.tagName === 'A' ? target : target.closest('a');
-        trackEvent('navigation', {
+        var navMeta = {
           element: 'link',
           text: link.textContent.trim().substring(0, 100),
           href: link.href,
           external: link.hostname !== window.location.hostname
-        });
+        };
+        
+        trackEvent('navigation', navMeta);
       }
     }, true);
   }
+  
   
   // Track form submissions
   if (config.trackFormSubmissions) {
@@ -224,13 +227,63 @@
     <meta name="twitter:title" content="תחושו את קסם הכינרת מקרוב — וילה בית הלוגים">
     <meta name="twitter:description" content="שקיעות על הכינרת, ריח עצי הלוגים ואווירת כפר ישראלית נצחית — וילה בית הלוגים מעניקה לשלוש משפחות חוויית נופש משותפת שאי אפשר למצוא בשום מקום אחר.">
     <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"LocalBusiness","@id":"https://villabethalogim.co.il#organization","name":"וילה בית הלוגים","url":"https://villabethalogim.co.il","description":"A charming vintage-style vacation villa located in northern Israel overlooking the Sea of Galilee (Kinneret). The property accommodates up to 3 families simultaneously and features 5 bedrooms and a heated indoor swimming pool. The villa carries a nostalgic, old-world atmosphere — evoking warmth, togetherness, and a sense of timeless Israeli countryside hospitality.","address":{"@type":"PostalAddress","streetAddress":"החרצית 47, מגדל, Israel, 14900, Israel"},"contactPoint":[{"@type":"ContactPoint","contactType":"customer service","email":"askayoe@walla.com","telephone":"0528282481"}]},{"@type":"WebSite","@id":"https://villabethalogim.co.il#website","url":"https://villabethalogim.co.il","name":"וילה בית הלוגים","publisher":{"@id":"https://villabethalogim.co.il#organization"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://villabethalogim.co.il"},{"@type":"ListItem","position":2,"name":"Experience","item":"https://villabethalogim.co.il/experience"}]}]}</script>
-    <meta property="og:type" content="website">
+    
+    <link rel="stylesheet" href="/styles.css">
+    <script>window.ZAPPY_WEBSITE_ID = "c0b48f4a-a208-4018-9fa5-ae9d5deae5b3"; window.ZAPPY_API_BASE = "https://api.zappy5.com";</script>
+
+    <style id="zappy-widget-visibility">
+      html[dir="rtl"] .whatsapp-float { right: 20px !important; left: auto !important; }
+      html[dir="ltr"] .whatsapp-float, html:not([dir]) .whatsapp-float { left: 20px !important; right: auto !important; }
+      html[dir="rtl"] #mic-access-tool-general-button, html[dir="rtl"] .mic-access-tool-general-button,
+      html[dir="rtl"] #mic-init-access-tool .mic-access-tool-general-button,
+      html[dir="rtl"] #mic-init-access-tool #mic-access-tool-general-button,
+      html[dir="rtl"] ._access-icon { left: 20px !important; right: auto !important; }
+      html[dir="ltr"] #mic-access-tool-general-button, html[dir="ltr"] .mic-access-tool-general-button,
+      html[dir="ltr"] #mic-init-access-tool .mic-access-tool-general-button,
+      html[dir="ltr"] #mic-init-access-tool #mic-access-tool-general-button,
+      html[dir="ltr"] ._access-icon,
+      html:not([dir]) #mic-access-tool-general-button, html:not([dir]) .mic-access-tool-general-button,
+      html:not([dir]) #mic-init-access-tool .mic-access-tool-general-button,
+      html:not([dir]) #mic-init-access-tool #mic-access-tool-general-button,
+      html:not([dir]) ._access-icon { right: 20px !important; left: auto !important; }
+      @media (max-width: 768px) { .whatsapp-float { display: flex !important; } }
+      @media (min-width: 769px) { .whatsapp-float { display: flex !important; } }
+      @media (max-width: 768px) {
+        #mic-access-tool-general-button, .mic-access-tool-general-button,
+        #mic-init-access-tool .mic-access-tool-general-button, #mic-init-access-tool #mic-access-tool-general-button,
+        ._access-icon, #mic-access-tool-box, .mic-access-tool-box,
+        #mic-init-access-tool #mic-access-tool-box, div[id*="mic-access-tool-box"], ._access-menu {
+          display: none !important; visibility: hidden !important; opacity: 0 !important; pointer-events: none !important;
+        }
+      }
+      @media (min-width: 769px) {
+        #mic-access-tool-general-button, .mic-access-tool-general-button,
+        #mic-init-access-tool .mic-access-tool-general-button, #mic-init-access-tool #mic-access-tool-general-button,
+        ._access-icon, #mic-access-tool-box, .mic-access-tool-box,
+        #mic-init-access-tool #mic-access-tool-box, div[id*="mic-access-tool-box"], ._access-menu {
+          display: none !important; visibility: hidden !important; opacity: 0 !important; pointer-events: none !important;
+        }
+      }
+    </style>
+</head>
+<body>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>תחושו את קסם הכינרת מקרוב — וילה בית הלוגים</title>
+  <meta name="description" content="שקיעות על הכינרת, ריח עצי הלוגים ואווירת כפר ישראלית נצחית — וילה בית הלוגים מעניקה לשלוש משפחות חוויית נופש משותפת שאי אפשר למצוא בשום מקום אחר.">
+  <meta name="keywords" content="וילה בית הלוגים, חוויית נופש בצפון הארץ, נופש משפחתי ליד הכינרת, וילה למשפחות, אווירה כפרית בצפון">
+  <meta name="robots" content="index, follow">
+  
+  <meta property="og:title" content="תחושו את קסם הכינרת מקרוב — וילה בית הלוגים">
+  <meta property="og:description" content="שקיעות על הכינרת, ריח עצי הלוגים ואווירת כפר ישראלית נצחית — וילה בית הלוגים מעניקה לשלוש משפחות חוויית נופש משותפת שאי אפשר למצוא בשום מקום אחר.">
+  <meta property="og:type" content="website">
   <meta property="og:locale" content="he_IL">
   
-  
-  
-  
-  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="תחושו את קסם הכינרת מקרוב — וילה בית הלוגים">
+  <meta name="twitter:description" content="שקיעות על הכינרת, ריח עצי הלוגים ואווירת כפר ישראלית נצחית — וילה בית הלוגים מעניקה לשלוש משפחות חוויית נופש משותפת שאי אפשר למצוא בשום מקום אחר.">
+  <link rel="stylesheet" href="/styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Favicons -->
@@ -1036,46 +1089,9 @@
               });
             })();
           </script>
-    <link rel="stylesheet" href="/styles.css">
+        
 
-    <style id="zappy-widget-visibility">
-      html[dir="rtl"] .whatsapp-float { right: 20px !important; left: auto !important; }
-      html[dir="ltr"] .whatsapp-float, html:not([dir]) .whatsapp-float { left: 20px !important; right: auto !important; }
-      html[dir="rtl"] #mic-access-tool-general-button, html[dir="rtl"] .mic-access-tool-general-button,
-      html[dir="rtl"] #mic-init-access-tool .mic-access-tool-general-button,
-      html[dir="rtl"] #mic-init-access-tool #mic-access-tool-general-button,
-      html[dir="rtl"] ._access-icon { left: 20px !important; right: auto !important; }
-      html[dir="ltr"] #mic-access-tool-general-button, html[dir="ltr"] .mic-access-tool-general-button,
-      html[dir="ltr"] #mic-init-access-tool .mic-access-tool-general-button,
-      html[dir="ltr"] #mic-init-access-tool #mic-access-tool-general-button,
-      html[dir="ltr"] ._access-icon,
-      html:not([dir]) #mic-access-tool-general-button, html:not([dir]) .mic-access-tool-general-button,
-      html:not([dir]) #mic-init-access-tool .mic-access-tool-general-button,
-      html:not([dir]) #mic-init-access-tool #mic-access-tool-general-button,
-      html:not([dir]) ._access-icon { right: 20px !important; left: auto !important; }
-      @media (max-width: 768px) { .whatsapp-float { display: flex !important; } }
-      @media (min-width: 769px) { .whatsapp-float { display: flex !important; } }
-      @media (max-width: 768px) {
-        #mic-access-tool-general-button, .mic-access-tool-general-button,
-        #mic-init-access-tool .mic-access-tool-general-button, #mic-init-access-tool #mic-access-tool-general-button,
-        ._access-icon, #mic-access-tool-box, .mic-access-tool-box,
-        #mic-init-access-tool #mic-access-tool-box, div[id*="mic-access-tool-box"], ._access-menu {
-          display: none !important; visibility: hidden !important; opacity: 0 !important; pointer-events: none !important;
-        }
-      }
-      @media (min-width: 769px) {
-        #mic-access-tool-general-button, .mic-access-tool-general-button,
-        #mic-init-access-tool .mic-access-tool-general-button, #mic-init-access-tool #mic-access-tool-general-button,
-        ._access-icon, #mic-access-tool-box, .mic-access-tool-box,
-        #mic-init-access-tool #mic-access-tool-box, div[id*="mic-access-tool-box"], ._access-menu {
-          display: none !important; visibility: hidden !important; opacity: 0 !important; pointer-events: none !important;
-        }
-      }
-    </style>
-</head>
-<body>
-
-  <nav class="navbar" dir="rtl"> <button class="mobile-toggle" id="mobileToggle" aria-label="Menu"> <svg class="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"> <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path> </svg> <svg class="close-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" style="display: none;"> <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path> </svg> </button> <button class="phone-header-btn" data-phone="0528282481" aria-label="Call"> <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"> <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path> </svg> </button> <div class="nav-container"> <div class="nav-right-group"><div class="nav-brand"> <a href="/" class="logo-link"> <img src="/assets/business-logo.webp" alt="וילה בית הלוגים" class="logo"> </a> </div><ul class="nav-menu" id="navMenu"><li><a href="/villa">פרטי הווילה</a></li><li><a href="/experience">החוויה</a></li><li style="display: none !important;" class="zappy-hidden-menu-item"><a href="/page-1776336586661" class="">טופס הזמנה</a></li><li class="nav-cta-item-mobile"><a href="/contact">צור קשר</a></li><li><a href="/reservation-request" class="nav-link">הזמנה</a></li><li><a href="/nearby" class="nav-link">בסביבה</a></li></ul></div> <div class="nav-cta-container"> <a href="/contact" class="nav-cta-btn">צור קשר</a> </div> </div> </nav>
+  <nav class="navbar" dir="rtl"> <button class="mobile-toggle" id="mobileToggle" aria-label="Menu"> <svg class="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"> <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path> </svg> <svg class="close-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" style="display: none;"> <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path> </svg> </button> <button class="phone-header-btn" data-phone="0528282481" aria-label="Call"> <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"> <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path> </svg> </button> <div class="nav-container"> <div class="nav-right-group"><div class="nav-brand"> <a href="/" class="logo-link"> <img src="/assets/business-logo.webp" alt="וילה בית הלוגים" class="logo"> </a> </div><ul class="nav-menu" id="navMenu"><li><a href="/villa">פרטי הווילה</a></li><li><a href="/experience">החוויה</a></li><li class="nav-cta-item-mobile"><a href="/contact">צור קשר</a></li><li><a href="/reservation-request" class="nav-link">הזמנה</a></li><li><a href="/nearby" class="nav-link">בסביבה</a></li></ul></div> <div class="nav-cta-container"> <a href="/contact" class="nav-cta-btn">צור קשר</a> </div> </div> </nav>
 <script>
 
 // Navbar Mobile Menu Toggle and Contrast Fix
@@ -1534,7 +1550,7 @@
         </div>
         <!-- Decorative offset tile -->
         <div class="story-deco-tile" aria-hidden="true">
-          <span class="story-deco-year" >1997</span>
+          <span class="story-deco-year">1997</span>
           <span class="story-deco-label">מאז ומתמיד</span>
         </div>
       </div>
@@ -1584,15 +1600,15 @@
   <div class="els-container">
     <div class="els-header">
       <h2 class="els-title">הרגעים שעושים את הנופש</h2>
-      <p class="els-intro" >בוילה בית הלוגים, ארבע משפחות יכולות לחיות יחד בלי להרגיש צפופות. כל רגע — ארוחת הבוקר, שעות הצהריים ליד הבריכה, הערב המשותף — מתגלגל בטבעיות, בחמימות, ובקצב שלכם.</p>
+      <p class="els-intro">בוילה בית הלוגים, ארבע משפחות יכולות לחיות יחד בלי להרגיש צפופות. כל רגע — ארוחת הבוקר, שעות הצהריים ליד הבריכה, הערב המשותף — מתגלגל בטבעיות, בחמימות, ובקצב שלכם.</p>
     </div>
 
     <!-- Moment 1: Breakfast -->
     <article class="els-moment els-moment--text-right">
       <div class="els-moment-text">
         <p><span class="els-moment-label">01</span>
-        </p><h3 class="els-moment-title" >על האש..</h3>
-        <p class="els-moment-desc" >בחצר התחתונה , יש שולחן גדול לארוחת בחוץ לצד המנגלים על גחלים או על גז - לבחירתכם</p>
+        </p><h3 class="els-moment-title">על האש..</h3>
+        <p class="els-moment-desc">בחצר התחתונה , יש שולחן גדול לארוחת בחוץ לצד המנגלים על גחלים או על גז - לבחירתכם</p>
       </div>
       <div class="els-moment-image-wrap">
         <div data-zappy-zoom-wrapper="true" data-element-id="img-1775371286486-1st7zgvts" data-element-type="image" data-zappy-zoom-wrapper-width="551px" data-zappy-zoom-wrapper-height="367px" data-zappy-zoom-wrapper-width-mode="px" data-zappy-zoom-clip="true" data-zappy-wrapper-margins-applied="true" style="position: relative !important; overflow: hidden !important; width: 551px !important; max-width: 100% !important; margin-left: auto !important; margin-right: auto !important; height: 367px !important; display: block !important;"><img data-placeholder="experience-lifestyle-image-1" data-context="Warm vintage-style villa kitchen and dining area in northern Israel. A large wooden table set for a shared family breakfast with fresh bread, Israeli salad, eggs, and coffee. Warm morning light streams through old wooden-framed windows. The atmosphere is cozy, nostalgic, and unhurried — multiple families gathered together in a rustic countryside setting." width="620" height="420" src="/assets/site-experience-lifestyle-image-1-1775371300328-nwc7ul.webp?v=1775371301998" alt="ארוחת בוקר משותפת בוילה בית הלוגים" class="els-moment-img" data-element-type="image" data-element-id="img-1775371286486-1st7zgvts" data-zappy-zoom="1.02" data-zappy-original-width="551" data-zappy-original-height="367" data-zappy-object-position="50% 50%" style="object-position: 50% 50% !important; margin: 0px !important; position: absolute !important; left: -1% !important; top: -2.06725% !important; width: 102% !important; height: 104.134% !important; max-width: none !important; max-height: none !important; display: block !important; object-fit: cover !important;"></div>
@@ -1610,8 +1626,8 @@
       </div>
       <div class="els-moment-text">
         <p><span class="els-moment-label">02</span>
-        </p><h3 class="els-moment-title" >שעות הצהריים בחצר ליד הבריכה</h3>
-        <p class="els-moment-desc" >הבריכה המקורה המחוממת פתוחה בכל עונות השנה, ומאפשרת לילדים לשחות בעוד המבוגרים נחים בנוחות לידם. המרחב מספיק גדול כדי שכולם ירגישו בנוח, ומספיק אינטימי כדי שהילדים לא ילכו לאיבוד.&nbsp;<br>ספות שיזוף ומקום ישיבה להרווח, בנוסף שולחן פינגפוג מול הנוף.</p>
+        </p><h3 class="els-moment-title">שעות הצהריים בחצר ליד הבריכה</h3>
+        <p class="els-moment-desc">הבריכה המקורה המחוממת פתוחה בכל עונות השנה, ומאפשרת לילדים לשחות בעוד המבוגרים נחים בנוחות לידם. המרחב מספיק גדול כדי שכולם ירגישו בנוח, ומספיק אינטימי כדי שהילדים לא ילכו לאיבוד.&nbsp;<br>ספות שיזוף ומקום ישיבה להרווח, בנוסף שולחן פינגפוג מול הנוף.</p>
       </div>
     </article>
 
@@ -1621,8 +1637,8 @@
     <article class="els-moment els-moment--text-right">
       <div class="els-moment-text">
         <p><span class="els-moment-label">03</span>
-        </p><h3 class="els-moment-title" >הגקוזי מול הנוף</h3>
-        <p class="els-moment-desc" >הגקוזי , גדול ומתאים ל 5 אורחים מוף נוף עוצר נשימה.</p>
+        </p><h3 class="els-moment-title">הגקוזי מול הנוף</h3>
+        <p class="els-moment-desc">הגקוזי , גדול ומתאים ל 5 אורחים מוף נוף עוצר נשימה.</p>
       </div>
       <div class="els-moment-image-wrap">
         <div data-zappy-zoom-wrapper="true" data-element-id="img-1775371286486-mf74hho6d" data-element-type="image" data-zappy-zoom-wrapper-width="551px" data-zappy-zoom-wrapper-height="367px" data-zappy-zoom-wrapper-width-mode="px" data-zappy-zoom-clip="true" data-zappy-wrapper-margins-applied="true" style="position: relative !important; overflow: hidden !important; width: 551px !important; max-width: 100% !important; margin-left: auto !important; margin-right: auto !important; height: 367px !important; display: block !important;"><img data-placeholder="experience-lifestyle-image-3" data-context="Cozy vintage-style villa living room in northern Israel at dusk. Three families gathered together in a warm, nostalgic interior with wooden furniture, soft warm lighting, a stone fireplace, and traditional Israeli countryside decor. Adults talking and laughing, children playing on rugs. The atmosphere is intimate, genuine, and full of warmth — a real home, not a hotel." width="620" height="420" src="/assets/site-experience-lifestyle-image-3-1775371595392-97dr4c.webp?v=1775371597015" alt="ערב משפחתי משותף בוילה בית הלוגים" class="els-moment-img" data-element-type="image" data-element-id="img-1775371286486-mf74hho6d" data-zappy-zoom="1.02" data-zappy-original-width="551" data-zappy-original-height="367" data-zappy-object-position="50% 50%" style="object-position: 50% 50% !important; margin: 0px !important; position: absolute !important; left: -1.17762% !important; top: -1% !important; width: 102.355% !important; height: 102% !important; max-width: none !important; max-height: none !important; display: block !important; object-fit: cover !important;"></div>
@@ -1641,7 +1657,7 @@
 
 <section class="experience-location-section" data-layout-spec="החוויה-location" dir="rtl" id="zappy-section-2"><!-- Panoramic Image Band -->
   <div class="location-panorama-band">
-    <img data-placeholder="experience-location-image-1" data-context="Panoramic cinematic view of the Sea of Galilee (Kinneret) as seen from a northern hillside villa in Israel. Late afternoon golden hour light, misty blue haze over the water, rolling green hills, ancient cypress trees framing the edges. Atmospheric, dusty-blue and warm-umber tones, countryside calm, wide-angle landscape photography." width="1200" height="480" src="/assets/site-experience-location-image-1.webp" alt="נוף פנורמי על הכנרת מהווילה בצפון הארץ" data-element-type="image" data-element-id="img-1775371286486-zs9dnqava" >
+    <img data-placeholder="experience-location-image-1" data-context="Panoramic cinematic view of the Sea of Galilee (Kinneret) as seen from a northern hillside villa in Israel. Late afternoon golden hour light, misty blue haze over the water, rolling green hills, ancient cypress trees framing the edges. Atmospheric, dusty-blue and warm-umber tones, countryside calm, wide-angle landscape photography." width="1200" height="480" src="/assets/site-experience-location-image-1.webp" alt="נוף פנורמי על הכנרת מהווילה בצפון הארץ" data-element-type="image" data-element-id="img-1775371286486-zs9dnqava">
     <div class="panorama-scrim"></div>
     <div class="panorama-caption-wrap">
       <p class="zappy-editable"><span class="panorama-eyebrow">הצפון הקסום</span>
@@ -1657,8 +1673,8 @@
       <div class="location-main-copy">
         <p><span class="location-label">המיקום שלנו</span>
         </p><h3 class="location-heading">שקט כפרי, נוף שלא נגמר</h3>
-        <p class="location-body" >וילה בית הלוגים שוכנת בלב הצפון, על גבעה המשקיפה אל הכנרת — מרחב שבו הטבע, הדממה, והאור הים-תיכוני מתמזגים לחוויה שקשה לתאר במילים. מהרגע שאתם מגיעים, הנוף פורש לפניכם כמו ציור: מים כחולים-אפרפרים, מטעים&nbsp; ירוקים, ושמיים רחבים שמשתנים עם שעות היום.</p>
-        <p class="location-body" >הווילה נועדה לאפשר לשלוש עד ארבע משפחות לנפוש יחד, תוך שמירה על תחושת בית אמיתית — לא מלון, לא צימר סטנדרטי. כאן, בין 5 חדרים מרווחים ובריכה מקורה מחוממת, מתרחשים הרגעים שנזכרים בהם שנים אחר כך: ארוחות ערב משותפות, שיחות לילה, ושחרית עם קפה מול הנוף.</p>
+        <p class="location-body">וילה בית הלוגים שוכנת בלב הצפון, על גבעה המשקיפה אל הכנרת — מרחב שבו הטבע, הדממה, והאור הים-תיכוני מתמזגים לחוויה שקשה לתאר במילים. מהרגע שאתם מגיעים, הנוף פורש לפניכם כמו ציור: מים כחולים-אפרפרים, מטעים&nbsp; ירוקים, ושמיים רחבים שמשתנים עם שעות היום.</p>
+        <p class="location-body">הווילה נועדה לאפשר לשלוש עד ארבע משפחות לנפוש יחד, תוך שמירה על תחושת בית אמיתית — לא מלון, לא צימר סטנדרטי. כאן, בין 5 חדרים מרווחים ובריכה מקורה מחוממת, מתרחשים הרגעים שנזכרים בהם שנים אחר כך: ארוחות ערב משותפות, שיחות לילה, ושחרית עם קפה מול הנוף.</p>
         <p class="location-body">האזור מציע שקט כפרי אמיתי — רחוק מהעומס, קרוב לכל מה שחשוב. וילה בית הלוגים היא הבסיס המושלם לנופש משפחתי משותף בצפון הארץ, שבו כל יום מתחיל בנשימה עמוקה ומסתיים בסיפוק.</p>
         <p><a href="#contact" class="btn-primary location-cta" data-element-type="button" data-element-id="btn-1775371286484-h8wytcgsw" data-native-element="true">יצירת קשר ובירורים</a>
       </p></div>
@@ -1699,7 +1715,7 @@
               <span class="advantage-icon" aria-hidden="true">
                 <svg data-element-type="icon" data-icon-type="svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
               </span>
-              <div class="advantage-text" >
+              <div class="advantage-text">
                 <strong>מתחם קניות פתוח 7 ימים בשבוע</strong>
                 <span>תצטידו בצפון , סופר גדול, ועוד מסעדות אוטנטיות</span>
               </div>
@@ -1708,7 +1724,7 @@
               <span class="advantage-icon" aria-hidden="true">
                 <svg data-element-type="icon" data-icon-type="svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
               </span>
-              <div class="advantage-text" >
+              <div class="advantage-text">
                 <strong>טיול רגלי - בצלמון המתחדש</strong>מסלול הליכה מהוילה לנחל צלמון המתחדש עם מים מוטפלים מים תיכון&nbsp;<br>(5 ק"מ - יפיפיים)</div>
             </li>
             <li class="advantage-item zappy-grid-item-nested-grid" data-grid-item-index="5">
@@ -1724,8 +1740,7 @@
           <p class="zappy-editable"><a href="https://maps.google.com/?q=החרצית 47, מגדל, Israel, 14900, Israel" target="_blank" rel="noopener noreferrer" class="location-map-btn" style="display:flex;align-items:flex-start;gap:inherit" data-element-type="button" data-element-id="btn-1775371286484-o695bejxk" data-native-element="true">
             <svg data-element-type="icon" data-icon-type="svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
             צפייה במפה
-          </a>
-         החרצית 47, מגדל, Israel, 14900, Israel</p></div>
+          </a>החרצית 47, מגדל, Israel, 14900, Israel</p></div>
       </aside>
 
     </div>
@@ -1760,7 +1775,7 @@
         </div>
         <div class="guidance-card-content">
           <h3 class="guidance-card-title">למי הוילה מתאימה?</h3>
-          <p class="guidance-card-text" >אנחנו מארחים עד 3 עד 4 משפחות בו-זמנית — אחים ואחיות עם ילדיהם, משפחה מורחבת, או קבוצת חברים קרובים. מתאים במיוחד לאלה שרוצים לבלות יחד בלי לוותר על פרטיות ונוחות.</p>
+          <p class="guidance-card-text">אנחנו מארחים עד 3 עד 4 משפחות בו-זמנית — אחים ואחיות עם ילדיהם, משפחה מורחבת, או קבוצת חברים קרובים. מתאים במיוחד לאלה שרוצים לבלות יחד בלי לוותר על פרטיות ונוחות.</p>
           <ul class="guidance-card-list">
             <li><i class="fas fa-check" aria-hidden="true" data-element-type="icon" data-element-id="icon-1775371286486-p296hpez7" data-icon-type="fontawesome" style="pointer-events: auto; cursor: pointer;"></i><span>משפחות מורחבות עם ילדים</span></li>
             <li><i class="fas fa-check" aria-hidden="true" data-element-type="icon" data-element-id="icon-1775371286486-rv4xcmdb7" data-icon-type="fontawesome" style="pointer-events: auto; cursor: pointer;"></i><span>אחים/אחיות עם משפחות</span></li>
@@ -1798,7 +1813,7 @@
         </div>
         <div class="guidance-card-content">
           <h3 class="guidance-card-title">מה הופך את השהות לנעימה?</h3>
-          <p class="guidance-card-text" >5 חדרי שינה עם 3 חדרי אמבטיה נפרדים מבטיחים שכל משפחה שומרת על עצמאותה. המרחב המשותף — הסלון, המטבח, והבריכה — הם הלב הפועם שמחבר בין כולם ברגעים שחשובים באמת.</p>
+          <p class="guidance-card-text">5 חדרי שינה עם 3 חדרי אמבטיה נפרדים מבטיחים שכל משפחה שומרת על עצמאותה. המרחב המשותף — הסלון, המטבח, והבריכה — הם הלב הפועם שמחבר בין כולם ברגעים שחשובים באמת.</p>
           <ul class="guidance-card-list">
             <li><i class="fas fa-check" aria-hidden="true" data-element-type="icon" data-element-id="icon-1775371286486-ecfby536d" data-icon-type="fontawesome" style="pointer-events: auto; cursor: pointer;"></i><span>5 חדרים עם פרטיות מלאה</span></li>
             <li><i class="fas fa-check" aria-hidden="true" data-element-type="icon" data-element-id="icon-1775371286486-m3ijg156e" data-icon-type="fontawesome" style="pointer-events: auto; cursor: pointer;"></i><span>בריכה מקורה מחוממת משותפת</span></li>
@@ -1818,13 +1833,15 @@
 </section>
   </main>
   
-  <footer class="site-footer"><div class="footer-container"><div class="footer-top"><div class="footer-col footer-brand"><img src="/assets/business-logo.webp" alt="וילה בית הלוגים" class="logo"><p class="footer-tagline">מקום לנשום, לחוות ולהתחבר מחדש עם הטבע ועם האנשים שאוהבים.</p><div class="footer-social"><a href="https://facebook.com/vila.beit.halogim" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a><a href="#" aria-label="Instagram" style="display:none !important;"><i class="fab fa-instagram"></i></a><a href="https://wa.me/971528282481" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a></div></div><div class="footer-col"><h4 class="footer-heading">ניווט מהיר</h4><ul class="footer-links"><li><a href="/villa">פרטי הווילה</a></li><li><a href="/experience">החוויה</a></li><li><a href="/contact">צור קשר</a></li></ul></div><div class="footer-col"><h4 class="footer-heading">יצירת קשר</h4><ul class="footer-contact"><li><span class="contact-icon"><i class="fas fa-envelope"></i></span><a href="mailto:askayoe@walla.com">askayoe@walla.com</a></li><li><span class="contact-icon"><i class="fas fa-phone"></i></span><a href="tel:0528282481">0528282481</a></li><li><a href="/"><span class="contact-icon"><i class="fas fa-map-marker-alt"></i></span><span>החרצית 47, מגדל, Israel, 14900, Israel</span></a></li></ul></div></div><div class="footer-divider"></div><div class="footer-bottom"><p class="footer-copyright">© 2026 וילה בית הלוגים. כל הזכויות שמורות.</p><div class="footer-legal"><a href="/privacy">מדיניות פרטיות</a><span class="legal-sep"></span><a href="/terms">תנאי שימוש</a><span class="legal-sep"></span><a href="/accessibility">נגישות</a><span class="legal-sep"></span><a href="https://zappy5.com" target="_blank" class="zappy-attribution">נוצר באמצעות Zappy</a></div></div></div></footer>
+  <footer class="site-footer"><div class="footer-container"><div class="footer-top"><div class="footer-col footer-brand"><img src="/assets/business-logo.webp" alt="וילה בית הלוגים" class="logo"><p class="footer-tagline">מקום לנשום, לחוות ולהתחבר מחדש עם הטבע ועם האנשים שאוהבים.</p><div class="footer-social"><a href="https://facebook.com/vila.beit.halogim" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a><a href="#" aria-label="Instagram" style="display:none !important;"><i class="fab fa-instagram"></i></a><a href="https://wa.me/972528282481" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a><a href="https://youtube.com/@embed/mdAQiFrIRv0" aria-label="YouTube" data-element-id="element-ai-1783342334082-y7k3m1" data-element-type="social-link"><i class="fab fa-youtube"></i></a></div></div><div class="footer-col"><h4 class="footer-heading">ניווט מהיר</h4><ul class="footer-links"><li><a href="/villa">פרטי הווילה</a></li><li><a href="/experience">החוויה</a></li><li><a href="/contact">צור קשר</a></li></ul></div><div class="footer-col"><h4 class="footer-heading">יצירת קשר</h4><ul class="footer-contact"><li><span class="contact-icon"><i class="fas fa-envelope"></i></span><a href="mailto:askayoe@walla.com">askayoe@walla.com</a></li><li><span class="contact-icon"><i class="fas fa-phone"></i></span><a href="tel:0528282481">0528282481</a></li><li><a href="https://www.google.com/maps/search/?api=1&amp;query=%D7%94%D7%97%D7%A8%D7%A6%D7%99%D7%AA%2047%2C%20%D7%9E%D7%92%D7%93%D7%9C%2C%20Israel%2C%2014900%2C%20Israel" style="display:flex;align-items:flex-start;gap:inherit" target="_blank" rel="noopener noreferrer"><span class="contact-icon"><i class="fas fa-map-marker-alt"></i></span><span>החרצית 47, מגדל, Israel, 14900, Israel</span></a></li></ul></div></div><div class="footer-divider"></div><div class="footer-bottom"><p class="footer-copyright">© 2026 וילה בית הלוגים. כל הזכויות שמורות.</p><div class="footer-legal"><a href="/privacy">מדיניות פרטיות</a><span class="legal-sep"></span><a href="/terms">תנאי שימוש</a><span class="legal-sep"></span><a href="/accessibility">נגישות</a><span class="legal-sep"></span><a href="https://zappy5.com" target="_blank" class="zappy-attribution">נוצר באמצעות Zappy</a></div></div></div></footer>
   
-  <a href="https://wa.me/971528282481" class="whatsapp-float" aria-label="WhatsApp">
+  <a href="https://wa.me/972528282481" class="whatsapp-float" aria-label="WhatsApp">
     <i class="fab fa-whatsapp"></i>
   </a>
   
-  <div data-integration="accessibility:toolbar"></div>
+  <script src="/script.js"></script>
+
+    <div data-integration="accessibility:toolbar"></div>
 
     <script src="/script.js"></script>
 
@@ -1927,7 +1944,7 @@
       window.addEventListener('scroll',onS,{passive:true});
       window.addEventListener('resize',onS,{passive:true});
       onS();
-      var heroEl=document.querySelector('section[class*="hero"],[data-hero-type],main>section:first-child');
+      var heroEl=document.querySelector('section[class*="hero"],[data-hero-type],main:not(.courses-page-main)>section:first-child');
       var hasDH=false;
       if(heroEl){var hCs=getComputedStyle(heroEl);var hBI=hCs.backgroundImage;if(hBI&&hBI!=='none'){if(hBI.indexOf('url(')!==-1){var hM2=hCs.backgroundColor.match(/\d+/g);if(hM2&&hM2.length>=3){hasDH=sLum(parseInt(hM2[0]),parseInt(hM2[1]),parseInt(hM2[2]))<0.4;}else{hasDH=true;}}else if(hBI.indexOf('gradient')!==-1){var cM=hBI.match(/rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/g);if(cM&&cM.length>0){var tLm=0;for(var ci=0;ci<cM.length;ci++){var pts=cM[ci].match(/\d+/g);tLm+=sLum(parseInt(pts[0]),parseInt(pts[1]),parseInt(pts[2]));}hasDH=(tLm/cM.length)<0.4;}else{hasDH=true;}}else{hasDH=true;}}else{var hM=hCs.backgroundColor.match(/\d+/g);if(hM&&hM.length>=3){hasDH=sLum(parseInt(hM[0]),parseInt(hM[1]),parseInt(hM[2]))<0.4;}}}
       if(!hasDH){window.removeEventListener('scroll',onS);window.removeEventListener('resize',onS);applyScrolled();window._zappyNavNoDarkHero=true;}
@@ -2075,5 +2092,5 @@
       else setTimeout(init,50);
     })();
     </script>
-</body>
-</html>
+
+</body></html>

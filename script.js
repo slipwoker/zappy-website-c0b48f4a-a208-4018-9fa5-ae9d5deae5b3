@@ -1109,6 +1109,60 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
+/* ZAPPY_CUSTOM_JS_START:ae54b3d9753c */
+(function () {
+  function __zappyCustomInit() {
+    try {
+(function() {
+  var form = document.getElementById('whatsapp-booking-form');
+  if (!form) return;
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    var fullName = (document.getElementById('full-name')?.value || '').trim();
+    var phone = (document.getElementById('phone')?.value || '').trim();
+    var email = (document.getElementById('email')?.value || '').trim();
+    var checkIn = (document.getElementById('checkin')?.value || '').trim();
+    var checkOut = (document.getElementById('checkout')?.value || '').trim();
+    var guests = document.getElementById('guests')?.value || '';
+    var notes = (document.getElementById('notes')?.value || '').trim();
+
+    if (!fullName) {
+      alert('נא למלא שם מלא');
+      return;
+    }
+    if (!phone) {
+      alert('נא למלא מספר טלפון');
+      return;
+    }
+
+    var message = '🌟 *הזמנה חדשה - וילה בית הלוגים* 🌟\n\n';
+    message += '👤 *שם מלא:* ' + fullName + '\n';
+    message += '📞 *טלפון:* ' + phone + '\n';
+    if (email) message += '📧 *אימייל:* ' + email + '\n';
+    if (checkIn) message += '📅 *תאריך כניסה:* ' + checkIn + '\n';
+    if (checkOut) message += '📅 *תאריך יציאה:* ' + checkOut + '\n';
+    if (guests) message += '👥 *מספר אורחים:* ' + guests + '\n';
+    if (notes) message += '📝 *הערות:* ' + notes + '\n';
+
+    var encoded = encodeURIComponent(message);
+    var waUrl = 'https://wa.me/972528282481?text=' + encoded;
+    window.location.href = waUrl;
+  });
+})();
+    } catch (e) {
+      if (typeof console !== 'undefined' && console.warn) { console.warn('[zappy-custom-js]', e); }
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', __zappyCustomInit);
+  } else {
+    __zappyCustomInit();
+  }
+})();
+/* ZAPPY_CUSTOM_JS_END:ae54b3d9753c */
+
 
 /* ZAPPY_PUBLISHED_LIGHTBOX_RUNTIME */
 (function(){

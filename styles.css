@@ -10299,6 +10299,10 @@ body > .flatpickr-calendar .flatpickr-next-month {
     border-radius: 16px;
   }
 }
+
+.index-hero-section .index-hero-divider-wrapper {
+  display: none !important;
+}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,

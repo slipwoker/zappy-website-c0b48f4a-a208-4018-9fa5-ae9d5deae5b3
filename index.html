@@ -320,7 +320,12 @@
     if(co) msg+='📅 *תאריך יציאה:* '+co+'\n';
     if(g) msg+='👥 *מספר אורחים:* '+g+'\n';
     if(nt) msg+='📝 *הערות:* '+nt+'\n';
-    window.location.href='https://wa.me/972528282481?text='+encodeURIComponent(msg);
+    var url='https://wa.me/972528282481?text='+encodeURIComponent(msg);
+    var a = document.createElement('a');
+    a.href = url;
+    a.target = '_top';
+    a.rel = 'noopener';
+    a.click();
     return false;
   };
 })();

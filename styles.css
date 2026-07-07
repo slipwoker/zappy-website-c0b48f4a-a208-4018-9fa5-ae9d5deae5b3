@@ -10058,6 +10058,247 @@ body > .flatpickr-calendar .flatpickr-next-month {
     max-height: 90vh;
   }
 }
+
+/* Added Component Styles */
+.villa-whatsapp-section {
+  background: linear-gradient(135deg, #f8f9f5 0%, #eef0ea 50%, #f5f6f2 100%);
+  padding: 90px 20px;
+  font-family: system-ui, sans-serif;
+  direction: rtl;
+}
+
+.villa-whatsapp-container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.villa-whatsapp-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  align-items: center;
+}
+
+/* Content Side */
+.villa-whatsapp-content {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.villa-whatsapp-badge {
+  display: inline-block;
+  background: var(--primary, #7A8264);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 6px 18px;
+  border-radius: 50px;
+  width: fit-content;
+  letter-spacing: 0.5px;
+}
+
+.villa-whatsapp-title {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: #2d2d2d;
+  line-height: 1.25;
+  margin: 0;
+}
+
+.villa-whatsapp-description {
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* Form */
+.villa-whatsapp-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.villa-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.villa-form-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.villa-form-input,
+.villa-form-textarea {
+  padding: 14px 18px;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-family: system-ui, sans-serif;
+  background: #fff;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  outline: none;
+  color: #333;
+  direction: rtl;
+}
+
+.villa-form-input::placeholder,
+.villa-form-textarea::placeholder {
+  color: #aaa;
+}
+
+.villa-form-input:focus,
+.villa-form-textarea:focus {
+  border-color: var(--primary, #7A8264);
+  box-shadow: 0 0 0 3px rgba(122, 130, 100, 0.15);
+}
+
+.villa-form-textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+.villa-whatsapp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--gradient-primary, linear-gradient(180deg, #879757 0%, #6F7F42 100%));
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  padding: 16px 32px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.3s ease;
+  margin-top: 6px;
+  width: 100%;
+  font-family: system-ui, sans-serif;
+}
+
+.villa-whatsapp-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(111, 127, 66, 0.35);
+}
+
+.villa-whatsapp-btn:active {
+  transform: translateY(0);
+}
+
+.villa-whatsapp-btn:focus-visible {
+  outline: 3px solid #4a5a2a;
+  outline-offset: 2px;
+}
+
+.villa-btn-icon {
+  flex-shrink: 0;
+}
+
+/* Success Message */
+.villa-whatsapp-success {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  background: #e8f5e9;
+  border: 1px solid #c8e6c9;
+  border-radius: 12px;
+  padding: 16px 20px;
+  color: #2e7d32;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-top: 8px;
+}
+
+.villa-whatsapp-success.visible {
+  display: flex;
+}
+
+/* Image Side */
+.villa-whatsapp-image-wrapper {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+  aspect-ratio: 4 / 3;
+}
+
+.villa-whatsapp-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.villa-whatsapp-image-wrapper:hover .villa-whatsapp-image {
+  transform: scale(1.03);
+}
+
+.villa-image-overlay {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 12px;
+  padding: 10px 18px;
+}
+
+.villa-overlay-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.villa-overlay-icon {
+  flex-shrink: 0;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .villa-whatsapp-grid {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+
+  .villa-whatsapp-image-wrapper {
+    order: -1;
+    max-height: 350px;
+  }
+}
+
+@media (max-width: 600px) {
+  .villa-whatsapp-section {
+    padding: 60px 16px;
+  }
+
+  .villa-whatsapp-title {
+    font-size: 1.8rem;
+  }
+
+  .villa-whatsapp-description {
+    font-size: 1rem;
+  }
+
+  .villa-whatsapp-btn {
+    padding: 14px 24px;
+    font-size: 1rem;
+  }
+
+  .villa-whatsapp-image-wrapper {
+    border-radius: 16px;
+  }
+}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,

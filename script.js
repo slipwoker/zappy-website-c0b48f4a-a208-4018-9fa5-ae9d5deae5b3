@@ -1345,6 +1345,41 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 })();
 
+/* Added Component Script */
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('villaContactForm');
+  const successMessage = document.getElementById('villaSuccessMessage');
+
+  if (form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const fullName = form.querySelector('#fullName').value.trim();
+      const phoneNumber = form.querySelector('#phoneNumber').value.trim();
+      const message = form.querySelector('#message').value.trim();
+
+      if (!fullName || !phoneNumber) {
+        alert('אנא מלאו את כל שדות החובה.');
+        return;
+      }
+
+      // Simulate form submission
+      form.style.display = 'none';
+      successMessage.classList.add('visible');
+
+      // Log for demo purposes (replace with actual API call)
+      console.log('Form submitted:', { fullName, phoneNumber, message });
+
+      // Optional: Reset after a few seconds
+      // setTimeout(function() {
+      //   form.reset();
+      //   form.style.display = 'flex';
+      //   successMessage.classList.remove('visible');
+      // }, 5000);
+    });
+  }
+});
+
 
 /* ZAPPY_PUBLISHED_LIGHTBOX_RUNTIME */
 (function(){

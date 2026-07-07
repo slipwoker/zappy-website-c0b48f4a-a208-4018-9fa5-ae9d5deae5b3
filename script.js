@@ -788,6 +788,139 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+/* Added Component Script */
+(function() {
+  const form = document.getElementById('bookingForm');
+  const successMsg = document.getElementById('bookingSuccess');
+  const checkInInput = document.getElementById('checkIn');
+  const checkOutInput = document.getElementById('checkOut');
+  const phoneInput = document.getElementById('phone');
+
+  const today = new Date().toISOString().split('T')[0];
+  checkInInput.setAttribute('min', today);
+  checkOutInput.setAttribute('min', today);
+
+  checkInInput.addEventListener('change', function() {
+    if (checkInInput.value) {
+      const nextDay = new Date(checkInInput.value);
+      nextDay.setDate(nextDay.getDate() + 1);
+      const minCheckOut = nextDay.toISOString().split('T')[0];
+      checkOutInput.setAttribute('min', minCheckOut);
+      if (checkOutInput.value && checkOutInput.value < minCheckOut) {
+        checkOutInput.value = '';
+      }
+    }
+  });
+
+  phoneInput.addEventListener('input', function() {
+    let val = phoneInput.value.replace(/[^\d]/g, '');
+    if (val.length > 2) {
+      val = val.slice(0, 3) + '-' + val.slice(3, 10);
+    }
+    phoneInput.value = val;
+  });
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    let isValid = true;
+    const fullName = document.getElementById('fullName').value.trim();
+    const phone = phoneInput.value.trim();
+    const email = document.getElementById('email').value.trim();
+    const checkIn = checkInInput.value;
+    const checkOut = checkOutInput.value;
+    const guests = document.getElementById('guests').value;
+    const notes = document.getElementById('notes').value.trim();
+
+    document.querySelectorAll('.form-input').forEach(input => {
+      input.classList.remove('invalid');
+    });
+    document.querySelectorAll('.form-error').forEach(err => {
+      err.style.display = 'none';
+    });
+
+    if (!fullName) {
+      document.getElementById('fullName').classList.add('invalid');
+      document.getElementById('fullNameError').style.display = 'block';
+      isValid = false;
+    }
+
+    const phoneRegex = /^0\d{1,2}-?\d{7}$/;
+    if (!phone || !phoneRegex.test(phone)) {
+      phoneInput.classList.add('invalid');
+      document.getElementById('phoneError').style.display = 'block';
+      isValid = false;
+    }
+
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      document.getElementById('email').classList.add('invalid');
+      document.getElementById('emailError').style.display = 'block';
+      isValid = false;
+    }
+
+    if (!checkIn) {
+      checkInInput.classList.add('invalid');
+      document.getElementById('checkInError').style.display = 'block';
+      isValid = false;
+    }
+
+    if (!checkOut) {
+      checkOutInput.classList.add('invalid');
+      document.getElementById('checkOutError').style.display = 'block';
+      isValid = false;
+    }
+
+    if (checkIn && checkOut && checkOut <= checkIn) {
+      checkOutInput.classList.add('invalid');
+      document.getElementById('checkOutError').textContent = 'תאריך יציאה חייב להיות אחרי תאריך כניסה';
+      document.getElementById('checkOutError').style.display = 'block';
+      isValid = false;
+    }
+
+    if (!guests) {
+      document.getElementById('guests').classList.add('invalid');
+      document.getElementById('guestsError').style.display = 'block';
+      isValid = false;
+    }
+
+    if (!isValid) {
+      return;
+    }
+
+    const message = encodeURIComponent(
+      `*הזמנה חדשה - וילה בית הלוגים*\n\n` +
+      `👤 *שם מלא:* ${fullName}\n` +
+      `📞 *טלפון:* ${phone}\n` +
+      (email ? `📧 *אימייל:* ${email}\n` : '') +
+      `📅 *תאריך כניסה:* ${checkIn}\n` +
+      `📅 *תאריך יציאה:* ${checkOut}\n` +
+      `👥 *מספר אורחים:* ${guests}\n` +
+      (notes ? `📝 *הערות:* ${notes}\n` : '')
+    );
+
+    const whatsappUrl = `https://wa.me/972528282481?text=${message}`;
+
+    form.style.display = 'none';
+    successMsg.classList.add('visible');
+
+    setTimeout(() => {
+      window.open(whatsappUrl, '_blank');
+    }, 600);
+  });
+
+  const style = document.createElement('style');
+  style.textContent = `
+    .form-input.invalid {
+      border-color: #e07a5f !important;
+      background: #fff8f7 !important;
+    }
+    .form-input.invalid:focus {
+      box-shadow: 0 0 0 4px rgba(224, 122, 95, 0.15) !important;
+    }
+  `;
+  document.head.appendChild(style);
+})();
+
 
 /* ZAPPY_PUBLISHED_LIGHTBOX_RUNTIME */
 (function(){

@@ -62,9 +62,11 @@ Information about WCAG compliance and accessibility features.
 - Method: POST
 - Content-Type: application/json
 - Fields:
-  - `fullName` (text, required)
-  - `phoneNumber` (tel, required)
+  - `name` (text, required)
+  - `phone` (tel, required)
+  - `email` (email)
   - `message` (textarea)
+  - `privacy` (checkbox, required)
 
 ---
 

@@ -921,6 +921,70 @@ document.addEventListener('DOMContentLoaded', function() {
   document.head.appendChild(style);
 })();
 
+/* ZAPPY_CUSTOM_JS_START:e8fb5d2ecb47 */
+(function () {
+  function __zappyCustomInit() {
+    try {
+(function() {
+  const form = document.querySelector('#ai-section-1783414537408-9v7az3x #bookingForm');
+  if (!form) return;
+
+  const newForm = form.cloneNode(true);
+  form.parentNode.replaceChild(newForm, form);
+
+  // Set min dates
+  const today = new Date().toISOString().split('T')[0];
+  const checkInEl = document.getElementById('checkIn');
+  const checkOutEl = document.getElementById('checkOut');
+  if (checkInEl) checkInEl.setAttribute('min', today);
+  if (checkOutEl) checkOutEl.setAttribute('min', today);
+
+  newForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    var getVal = function(id) {
+      var el = document.getElementById(id);
+      return el ? el.value.trim() : '';
+    };
+
+    var fullName = getVal('fullName');
+    var phone = getVal('phone');
+    var email = getVal('email');
+    var checkIn = getVal('checkIn');
+    var checkOut = getVal('checkOut');
+    var guestsEl = document.getElementById('guests');
+    var guestsText = guestsEl && guestsEl.selectedIndex > 0 ? guestsEl.options[guestsEl.selectedIndex].text : '';
+    var notes = getVal('notes');
+
+    if (!fullName || !phone) {
+      alert('נא למלא לפחות שם מלא וטלפון');
+      return;
+    }
+
+    var message = 'היי, אני מעוניין/ת להתארח בוילה בית הלוגים:%0A%0A';
+    message += '👤 שם מלא: ' + encodeURIComponent(fullName) + '%0A';
+    message += '📞 טלפון: ' + encodeURIComponent(phone) + '%0A';
+    if (email) message += '📧 אימייל: ' + encodeURIComponent(email) + '%0A';
+    if (checkIn) message += '📅 תאריך כניסה: ' + encodeURIComponent(checkIn) + '%0A';
+    if (checkOut) message += '📅 תאריך יציאה: ' + encodeURIComponent(checkOut) + '%0A';
+    if (guestsText) message += '👥 מספר אורחים: ' + encodeURIComponent(guestsText) + '%0A';
+    if (notes) message += '📝 הערות: ' + encodeURIComponent(notes) + '%0A';
+
+    window.location.href = 'https://wa.me/972528282481?text=' + message;
+  });
+})();
+    } catch (e) {
+      if (typeof console !== 'undefined' && console.warn) { console.warn('[zappy-custom-js]', e); }
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', __zappyCustomInit);
+  } else {
+    __zappyCustomInit();
+  }
+})();
+/* ZAPPY_CUSTOM_JS_END:e8fb5d2ecb47 */
+
 
 /* ZAPPY_PUBLISHED_LIGHTBOX_RUNTIME */
 (function(){

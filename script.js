@@ -1040,6 +1040,76 @@ document.addEventListener('DOMContentLoaded', function() {
 /* ZAPPY_CUSTOM_JS_END:700d6a342985 */
 
 
+/* Added Component Script */
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('whatsapp-booking-form');
+  const phoneNumber = '972528282481';
+
+  // Set minimum dates for checkin/checkout
+  const today = new Date().toISOString().split('T')[0];
+  const checkinInput = document.getElementById('checkin');
+  const checkoutInput = document.getElementById('checkout');
+
+  if (checkinInput) {
+    checkinInput.setAttribute('min', today);
+  }
+
+  if (checkinInput && checkoutInput) {
+    checkinInput.addEventListener('change', function() {
+      checkoutInput.setAttribute('min', this.value);
+      if (checkoutInput.value && checkoutInput.value < this.value) {
+        checkoutInput.value = this.value;
+      }
+    });
+
+    checkoutInput.addEventListener('change', function() {
+      if (checkinInput.value && this.value < checkinInput.value) {
+        this.value = checkinInput.value;
+      }
+    });
+  }
+
+  if (form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const fullName = document.getElementById('full-name').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const guests = document.getElementById('guests').value;
+      const checkin = document.getElementById('checkin').value;
+      const checkout = document.getElementById('checkout').value;
+      const notes = document.getElementById('notes').value.trim();
+
+      // Validate required fields
+      if (!fullName || !phone || !checkin || !checkout) {
+        alert('אנא מלאו את כל שדות החובה המסומנים בכוכבית (*)');
+        return;
+      }
+
+      // Build WhatsApp message
+      let message = 'היי, הגעתי מאתר וילה בית הלוגים!\n\n';
+      message += 'אני מעוניין/ת לקבל פרטים על החופשה:\n\n';
+      message += '👤 *שם מלא:* ' + fullName + '\n';
+      message += '📞 *טלפון:* ' + phone + '\n';
+      if (email) message += '📧 *אימייל:* ' + email + '\n';
+      message += '📅 *תאריך כניסה:* ' + checkin + '\n';
+      message += '📅 *תאריך יציאה:* ' + checkout + '\n';
+      if (guests) message += '👥 *מספר אורחים:* ' + guests + '\n';
+      if (notes) message += '📝 *הערות:* ' + notes + '\n';
+      message += '\nאשמח לקבל הצעת מחיר 🙏';
+
+      // Encode message for URL
+      const encodedMessage = encodeURIComponent(message);
+      const whatsappUrl = 'https://wa.me/' + phoneNumber + '?text=' + encodedMessage;
+
+      // Open WhatsApp
+      window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+    });
+  }
+});
+
+
 /* ZAPPY_PUBLISHED_LIGHTBOX_RUNTIME */
 (function(){
   try {

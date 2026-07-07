@@ -1564,11 +1564,11 @@ document.addEventListener('DOMContentLoaded', function() {
 /* END ZAPPY_PUBLISHED_LIGHTBOX_RUNTIME */
 
 
-/* ZAPPY_PUBLISHED_ZOOM_WRAPPER_RUNTIME_V2 */
+/* ZAPPY_PUBLISHED_ZOOM_WRAPPER_RUNTIME_V3 */
 (function(){
   try {
-    if (window.__zappyPublishedZoomInitV2) return;
-    window.__zappyPublishedZoomInitV2 = true;
+    if (window.__zappyPublishedZoomInitV3) return;
+    window.__zappyPublishedZoomInitV3 = true;
 
     function isHeroBgWrapper(wrapper) {
       var img = wrapper.querySelector('img');
@@ -1600,6 +1600,27 @@ document.addEventListener('DOMContentLoaded', function() {
       return { w: 100, h: (contA / imgA) * 100 };
     }
 
+    var IMAGE_SLOT_CLASS_TOKENS = ['image-wrap', 'image-tile', 'image-slot', 'card-image', 'card-media', 'media-wrap', 'portrait-wrap'];
+    function classNameHasImageSlotMarker(className) {
+      var raw = (className || '').toString().toLowerCase();
+      if (!raw.trim()) return false;
+      var classes = raw.split(/\s+/);
+      for (var c = 0; c < classes.length; c++) {
+        var segments = classes[c].split(/[^a-z0-9]+/).filter(function(s) { return !!s; });
+        for (var t = 0; t < IMAGE_SLOT_CLASS_TOKENS.length; t++) {
+          var tokenParts = IMAGE_SLOT_CLASS_TOKENS[t].split('-');
+          for (var i = 0; i <= segments.length - tokenParts.length; i++) {
+            var match = true;
+            for (var j = 0; j < tokenParts.length; j++) {
+              if (segments[i + j] !== tokenParts[j]) { match = false; break; }
+            }
+            if (match) return true;
+          }
+        }
+      }
+      return false;
+    }
+
     function normalizeInsertedZoomParent(wrapper) {
       try {
         var parent = wrapper && wrapper.parentElement;
@@ -1614,6 +1635,26 @@ document.addEventListener('DOMContentLoaded', function() {
         parent.style.setProperty('max-height', 'none', 'important');
         parent.setAttribute('data-zappy-inserted-zoom-parent-normalized', '1');
       } catch (_e) {}
+    }
+
+    function findImageSlotContainerForZoomWrapper(wrapper, maxWalk) {
+      try {
+        if (!wrapper || !wrapper.parentElement) return null;
+        var node = wrapper.parentElement;
+        for (var walk = 0; walk < (maxWalk || 4) && node && node !== document.body; walk++) {
+          var nodeClass = (node.className || '').toString();
+          if (classNameHasImageSlotMarker(nodeClass)) return node;
+
+          var nodeCS = window.getComputedStyle(node);
+          var rawClass = (node.className || '').toString();
+          var isThinAnchor = node.tagName === 'A' && nodeCS && nodeCS.display === 'contents';
+          var isUnclassedDiv = node.tagName === 'DIV' && !rawClass.trim();
+          var isInsertedEl = / zappy-inserted-element |^zappy-inserted-element | zappy-inserted-element$|^zappy-inserted-element$/.test(' ' + rawClass + ' ');
+          if (!(isThinAnchor || isUnclassedDiv || isInsertedEl)) break;
+          node = node.parentElement;
+        }
+      } catch (_e) {}
+      return null;
     }
 
     // FULL-BLEED FIRST-CHILD MEDIA: when the wrapper's parent (the image-wrap)
@@ -1635,8 +1676,8 @@ document.addEventListener('DOMContentLoaded', function() {
         var slotForBleed = null;
         var slotNode = wrapper.parentElement;
         for (var slotWalk = 0; slotWalk < 4 && slotNode && slotNode !== document.body; slotWalk++) {
-          var slotNodeClass = (slotNode.className || '').toString().toLowerCase();
-          if (/(image-wrap|image-tile|image-slot|card-image|card-media|media-wrap|portrait-wrap)/.test(slotNodeClass)) {
+          var slotNodeClass = (slotNode.className || '').toString();
+          if (classNameHasImageSlotMarker(slotNodeClass)) {
             slotForBleed = slotNode;
             break;
           }
@@ -1714,6 +1755,10 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!wrapper || isHeroBgWrapper(wrapper)) return;
         var widthMode = wrapper.getAttribute('data-zappy-zoom-wrapper-width-mode');
         if (widthMode === 'full') return;
+        var forceCardSlotFill = widthMode === 'card-slot' || wrapper.getAttribute('data-zappy-card-slot-fill') === '1';
+        var parentFrameSynced = wrapper.parentElement &&
+          wrapper.parentElement.getAttribute &&
+          wrapper.parentElement.getAttribute('data-zappy-image-frame-synced') === 'true';
         // Walk UP through editor-injected / "thin" wrappers to find the real
         // visual image-slot container. We tolerate at most 3 levels of:
         //   - <a style="display:contents">           (editor link wrap)
@@ -1722,8 +1767,8 @@ document.addEventListener('DOMContentLoaded', function() {
         var node = wrapper.parentElement;
         var slotEl = null;
         for (var walk = 0; walk < 3 && node && node !== document.body; walk++) {
-          var nodeClass = (node.className || '').toString().toLowerCase();
-          if (/(image-wrap|image-tile|image-slot|card-image|card-media|media-wrap|portrait-wrap)/.test(nodeClass)) {
+          var nodeClass = (node.className || '').toString();
+          if (classNameHasImageSlotMarker(nodeClass)) {
             slotEl = node;
             break;
           }
@@ -1736,6 +1781,18 @@ document.addEventListener('DOMContentLoaded', function() {
           node = node.parentElement;
         }
         if (!slotEl) {
+          if (forceCardSlotFill && !parentFrameSynced) {
+            var forcedSW = parseFloat(wrapper.getAttribute('data-zappy-zoom-wrapper-width')) || 0;
+            var forcedSH = parseFloat(wrapper.getAttribute('data-zappy-zoom-wrapper-height')) || 0;
+            wrapper.style.setProperty('width', '100%', 'important');
+            wrapper.style.setProperty('max-width', '100%', 'important');
+            wrapper.style.setProperty('padding-bottom', '0', 'important');
+            if (forcedSW > 0 && forcedSH > 0) {
+              wrapper.style.setProperty('aspect-ratio', forcedSW + '/' + forcedSH, 'important');
+              wrapper.style.setProperty('height', 'auto', 'important');
+            }
+            wrapper.setAttribute('data-zappy-card-slot-fill', '1');
+          }
           // No image-slot found. Check if the walk stopped at a card-like
           // container and the saved width fills most of the card — this handles
           // user-replaced images where the original image-wrap is empty and the
@@ -1793,7 +1850,6 @@ document.addEventListener('DOMContentLoaded', function() {
         var slotCS = window.getComputedStyle(slotEl);
         var slotWidthGap = slotRect.width - wrapRect.width;
         var slotHeightGap = wrapRect.height - slotRect.height;
-        var forceCardSlotFill = widthMode === 'card-slot' || wrapper.getAttribute('data-zappy-card-slot-fill') === '1';
         if (!forceCardSlotFill && slotWidthGap <= 4 && !(slotHeightGap > 4 && slotRect.height > 0 && slotCS.overflow !== 'visible')) return;
         var swStr = wrapper.getAttribute('data-zappy-zoom-wrapper-width');
         var shStr = wrapper.getAttribute('data-zappy-zoom-wrapper-height');
@@ -2079,6 +2135,21 @@ document.addEventListener('DOMContentLoaded', function() {
       var widthMode = wrapper.getAttribute('data-zappy-zoom-wrapper-width-mode') || 'px';
       if (widthMode === 'full' || widthMode === 'grid-responsive') return;
       if (isHeroBgWrapper(wrapper)) return;
+
+      if ((widthMode === 'card-slot' || wrapper.getAttribute('data-zappy-card-slot-fill') === '1') &&
+          !findImageSlotContainerForZoomWrapper(wrapper, 4) &&
+          wrapper.parentElement &&
+          wrapper.parentElement.getAttribute &&
+          wrapper.parentElement.getAttribute('data-zappy-image-frame-synced') === 'true') {
+        // Older published runtimes used substring matching and could persist
+        // card-slot fill on decorative frames like "showcase-image-wrapper".
+        // Clear that stale marker so saved pixel crop dimensions win again.
+        wrapper.removeAttribute('data-zappy-card-slot-fill');
+        if (widthMode === 'card-slot') {
+          wrapper.setAttribute('data-zappy-zoom-wrapper-width-mode', 'px');
+          widthMode = 'px';
+        }
+      }
 
       var storedW = wrapper.getAttribute('data-zappy-zoom-wrapper-width');
       var storedH = wrapper.getAttribute('data-zappy-zoom-wrapper-height');

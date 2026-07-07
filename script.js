@@ -1164,6 +1164,188 @@ document.addEventListener('DOMContentLoaded', function() {
 /* ZAPPY_CUSTOM_JS_END:ae54b3d9753c */
 
 
+/* Added Component Script */
+(function() {
+  const floatBtn = document.querySelector('.wa-float-btn');
+  const formWrapper = document.getElementById('wa-lead-form');
+  const closeBtn = document.querySelector('.wa-close-btn');
+  const form = document.getElementById('wa-contact-form');
+  const successEl = document.querySelector('.wa-success');
+  const phoneInput = document.getElementById('wa-phone');
+
+  // Pulse animation
+  floatBtn.classList.add('pulse');
+
+  // Open form
+  floatBtn.addEventListener('click', function() {
+    formWrapper.classList.add('active');
+    floatBtn.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+    // Focus first input
+    setTimeout(() => {
+      document.getElementById('wa-name').focus();
+    }, 350);
+  });
+
+  // Close form
+  function closeForm() {
+    formWrapper.classList.remove('active');
+    floatBtn.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+    floatBtn.focus();
+  }
+
+  closeBtn.addEventListener('click', closeForm);
+
+  formWrapper.addEventListener('click', function(e) {
+    if (e.target === formWrapper) {
+      closeForm();
+    }
+  });
+
+  // Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && formWrapper.classList.contains('active')) {
+      closeForm();
+    }
+  });
+
+  // Phone formatting
+  phoneInput.addEventListener('input', function(e) {
+    let val = e.target.value.replace(/[^\d]/g, '');
+    if (val.length > 10) val = val.slice(0, 10);
+    if (val.length > 7) {
+      val = val.slice(0, 3) + '-' + val.slice(3);
+    } else if (val.length > 3) {
+      val = val.slice(0, 3) + '-' + val.slice(3);
+    }
+    e.target.value = val;
+  });
+
+  // Form validation
+  function showError(input, message) {
+    const field = input.closest('.wa-field');
+    const errorEl = field.querySelector('.wa-error');
+    input.classList.add('error');
+    if (errorEl) errorEl.textContent = message;
+  }
+
+  function clearError(input) {
+    const field = input.closest('.wa-field');
+    const errorEl = field.querySelector('.wa-error');
+    input.classList.remove('error');
+    if (errorEl) errorEl.textContent = '';
+  }
+
+  function validateForm() {
+    let isValid = true;
+    const nameInput = document.getElementById('wa-name');
+    const phoneInputEl = document.getElementById('wa-phone');
+    const emailInput = document.getElementById('wa-email');
+    const privacyCheckbox = form.querySelector('input[name="privacy"]');
+
+    // Name
+    if (!nameInput.value.trim()) {
+      showError(nameInput, 'נא להזין שם מלא');
+      isValid = false;
+    } else {
+      clearError(nameInput);
+    }
+
+    // Phone
+    const phoneRaw = phoneInputEl.value.replace(/[^\d]/g, '');
+    if (!phoneRaw || phoneRaw.length < 9) {
+      showError(phoneInputEl, 'נא להזין מספר טלפון תקין');
+      isValid = false;
+    } else {
+      clearError(phoneInputEl);
+    }
+
+    // Email (optional)
+    if (emailInput.value.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value.trim())) {
+      showError(emailInput, 'נא להזין כתובת אימייל תקינה');
+      isValid = false;
+    } else {
+      clearError(emailInput);
+    }
+
+    // Privacy
+    if (!privacyCheckbox.checked) {
+      const privacyField = privacyCheckbox.closest('.wa-field');
+      const privacyError = privacyField.querySelector('.wa-error');
+      privacyError.textContent = 'יש לאשר את מדיניות הפרטיות';
+      isValid = false;
+    } else {
+      const privacyField = privacyCheckbox.closest('.wa-field');
+      const privacyError = privacyField.querySelector('.wa-error');
+      privacyError.textContent = '';
+    }
+
+    return isValid;
+  }
+
+  // Clear errors on input
+  form.querySelectorAll('.wa-input').forEach(input => {
+    input.addEventListener('input', function() {
+      clearError(this);
+    });
+  });
+
+  form.querySelector('input[name="privacy"]').addEventListener('change', function() {
+    const field = this.closest('.wa-field');
+    const errorEl = field.querySelector('.wa-error');
+    errorEl.textContent = '';
+  });
+
+  // Submit
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    if (!validateForm()) return;
+
+    const submitBtn = form.querySelector('.wa-submit-btn');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'שולח...';
+
+    // Collect data
+    const name = document.getElementById('wa-name').value.trim();
+    const phone = document.getElementById('wa-phone').value.replace(/[^\d]/g, '');
+    const email = document.getElementById('wa-email').value.trim();
+    const message = document.getElementById('wa-message').value.trim();
+
+    // Build WhatsApp message
+    let waText = encodeURIComponent('הודעה חדשה מאתר וילה בית הלוגים:\n\n');
+    waText += encodeURIComponent('שם: ' + name + '\n');
+    waText += encodeURIComponent('טלפון: ' + phone + '\n');
+    if (email) waText += encodeURIComponent('אימייל: ' + email + '\n');
+    if (message) waText += encodeURIComponent('הודעה: ' + message + '\n');
+    waText += encodeURIComponent('\nאשמח לקבל פרטים על החופשה המושלמת בצפון!');
+
+    const waNumber = '972528282481';
+    const waLink = 'https://wa.me/' + waNumber + '?text=' + waText;
+
+    // Show success
+    setTimeout(() => {
+      form.style.display = 'none';
+      successEl.classList.add('active');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'שלחו לנו הודעה';
+
+      // Open WhatsApp
+      window.open(waLink, '_blank');
+
+      // Reset after delay
+      setTimeout(() => {
+        form.style.display = '';
+        successEl.classList.remove('active');
+        form.reset();
+        closeForm();
+      }, 3000);
+    }, 800);
+  });
+})();
+
+
 /* ZAPPY_PUBLISHED_LIGHTBOX_RUNTIME */
 (function(){
   try {

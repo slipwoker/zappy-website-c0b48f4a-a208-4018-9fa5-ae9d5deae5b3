@@ -57,16 +57,16 @@ Information about WCAG compliance and accessibility features.
 - Address: החרצית 47, מגדל, Israel, 14900, Israel
 
 ### Contact form
-- URL: https://villabethalogim.co.il/contact
+- URL: https://villabethalogim.co.il
 - Endpoint: https://villabethalogim.co.il/api/email/contact-form
 - Method: POST
 - Content-Type: application/json
 - Fields:
   - `name` (text, required)
-  - `email` (email, required)
-  - `phone` (tel)
-  - `message` (textarea, required)
-  - `privacy_consent` (checkbox, required)
+  - `phone` (tel, required)
+  - `email` (email)
+  - `message` (textarea)
+  - `privacy` (checkbox)
 
 ---
 

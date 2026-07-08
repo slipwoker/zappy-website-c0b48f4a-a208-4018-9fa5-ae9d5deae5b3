@@ -1380,6 +1380,53 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
+/* Added Component Script */
+document.addEventListener('DOMContentLoaded', function () {
+  const form = document.getElementById('fb-lead-form');
+  const thankyou = document.getElementById('fb-lead-thankyou');
+  const section = document.querySelector('.fb-lead-section');
+
+  if (!form || !thankyou) return;
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    // Basic validation
+    const name = document.getElementById('fb-lead-name').value.trim();
+    const phone = document.getElementById('fb-lead-phone').value.trim();
+
+    if (!name || !phone) {
+      alert('נא למלא שם מלא וטלפון');
+      return;
+    }
+
+    // Track Lead event via Meta Pixel
+    if (typeof fbq !== 'undefined') {
+      fbq('track', 'Lead');
+    }
+
+    // Show thank you overlay
+    thankyou.style.display = 'flex';
+
+    // Optional: hide thank you on click outside or after delay
+    thankyou.addEventListener('click', function (event) {
+      if (event.target === thankyou) {
+        thankyou.style.display = 'none';
+      }
+    });
+
+    // Auto-hide after 6 seconds
+    setTimeout(function () {
+      if (thankyou.style.display === 'flex') {
+        thankyou.style.display = 'none';
+      }
+    }, 6000);
+
+    // Reset form
+    form.reset();
+  });
+});
+
 
 /* ZAPPY_PUBLISHED_LIGHTBOX_RUNTIME */
 (function(){
@@ -1657,6 +1704,26 @@ document.addEventListener('DOMContentLoaded', function() {
       return null;
     }
 
+    function hasSyncedDecorativeImageFrame(wrapper) {
+      try {
+        if (!wrapper) return false;
+        var node = wrapper.parentElement;
+        for (var walk = 0; walk < 4 && node && node !== document.body; walk++) {
+          if (node.getAttribute && node.getAttribute('data-zappy-image-frame-synced') === 'true') {
+            return true;
+          }
+          var nodeCS = window.getComputedStyle(node);
+          var rawClass = (node.className || '').toString();
+          var isThinAnchor = node.tagName === 'A' && nodeCS && nodeCS.display === 'contents';
+          var isUnclassedDiv = node.tagName === 'DIV' && !rawClass.trim();
+          var isInsertedEl = / zappy-inserted-element |^zappy-inserted-element | zappy-inserted-element$|^zappy-inserted-element$/.test(' ' + rawClass + ' ');
+          if (!(isThinAnchor || isUnclassedDiv || isInsertedEl)) break;
+          node = node.parentElement;
+        }
+      } catch (_e) {}
+      return false;
+    }
+
     // FULL-BLEED FIRST-CHILD MEDIA: when the wrapper's parent (the image-wrap)
     // is the first visible child of a padded card, apply negative margins on all
     // sides equal to the card's padding so the image extends edge-to-edge of the
@@ -1756,9 +1823,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var widthMode = wrapper.getAttribute('data-zappy-zoom-wrapper-width-mode');
         if (widthMode === 'full') return;
         var forceCardSlotFill = widthMode === 'card-slot' || wrapper.getAttribute('data-zappy-card-slot-fill') === '1';
-        var parentFrameSynced = wrapper.parentElement &&
-          wrapper.parentElement.getAttribute &&
-          wrapper.parentElement.getAttribute('data-zappy-image-frame-synced') === 'true';
+        if (hasSyncedDecorativeImageFrame(wrapper)) return;
         // Walk UP through editor-injected / "thin" wrappers to find the real
         // visual image-slot container. We tolerate at most 3 levels of:
         //   - <a style="display:contents">           (editor link wrap)
@@ -1781,7 +1846,7 @@ document.addEventListener('DOMContentLoaded', function() {
           node = node.parentElement;
         }
         if (!slotEl) {
-          if (forceCardSlotFill && !parentFrameSynced) {
+          if (forceCardSlotFill) {
             var forcedSW = parseFloat(wrapper.getAttribute('data-zappy-zoom-wrapper-width')) || 0;
             var forcedSH = parseFloat(wrapper.getAttribute('data-zappy-zoom-wrapper-height')) || 0;
             wrapper.style.setProperty('width', '100%', 'important');
@@ -2138,9 +2203,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       if ((widthMode === 'card-slot' || wrapper.getAttribute('data-zappy-card-slot-fill') === '1') &&
           !findImageSlotContainerForZoomWrapper(wrapper, 4) &&
-          wrapper.parentElement &&
-          wrapper.parentElement.getAttribute &&
-          wrapper.parentElement.getAttribute('data-zappy-image-frame-synced') === 'true') {
+          hasSyncedDecorativeImageFrame(wrapper)) {
         // Older published runtimes used substring matching and could persist
         // card-slot fill on decorative frames like "showcase-image-wrapper".
         // Clear that stale marker so saved pixel crop dimensions win again.

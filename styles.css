@@ -7810,7 +7810,7 @@ div[id*="mic-access-tool-box"] button[class*="reset"] * {
 
 .villa-gallery-section .villa-gallery-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(5, 1fr);
   gap: 12px;
   align-items: stretch;
 }
@@ -7824,7 +7824,7 @@ div[id*="mic-access-tool-box"] button[class*="reset"] * {
 }
 
 .villa-gallery-section .villa-gallery-item--main {
-  grid-row: span 2;
+  grid-row: span 1;
 }
 
 .villa-gallery-section .villa-gallery-item img {

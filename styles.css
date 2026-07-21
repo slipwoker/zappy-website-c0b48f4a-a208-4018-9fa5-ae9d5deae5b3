@@ -7810,7 +7810,7 @@ div[id*="mic-access-tool-box"] button[class*="reset"] * {
 
 .villa-gallery-section .villa-gallery-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
   gap: 12px;
   align-items: stretch;
 }
@@ -10646,10 +10646,6 @@ body > .flatpickr-calendar .flatpickr-next-month {
   .fb-lead-thankyou-title {
     font-size: 1.6rem;
   }
-}
-
-.villa-gallery-section .villa-gallery-item--main {
-  grid-row: span 1;
 }
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {

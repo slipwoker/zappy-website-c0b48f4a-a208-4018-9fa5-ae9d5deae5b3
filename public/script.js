@@ -1,1 +1,9114 @@
-function hasConsentFor(e){return void 0!==window.CookieConsent&&window.CookieConsent.validConsent(e)}function withConsent(e,t){hasConsentFor(e)?t():console.log(`[WARNING] Skipping ${e} code - no user consent`)}!function(){if(!window.__zappyStorefrontFetchCoalesceV1&&"function"==typeof window.fetch&&"function"==typeof window.Response){window.__zappyStorefrontFetchCoalesceV1=!0;var e=window.fetch.bind(window),t={};window.fetch=function(n,a){var r=function(e,t){if("GET"!==(t&&t.method?String(t.method).toUpperCase():"GET"))return"";var n="string"==typeof e?e:e&&e.url||"";return/\/api\/ecommerce\/storefront\/(?:settings|categories)\?/.test(n)?n:""}(n,a);return r?(t[r]||(t[r]=e(n,a).then(function(e){return e.text().then(function(n){var a={body:n,status:e.status,statusText:e.statusText,headers:Array.from(e.headers.entries()),ok:e.ok};return a.ok||delete t[r],a})}).catch(function(e){throw delete t[r],e})),t[r].then(function(e){return new Response(e.body,{status:e.status,statusText:e.statusText,headers:e.headers})})):e(n,a)}}}(),document.addEventListener("DOMContentLoaded",function(){document.body.addEventListener("click",function(e){const t=e.target.closest('a[href^="#"]');if(!t)return;const n=t.getAttribute("href");if(!n||"#"===n)return;const a=document.querySelector(n);if(!a)return;e.preventDefault();const r=document.querySelector(".navbar, nav, header"),o=r?r.offsetHeight:0,i=a.getBoundingClientRect().top+window.pageYOffset-o;window.scrollTo({top:i,behavior:"smooth"}),history.pushState&&history.pushState(null,null,n)});const e=document.querySelector(".navbar, nav, header");if(e){const l=50;function t(){window.pageYOffset>l?e.classList.add("scrolled"):e.classList.remove("scrolled")}let c=!1;window.addEventListener("scroll",function(){c||(window.requestAnimationFrame(function(){t(),c=!1}),c=!0)},{passive:!0}),t()}const n=document.querySelector(".contact-form");if(n){const p={required:function(e){return""!==e.trim()},email:function(e){return/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e.trim())},minLength:function(e,t){return e.trim().length>=parseInt(t,10)},phone:function(e){return/^[\+]?[\d\s\-\(\)]{7,20}$/.test(e.trim())}};function a(e,t){const n=t.closest(".form-group, .field-wrapper, label")&&t.closest(".form-group, .field-wrapper")&&t.closest(".form-group, .field-wrapper").querySelector("label")?t.closest(".form-group, .field-wrapper").querySelector("label").textContent.trim():t.name||t.id||"This field";return{required:n+" is required.",email:"Please enter a valid email address.",minLength:n+" is too short.",phone:"Please enter a valid phone number."}[e]||n+" is invalid."}function r(e,t){o(e),e.classList.add("is-invalid"),e.setAttribute("aria-invalid","true");const n=document.createElement("span");n.className="form-error-message",n.setAttribute("role","alert"),n.setAttribute("aria-live","polite"),n.textContent=t;(e.closest(".form-group, .field-wrapper")||e.parentNode).appendChild(n);const a="error-"+(e.id||e.name||Math.random().toString(36).substr(2,9));n.id=a,e.setAttribute("aria-describedby",a)}function o(e){e.classList.remove("is-invalid"),e.classList.remove("is-valid"),e.removeAttribute("aria-invalid");const t=(e.closest(".form-group, .field-wrapper")||e.parentNode).querySelector(".form-error-message");t&&t.remove(),e.removeAttribute("aria-describedby")}function i(e){if("submit"===e.type||"button"===e.type||"reset"===e.type||"hidden"===e.type)return!0;const t="checkbox"===e.type?e.checked.toString():e.value,n=e.hasAttribute("required")||"true"===e.dataset.required,i=e.type,s=e.getAttribute("minlength")||e.dataset.minLength;return n&&!p.required("checkbox"===i?e.checked?"checked":"":t)?(r(e,a("required",e)),!1):""!==t.trim()||n?"email"!==i||""===t.trim()||p.email(t)?"tel"!==i||""===t.trim()||p.phone(t)?s&&""!==t.trim()&&!p.minLength(t,s)?(r(e,a("minLength",e)),!1):(function(e){o(e),e.classList.add("is-valid")}(e),!0):(r(e,a("phone",e)),!1):(r(e,a("email",e)),!1):(o(e),!0)}n.addEventListener("submit",function(e){e.preventDefault();if(function(){const e=n.querySelectorAll("input, textarea, select");let t=!0,a=null;return e.forEach(function(e){const n=i(e);n||a?n||(t=!1):(a=e,t=!1)}),a&&a.focus(),t}()){n.classList.add("form-submitted");const e=n.querySelector('[type="submit"]');e&&(e.disabled=!0,e.setAttribute("aria-busy","true"));const t=new CustomEvent("formValidationSuccess",{detail:{form:n},bubbles:!0});n.dispatchEvent(t)}else n.classList.add("form-has-errors"),setTimeout(function(){n.classList.remove("form-has-errors")},600)}),n.addEventListener("blur",function(e){const t=e.target;"INPUT"!==t.tagName&&"TEXTAREA"!==t.tagName&&"SELECT"!==t.tagName||"submit"!==t.type&&"button"!==t.type&&"reset"!==t.type&&i(t)},!0),n.addEventListener("input",function(e){const t=e.target;t.classList.contains("is-invalid")&&i(t)})}const s=document.querySelectorAll([".fade-in",".fade-in-up",".fade-in-down",".fade-in-left",".fade-in-right",".slide-up",".slide-in",".animate-on-scroll",".reveal"].join(", "));if(s.length>0)if("IntersectionObserver"in window){const d=new IntersectionObserver(function(e,t){e.forEach(function(e){if(e.isIntersecting){const n=e.target,a=n.dataset.delay||n.dataset.animationDelay||"0";a&&parseFloat(a)>0?setTimeout(function(){n.classList.add("is-visible","animated")},1e3*parseFloat(a)):n.classList.add("is-visible","animated"),t.unobserve(n)}})},{root:null,rootMargin:"0px 0px -60px 0px",threshold:.1});s.forEach(function(e){e.classList.add("animation-ready"),d.observe(e)})}else s.forEach(function(e){e.classList.add("is-visible","animated","animation-ready")});!function(){if("rtl"===document.documentElement.dir||"rtl"===document.body.dir||"rtl"===getComputedStyle(document.documentElement).direction){document.documentElement.classList.add("is-rtl");const e=new CustomEvent("rtlDetected",{detail:{isRTL:!0},bubbles:!0});document.dispatchEvent(e)}}()}),function(){var e=document.querySelector("nav.navbar,.navbar:not(.zappy-catalog-menu)"),t=document.querySelector(".zappy-catalog-menu,#zappy-catalog-menu");if(e){var n=(getComputedStyle(document.body).backgroundColor||"rgb(0,0,0)").match(/\d+/g),a=n?parseInt(n[0]):0,r=n?parseInt(n[1]):0,o=n?parseInt(n[2]):0,i="rgba("+a+","+r+","+o+",0.85)",s=a/255,l=r/255,c=o/255,p=.2126*(s=s<=.03928?s/12.92:Math.pow((s+.055)/1.055,2.4))+.7152*(l=l<=.03928?l/12.92:Math.pow((l+.055)/1.055,2.4))+.0722*(c=c<=.03928?c/12.92:Math.pow((c+.055)/1.055,2.4)),d=getComputedStyle(document.documentElement),u=d.getPropertyValue("--text-dark").trim()||"#1a1a1a",m=d.getPropertyValue("--text-light").trim()||"#ffffff",y=p>.4?u:m,g="a,.navbar-brand,.navbar-brand a,.dropdown-toggle,.mobile-toggle,.phone-header-btn,.mobile-hamburger-btn,.mobile-close-btn,.mobile-submenu-toggle,.nav-link",v=["cart-link","login-link","nav-search-toggle","search-toggle","nav-cta-btn"];window._zappyNavScrollCleanup&&window._zappyNavScrollCleanup(),window.addEventListener("scroll",I,{passive:!0}),window.addEventListener("resize",I,{passive:!0}),window._zappyNavScrollCleanup=function(){window.removeEventListener("scroll",I),window.removeEventListener("resize",I)},I();var f=document.querySelector('section[class*="hero"],[data-hero-type],main>section:first-child'),h=!1;if(f){var b=getComputedStyle(f),w=b.backgroundImage;if(w&&"none"!==w)if(-1!==w.indexOf("url(")){var x=b.backgroundColor.match(/\d+/g);h=!(x&&x.length>=3)||B(parseInt(x[0]),parseInt(x[1]),parseInt(x[2]))<.4}else if(-1!==w.indexOf("gradient")){var z=w.match(/rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/g);if(z&&z.length>0){for(var k=0,C=0;C<z.length;C++){var P=z[C].match(/\d+/g);k+=B(parseInt(P[0]),parseInt(P[1]),parseInt(P[2]))}h=k/z.length<.4}else h=!0}else h=!0;else{var A=b.backgroundColor.match(/\d+/g);A&&A.length>=3&&(h=B(parseInt(A[0]),parseInt(A[1]),parseInt(A[2]))<.4)}}if(!h){window.removeEventListener("scroll",I),window.removeEventListener("resize",I),delete window._zappyNavScrollCleanup,e.classList.add("scrolled"),window.innerWidth>768&&(e.style.setProperty("--frosted-text",y),e.style.setProperty("background-image","none","important"),e.style.setProperty("background-color",i,"important"),e.style.backdropFilter="blur(12px)",e.style.webkitBackdropFilter="blur(12px)",e.style.boxShadow="0 2px 16px rgba(0,0,0,0.12)",L(e,y)),t&&(t.classList.add("scrolled"),window.innerWidth>768&&(t.style.setProperty("background",i,"important"),t.style.setProperty("backdrop-filter","blur(12px)","important"),t.style.setProperty("-webkit-backdrop-filter","blur(12px)","important"),L(t,y))),window._zappyNavNoDarkHero=!0;var S=e.classList.remove.bind(e.classList);if(e._origClassListRemove=S,e.classList.remove=function(){for(var e=[],t=0;t<arguments.length;t++)"scrolled"!==arguments[t]&&e.push(arguments[t]);e.length>0&&S.apply(null,e)},t){var E=t.classList.remove.bind(t.classList);t._origClassListRemove=E,t.classList.remove=function(){for(var e=[],t=0;t<arguments.length;t++)"scrolled"!==arguments[t]&&e.push(arguments[t]);e.length>0&&E.apply(null,e)}}}}function L(e,t){for(var n=e.querySelectorAll(g),a=0;a<n.length;a++){var r=!1;(n[a].closest(".sub-menu")||n[a].closest(".dropdown-menu"))&&(r=!0);for(var o=0;o<v.length;o++)if(n[a].classList.contains(v[o])){r=!0;break}r||n[a].style.setProperty("color",t,"important")}}function _(e){for(var t=e.querySelectorAll(g),n=0;n<t.length;n++)t[n].closest(".sub-menu")||t[n].closest(".dropdown-menu")||t[n].style.removeProperty("color")}function I(){if(!window._zappyNavOverrideActive&&!window._zappyNavNoDarkHero){if(window.innerWidth<=768)return e.style.removeProperty("background"),e.style.removeProperty("background-color"),e.style.removeProperty("background-image"),e.style.removeProperty("--frosted-text"),e.style.backdropFilter="",e.style.webkitBackdropFilter="",e.style.boxShadow="",e.classList.remove("scrolled"),_(e),void(t&&(t.style.removeProperty("background"),t.style.removeProperty("background-color"),t.style.removeProperty("backdrop-filter"),t.style.removeProperty("-webkit-backdrop-filter"),t.classList.remove("scrolled"),_(t)));if((window.scrollY||window.pageYOffset)>60)e.classList.add("scrolled"),e.style.setProperty("background-color",i,"important"),e.style.setProperty("background-image","none","important"),e.style.setProperty("--frosted-text",y),e.style.backdropFilter="blur(12px)",e.style.webkitBackdropFilter="blur(12px)",e.style.boxShadow="0 2px 16px rgba(0,0,0,0.12)",L(e,y),t&&(t.classList.add("scrolled"),t.style.setProperty("background",i,"important"),t.style.setProperty("backdrop-filter","blur(12px)","important"),t.style.setProperty("-webkit-backdrop-filter","blur(12px)","important"),L(t,y));else{if(window._zappyNavNoDarkHero)return;e.classList.remove("scrolled"),e.style.setProperty("background-color","transparent","important"),e.style.removeProperty("background-image"),e.style.removeProperty("--frosted-text"),e.style.backdropFilter="none",e.style.webkitBackdropFilter="none",e.style.boxShadow="none",_(e),t&&(t.classList.remove("scrolled"),t.style.setProperty("background","transparent","important"),t.style.setProperty("backdrop-filter","none","important"),t.style.setProperty("-webkit-backdrop-filter","none","important"),_(t))}}}function B(e,t,n){return t/=255,n/=255,.2126*(e=(e/=255)<=.03928?e/12.92:Math.pow((e+.055)/1.055,2.4))+.7152*(t=t<=.03928?t/12.92:Math.pow((t+.055)/1.055,2.4))+.0722*(n=n<=.03928?n/12.92:Math.pow((n+.055)/1.055,2.4))}}(),window.onload=function(){try{var e=document.documentElement,t=(e.getAttribute("lang")||"en").toLowerCase().split("-")[0],n=(e.getAttribute("dir")||"").toLowerCase(),a="rtl"===n||-1!==["he","ar","fa","ur","yi","iw"].indexOf(t)?"left":"right",r={en:"en-US",es:"es-ES",fr:"fr-FR",de:"de-DE",it:"it-IT",pt:"pt-PT",nl:"nl-NL",he:"he-IL",ar:"ar-SA"}[t]||"en-US",o={bottom:{size:50,units:"px"},type:"fixed"};o[a]={size:20,units:"px"},window.micAccessTool=new MicAccessTool({buttonPosition:a,forceLang:r,icon:{position:o,backgroundColor:"transparent",color:"transparent",img:"accessible",circular:!1},menu:{dimensions:{width:{size:300,units:"px"},height:{size:"auto",units:"px"}}}})}catch(e){}document.addEventListener("keydown",function(e){var t=e.altKey,n="KeyA"===e.code||65===e.keyCode||65===e.which||e.key&&("a"===e.key.toLowerCase()||"å"===e.key||"Å"===e.key);t&&n&&(window.innerWidth>768&&(e.preventDefault(),e.stopPropagation(),document.body.classList.contains("accessibility-widget-visible")?document.body.classList.remove("accessibility-widget-visible"):(document.body.classList.add("accessibility-widget-visible"),setTimeout(function(){var e=document.getElementById("mic-access-tool-general-button");e&&e.click()},200))))},!0)},function(){function e(e,t){document.querySelectorAll(".zappy-notification").forEach(function(e){e.remove()});var n=document.createElement("div");n.className="zappy-notification";var a="success"===t?"#d4edda":"error"===t?"#f8d7da":"#d1ecf1",r="success"===t?"#155724":"error"===t?"#721c24":"#0c5460",o="success"===t?"#c3e6cb":"error"===t?"#f5c6cb":"#bee5eb",i="success"===t?"✅":"error"===t?"❌":"ℹ️";if(n.style.cssText="position:fixed;top:20px;right:20px;max-width:400px;padding:16px;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,0.15);z-index:10000;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;font-size:14px;line-height:1.4;animation:slideInRight .3s ease-out;background:"+a+";color:"+r+";border:1px solid "+o,n.innerHTML='<span style="margin-right:8px">'+i+"</span>"+e+'<button onclick="this.parentElement.remove()" style="background:none;border:none;font-size:18px;cursor:pointer;float:right;opacity:.7;padding:0 0 0 12px">&times;</button>',!document.getElementById("zappy-notify-anim")){var s=document.createElement("style");s.id="zappy-notify-anim",s.textContent="@keyframes slideInRight{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}",document.head.appendChild(s)}document.body.appendChild(n),setTimeout(function(){n.parentElement&&n.remove()},"error"===t?8e3:5e3)}function t(){console.log("📧 Zappy: Initializing contact form API integration...");var t=document.querySelector(".contact-form")||document.querySelector('form[action*="contact"]')||document.querySelector("form#contact")||document.querySelector("form#contactForm")||document.getElementById("contactForm")||document.querySelector("section.contact form")||document.querySelector("section#contact form")||document.querySelector("form");t?(console.log("✅ Zappy: Contact form found:",t.className||t.id||"unnamed form"),t.addEventListener("submit",async function(t){t.preventDefault();var n=this.querySelector(".privacy-consent-checkbox");if(n&&!n.checked)return e("Please accept the Terms & Conditions and Privacy Policy to continue","error"),void n.focus();var a=new FormData(this),r={};for(var o of a.entries())void 0!==r[o[0]]?Array.isArray(r[o[0]])?r[o[0]].push(o[1]):r[o[0]]=[r[o[0]],o[1]]:r[o[0]]=o[1];var i=[].concat(["name","firstName","first_name","fname","lastName","last_name","lname"],["email","emailAddress","mail","e-mail"],["phone","tel","telephone","mobile","cellphone"],["message","msg","comments","comment","description","details","notes","body","text","inquiry"],["subject","topic","regarding","re"]),s=(r.name||"").trim()||[r.firstName||r.first_name||r.fname||"",r.lastName||r.last_name||r.lname||""].filter(Boolean).join(" ").trim()||(r.email||r.emailAddress||r.mail||"").trim()||"Anonymous",l=(r.email||r.emailAddress||r.mail||r["e-mail"]||"").trim(),c=r.phone||r.tel||r.telephone||r.mobile||r.cellphone||null,p=r.subject||r.topic||r.regarding||r.re||"Contact Form Submission",d=(r.message||r.msg||r.comments||r.comment||r.description||r.details||r.body||r.text||r.inquiry||"").trim();if(!d){var u=Object.entries(r).filter(function(e){return-1===i.indexOf(e[0])});d=u.length>0?u.map(function(e){return e[0].replace(/([A-Z])/g," $1").replace(/[_-]/g," ").trim()+": "+(Array.isArray(e[1])?e[1].join(", "):e[1])}).join("\n"):"Form submission from "+window.location.pathname}var m={};for(var y of Object.keys(r))-1===i.indexOf(y)&&""!==r[y]&&null!==r[y]&&void 0!==r[y]&&(m[y]=r[y]);var g=this.querySelector('button[type="submit"], input[type="submit"]'),v=g?g.value||g.textContent:"";g&&("INPUT"===g.tagName?g.value="Sending...":g.textContent="Sending...",g.disabled=!0);var f=window.location.pathname;if(window.ZAPPY_CONFIG&&window.ZAPPY_CONFIG.currentPagePath)f=window.ZAPPY_CONFIG.currentPagePath;else try{var h=new URLSearchParams(window.location.search).get("page");h&&(f=h)}catch(e){}try{console.log("📧 Zappy: Sending contact form to backend API...");var b=(window.ZAPPY_API_BASE||"https://api.zappy5.com").replace(/\/$/,""),w={websiteId:"c0b48f4a-a208-4018-9fa5-ae9d5deae5b3",name:s,email:l,subject:p,message:d,phone:c,currentPagePath:f};Object.keys(m).length>0&&(w.extraFields=m);var x=await fetch(b+"/api/email/contact-form",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(w)}),z=await x.json();if(z.success){if(console.log("✅ Zappy: Contact form data sent successfully to backend"),z.thankYouPagePath&&z.ticketNumber){var k,C="ticket="+encodeURIComponent(z.ticketNumber);if(-1!==window.location.pathname.indexOf("/preview")&&window.ZAPPY_CONFIG){var P=window.ZAPPY_CONFIG.websiteId||"c0b48f4a-a208-4018-9fa5-ae9d5deae5b3",A=-1!==window.location.pathname.indexOf("fullscreen")?"preview-fullscreen":"preview";k=window.location.origin+"/api/website/"+A+"/"+P+"?page="+encodeURIComponent(z.thankYouPagePath)+"&"+C,window.ZAPPY_CONFIG.authToken&&(k+="&auth_token="+encodeURIComponent(window.ZAPPY_CONFIG.authToken))}else k=z.thankYouPagePath+"?"+C;return void(window.location.href=k)}var S=document.documentElement.lang||"",E="he"===S||"ar"!==S&&"rtl"===document.documentElement.dir?"ההודעה שלך נשלחה בהצלחה! נחזור אליך בהקדם.":"ar"===S?"تم إرسال رسالتك بنجاح! سنرد عليك قريبًا.":"Thank you for your message! We'll get back to you soon.";e(z.message||E,"success"),this.reset()}else{console.log("⚠️ Zappy: Backend returned error:",z.error);var L="he"===S||"ar"!==S&&"rtl"===document.documentElement.dir?"שליחת ההודעה נכשלה. אנא נסו שוב.":"ar"===S?"فشل في إرسال الرسالة. يرجى المحاولة مرة أخرى.":"Failed to send message. Please try again.";e(z.error||L,"error")}}catch(t){console.error("❌ Zappy: Failed to send to backend API:",t),e("he"===S||"ar"!==S&&"rtl"===document.documentElement.dir?"לא ניתן לשלוח הודעה כרגע. אנא נסו שוב מאוחר יותר.":"ar"===S?"لا يمكن إرسال الرسالة الآن. يرجى المحاولة مرة أخرى لاحقًا.":"Unable to send message right now. Please try again later.","error")}finally{g&&("INPUT"===g.tagName?g.value=v:g.textContent=v,g.disabled=!1)}},!0),console.log("✅ Zappy: Contact form API integration initialized")):console.log("⚠️ Zappy: No contact form found on page")}window.zappyContactFormLoaded?console.log("📧 Zappy contact form already loaded"):(window.zappyContactFormLoaded=!0,"loading"===document.readyState?document.addEventListener("DOMContentLoaded",t):t())}(),document.addEventListener("DOMContentLoaded",function(){document.querySelectorAll(".villa-gallery-item").forEach(function(e){e.setAttribute("tabindex","0"),e.setAttribute("role","button");const t=e.querySelector(".villa-gallery-img");t&&e.setAttribute("aria-label",t.getAttribute("alt")||"תמונת גלריה"),e.addEventListener("keydown",function(t){"Enter"!==t.key&&" "!==t.key||(t.preventDefault(),e.click())})})}),document.addEventListener("DOMContentLoaded",function(){const e=document.getElementById("bookingForm"),t=document.getElementById("phone"),n=document.getElementById("checkIn"),a=document.getElementById("checkOut"),r=new Date,o=r.toISOString().split("T")[0],i=new Date(r);i.setDate(i.getDate()+1);const s=i.toISOString().split("T")[0];function l(e,t){const n=document.getElementById(e+"Error"),a=document.getElementById(e);n&&(n.textContent=t,n.classList.add("visible")),a&&a.classList.add("error")}function c(e){const t=document.getElementById(e+"Error"),n=document.getElementById(e);t&&(t.textContent="",t.classList.remove("visible")),n&&n.classList.remove("error")}n.setAttribute("min",o),a.setAttribute("min",s),n.addEventListener("change",function(){const e=new Date(this.value);if(!isNaN(e.getTime())){const t=new Date(e);t.setDate(t.getDate()+1);const n=t.toISOString().split("T")[0];a.setAttribute("min",n),a.value&&a.value<=this.value&&(a.value="")}}),t.addEventListener("input",function(e){let t=this.value.replace(/[^\d]/g,"");t.length>10&&(t=t.slice(0,10)),this.value=t}),e.addEventListener("submit",function(t){t.preventDefault(),["fullName","phone","email","checkIn","checkOut","guests"].forEach(c);let n=!0;const a=document.getElementById("fullName").value.trim(),r=document.getElementById("phone").value.trim(),o=document.getElementById("email").value.trim(),i=document.getElementById("checkIn").value,s=document.getElementById("checkOut").value,p=document.getElementById("guests").value,d=document.getElementById("notes").value.trim();if(a?a.length<2&&(l("fullName","שם חייב להכיל לפחות 2 תווים"),n=!1):(l("fullName","נא להזין שם מלא"),n=!1),r?/^\d{9,10}$/.test(r)||(l("phone","נא להזין מספר טלפון תקין (9-10 ספרות)"),n=!1):(l("phone","נא להזין מספר טלפון"),n=!1),o&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(o)&&(l("email","נא להזין כתובת אימייל תקינה"),n=!1),i||(l("checkIn","נא לבחור תאריך כניסה"),n=!1),s?i&&s&&s<=i&&(l("checkOut","תאריך יציאה חייב להיות אחרי תאריך כניסה"),n=!1):(l("checkOut","נא לבחור תאריך יציאה"),n=!1),p||(l("guests","נא לבחור מספר אורחים"),n=!1),!n)return;let u="היי, הגיעה הזמנה חדשה מוילה בית הלוגים:%0A%0A";u+="*שם מלא:* "+encodeURIComponent(a)+"%0A",u+="*טלפון:* "+encodeURIComponent(r)+"%0A",o&&(u+="*אימייל:* "+encodeURIComponent(o)+"%0A"),u+="*תאריך כניסה:* "+encodeURIComponent(i)+"%0A",u+="*תאריך יציאה:* "+encodeURIComponent(s)+"%0A",u+="*מספר אורחים:* "+encodeURIComponent(p)+"%0A",d&&(u+="*הערות:* "+encodeURIComponent(d)+"%0A");const m="https://wa.me/972528282481?text="+u;e.classList.add("success");const y=e.querySelector(".form-submit-btn"),g=y.innerHTML;y.innerHTML="✓ נשלח בהצלחה!",y.setAttribute("disabled","disabled"),setTimeout(function(){window.open(m,"_blank"),e.reset(),e.classList.remove("success"),y.innerHTML=g,y.removeAttribute("disabled")},800)});e.querySelectorAll(".form-input").forEach(function(e){e.addEventListener("input",function(){c(this.id)}),e.addEventListener("change",function(){c(this.id)})})}),function(){const e=document.getElementById("bookingForm"),t=document.getElementById("bookingSuccess"),n=document.getElementById("checkIn"),a=document.getElementById("checkOut"),r=document.getElementById("phone"),o=(new Date).toISOString().split("T")[0];n.setAttribute("min",o),a.setAttribute("min",o),n.addEventListener("change",function(){if(n.value){const e=new Date(n.value);e.setDate(e.getDate()+1);const t=e.toISOString().split("T")[0];a.setAttribute("min",t),a.value&&a.value<t&&(a.value="")}}),r.addEventListener("input",function(){let e=r.value.replace(/[^\d]/g,"");e.length>2&&(e=e.slice(0,3)+"-"+e.slice(3,10)),r.value=e}),e.addEventListener("submit",function(o){o.preventDefault();let i=!0;const s=document.getElementById("fullName").value.trim(),l=r.value.trim(),c=document.getElementById("email").value.trim(),p=n.value,d=a.value,u=document.getElementById("guests").value,m=document.getElementById("notes").value.trim();document.querySelectorAll(".form-input").forEach(e=>{e.classList.remove("invalid")}),document.querySelectorAll(".form-error").forEach(e=>{e.style.display="none"}),s||(document.getElementById("fullName").classList.add("invalid"),document.getElementById("fullNameError").style.display="block",i=!1);if(l&&/^0\d{1,2}-?\d{7}$/.test(l)||(r.classList.add("invalid"),document.getElementById("phoneError").style.display="block",i=!1),c&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(c)&&(document.getElementById("email").classList.add("invalid"),document.getElementById("emailError").style.display="block",i=!1),p||(n.classList.add("invalid"),document.getElementById("checkInError").style.display="block",i=!1),d||(a.classList.add("invalid"),document.getElementById("checkOutError").style.display="block",i=!1),p&&d&&d<=p&&(a.classList.add("invalid"),document.getElementById("checkOutError").textContent="תאריך יציאה חייב להיות אחרי תאריך כניסה",document.getElementById("checkOutError").style.display="block",i=!1),u||(document.getElementById("guests").classList.add("invalid"),document.getElementById("guestsError").style.display="block",i=!1),!i)return;const y=`https://wa.me/972528282481?text=${encodeURIComponent(`*הזמנה חדשה - וילה בית הלוגים*\n\n👤 *שם מלא:* ${s}\n📞 *טלפון:* ${l}\n`+(c?`📧 *אימייל:* ${c}\n`:"")+`📅 *תאריך כניסה:* ${p}\n`+`📅 *תאריך יציאה:* ${d}\n`+`👥 *מספר אורחים:* ${u}\n`+(m?`📝 *הערות:* ${m}\n`:""))}`;e.style.display="none",t.classList.add("visible"),setTimeout(()=>{window.open(y,"_blank")},600)});const i=document.createElement("style");i.textContent="\n    .form-input.invalid {\n      border-color: #e07a5f !important;\n      background: #fff8f7 !important;\n    }\n    .form-input.invalid:focus {\n      box-shadow: 0 0 0 4px rgba(224, 122, 95, 0.15) !important;\n    }\n  ",document.head.appendChild(i)}(),function(){function e(){try{!function(){const e=document.querySelector("#ai-section-1783414537408-9v7az3x #bookingForm");if(!e)return;const t=e.cloneNode(!0);e.parentNode.replaceChild(t,e);const n=(new Date).toISOString().split("T")[0],a=document.getElementById("checkIn"),r=document.getElementById("checkOut");a&&a.setAttribute("min",n),r&&r.setAttribute("min",n),t.addEventListener("submit",function(e){e.preventDefault();var t=function(e){var t=document.getElementById(e);return t?t.value.trim():""},n=t("fullName"),a=t("phone"),r=t("email"),o=t("checkIn"),i=t("checkOut"),s=document.getElementById("guests"),l=s&&s.selectedIndex>0?s.options[s.selectedIndex].text:"",c=t("notes");if(n&&a){var p="היי, אני מעוניין/ת להתארח בוילה בית הלוגים:%0A%0A";p+="👤 שם מלא: "+encodeURIComponent(n)+"%0A",p+="📞 טלפון: "+encodeURIComponent(a)+"%0A",r&&(p+="📧 אימייל: "+encodeURIComponent(r)+"%0A"),o&&(p+="📅 תאריך כניסה: "+encodeURIComponent(o)+"%0A"),i&&(p+="📅 תאריך יציאה: "+encodeURIComponent(i)+"%0A"),l&&(p+="👥 מספר אורחים: "+encodeURIComponent(l)+"%0A"),c&&(p+="📝 הערות: "+encodeURIComponent(c)+"%0A"),window.location.href="https://wa.me/972528282481?text="+p}else alert("נא למלא לפחות שם מלא וטלפון")})}()}catch(e){"undefined"!=typeof console&&console.warn&&console.warn("[zappy-custom-js]",e)}}"loading"===document.readyState?document.addEventListener("DOMContentLoaded",e):e()}(),function(){function e(){try{(e=document.getElementById("bookingForm"))&&e.addEventListener("submit",function(e){e.preventDefault();var t=(document.getElementById("fullName")?.value||"").trim(),n=(document.getElementById("phone")?.value||"").trim(),a=(document.getElementById("email")?.value||"").trim(),r=(document.getElementById("checkIn")?.value||"").trim(),o=(document.getElementById("checkOut")?.value||"").trim(),i=document.getElementById("guests")?.value||"",s=(document.getElementById("notes")?.value||"").trim();if(t)if(n){var l="🌟 *הזמנה חדשה - וילה בית הלוגים* 🌟\n\n";l+="👤 *שם מלא:* "+t+"\n",l+="📞 *טלפון:* "+n+"\n",a&&(l+="📧 *אימייל:* "+a+"\n"),r&&(l+="📅 *תאריך כניסה:* "+r+"\n"),o&&(l+="📅 *תאריך יציאה:* "+o+"\n"),i&&(l+="👥 *מספר אורחים:* "+i+"\n"),s&&(l+="📝 *הערות:* "+s+"\n");var c="https://wa.me/972528282481?text="+encodeURIComponent(l);window.location.href=c}else alert("נא למלא מספר טלפון");else alert("נא למלא שם מלא")})}catch(e){"undefined"!=typeof console&&console.warn&&console.warn("[zappy-custom-js]",e)}var e}"loading"===document.readyState?document.addEventListener("DOMContentLoaded",e):e()}(),document.addEventListener("DOMContentLoaded",function(){const e=document.getElementById("whatsapp-booking-form"),t=(new Date).toISOString().split("T")[0],n=document.getElementById("checkin"),a=document.getElementById("checkout");n&&n.setAttribute("min",t),n&&a&&(n.addEventListener("change",function(){a.setAttribute("min",this.value),a.value&&a.value<this.value&&(a.value=this.value)}),a.addEventListener("change",function(){n.value&&this.value<n.value&&(this.value=n.value)})),e&&e.addEventListener("submit",function(e){e.preventDefault();const t=document.getElementById("full-name").value.trim(),n=document.getElementById("phone").value.trim(),a=document.getElementById("email").value.trim(),r=document.getElementById("guests").value,o=document.getElementById("checkin").value,i=document.getElementById("checkout").value,s=document.getElementById("notes").value.trim();if(!(t&&n&&o&&i))return void alert("אנא מלאו את כל שדות החובה המסומנים בכוכבית (*)");let l="היי, הגעתי מאתר וילה בית הלוגים!\n\n";l+="אני מעוניין/ת לקבל פרטים על החופשה:\n\n",l+="👤 *שם מלא:* "+t+"\n",l+="📞 *טלפון:* "+n+"\n",a&&(l+="📧 *אימייל:* "+a+"\n"),l+="📅 *תאריך כניסה:* "+o+"\n",l+="📅 *תאריך יציאה:* "+i+"\n",r&&(l+="👥 *מספר אורחים:* "+r+"\n"),s&&(l+="📝 *הערות:* "+s+"\n"),l+="\nאשמח לקבל הצעת מחיר 🙏";const c="https://wa.me/972528282481?text="+encodeURIComponent(l);window.open(c,"_blank","noopener,noreferrer")})}),function(){function e(){try{(e=document.getElementById("whatsapp-booking-form"))&&e.addEventListener("submit",function(e){e.preventDefault();var t=(document.getElementById("full-name")?.value||"").trim(),n=(document.getElementById("phone")?.value||"").trim(),a=(document.getElementById("email")?.value||"").trim(),r=(document.getElementById("checkin")?.value||"").trim(),o=(document.getElementById("checkout")?.value||"").trim(),i=document.getElementById("guests")?.value||"",s=(document.getElementById("notes")?.value||"").trim();if(t)if(n){var l="🌟 *הזמנה חדשה - וילה בית הלוגים* 🌟\n\n";l+="👤 *שם מלא:* "+t+"\n",l+="📞 *טלפון:* "+n+"\n",a&&(l+="📧 *אימייל:* "+a+"\n"),r&&(l+="📅 *תאריך כניסה:* "+r+"\n"),o&&(l+="📅 *תאריך יציאה:* "+o+"\n"),i&&(l+="👥 *מספר אורחים:* "+i+"\n"),s&&(l+="📝 *הערות:* "+s+"\n");var c="https://wa.me/972528282481?text="+encodeURIComponent(l);window.location.href=c}else alert("נא למלא מספר טלפון");else alert("נא למלא שם מלא")})}catch(e){"undefined"!=typeof console&&console.warn&&console.warn("[zappy-custom-js]",e)}var e}"loading"===document.readyState?document.addEventListener("DOMContentLoaded",e):e()}(),function(){const e=document.querySelector(".wa-float-btn"),t=document.getElementById("wa-lead-form"),n=document.querySelector(".wa-close-btn"),a=document.getElementById("wa-contact-form"),r=document.querySelector(".wa-success"),o=document.getElementById("wa-phone");function i(){t.classList.remove("active"),e.setAttribute("aria-expanded","false"),document.body.style.overflow="",e.focus()}function s(e,t){const n=e.closest(".wa-field").querySelector(".wa-error");e.classList.add("error"),n&&(n.textContent=t)}function l(e){const t=e.closest(".wa-field").querySelector(".wa-error");e.classList.remove("error"),t&&(t.textContent="")}e.classList.add("pulse"),e.addEventListener("click",function(){t.classList.add("active"),e.setAttribute("aria-expanded","true"),document.body.style.overflow="hidden",setTimeout(()=>{document.getElementById("wa-name").focus()},350)}),n.addEventListener("click",i),t.addEventListener("click",function(e){e.target===t&&i()}),document.addEventListener("keydown",function(e){"Escape"===e.key&&t.classList.contains("active")&&i()}),o.addEventListener("input",function(e){let t=e.target.value.replace(/[^\d]/g,"");t.length>10&&(t=t.slice(0,10)),(t.length>7||t.length>3)&&(t=t.slice(0,3)+"-"+t.slice(3)),e.target.value=t}),a.querySelectorAll(".wa-input").forEach(e=>{e.addEventListener("input",function(){l(this)})}),a.querySelector('input[name="privacy"]').addEventListener("change",function(){this.closest(".wa-field").querySelector(".wa-error").textContent=""}),a.addEventListener("submit",function(e){if(e.preventDefault(),!function(){let e=!0;const t=document.getElementById("wa-name"),n=document.getElementById("wa-phone"),r=document.getElementById("wa-email"),o=a.querySelector('input[name="privacy"]');t.value.trim()?l(t):(s(t,"נא להזין שם מלא"),e=!1);const i=n.value.replace(/[^\d]/g,"");!i||i.length<9?(s(n,"נא להזין מספר טלפון תקין"),e=!1):l(n),r.value.trim()&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(r.value.trim())?(s(r,"נא להזין כתובת אימייל תקינה"),e=!1):l(r),o.checked?o.closest(".wa-field").querySelector(".wa-error").textContent="":(o.closest(".wa-field").querySelector(".wa-error").textContent="יש לאשר את מדיניות הפרטיות",e=!1);return e}())return;const t=a.querySelector(".wa-submit-btn");t.disabled=!0,t.textContent="שולח...";const n=document.getElementById("wa-name").value.trim(),o=document.getElementById("wa-phone").value.replace(/[^\d]/g,""),c=document.getElementById("wa-email").value.trim(),p=document.getElementById("wa-message").value.trim();let d=encodeURIComponent("הודעה חדשה מאתר וילה בית הלוגים:\n\n");d+=encodeURIComponent("שם: "+n+"\n"),d+=encodeURIComponent("טלפון: "+o+"\n"),c&&(d+=encodeURIComponent("אימייל: "+c+"\n")),p&&(d+=encodeURIComponent("הודעה: "+p+"\n")),d+=encodeURIComponent("\nאשמח לקבל פרטים על החופשה המושלמת בצפון!");const u="https://wa.me/972528282481?text="+d;setTimeout(()=>{a.style.display="none",r.classList.add("active"),t.disabled=!1,t.textContent="שלחו לנו הודעה",window.open(u,"_blank"),setTimeout(()=>{a.style.display="",r.classList.remove("active"),a.reset(),i()},3e3)},800)})}(),document.addEventListener("DOMContentLoaded",function(){const e=document.getElementById("villaContactForm"),t=document.getElementById("villaSuccessMessage");e&&e.addEventListener("submit",function(n){n.preventDefault();const a=e.querySelector("#fullName").value.trim(),r=e.querySelector("#phoneNumber").value.trim(),o=e.querySelector("#message").value.trim();a&&r?(e.style.display="none",t.classList.add("visible"),console.log("Form submitted:",{fullName:a,phoneNumber:r,message:o})):alert("אנא מלאו את כל שדות החובה.")})}),document.addEventListener("DOMContentLoaded",function(){const e=document.getElementById("fb-lead-form"),t=document.getElementById("fb-lead-thankyou");document.querySelector(".fb-lead-section");e&&t&&e.addEventListener("submit",function(n){n.preventDefault();const a=document.getElementById("fb-lead-name").value.trim(),r=document.getElementById("fb-lead-phone").value.trim();a&&r?("undefined"!=typeof fbq&&fbq("track","Lead"),t.style.display="flex",t.addEventListener("click",function(e){e.target===t&&(t.style.display="none")}),setTimeout(function(){"flex"===t.style.display&&(t.style.display="none")},6e3),e.reset()):alert("נא למלא שם מלא וטלפון")})}),function(){function e(){try{(e=document.getElementById("fb-lead-form"))&&e.addEventListener("submit",function(e){"undefined"!=typeof fbq&&fbq("track","Lead",{content_name:"fb_lead_form"})})}catch(e){"undefined"!=typeof console&&console.warn&&console.warn("[zappy-custom-js]",e)}var e}"loading"===document.readyState?document.addEventListener("DOMContentLoaded",e):e()}(),function(){try{if(window.__zappyPublishedLightboxInit)return;function e(e){try{return String(e||"").replace(/"/g,"&quot;")}catch(e){return""}}function t(t){try{if(!t||!t.id)return;if(0!==t.id.indexOf("zappy-lightbox-toggle-"))return;var n=t.id.replace("zappy-lightbox-toggle-",""),a=document.querySelector('label.zappy-lightbox-trigger[for="'+t.id+'"]');if(!a)return;try{a.contains(t)&&a.parentNode&&a.parentNode.insertBefore(t,a)}catch(l){}var r="zappy-lightbox-"+n,o=document.getElementById(r);if(o&&o.parentNode!==document.body)try{document.body.appendChild(o)}catch(c){}if(!o){var i=null;try{i=a.querySelector("img")}catch(p){}if(!i)try{i=document.querySelector('img[data-element-id="'+n+'"]')}catch(d){}if(!i)return;(o=document.createElement("div")).id=r,o.className="zappy-lightbox",o.setAttribute("data-zappy-image-lightbox","true"),o.style.display="none",o.innerHTML='<label class="zappy-lightbox-backdrop" for="'+t.id+'" aria-label="Close"></label><div class="zappy-lightbox-content"><label class="zappy-lightbox-close" for="'+t.id+'" aria-label="Close">×</label><img class="zappy-lightbox-image" src="'+e(i.currentSrc||i.src||i.getAttribute("src"))+'" alt="'+e(i.getAttribute("alt")||"Image")+'"></div>',document.body.appendChild(o)}function s(){try{var e=a.querySelector("img"),t=o.querySelector("img");e&&t&&(t.src=e.currentSrc||e.src||t.src,t.alt=e.alt||t.alt)}catch(e){}}t.__zappyLbBound||(t.addEventListener("change",function(){t.checked&&s(),o.style.display=t.checked?"flex":"none"}),t.__zappyLbBound=!0),o.__zappyLbBound||(o.addEventListener("click",function(e){try{var n=e.target;if(!n)return;n.classList&&(n.classList.contains("zappy-lightbox-backdrop")||n.classList.contains("zappy-lightbox-close"))&&(e.preventDefault(),t.checked=!1,o.style.display="none")}catch(e){}}),o.__zappyLbBound=!0),a.__zappyLbClick||(a.addEventListener("click",function(e){try{if(document.body&&document.body.classList&&document.body.classList.contains("zappy-edit-mode"))return;if(e&&e.target&&e.target.closest&&e.target.closest("a[href],button,input,select,textarea"))return;e.preventDefault(),e.stopPropagation(),t.checked=!0,s(),o.style.display="flex"}catch(e){}},!0),a.__zappyLbClick=!0)}catch(u){}}function n(){try{!function(){try{var e=document.head||document.querySelector("head");if(!e||e.querySelector('style[data-zappy-image-lightbox="true"]'))return;var t=document.createElement("style");t.setAttribute("data-zappy-image-lightbox","true"),t.textContent='.zappy-lightbox{position:fixed;inset:0;background:rgba(0,0,0,.72);display:none;align-items:center;justify-content:center;z-index:9999;padding:24px;}.zappy-lightbox-content{position:relative;max-width:min(1100px,92vw);max-height:92vh;}.zappy-lightbox-content img{max-width:92vw;max-height:92vh;display:block;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.45);}.zappy-lightbox-close{position:absolute;top:-14px;right:-14px;width:32px;height:32px;border-radius:999px;background:#fff;color:#111;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 8px 24px rgba(0,0,0,.25);cursor:pointer;}.zappy-lightbox-backdrop{position:absolute;inset:0;display:block;cursor:pointer;}input.zappy-lightbox-toggle{position:absolute;opacity:0;pointer-events:none;}label.zappy-lightbox-trigger{display:contents;}label.zappy-lightbox-trigger{cursor:zoom-in;}label.zappy-lightbox-trigger [data-zappy-zoom-wrapper="true"],label.zappy-lightbox-trigger img{cursor:zoom-in !important;}input.zappy-lightbox-toggle:checked + label.zappy-lightbox-trigger + .zappy-lightbox{display:flex;}',e.appendChild(t)}catch(e){}}();for(var e=document.querySelectorAll('label.zappy-lightbox-trigger[for^="zappy-lightbox-toggle-"]'),n=0;n<e.length;n++){var a=e[n],r=a&&a.getAttribute?a.getAttribute("for"):null;if(r&&!document.getElementById(r)){var o=document.createElement("input");o.type="checkbox",o.id=r,o.className="zappy-lightbox-toggle",o.setAttribute("data-zappy-image-lightbox","true"),a.parentNode&&a.parentNode.insertBefore(o,a)}}for(var i=document.querySelectorAll('input.zappy-lightbox-toggle[id^="zappy-lightbox-toggle-"]'),s=0;s<i.length;s++)t(i[s]);document.__zappyLbEscBound||(document.addEventListener("keydown",function(e){try{if(!e||"Escape"!==e.key)return;var t=document.querySelector('.zappy-lightbox[style*="display: flex"]');if(t){var n=null;try{var a=t.id||"";0===a.indexOf("zappy-lightbox-")&&(n=document.getElementById("zappy-lightbox-toggle-"+a.replace("zappy-lightbox-","")))}catch(e){}n&&(n.checked=!1),t.style.display="none"}}catch(e){}}),document.__zappyLbEscBound=!0)}catch(e){}}window.__zappyPublishedLightboxInit=!0,"loading"===document.readyState?document.addEventListener("DOMContentLoaded",n,{once:!0}):n()}catch(a){}}(),function(){try{if(window.__zappyPublishedZoomInitV4)return;function e(e){var t=e.querySelector("img");if(t&&("true"===t.getAttribute("data-hero-bg")||"true"===t.getAttribute("data-hero-background")))return!0;var n=(e.style.position||"").replace(/\s*!important\s*/g,"").trim(),a=(e.style.width||"").replace(/\s*!important\s*/g,"").trim(),r=(e.style.height||"").replace(/\s*!important\s*/g,"").trim();return"absolute"===n&&"100%"===a&&"100%"===r}function t(e){var t=null,n=null;try{if("string"==typeof e&&e.trim())for(var a=e.trim().toLowerCase().split(/\s+/).slice(0,2),r=0;r<a.length;r++){var o,i=a[r];"left"!==i?"right"!==i?"top"!==i?"bottom"!==i?(o="center"===i?50:/^-?\d*\.?\d+%$/.test(i)?parseFloat(i):50,null===t?t=o:null===n&&(n=o)):n=100:n=0:t=100:t=0}}catch(e){}return null!==t&&isFinite(t)||(t=50),null!==n&&isFinite(n)||(n=50),{x:Math.max(0,Math.min(100,t)),y:Math.max(0,Math.min(100,n))}}function n(e,t){return!isFinite(e)||e<=0||!isFinite(t)||t<=0?{w:100,h:100}:e>=t?{w:e/t*100,h:100}:{w:100,h:t/e*100}}window.__zappyPublishedZoomInitV4=!0,window.__zappyPublishedZoomInitV3=!0;var a=["image-wrap","image-tile","image-slot","card-image","card-media","media-wrap","portrait-wrap"];function r(e){var t=(e||"").toString().toLowerCase();if(!t.trim())return!1;for(var n=t.split(/\s+/),r=0;r<n.length;r++)for(var o=n[r].split(/[^a-z0-9]+/).filter(function(e){return!!e}),i=0;i<a.length;i++)for(var s=a[i].split("-"),l=0;l<=o.length-s.length;l++){for(var c=!0,p=0;p<s.length;p++)if(o[l+p]!==s[p]){c=!1;break}if(c)return!0}return!1}function o(e){try{if(!e)return!1;for(var t=e.parentElement,n=0;n<4&&t&&t!==document.body;n++){if(t.getAttribute&&"true"===t.getAttribute("data-zappy-image-frame-synced"))return!0;var a=window.getComputedStyle(t),r=(t.className||"").toString(),o="A"===t.tagName&&a&&"contents"===a.display,i="DIV"===t.tagName&&!r.trim(),s=/ zappy-inserted-element |^zappy-inserted-element | zappy-inserted-element$|^zappy-inserted-element$/.test(" "+r+" ");if(!(o||i||s))break;t=t.parentElement}}catch(e){}return!1}function i(t){try{if(!t||e(t))return;if("full"===t.getAttribute("data-zappy-zoom-wrapper-width-mode"))return;for(var n=null,a=t.parentElement,o=0;o<4&&a&&a!==document.body;o++){if(r((a.className||"").toString())){n=a;break}var i=window.getComputedStyle(a),s=(a.className||"").toString(),l="A"===a.tagName&&"contents"===i.display,c="DIV"===a.tagName&&!s.trim(),p=/ zappy-inserted-element |^zappy-inserted-element | zappy-inserted-element$|^zappy-inserted-element$/.test(" "+s+" ");if(!(l||c||p))break;a=a.parentElement}var d=null;if(!n&&t.parentElement){var u=(t.parentElement.className||"").toString(),m=/ zappy-inserted-element |^zappy-inserted-element | zappy-inserted-element$|^zappy-inserted-element$/.test(" "+u+" "),y=t.parentElement.parentElement,g=(y&&y.className||"").toString().toLowerCase();m&&/(card|tile|article|post|news|mention|press|journey|philosophy|feature|service)/.test(g)&&(d=t.parentElement)}var v=n||d,f=v&&v.parentElement,h=(f&&f.className||"").toString().toLowerCase(),b=/(card|tile|article|post|news|mention|press|journey|philosophy|feature|service)/.test(h);if(!v||!f||f===document.body||!b)return;for(var w=null,x=0;x<f.children.length;x++){var z=f.children[x],k=window.getComputedStyle(z);if("none"!==k.display&&"hidden"!==k.visibility){w=z;break}}if(w!==v)return;var C=window.getComputedStyle(f),P=parseFloat(C.paddingTop)||0,A=parseFloat(C.paddingLeft)||0,S=parseFloat(C.paddingRight)||0;if(A<=0&&S<=0&&P<=0)return;v.style.setProperty("margin-left","-"+A+"px","important"),v.style.setProperty("margin-right","-"+S+"px","important"),v.style.setProperty("margin-top","-"+P+"px","important"),v.style.setProperty("width","calc(100% + "+(A+S)+"px)","important"),v.style.setProperty("max-width","calc(100% + "+(A+S)+"px)","important"),v.style.setProperty("height","auto","important"),v.style.setProperty("min-height","0","important"),v.style.setProperty("max-height","none","important"),v.setAttribute("data-zappy-mobile-bleed","1"),t.style.setProperty("width","100%","important"),t.style.setProperty("max-width","100%","important");var E=parseFloat(t.getAttribute("data-zappy-zoom-wrapper-width"))||0,L=parseFloat(t.getAttribute("data-zappy-zoom-wrapper-height"))||0;E>0&&L>0&&(t.style.setProperty("aspect-ratio",E+"/"+L,"important"),t.style.setProperty("height","auto","important"))}catch(e){}}function s(a,i){try{if(!a||e(a))return;var s=a.getAttribute("data-zappy-zoom-wrapper-width-mode");if("full"===s)return;var l="card-slot"===s||"1"===a.getAttribute("data-zappy-card-slot-fill");if(o(a))return;for(var c=a.parentElement,p=null,d=0;d<3&&c&&c!==document.body;d++){if(r((c.className||"").toString())){p=c;break}var u=window.getComputedStyle(c),m=(c.className||"").toString(),y="A"===c.tagName&&"contents"===u.display,g="DIV"===c.tagName&&!m.trim(),v=/ zappy-inserted-element |^zappy-inserted-element | zappy-inserted-element$|^zappy-inserted-element$/.test(" "+m+" ");if(!(y||g||v))break;c=c.parentElement}if(!p){if(l){var f=parseFloat(a.getAttribute("data-zappy-zoom-wrapper-width"))||0,h=parseFloat(a.getAttribute("data-zappy-zoom-wrapper-height"))||0;a.style.setProperty("width","100%","important"),a.style.setProperty("max-width","100%","important"),a.style.setProperty("padding-bottom","0","important"),f>0&&h>0&&(a.style.setProperty("aspect-ratio",f+"/"+h,"important"),a.style.setProperty("height","auto","important")),a.setAttribute("data-zappy-card-slot-fill","1")}if(c&&c!==document.body&&!a.getAttribute("data-zappy-card-slot-fill")){var b=(c.className||"").toString().toLowerCase();if(/(card|tile|article|post|news|mention|press|journey|philosophy|feature|service)/.test(b)){var w=parseFloat(a.getAttribute("data-zappy-zoom-wrapper-width"))||0,x=parseFloat(a.getAttribute("data-zappy-zoom-wrapper-height"))||0,z=c.getBoundingClientRect();if(w>0&&z.width>0&&w>=.8*z.width){a.style.setProperty("width","100%","important"),a.style.setProperty("max-width","100%","important"),x>0&&(a.style.setProperty("aspect-ratio",w+"/"+x,"important"),a.style.setProperty("height","auto","important")),a.setAttribute("data-zappy-card-slot-fill","1");for(var k=a.parentElement,C=0;C<3&&k&&k!==c;C++){var P=(k.className||"").toString();if(/ zappy-inserted-element |^zappy-inserted-element | zappy-inserted-element$|^zappy-inserted-element$/.test(" "+P+" ")){var A=k.getAttribute("data-zappy-mobile-bleed");A||(k.style.setProperty("width","100%","important"),k.style.setProperty("max-width","100%","important")),k.style.setProperty("height","auto","important"),k.style.setProperty("min-height","0","important"),k.style.setProperty("max-height","none","important");for(var S=!0,E=k.previousElementSibling;E;){if(E.getBoundingClientRect().height>1){S=!1;break}E=E.previousElementSibling}S&&(A||k.style.setProperty("margin-top","0","important"),k.style.setProperty("border-radius","var(--radius-card, 20px) var(--radius-card, 20px) 0 0","important"),k.style.setProperty("overflow","hidden","important"))}k=k.parentElement}}}}return}var L=p.getBoundingClientRect(),_=a.getBoundingClientRect(),I=window.getComputedStyle(p),B=L.width-_.width,q=_.height-L.height;if(!l&&B<=4&&!(q>4&&L.height>0&&"visible"!==I.overflow))return;var M=a.getAttribute("data-zappy-zoom-wrapper-width"),N=a.getAttribute("data-zappy-zoom-wrapper-height"),T=parseFloat(M)||0,F=parseFloat(N)||0,O=Math.abs(L.height-_.height)<=2,D=L.height>0&&!O&&(l||q>4&&"visible"!==I.overflow);if(a.style.setProperty("width","100%","important"),a.style.setProperty("max-width","100%","important"),D){if(a.style.setProperty("height","100%","important"),a.style.setProperty("aspect-ratio","auto","important"),a.style.setProperty("padding-bottom","0","important"),i){var R=a.getBoundingClientRect(),V=i.naturalWidth||0,j=i.naturalHeight||0;if(R&&R.width>0&&R.height>0&&V>0&&j>0){var U=n(V/j,R.width/R.height),H=parseFloat(i.getAttribute("data-zappy-mobile-zoom")||i.getAttribute("data-zappy-zoom")||"1"),Y=isFinite(H)&&H>0?H:1,W=100,Z=100;if(Y>=1)W=U.w*Y,Z=U.h*Y;else{var $=(Y-.5)/.5;isFinite($)||($=0),W=100+($=Math.max(0,Math.min(1,$)))*(U.w-100),Z=100+$*(U.h-100)}var G=t(i.getAttribute("data-zappy-mobile-object-position")||i.getAttribute("data-zappy-object-position")||i.style.objectPosition||"50% 50%");i.style.setProperty("position","absolute","important"),i.style.setProperty("left",(100-W)*(G.x/100)+"%","important"),i.style.setProperty("top",(100-Z)*(G.y/100)+"%","important"),i.style.setProperty("width",W+"%","important"),i.style.setProperty("height",Z+"%","important"),i.style.setProperty("max-width","none","important"),i.style.setProperty("max-height","none","important"),i.style.setProperty("display","block","important"),i.style.setProperty("object-fit",Y<1?"fill":"cover","important"),i.style.setProperty("margin","0","important")}}}else T>0&&F>0&&(a.style.setProperty("aspect-ratio",T+"/"+F,"important"),a.style.setProperty("height","auto","important"),a.style.setProperty("padding-bottom","0","important"));a.setAttribute("data-zappy-card-slot-fill","1");for(var K=a.parentElement,X=0;X<3&&K&&K!==p;X++){var Q=(K.className||"").toString();/ zappy-inserted-element |^zappy-inserted-element | zappy-inserted-element$|^zappy-inserted-element$/.test(" "+Q+" ")&&(K.style.setProperty("width","100%","important"),K.style.setProperty("max-width","100%","important"),K.style.setProperty("height","auto","important"),K.style.setProperty("min-height","0","important"),K.style.setProperty("max-height","none","important"),K.setAttribute("data-zappy-inserted-stretched","1")),K=K.parentElement}}catch(e){}}function l(a,r){var o=parseFloat(r.getAttribute("data-zappy-zoom"))||1;if(o>0||(o=1),"full"!==a.getAttribute("data-zappy-zoom-wrapper-width-mode")&&!e(a)){if(function(e){try{var t=e&&e.parentElement;if(!t)return;var n=(t.className||"").toString();if(!/ zappy-inserted-element |^zappy-inserted-element | zappy-inserted-element$|^zappy-inserted-element$/.test(" "+n+" "))return;t.style.setProperty("width","100%","important"),t.style.setProperty("max-width","100%","important"),t.style.setProperty("height","auto","important"),t.style.setProperty("min-height","0","important"),t.style.setProperty("max-height","none","important"),t.setAttribute("data-zappy-inserted-zoom-parent-normalized","1")}catch(e){}}(a),window.innerWidth<=768){var l=r.getAttribute("data-zappy-mobile-src"),c=r.getAttribute("data-zappy-mobile-object-position"),p=r.getAttribute("data-zappy-mobile-zoom"),d=parseFloat(p);l&&(r.src=l),a.style.setProperty("width","100%","important"),a.style.setProperty("max-width","100%","important"),a.style.setProperty("overflow","hidden","important"),a.style.setProperty("position","relative","important");var u=parseFloat(a.getAttribute("data-zappy-zoom-wrapper-width"))||0,m=parseFloat(a.getAttribute("data-zappy-zoom-wrapper-height"))||0;if((c||isFinite(d)&&d>0)&&u>0&&m>0){function y(e,a,r,o){var i=a.getBoundingClientRect();if(i&&i.width&&i.height){var s=e.naturalWidth||0,l=e.naturalHeight||0;if(s>0&&l>0){var c=n(s/l,i.width/i.height),p=100,d=100;if(o>=1)p=c.w*o,d=c.h*o;else{var u=(o-.5)/.5;isFinite(u)||(u=0),p=100+(u=Math.max(0,Math.min(1,u)))*(c.w-100),d=100+u*(c.h-100)}var m=t(r),y=(100-p)*(m.x/100),g=(100-d)*(m.y/100);e.style.setProperty("position","absolute","important"),e.style.setProperty("left",y+"%","important"),e.style.setProperty("top",g+"%","important"),e.style.setProperty("width",p+"%","important"),e.style.setProperty("height",d+"%","important"),e.style.setProperty("max-width","none","important"),e.style.setProperty("max-height","none","important"),e.style.setProperty("display","block","important"),e.style.setProperty("object-fit",o<1?"fill":"cover","important"),e.style.setProperty("margin","0","important")}}}a.style.setProperty("padding-bottom","0","important"),a.style.setProperty("aspect-ratio",u+"/"+m,"important"),a.style.setProperty("height","auto","important");var g=isFinite(d)&&d>0?d:o,v=c||r.getAttribute("data-zappy-object-position")||r.style.objectPosition||"50% 50%";y(r,a,v,g),r.complete&&r.naturalWidth>0||r.addEventListener("load",function e(){r.removeEventListener("load",e);try{y(r,a,v,g)}catch(e){}})}else if(u>0&&m>0){var f=r.getAttribute("data-zappy-object-position")||r.style.objectPosition||"50% 50%";a.style.setProperty("aspect-ratio",u+"/"+m,"important"),a.style.setProperty("padding-bottom","0","important"),a.style.setProperty("height","auto","important"),r.style.setProperty("position","absolute","important"),r.style.setProperty("top","0","important"),r.style.setProperty("left","0","important"),r.style.setProperty("width","100%","important"),r.style.setProperty("height","100%","important"),r.style.setProperty("max-width","100%","important"),r.style.setProperty("max-height","none","important"),r.style.setProperty("display","block","important"),r.style.setProperty("object-fit","cover","important"),r.style.setProperty("object-position",f,"important"),r.style.removeProperty("right"),r.style.removeProperty("bottom"),r.style.setProperty("margin","0","important")}else a.style.setProperty("aspect-ratio","auto","important"),a.style.setProperty("padding-bottom","0","important"),a.style.setProperty("height","auto","important"),r.style.setProperty("position","relative","important"),r.style.setProperty("width","100%","important"),r.style.setProperty("height","auto","important"),r.style.setProperty("max-width","100%","important"),r.style.setProperty("max-height","300px","important"),r.style.setProperty("display","block","important"),r.style.setProperty("object-fit","cover","important"),r.style.removeProperty("left"),r.style.removeProperty("top"),r.style.setProperty("margin","0","important");return i(a),void s(a,r)}if(1===o)return a.style.setProperty("overflow","hidden","important"),a.style.setProperty("position","relative","important"),r.style.setProperty("position","absolute","important"),r.style.setProperty("width","100%","important"),r.style.setProperty("height","100%","important"),r.style.setProperty("left","0%","important"),r.style.setProperty("top","0%","important"),r.style.setProperty("max-width","none","important"),r.style.setProperty("max-height","none","important"),r.style.setProperty("object-fit","cover","important"),r.style.setProperty("display","block","important"),r.style.setProperty("margin","0","important"),i(a),void s(a,r);var h=(r.style.position||"").replace(/s*!importants*/g,"").trim(),b=(r.style.width||"").replace(/s*!importants*/g,"").trim();if("absolute"===h&&-1!==b.indexOf("%")&&o>1)return a.style.setProperty("overflow","hidden","important"),a.style.setProperty("position","relative","important"),i(a),void s(a,r);var w=a.getBoundingClientRect();if(w&&w.width&&w.height){var x=r.naturalWidth||0,z=r.naturalHeight||0;if(x>0&&z>0){var k=x/z,C=w.width/w.height,P=n(k,C),A=function(e,t){return!isFinite(e)||e<=0||!isFinite(t)||t<=0?{w:100,h:100}:e>=t?{w:100,h:t/e*100}:{w:e/t*100,h:100}}(k,C),S=100,E=100;if(o>=1)S=P.w*o,E=P.h*o;else if(o<=.5)S=A.w,E=A.h;else{var L=(o-.5)/.5;isFinite(L)||(L=0),S=100+(L=Math.max(0,Math.min(1,L)))*(P.w-100),E=100+L*(P.h-100)}var _=t(r.getAttribute("data-zappy-object-position")||r.style.objectPosition||window.getComputedStyle(r).objectPosition||"50% 50%"),I=(100-S)*(_.x/100),B=(100-E)*(_.y/100);r.style.setProperty("position","absolute","important"),r.style.setProperty("left",I+"%","important"),r.style.setProperty("top",B+"%","important"),r.style.setProperty("width",S+"%","important"),r.style.setProperty("height",E+"%","important"),r.style.setProperty("max-width","none","important"),r.style.setProperty("max-height","none","important"),r.style.setProperty("display","block","important"),r.style.setProperty("object-fit",o<1?"fill":"cover","important"),r.style.setProperty("margin","0","important"),i(a),s(a,r)}}}}function c(t){var n=t.getAttribute("data-zappy-zoom-wrapper-width-mode")||"px";if("full"!==n&&"grid-responsive"!==n&&!e(t)){"card-slot"!==n&&"1"!==t.getAttribute("data-zappy-card-slot-fill")||function(e,t){try{if(!e||!e.parentElement)return null;for(var n=e.parentElement,a=0;a<(t||4)&&n&&n!==document.body;a++){if(r((n.className||"").toString()))return n;var o=window.getComputedStyle(n),i=(n.className||"").toString(),s="A"===n.tagName&&o&&"contents"===o.display,l="DIV"===n.tagName&&!i.trim(),c=/ zappy-inserted-element |^zappy-inserted-element | zappy-inserted-element$|^zappy-inserted-element$/.test(" "+i+" ");if(!(s||l||c))break;n=n.parentElement}}catch(e){}return null}(t,4)||!o(t)||(t.removeAttribute("data-zappy-card-slot-fill"),"card-slot"===n&&(t.setAttribute("data-zappy-zoom-wrapper-width-mode","px"),n="px"));var a=t.getAttribute("data-zappy-zoom-wrapper-width"),i=t.getAttribute("data-zappy-zoom-wrapper-height");if(a||i){if("px"===n&&a){var s=(t.style.width||"").replace(/s*!importants*/g,"").trim(),l=a.replace(/s*!importants*/g,"").trim();s&&"100%"!==s&&-1===s.indexOf("%")&&s===l||(t.style.setProperty("width",a,"important"),t.style.setProperty("max-width","100%","important"))}if(i){var c=(t.style.height||"").replace(/s*!importants*/g,"").trim(),p=i.replace(/s*!importants*/g,"").trim();c&&"auto"!==c&&"100%"!==c&&-1===c.indexOf("%")&&c===p||t.style.setProperty("height",i,"important")}t.style.setProperty("overflow","hidden","important"),t.style.setProperty("position","relative","important")}}}function p(a){if(e(a)){a.style.setProperty("position","absolute","important"),a.style.setProperty("top","0","important"),a.style.setProperty("left","0","important"),a.style.setProperty("width","100%","important"),a.style.setProperty("height","100%","important"),a.style.setProperty("max-width","none","important"),a.style.setProperty("overflow","hidden","important"),a.setAttribute("data-zappy-zoom-wrapper-width-mode","full");var r=a.querySelector("img");if(r&&(r.style.setProperty("width","100%","important"),r.style.setProperty("height","100%","important"),r.style.setProperty("object-fit","cover","important"),r.style.setProperty("position","relative","important"),r.style.setProperty("top","0","important"),r.style.setProperty("left","0","important"),r.style.setProperty("max-width","none","important"),r.style.setProperty("max-height","none","important"),r.style.setProperty("display","block","important"),window.innerWidth<=768)){var o=r.getAttribute("data-zappy-mobile-src"),i=r.getAttribute("data-zappy-mobile-object-position"),s=parseFloat(r.getAttribute("data-zappy-mobile-zoom"));if(o&&(r.src=o),i&&r.style.setProperty("object-position",i,"important"),s>1){var l=function(){var e=a.getBoundingClientRect(),o=r.naturalWidth||0,l=r.naturalHeight||0;if(!(e&&e.width&&e.height&&o>0&&l>0))return r.style.setProperty("transform","scale("+s+")","important"),void r.style.setProperty("transform-origin",i||"50% 50%","important");var c=n(o/l,e.width/e.height),p=c.w*s,d=c.h*s,u=t(i||r.getAttribute("data-zappy-object-position")||"50% 50%");r.style.setProperty("position","absolute","important"),r.style.setProperty("left",(100-p)*(u.x/100)+"%","important"),r.style.setProperty("top",(100-d)*(u.y/100)+"%","important"),r.style.setProperty("width",p+"%","important"),r.style.setProperty("height",d+"%","important"),r.style.setProperty("object-fit","cover","important"),r.style.removeProperty("transform"),r.style.removeProperty("transform-origin")};r.complete&&r.naturalWidth>0?l():r.addEventListener("load",l,{once:!0})}}}}function d(){for(var e=document.querySelectorAll('[data-zappy-zoom-wrapper="true"]'),t=0;t<e.length;t++)(function(e){var t=e.querySelector("img");t&&(e.closest&&e.closest(".zappy-carousel-js-init, .zappy-carousel-active")||(p(e),window.innerWidth>768&&c(e),t.complete&&t.naturalWidth>0?setTimeout(function(){l(e,t)},0):t.addEventListener("load",function n(){t.removeEventListener("load",n),l(e,t)},{once:!0})))})(e[t]);!function(){if(!(window.innerWidth>768))for(var e=document.querySelectorAll("img[data-zappy-zoom]"),t=0;t<e.length;t++){var n=e[t];n.closest&&n.closest('[data-zappy-zoom-wrapper="true"]')||n.closest&&n.closest(".zappy-carousel-slide")||(n.style.setProperty("position","relative","important"),n.style.setProperty("width","100%","important"),n.style.setProperty("height","auto","important"),n.style.setProperty("max-width","100%","important"),n.style.setProperty("max-height","300px","important"),n.style.setProperty("object-fit","cover","important"),n.style.removeProperty("left"),n.style.removeProperty("top"))}}()}"loading"===document.readyState?document.addEventListener("DOMContentLoaded",d,{once:!0}):setTimeout(d,50)}catch(u){}}(),function(){try{if(window.__zappyMobileImageSwapInitV3)return;window.__zappyMobileImageSwapInitV3=!0,window.__zappyMobileImageSwapInitV2=!0;var e="img[data-zappy-mobile-src],img[data-zappy-mobile-object-position],img[data-zappy-mobile-zoom]",t=!1;function n(e){return e&&!e.closest('[data-zappy-zoom-wrapper="true"]')}function a(e,t,n){try{var a=e.parentElement;if(!a)return;function r(){e.style.setProperty("transform","scale("+t+")","important"),e.style.setProperty("transform-origin",n||"50% 50%","important")}function o(){try{var o=a.getBoundingClientRect?a.getBoundingClientRect():null,i=e.naturalWidth||0,s=e.naturalHeight||0;if(!(o&&o.width>0&&o.height>0&&i>0&&s>0))return void r();try{var l=window.getComputedStyle(a);l&&"static"===l.position&&a.style.setProperty("position","relative","important"),a.style.setProperty("aspect-ratio",String(Math.round(o.width/o.height*1e4)/1e4),"important")}catch(e){}var c=i/s,p=o.width/o.height,d=100,u=100;c>=p?d=c/p*100:u=p/c*100;var m=d*t,y=u*t,g=function(e){var t=null,n=null;try{if("string"==typeof e&&e.trim())for(var a=e.trim().toLowerCase().split(/\s+/).slice(0,2),r=0;r<a.length;r++){var o,i=a[r];"left"!==i?"right"!==i?"top"!==i?"bottom"!==i?(o="center"===i?50:/^-?\d*\.?\d+%$/.test(i)?parseFloat(i):50,null===t?t=o:null===n&&(n=o)):n=100:n=0:t=100:t=0}}catch(e){}return null!==t&&isFinite(t)||(t=50),null!==n&&isFinite(n)||(n=50),{x:Math.max(0,Math.min(100,t)),y:Math.max(0,Math.min(100,n))}}(n||e.getAttribute("data-zappy-object-position")||"50% 50%");e.style.setProperty("position","absolute","important"),e.style.setProperty("left",(100-m)*(g.x/100)+"%","important"),e.style.setProperty("top",(100-y)*(g.y/100)+"%","important"),e.style.setProperty("width",m+"%","important"),e.style.setProperty("height",y+"%","important"),e.style.setProperty("max-width","none","important"),e.style.setProperty("max-height","none","important"),e.style.setProperty("object-fit","cover","important"),e.style.setProperty("margin","0","important"),e.style.removeProperty&&(e.style.removeProperty("transform"),e.style.removeProperty("transform-origin"))}catch(e){try{r()}catch(e){}}}a._zappyDesktop||(a._zappyDesktop={style:a.getAttribute("style")}),a.style.setProperty("overflow","hidden","important"),e.complete&&e.naturalWidth>0?o():"function"==typeof e.addEventListener?(r(),e.addEventListener("load",o,{once:!0})):r()}catch(i){}}function r(){t||(t=!0,document.querySelectorAll(e).forEach(function(e){if(n(e)){e._zappyDesktop||(e._zappyDesktop={src:e.getAttribute("src"),style:e.getAttribute("style")});var t=e.getAttribute("data-zappy-mobile-src"),r=e.getAttribute("data-zappy-mobile-object-position"),o=parseFloat(e.getAttribute("data-zappy-mobile-zoom"));t&&(e.src=t),r&&e.style.setProperty("object-position",r,"important"),isFinite(o)&&o>1&&a(e,o,r)}}))}function o(){var a=window.matchMedia("(max-width:768px)");function o(a){a.matches?r():t&&(t=!1,document.querySelectorAll(e).forEach(function(e){if(n(e)){e._zappyDesktop&&(null!=e._zappyDesktop.src&&e.setAttribute("src",e._zappyDesktop.src),null!=e._zappyDesktop.style?e.setAttribute("style",e._zappyDesktop.style):e.removeAttribute("style"));var t=e.parentElement;t&&t._zappyDesktop&&(null!=t._zappyDesktop.style?t.setAttribute("style",t._zappyDesktop.style):t.removeAttribute("style"))}}))}a.matches&&r();try{a.addEventListener("change",o)}catch(e){a.addListener(o)}}"loading"===document.readyState?document.addEventListener("DOMContentLoaded",o,{once:!0}):o()}catch(i){}}(),function(){try{if(window.__zappyMobileMenuToggleInitV3)return;function e(e){return!(!e||!e.classList.contains("active")&&!e.classList.contains("open")&&"block"!==e.style.display)}function t(e){e&&(e.classList.remove("active"),e.classList.remove("open"),e.style.display="")}function n(e){if(e){e.classList.remove("active");var t=e.querySelector(".hamburger-icon"),n=e.querySelector(".close-icon");t&&t.style.setProperty("display","block","important"),n&&n.style.setProperty("display","none","important")}}function a(){var a=document.querySelector(".mobile-toggle, #mobileToggle"),r=document.querySelector("#navMenu, .nav-menu, .navbar-menu");a&&r&&(a.__zappyMobileToggleBound||(a.__zappyMobileToggleBound=!0,t(r),n(a),document.body.style.overflow="",a.addEventListener("click",function(o){o.preventDefault(),o.stopPropagation(),e(r)?(t(r),n(a),document.body.style.overflow=""):(r.classList.add("active"),r.classList.remove("open"),r.style.display="block",function(e){if(e){e.classList.add("active");var t=e.querySelector(".hamburger-icon"),n=e.querySelector(".close-icon");t&&t.style.setProperty("display","none","important"),n&&n.style.setProperty("display","block","important")}}(a),document.body.style.overflow="hidden")},!0),document.addEventListener("click",function(o){e(r)&&(a.contains(o.target)||r.contains(o.target)||(t(r),n(a),document.body.style.overflow=""))}),document.addEventListener("keydown",function(o){"Escape"===o.key&&e(r)&&(t(r),n(a),document.body.style.overflow="")}),r.querySelectorAll("a").forEach(function(e){e.addEventListener("click",function(){t(r),n(a),document.body.style.overflow=""})})))}function r(){var e=document.querySelector(".phone-header-btn");e&&!e.__zappyPhoneBound&&(e.__zappyPhoneBound=!0,e.addEventListener("click",function(){var t=e.getAttribute("data-phone")||null;if(!t){var n=document.querySelectorAll('a[href^="tel:"]');n.length>0&&(t=n[0].getAttribute("href").replace("tel:",""))}if(!t)for(var a=document.querySelectorAll("a[href]"),r=0;r<a.length;r++){var o=(a[r].getAttribute("href")||"").replace(/[-\s()]/g,"");if(/^(\+?\d{9,15}|0\d{8,9})$/.test(o)){t=o;break}}t&&-1===t.indexOf("[")&&(window.location.href="tel:"+t)}))}window.__zappyMobileMenuToggleInitV3=!0,window.__zappyMobileMenuToggleInit=!0,"loading"===document.readyState?document.addEventListener("DOMContentLoaded",function(){a(),r()},{once:!0}):(a(),r())}catch(o){}}(),function(){try{if(window.__zappyFaqToggleInit)return;window.__zappyFaqToggleInit=!0;var e='[class*="faq-answer"], [class*="faq-content"], [class*="faq-body"], [class*="faq-item__answer"], .accordion-content, .accordion-body';function t(t,n){for(var a=t.querySelectorAll(e),r=0;r<a.length;r++){var o=a[r];if(o!==n&&(!n||!o.contains(n)))return o}return null}function n(){var n=document.querySelectorAll('[class*="faq-item"], .accordion-item');n.length&&(n.forEach(function(n){if(!n.closest(e)){var a=n.querySelector('[class*="faq-question"], [class*="faq-header"], [class*="faq-item__question"], [class*="faq-item__btn"], [class*="faq-btn"], .accordion-header, .accordion-toggle');if(a&&!a.__zappyFaqBound){a.hasAttribute("onclick")&&a.removeAttribute("onclick"),a.__zappyFaqBound=!0,a.style.cursor="pointer";var r="DETAILS"===n.tagName?n:a.closest?a.closest("details"):null;if(r){if(r.__zappyFaqToggleBound)return;return r.__zappyFaqToggleBound=!0,r.addEventListener("toggle",function(){var e,i=r.open;if(n.classList.toggle("active",i),a.setAttribute("aria-expanded",i?"true":"false"),i){var s=n.parentElement;if(s)s.querySelectorAll('[class*="faq-item"], .accordion-item').forEach(function(e){if(e!==n){var t="DETAILS"===e.tagName?e:e.querySelector("details");t&&t!==r&&t.open&&(t.open=!1)}});o(t(n,a))}else(e=t(n,a))&&(e.style.transition="max-height 0.35s ease, opacity 0.25s ease, padding 0.25s ease",e.style.maxHeight="0",e.style.overflow="hidden",e.style.opacity="0",e.style.paddingTop="0",e.style.paddingBottom="0");var l=a.querySelector('[class*="chevron"], [class*="icon"], svg');l&&(l.style.transform=i?"rotate(180deg)":"rotate(0deg)",l.style.transition="transform 0.3s ease")}),void(r.open&&(n.classList.add("active"),o(t(n,a))))}a.addEventListener("click",function(r){r.preventDefault(),r.stopPropagation();var o=n.parentElement;o&&o.querySelectorAll('[class*="faq-item"], .accordion-item').forEach(function(e){if(e!==n&&e.classList.contains("active")){e.classList.remove("active");var a=e.querySelector('[class*="faq-question"], [class*="faq-header"], [class*="faq-item__question"], [class*="faq-item__btn"], [class*="faq-btn"], .accordion-header');a&&a.setAttribute("aria-expanded","false");var r=t(e,a);r&&(r.style.maxHeight="0",r.style.overflow="hidden",r.style.opacity="0",r.style.paddingTop="0",r.style.paddingBottom="0")}});var i=n.classList.toggle("active");a.setAttribute("aria-expanded",i?"true":"false");var s=t(n,a);if(s)if(i){s.style.display="",s.style.paddingTop="",s.style.paddingBottom="",s.querySelectorAll(e).forEach(function(e){e.style.maxHeight="",e.style.overflow="",e.style.opacity="",e.style.paddingTop="",e.style.paddingBottom=""}),s.style.transition="none",s.style.maxHeight="none",s.style.opacity="0";var l=s.scrollHeight;s.style.maxHeight="0",s.offsetHeight,s.style.transition="max-height 0.35s ease, opacity 0.25s ease, padding 0.25s ease",s.style.maxHeight=l+"px",s.style.overflow="hidden",s.style.opacity="1"}else s.style.transition="max-height 0.35s ease, opacity 0.25s ease, padding 0.25s ease",s.style.maxHeight="0",s.style.overflow="hidden",s.style.opacity="0",s.style.paddingTop="0",s.style.paddingBottom="0";var c=a.querySelector('[class*="chevron"], [class*="icon"], svg');c&&(c.style.transform=i?"rotate(180deg)":"rotate(0deg)",c.style.transition="transform 0.3s ease")})}}function o(t){if(t){t.style.display="",t.style.paddingTop="",t.style.paddingBottom="",t.querySelectorAll(e).forEach(function(e){e.style.maxHeight="",e.style.overflow="",e.style.opacity="",e.style.paddingTop="",e.style.paddingBottom=""}),t.style.transition="none",t.style.maxHeight="none",t.style.opacity="0";var n=t.scrollHeight;t.style.maxHeight="0",t.offsetHeight,t.style.transition="max-height 0.35s ease, opacity 0.25s ease, padding 0.25s ease",t.style.maxHeight=n+"px",t.style.overflow="hidden",t.style.opacity="1"}}}),n.forEach(function(n){if(!n.classList.contains("active")&&!("DETAILS"===n.tagName&&n.open||n.closest(e))){var a=n.querySelector('[class*="faq-question"], [class*="faq-header"], [class*="faq-item__question"], [class*="faq-item__btn"], [class*="faq-btn"], .accordion-header, .accordion-toggle');if(a){var r=t(n,a);r&&(r.style.maxHeight="0",r.style.overflow="hidden",r.style.opacity="0",r.style.paddingTop="0",r.style.paddingBottom="0",r.style.transition="max-height 0.35s ease, opacity 0.25s ease, padding 0.25s ease")}}}))}"loading"===document.readyState?document.addEventListener("DOMContentLoaded",n,{once:!0}):n()}catch(a){}}(),function(){try{if(window.__zappyContrastFixInit)return;function e(e,t,n){var a=[e,t,n].map(function(e){return(e/=255)<=.03928?e/12.92:Math.pow((e+.055)/1.055,2.4)});return.2126*a[0]+.7152*a[1]+.0722*a[2]}function t(t,n){var a=e(t.r,t.g,t.b),r=e(n.r,n.g,n.b);return(Math.max(a,r)+.05)/(Math.min(a,r)+.05)}function n(e){if(!e)return null;var t=e.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);return t?{r:+t[1],g:+t[2],b:+t[3]}:null}function a(e){for(var t=e;t;){var n=window.getComputedStyle(t),a=n.backgroundImage;if(a&&"none"!==a){if(a.indexOf("url(")>=0)return null;if(!a.match(/rgba\(/)){var r=a.match(/rgb\(\s*(\d+),\s*(\d+),\s*(\d+)/);if(r)return"rgb("+r[1]+","+r[2]+","+r[3]+")"}}var o=n.backgroundColor;if(o&&"rgba(0, 0, 0, 0)"!==o&&"transparent"!==o){var i=o.match(/rgba\(\s*\d+,\s*\d+,\s*\d+,\s*([\d.]+)/);if(!i||parseFloat(i[1])>=.6)return o}t=t.parentElement}return"rgb(255,255,255)"}function r(e){for(var t=e;t&&t!==document.body;){if(t.getAttribute){var n=t.getAttribute("data-zappy-bg-type");if("image"===n||"video"===n)return!0}var a=window.getComputedStyle(t).backgroundImage;if(a&&a.indexOf("url(")>=0)return!0;t=t.parentElement}var r=e.closest&&e.closest('section,article,[data-zappy-section],[data-zappy-component],[class*="hero"],[class*="section"]');if(r){var o=r.querySelector('img[data-hero-bg],.zappy-section-video-bg,.zappy-section-video,img[class*="hero-bg"],img[class*="bg-image"],img[class*="background-image"],video[class*="bg"],video[autoplay][loop]');if(o&&function(e,t){for(var n=e;n&&n!==t&&n!==document.body;){var a=window.getComputedStyle(n);if("none"===a.display||"hidden"===a.visibility)return!1;if(parseFloat(a.opacity||"1")<=.1)return!1;n=n.parentElement}return!0}(o,r))return!0}return!1}function o(e){if(!e||-1===e.indexOf("var("))return e;var t=e.match(/var\(--([^,)]+)/);return t&&getComputedStyle(document.documentElement).getPropertyValue("--"+t[1]).trim()||e}function i(e){for(var t=e&&e.parentElement;t&&t!==document.body;){var n=t.getAttribute&&t.getAttribute("style");if(n&&/(?:^|;)\s*color\s*:/i.test(n))return!0;t=t.parentElement}return!1}function s(e,t){if(!e||!e.matches)return!1;function n(a){if(!a)return!1;if(1===a.type)try{if(a.style&&a.style.getPropertyValue("color")&&(!t||"important"===a.style.getPropertyPriority("color"))&&e.matches(a.selectorText))return!0}catch(e){return!1}if(a.cssRules)try{for(var r=0;r<a.cssRules.length;r++)if(n(a.cssRules[r]))return!0}catch(e){return!1}return!1}for(var a=0;a<document.styleSheets.length;a++){var r=null;try{r=document.styleSheets[a].cssRules}catch(e){continue}if(r)for(var o=0;o<r.length;o++)if(n(r[o]))return!0}return!1}function l(e){return s(e,!0)}function c(e){return s(e,!1)}function p(e){for(var t=e;t&&t!==document.body;){if(l(t))return!0;t=t.parentElement}return!1}function d(e){for(var t=e;t&&t!==document.body;){if(c(t))return!0;t=t.parentElement}return!1}function u(e){return!(!e||!e.matches)&&(!!e.matches('.font-accent,.hero-logotype,.hero-logotype-line,[class*="script"],[class*="accent-line"],[class*="subheadline"]')||(!!e.closest('.font-accent,.hero-logotype,.hero-logotype-line,[class*="script"],[class*="accent-line"],[class*="subheadline"]')||(!!e.matches('.display-xl,.display-1,.display-2,[class*="hero-word"],[class*="hero-pizza"],[class*="hero-anywhere"],[class*="pizza-word"],[class*="anywhere-word"],[class*="headline-pizza"],[class*="headline-anywhere"],[class*="headline-on-the"],[class*="headline-move"],[class*="logotype"],[class*="wordmark"]')||(!!e.closest('[class*="hero-word"],[class*="hero-pizza"],[class*="hero-anywhere"],[class*="pizza-word"],[class*="anywhere-word"],[class*="headline-pizza"],[class*="headline-anywhere"],[class*="headline-on-the"],[class*="headline-move"],[class*="logotype"],[class*="wordmark"]')||!!e.closest("h1.display-xl,h2.display-xl,h1.display-1,h2.display-1,h1.display-2,h2.display-2")))))}function m(){var e=getComputedStyle(document.documentElement),s=e.getPropertyValue("--text-dark").trim()||e.getPropertyValue("--text").trim()||"#1a1a1a",l=e.getPropertyValue("--text-light").trim()||e.getPropertyValue("--background").trim()||"#ffffff",c=n(s);if(!c){var m=document.createElement("div");m.style.color=s,document.body.appendChild(m),c=n(getComputedStyle(m).color),m.remove()}var y=n(l);if(!y){var g=document.createElement("div");g.style.color=l,document.body.appendChild(g),y=n(getComputedStyle(g).color),g.remove()}c||(c={r:26,g:26,b:26}),y||(y={r:255,g:255,b:255});for(var v="h1,h2,h3,h4,h5,h6,p,span,a,button,li,label,td,th,dt,dd,figcaption",f=document.querySelector("main")||document.body,h=[],b=f.querySelectorAll(v),w=0;w<b.length;w++)h.push(b[w]);for(var x=document.querySelectorAll("footer,.site-footer,.zappy-footer"),z=0;z<x.length;z++){var k=x[z];if(!f.contains(k))for(var C=k.querySelectorAll(v),P=0;P<C.length;P++)h.push(C[P])}for(var A=document.querySelectorAll(".nav-cta-btn,.cta-button"),S=0;S<A.length;S++){var E=A[S];if(!f.contains(E)){h.push(E);for(var L=E.querySelectorAll(v),_=0;_<L.length;_++)h.push(L[_])}}for(var I=0,B=0;B<h.length;B++){var q=h[B];if((!q.closest("nav,header,.zappy-header")||q.closest(".nav-cta-btn,.cta-button"))&&(!u(q)&&!r(q))){var M=q.getAttribute("style")||"";if(!/(?:^|;\s*)color\s*:/i.test(M))if(!i(q))if(!p(q))if("FONT"!==q.tagName||!q.hasAttribute("color"))if(q.textContent?q.textContent.trim():""){var N=q.getBoundingClientRect();if(0!==N.width&&0!==N.height){var T=o(getComputedStyle(q).color),F=a(q),O=n(T),D=n(F);if(O&&D){var R=t(O,D);if(R<4.5){if(R>=3&&d(q))continue;var V=t(c,D),j=t(y,D),U=V>=j?s:l;if(Math.max(V,j)<4.5)U=t({r:0,g:0,b:0},D)>=t({r:255,g:255,b:255},D)?"#000000":"#ffffff";q.style.setProperty("color",U,"important"),I++}}}}}}I>0&&console.log("[Contrast Fix] Fixed "+I+" low-contrast elements")}window.__zappyContrastFixInit=!0,"loading"===document.readyState?document.addEventListener("DOMContentLoaded",m,{once:!0}):m()}catch(y){}}(),function(){function e(){document.querySelectorAll('article,[class*="card"],[class*="tile"]').forEach(function(e){var t=window.getComputedStyle(e),n=parseFloat(t.paddingLeft)||0,a=parseFloat(t.paddingRight)||0,r=parseFloat(t.paddingTop)||0;if(!(n<8&&a<8)){for(var o=null,i=0;i<e.children.length;i++){var s=e.children[i],l=window.getComputedStyle(s);if("none"!==l.display&&"hidden"!==l.visibility&&s.getBoundingClientRect().height>0){o=s;break}}if(o&&!o.getAttribute("data-zappy-mobile-bleed")&&!o.querySelector("[data-zappy-zoom-wrapper]")){var c=o.querySelector("img");if(c){var p=c.getBoundingClientRect(),d=e.clientWidth-n-a;d<=0||p.width<.8*d||(o.style.setProperty("margin-left","-"+n+"px","important"),o.style.setProperty("margin-right","-"+a+"px","important"),r>0&&o.style.setProperty("margin-top","-"+r+"px","important"),o.style.setProperty("width","calc(100% + "+(n+a)+"px)","important"),o.style.setProperty("max-width","calc(100% + "+(n+a)+"px)","important"),o.setAttribute("data-zappy-mobile-bleed","1"),"contain"===window.getComputedStyle(c).objectFit&&c.style.setProperty("object-fit","cover","important"))}}}})}"loading"===document.readyState?document.addEventListener("DOMContentLoaded",function(){setTimeout(e,200)}):setTimeout(e,200)}(),function(){try{if(window.__zappyNavScrollPaddingInit)return;function e(){var e=document.querySelector("nav.navbar")||document.querySelector("nav")||document.querySelector("header");if(e){var t=window.getComputedStyle(e);if("fixed"===t.position||"sticky"===t.position){var n=e.offsetHeight;n>0&&(document.documentElement.style.scrollPaddingTop=n+"px")}}}window.__zappyNavScrollPaddingInit=!0,"loading"===document.readyState?document.addEventListener("DOMContentLoaded",e,{once:!0}):e(),window.addEventListener("resize",e,{passive:!0})}catch(t){}}(),function(){try{var e=["contact","booking","inquiry","enquiry","register","signup","sign-up","order","request","apply"];function t(e,t,n){var a=e.querySelector(".zappy-form-feedback");a&&a.remove();var r="success"===n?"#d4edda":"error"===n?"#f8d7da":"#d1ecf1",o="success"===n?"#155724":"error"===n?"#721c24":"#0c5460",i="success"===n?"#c3e6cb":"error"===n?"#f5c6cb":"#bee5eb",s="success"===n?"✅":"error"===n?"❌":"ℹ️",l=document.createElement("div");if(l.className="zappy-form-feedback",l.setAttribute("role","alert"),l.style.cssText="padding:14px 18px;border-radius:8px;margin:12px 0 0;font-size:14px;line-height:1.5;background:"+r+";color:"+o+";border:1px solid "+i+";text-align:center;font-family:inherit;",l.innerHTML='<span style="margin-inline-end:6px">'+s+"</span>"+t,"success"===n){e.reset();for(var c=e.children,p=0;p<c.length;p++)c[p]!==l&&(c[p].style.display="none");e.appendChild(l),l.style.cssText+="padding:32px 24px;font-size:16px;"}else{var d=e.querySelector('button[type="submit"],input[type="submit"]');d?d.parentNode.insertBefore(l,d.nextSibling):e.appendChild(l),setTimeout(function(){l.parentElement&&l.remove()},8e3)}}var n=[].concat(["name","firstName","first_name","fname","lastName","last_name","lname"],["email","emailAddress","mail","e-mail"],["phone","tel","telephone","mobile","cellphone"],["message","msg","comments","comment","description","details","notes","body","text","inquiry"],["subject","topic","regarding","re"]);document.addEventListener("submit",function(a){var r=a.target;if(r&&"FORM"===r.tagName&&function(t){var n=(t.className||"").toLowerCase(),a=(t.id||"").toLowerCase(),r=(t.getAttribute("action")||"").toLowerCase();if(e.some(function(e){return-1!==n.indexOf(e)||-1!==a.indexOf(e)||-1!==r.indexOf(e)}))return!0;var o=t.closest&&t.closest("section");if(o){var i=(o.className||"").toLowerCase(),s=(o.id||"").toLowerCase();if(e.some(function(e){return-1!==i.indexOf(e)||-1!==s.indexOf(e)}))return!0;if(-1!==i.indexOf("form-section")||-1!==i.indexOf("form_section"))return!0}if(window.zappyContactFormLoaded){for(var l=t.querySelectorAll("input,textarea,select"),c=!1,p=!1,d=0,u=0;u<l.length;u++){var m=l[u],y=(m.type||"").toLowerCase(),g=(m.name||"").toLowerCase();"hidden"!==y&&"submit"!==y&&"button"!==y&&"reset"!==y&&(d++,"email"!==y&&-1===g.indexOf("email")&&-1===g.indexOf("mail")||(c=!0),"password"===y&&(p=!0))}if(c&&d>=2&&!p)return!0}return!1}(r)){a.preventDefault(),a.stopPropagation();var o=r.submit;if(r.submit=function(){},!r.__zappySubmitting){r.__zappySubmitting=!0;var i=r.querySelector(".zappy-form-feedback");i&&i.remove();var s=r.querySelector('button[type="submit"],input[type="submit"]'),l=s?s.value||s.textContent:"";s&&("INPUT"===s.tagName?s.value="Sending...":s.textContent="Sending...",s.disabled=!0);var c=new FormData(r),p={};for(var d of c.entries())void 0!==p[d[0]]?Array.isArray(p[d[0]])?p[d[0]].push(d[1]):p[d[0]]=[p[d[0]],d[1]]:p[d[0]]=d[1];var u=(p.name||"").trim()||[p.firstName||p.first_name||p.fname||"",p.lastName||p.last_name||p.lname||""].filter(Boolean).join(" ").trim()||(p.email||p.emailAddress||p.mail||"").trim()||"Anonymous",m=(p.email||p.emailAddress||p.mail||p["e-mail"]||"").trim(),y=p.phone||p.tel||p.telephone||p.mobile||p.cellphone||null,g=p.subject||p.topic||p.regarding||p.re||"Contact Form Submission",v=(p.message||p.msg||p.comments||p.comment||p.description||p.details||p.notes||p.body||p.text||p.inquiry||"").trim();if(!v){var f=Object.entries(p).filter(function(e){return-1===n.indexOf(e[0])});v=f.length>0?f.map(function(e){return e[0].replace(/([A-Z])/g," $1").replace(/[_-]/g," ").trim()+": "+(Array.isArray(e[1])?e[1].join(", "):e[1])}).join("\n"):"Form submission from "+window.location.pathname}var h={};Object.keys(p).forEach(function(e){-1===n.indexOf(e)&&""!==p[e]&&null!=p[e]&&(h[e]=p[e])});var b=window.location.pathname;try{var w=new URLSearchParams(window.location.search).get("page");w&&(b=w)}catch(e){}var x=(window.ZAPPY_API_BASE||"https://api.zappy5.com").replace(/\/$/,"");x+="/api/email/contact-form";var z={websiteId:"c0b48f4a-a208-4018-9fa5-ae9d5deae5b3",name:u,email:m,subject:g,message:v,phone:y,currentPagePath:b};Object.keys(h).length>0&&(z.extraFields=h),fetch(x,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(z)}).then(function(e){return e.json()}).then(function(e){if(e.success){if(e.thankYouPagePath&&e.ticketNumber)return void(window.location.href=e.thankYouPagePath+"?ticket="+encodeURIComponent(e.ticketNumber));t(r,e.message||"Thank you! We will get back to you soon.","success")}else t(r,e.error||"Failed to send. Please try again.","error")}).catch(function(){t(r,"Unable to send message right now. Please try again later.","error")}).finally(function(){r.__zappySubmitting=!1,r.submit=o,s&&("INPUT"===s.tagName?s.value=l:s.textContent=l,s.disabled=!1)})}}},!0)}catch(a){}}(),function(){try{if(window.__zappyGridCenteringInit)return;function e(){for(var e=document.querySelectorAll('[data-zappy-explicit-columns="true"], [data-zappy-auto-grid="true"]'),t=0;t<e.length;t++)try{var n=e[t];if("true"===n.getAttribute("data-zappy-grid-centered")){for(var a=Array.from(n.children),r=0;r<a.length;r++)a[r].getAttribute&&"1"===a[r].getAttribute("data-zappy-gc")&&(a[r].style.transform=a[r].getAttribute("data-zappy-gc-orig")||"",a[r].removeAttribute("data-zappy-gc"),a[r].removeAttribute("data-zappy-gc-orig"));n.removeAttribute("data-zappy-grid-centered")}var o=(n.tagName||"").toLowerCase();if("ul"===o||"ol"===o)continue;for(var i=[],s=0;s<n.children.length;s++){var l=n.children[s];if(l&&l.tagName){var c=l.tagName.toLowerCase();if("script"!==c&&"style"!==c&&"true"!==l.getAttribute("aria-hidden")&&"true"!==l.getAttribute("data-zappy-internal")){var p=window.getComputedStyle(l).position;"absolute"!==p&&"fixed"!==p&&i.push(l)}}}var d=i.length;if(0===d)continue;var u=window.getComputedStyle(n);if("grid"!==u.display)continue;var m=(u.gridTemplateAreas||"").trim();if(m&&"none"!==m)continue;var y=(u.gridTemplateColumns||"").trim();if(!y||"none"===y)continue;var g=y.split(" ").filter(function(e){return e&&parseFloat(e)>0}),v=g.length;if(v<=1)continue;var f=d%v;if(0===f)continue;var h=parseFloat(g[0])||0,b=parseFloat(u.columnGap);isNaN(b)&&(b=parseFloat(u.gap)||0);var w=g.map(function(e){return parseFloat(e)||0});if(Math.max.apply(null,w)>1.5*Math.min.apply(null,w))continue;var x=1.5*h+b;if(i.some(function(e){return e.getBoundingClientRect().width>x}))continue;for(var z=(v-f)*(h+b)/2,k="rtl"===(u.direction||"ltr")?-z:z,C=d-f,P=[],A=C;A<d;A++){var S=i[A];P.push(S.style.transition),S.style.transition="none";var E=S.style.transform||"";S.setAttribute("data-zappy-gc-orig",E);var L=E?E+" translateX("+k+"px)":"translateX("+k+"px)";S.style.transform=L,S.setAttribute("data-zappy-gc","1")}n.offsetHeight;for(var _=C;_<d;_++)i[_].style.transition=P[_-C];n.setAttribute("data-zappy-grid-centered","true")}catch(e){}}window.__zappyGridCenteringInit=!0,"complete"===document.readyState?e():window.addEventListener("load",e);try{new MutationObserver(function(){e()}).observe(document.documentElement,{attributes:!0,attributeFilter:["dir"]})}catch(t){}}catch(n){}}(),function(){try{if(window.__zappyContentAlignInit)return;window.__zappyContentAlignInit=!0;var e={top:-.5,upper:-.25,center:0,lower:.25,bottom:.5},t={left:-.5,"mid-left":-.25,center:0,"mid-right":.25,right:.5};function n(){for(var e=document.querySelectorAll("[data-zappy-content-align]"),t=0;t<e.length;t++)try{a(e[t])}catch(e){}}function a(n){var a=n.querySelector("[data-zappy-align-target]");if(a){var r=n.getAttribute("data-zappy-content-align")||"center-center",o=r.indexOf("-");if(-1!==o){var i=r.substring(0,o)||"center",s=r.substring(o+1)||"center";n.id||(n.id="zappy-section-"+Date.now()+"-"+Math.random().toString(36).substr(2,6));var l="#"+n.id,c=n.querySelector("style[data-zappy-align-style]");c&&c.remove();var p=window.getComputedStyle(a),d="flex"===p.display||"inline-flex"===p.display,u=("column"===p.flexDirection||p.flexDirection,n.getBoundingClientRect()),m=u.width||n.offsetWidth||0,y=u.height||n.offsetHeight||0,g=a.style.cssText;a.style.setProperty("width","fit-content","important"),a.style.setProperty("height","auto","important"),a.style.setProperty("min-height","0","important"),a.style.setProperty("max-height","none","important"),a.style.setProperty("align-self","flex-start","important"),a.style.setProperty("flex","none","important");var v=a.getBoundingClientRect(),f=v.width||0,h=v.height||0;a.style.cssText=g;var b=Math.max(0,m-f),w=Math.max(0,y-h),x=Math.round((t[s]||0)*b),z=Math.round((e[i]||0)*w),k=[];k.push("margin:auto!important"),0===x&&0===z||k.push("transform:translate("+x+"px,"+z+"px)!important"),d?(k.push("align-items:center!important"),k.push("justify-content:center!important")):(k.push("display:flex!important"),k.push("flex-direction:column!important"),k.push("align-items:center!important"));var C=["justify-content:center!important"];"center"===s&&(C.push("margin-left:auto!important"),C.push("margin-right:auto!important"),C.push("text-align:center!important")),d||"center"===s||(C.push("min-width:33.33%!important"),C.push("text-align:start!important"));var P="";0===x&&0===z||(P+=l+"{overflow:hidden!important}"),"center"===s&&(P+=l+"{display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:center!important;text-align:center!important}",k.push("text-align:center!important")),P+=l+" [data-zappy-align-target]{"+k.join(";")+"}",P+=l+" [data-zappy-align-target]>*{"+C.join(";")+"}",P+="@media(max-width:768px){"+l+" [data-zappy-align-target]{align-items:center!important;margin-left:auto!important;margin-right:auto!important;"+(0!==z?"transform:translateY("+z+"px)!important":"transform:none!important")+"}"+l+" [data-zappy-align-target]>*{margin-left:auto!important;margin-right:auto!important}}";var A=document.createElement("style");A.setAttribute("data-zappy-align-style","true"),A.textContent=P,n.insertBefore(A,n.firstChild)}}}"loading"===document.readyState?document.addEventListener("DOMContentLoaded",n):n();var r=null;window.addEventListener("resize",function(){clearTimeout(r),r=setTimeout(n,200)}),window.addEventListener("orientationchange",function(){clearTimeout(r),r=setTimeout(n,200)})}catch(o){}}(),function(){function e(){document.querySelectorAll("section").forEach(function(e){if(!e.id){var t=(e.className||"").split(/\s+/)[0];t&&!document.getElementById(t)&&(e.id=t)}})}"loading"===document.readyState?document.addEventListener("DOMContentLoaded",e,{once:!0}):e()}(),function(){function e(){document.querySelectorAll(".sub-menu, .dropdown-menu").forEach(function(e){for(var t=!1,n=0;n<e.children.length;n++)if("none"!==window.getComputedStyle(e.children[n]).display){t=!0;break}e.classList.toggle("zappy-empty-submenu",!t)})}"loading"===document.readyState?document.addEventListener("DOMContentLoaded",e,{once:!0}):e()}(),function(){try{function e(){var e=/\.(pdf|doc|docx|xls|xlsx|ppt|pptx|txt|csv|rtf|odt|ods|odp)(\?|$)/i;document.querySelectorAll('a[target="_blank"]').forEach(function(t){var n=t.getAttribute("href");n&&-1===n.indexOf("://")&&0!==n.indexOf("mailto:")&&0!==n.indexOf("tel:")&&(e.test(n)||(t.removeAttribute("target"),t.removeAttribute("rel")))})}"loading"===document.readyState?document.addEventListener("DOMContentLoaded",e):e()}catch(t){}}(),function(){try{if(window.__zappyIosViewportGapInit)return;function e(){try{var e=window.innerWidth,t=document.documentElement.clientWidth,n=Math.max(0,(e||0)-(t||0));document.documentElement.style.setProperty("--ios-viewport-gap",n+"px");var a=document.querySelector("nav.navbar, .navbar, header nav, header.navbar");if(a){var r=a.getBoundingClientRect(),o=Math.round(r.bottom);o>0&&document.documentElement.style.setProperty("--zappy-navbar-bottom",o+"px")}}catch(e){}}window.__zappyIosViewportGapInit=!0,e(),window.addEventListener("resize",e,{passive:!0}),window.addEventListener("orientationchange",e,{passive:!0}),window.visualViewport&&window.visualViewport.addEventListener("resize",e),document.addEventListener("DOMContentLoaded",e),window.addEventListener("load",e),setTimeout(e,250),setTimeout(e,1e3)}catch(t){}}(),function(){"use strict";function e(){if(window.innerWidth>768){var e=document.querySelector(".mobile-toggle"),t=document.querySelector(".phone-header-btn");e&&(e.style.removeProperty("position"),e.style.removeProperty("top"),e.style.removeProperty("transform"),e.style.removeProperty("z-index"),e.style.removeProperty("left"),e.style.removeProperty("right")),t&&(t.style.removeProperty("position"),t.style.removeProperty("top"),t.style.removeProperty("transform"),t.style.removeProperty("z-index"),t.style.removeProperty("left"),t.style.removeProperty("right")),console.log("📦 [00-config] Cleared mobile navbar inline styles on desktop")}}var t;function n(){try{for(var e=document.querySelectorAll('img[data-hero-bg], img[data-hero-background="true"]'),t=0;t<e.length;t++){for(var n=e[t],a=n.parentElement;a&&a!==document.body&&"SECTION"!==a.tagName;)a.style.display="",a.removeAttribute("data-zappy-original-bg"),a.removeAttribute("data-zappy-preview-hidden"),a=a.parentElement;n.removeAttribute("data-zappy-original-bg")}}catch(e){}}function a(){n(),[100,500,1500,3e3,6e3,1e4].forEach(function(e){setTimeout(n,e)});try{if(window.__zappyHeroWrapperRevivalObserver)return;var e=new MutationObserver(function(e){for(var t=0;t<e.length;t++){var a=e[t].target;if(a&&a.querySelector&&(a.matches&&a.matches('img[data-hero-bg], img[data-hero-background="true"]')||a.querySelector('img[data-hero-bg], img[data-hero-background="true"]'))){n();break}}});e.observe(document.documentElement,{childList:!0,subtree:!0,attributes:!0,attributeFilter:["style","data-zappy-original-bg","data-zappy-preview-hidden"]}),window.__zappyHeroWrapperRevivalObserver=e,setTimeout(function(){try{e.disconnect(),window.__zappyHeroWrapperRevivalObserver===e&&(window.__zappyHeroWrapperRevivalObserver=null)}catch(e){}},15e3)}catch(e){}}"loading"===document.readyState?document.addEventListener("DOMContentLoaded",e):e(),window.addEventListener("load",e),window.addEventListener("resize",e),(t=document.createElement("style")).id="zappy-layout-norm",t.textContent="section.layout-section { overflow: hidden; }",document.head.appendChild(t),function(){function e(){try{for(var e=document.querySelectorAll(".zappy-inserted-element"),t=0;t<e.length;t++){var n=e[t],a=n.getAttribute("style")||"";if(-1!==a.indexOf("display: flex")||-1!==a.indexOf("display:flex"))if(-1===a.indexOf("flex-direction"))n.querySelector(".zappy-inserted-element")&&(n.style.flexDirection="column",n.style.alignItems="center")}}catch(e){}}"loading"===document.readyState?document.addEventListener("DOMContentLoaded",e):e()}(),function(){if(!document.getElementById("zappy-variant-visual-css")){var e=document.createElement("style");e.id="zappy-variant-visual-css",e.textContent=".variant-option.disabled { opacity: 0.4 !important; cursor: pointer !important; text-decoration: line-through !important; }.variant-option.disabled::after, .variant-option.disabled::before { content: none !important; }.variant-option.color-swatch.disabled { text-decoration: none !important; }.variant-option.out-of-stock { opacity: 0.4 !important; cursor: pointer !important; text-decoration: line-through !important; }.variant-option.out-of-stock::after, .variant-option.out-of-stock::before { content: none !important; }.variant-option.color-swatch.out-of-stock { text-decoration: none !important; }.product-info .product-stock.select-required { color: #d97706 !important; }",document.head.appendChild(e)}var t=!1,n=null;function a(e){return!!(e&&e.card_variants&&e.card_variants.multiQuantity)||!("function"!=typeof window.isProductMultiQuantity||!window.isProductMultiQuantity(e))||!!document.querySelector('[data-multi-quantity="true"]')}function r(){t||"function"==typeof window.initVariantSelection&&(t=!0,n=window.initVariantSelection,window.initVariantSelection=function(e,t){if(a(e))return"function"==typeof n?n.call(this,e,t):void 0;if(e&&(e.variants&&e.variants.length>0||c(e))){i=p(e);var r=t||{};if(!r.pleaseSelect){var o="rtl"===document.documentElement.getAttribute("dir")||"rtl"===document.body.getAttribute("dir");r.pleaseSelect=o?"נא לבחור":"Please select"}s=r,setTimeout(function(){try{x()}catch(e){}},0)}})}r();var o={},i=null,s={};function l(){if(!i)return[];var e=(i.variants||[]).filter(function(e){return e&&!1!==e.is_active});return e.length?e:(i.card_variants&&Array.isArray(i.card_variants.matrix)?i.card_variants.matrix:[]).filter(function(e){return e&&!1!==e.is_active})}function c(e){return!!(e&&e.card_variants&&Array.isArray(e.card_variants.matrix)&&e.card_variants.matrix.length>0)}function p(e){if(!e||!e.card_variants||!Array.isArray(e.card_variants.matrix))return e;var t={};return(Array.isArray(e.variants)?e.variants:[]).forEach(function(e){e&&null!=e.id&&(t[String(e.id)]=e)}),e.card_variants.matrix.forEach(function(e){if(e&&null!=e.id){var n=t[String(e.id)]||{};t[String(e.id)]=Object.assign({},n,{id:e.id,attributes:e.attributes||n.attributes||{},price:null!=e.price?e.price:n.price,image:e.image||n.image,sku:e.sku||n.sku,custom_fields:n.custom_fields||n.customFields||e.custom_fields||e.customFields||{},available:"boolean"==typeof e.available?e.available:n.available,is_active:!1!==n.is_active})}}),e.variants=Object.keys(t).map(function(e){return t[e]}),e}function d(e){return"function"==typeof window.zappyCardSwatchStyle?window.zappyCardSwatchStyle(e):e&&(e.swatchImage||e.image)?"background-image:url('"+function(e){return String(null==e?"":e).replace(/\\/g,"\\\\").replace(/'/g,"\\'").replace(/\n|\r/g,"")}((window.resolveProductImageUrl||function(e){return e})(e.swatchImage||e.image))+"');background-size:"+(e.imageSize||"cover")+";background-position:"+(e.imagePosition||"50% 50%")+";":e&&e.hex2?"background:linear-gradient(90deg,"+(e.hex||"#94a3b8")+" 0 50%,"+e.hex2+" 50% 100%);":"background:"+(e&&(e.hex||e.value)||"#94a3b8")+";"}function u(){var e=i||window.currentProduct,t=e&&e.card_variants;t&&Array.isArray(t.options)&&t.options.forEach(function(t){if(t&&t.key&&Array.isArray(t.values)){var n=null;document.querySelectorAll(".variant-group").forEach(function(e){e.getAttribute("data-group")===t.key&&(n=e)});var a=n&&n.querySelector(".variant-options");if(a){var r="color"===t.type||-1!==String(t.key).toLowerCase().indexOf("color");t.values.forEach(function(n){if(n&&null!=n.value){var o=String(n.label||n.value);o=function(e,t,n,a){if("function"==typeof window.zappyTranslateVariantValue)return window.zappyTranslateVariantValue(e,t,n,a);var r="";try{r=String(("function"==typeof getCurrentEcomLanguage?getCurrentEcomLanguage():document.documentElement.lang||"")||"").split("-")[0].toLowerCase()}catch(e){}function o(e){if("he"!==r)return"";if(-1===String(t||"").toLowerCase().indexOf("color")&&"colour"!==String(t||"").toLowerCase())return"";var n=String(null==e?"":e).trim();if(!n||/[\u0590-\u05FF]/.test(n))return"";var a={black:"שחור",white:"לבן",gray:"אפור",grey:"אפור",red:"אדום",green:"ירוק",blue:"כחול",navy:"כחול כהה",pink:"ורוד",purple:"סגול",yellow:"צהוב",orange:"כתום",brown:"חום",beige:"בז׳",gold:"זהב",silver:"כסף",teal:"טורקיז",mint:"מנטה",cream:"קרם",ivory:"שנהב"},o=a[n.toLowerCase().replace(/\s+/g," ")];if(o)return o;var i=n.split(/\s*-\s*/).filter(Boolean);if(i.length>1){var s=i.map(function(e){return a[String(e).toLowerCase().replace(/\s+/g," ")]});if(s.every(Boolean))return s.join("-")}return""}for(var i=String(n),s=e&&Array.isArray(e.variants)?e.variants:[],l=0;l<s.length;l++){var c=s[l]||{},p=c.attributes_source||c.attributes||{};if(p&&String(p[t])===i){var d=c.attributes_translations&&r&&c.attributes_translations[r];if(d&&d[t])return o(d[t])||String(d[t]);var u=c.attributes_display||{};if(u&&u[t])return o(u[t])||String(u[t])}}for(var m=e&&e.card_variants&&Array.isArray(e.card_variants.matrix)?e.card_variants.matrix:[],y=0;y<m.length;y++){var g=m[y]||{},v=g.attributes||{};if(v&&String(v[t])===i&&g.attributes_display&&g.attributes_display[t])return o(g.attributes_display[t])||String(g.attributes_display[t])}return o(a)||a}(e,t.key,n.value,o);var i=null;if(a.querySelectorAll(".variant-option").forEach(function(e){e.getAttribute("data-value")===String(n.value)&&(i=e)}),i)return i.setAttribute("data-display-value",o),i.title=o,void(r?i.style.cssText=d(n):i.textContent=o);var s=document.createElement("button");s.type="button",s.className="variant-option"+(r?" color-swatch":""),s.setAttribute("data-attr",t.key),s.setAttribute("data-value",String(n.value)),s.setAttribute("data-display-value",o),s.title=o,r?s.style.cssText=d(n):s.textContent=o,a.appendChild(s)}})}}})}function m(){var e=[],t={};return document.querySelectorAll(".variant-option").forEach(function(n){var a=n.getAttribute("data-attr");a&&!t[a]&&(t[a]=!0,e.push(a))}),e}function y(e,t){if(!e||!e.attributes||!1===e.is_active)return!1;for(var n in t)if(t.hasOwnProperty(n)&&e.attributes.hasOwnProperty(n)&&e.attributes[n]!==t[n])return!1;return!0}function g(e){return window.zappyVariantMatrix?window.zappyVariantMatrix.filterMatching(l(),e):l().filter(function(t){return y(t,e)})}function v(e){if(window.zappyVariantMatrix)return window.zappyVariantMatrix.isUnavailable(e);if(!e)return!0;if("boolean"==typeof e.available)return!e.available;if(!1===e.is_active)return!0;if("out_of_stock"===e.stock_status)return!0;var t=null!=e.inventory_quantity?e.inventory_quantity:e.inventoryQuantity;if(null!=t&&""!==t){var n=parseFloat(t);if(isFinite(n))return n<=0}var a=e.stock_quantity;if(null!=a&&""!==a){var r=parseFloat(a);if(isFinite(r))return r<=0}return!1}function f(){0!==l().length&&document.querySelectorAll(".variant-option").forEach(function(e){var t=e.getAttribute("data-attr"),n=e.getAttribute("data-value"),a={};for(var r in o)o.hasOwnProperty(r)&&r!==t&&(a[r]=o[r]);a[t]=n;var i,s=g(a),l=g(((i={})[t]=n,i));e.classList.remove("disabled","out-of-stock"),e.disabled=!1,0===s.length?(e.classList.add("disabled"),e.disabled=0===l.length):s.every(function(e){return v(e)})&&(e.classList.add("disabled"),e.classList.add("out-of-stock"),e.disabled=!0)})}function h(e){return g(e).filter(function(e){return!v(e)}).length>0}function b(e){var t=m(),n={};if(e&&o[e]){var a={};a[e]=o[e],h(a)&&(n[e]=o[e])}t.forEach(function(t){if(t!==e&&o.hasOwnProperty(t)){var a=Object.assign({},n);a[t]=o[t],h(a)&&(n[t]=o[t])}}),o=n;for(var r=0,i=!0;i&&r++<t.length+2;)i=!1,t.forEach(function(e){if(!o.hasOwnProperty(e)){var t=[];document.querySelectorAll('.variant-option[data-attr="'+e+'"]').forEach(function(n){var a=n.getAttribute("data-value");if(a){var r=Object.assign({},o);r[e]=a,h(r)&&t.push(n)}}),1===t.length&&(o[e]=t[0].getAttribute("data-value"),i=!0)}});document.querySelectorAll(".variant-option").forEach(function(e){var t=e.getAttribute("data-attr"),n=e.getAttribute("data-value");e.classList.toggle("selected",!!t&&o[t]===n)})}function w(){var e=s,t=i;if(t){var n=m(),a=n.length>0&&n.every(function(e){return o.hasOwnProperty(e)}),r=document.getElementById("product-stock-display"),c=document.getElementById("product-price-display"),p=document.getElementById("add-to-cart-btn");n.forEach(function(e){var t=document.querySelector('.variant-group[data-group="'+e+'"] .variant-selected-value');if(t){var n=document.querySelector('.variant-option[data-attr="'+e+'"].selected');t.textContent=n&&n.getAttribute("data-display-value")||o[e]||""}});var d=document.getElementById("product-main-image");if(d&&!window._originalMainImageSrc&&(window._originalMainImageSrc=d.src),a){var u=g(o);if(u.length>0){var y=u[0];if(window.selectedVariant=y,v(y)?(r&&(r.className="product-stock out-of-stock",r.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>'+(e.outOfStock||"Out of Stock")),p&&(p.disabled=!0,p.style.opacity="0.5",p.style.cursor="not-allowed")):(r&&(r.className="product-stock in-stock",r.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>'+(e.inStock||"In Stock")),p&&(p.disabled=!1,p.style.opacity="",p.style.cursor="")),c){var f=t.currency||e.currency||"₪",h=window.productBasePrice||parseFloat(t.price)||0,b=window.productOriginalPrice||parseFloat(t.compare_at_price||t.original_price||0),w=window.productHasSalePrice,x=null!=y.price?parseFloat(y.price):h,z=!1,k=x;if("function"==typeof window.__zappyApplyCustomerPercentToPrice&&t&&t.id){var C=window.__zappyApplyCustomerPercentToPrice(x,t.id);C&&C.applied&&(z=!0,k=x,x=C.price)}var P=f+x.toFixed(2);z?P+=' <span class="original-price">'+f+k.toFixed(2)+"</span>":null!=y.price?b&&b>x&&(P+=' <span class="original-price">'+f+b.toFixed(2)+"</span>"):w&&b>x&&(P+=' <span class="original-price">'+f+b.toFixed(2)+"</span>"),c.innerHTML=P}if("function"==typeof updatePricePerUnitDisplay){var A=null!=y.price?parseFloat(y.price):window.productBasePrice||parseFloat(t.price)||0;if("function"==typeof window.__zappyApplyCustomerPercentToPrice&&t&&t.id){var S=window.__zappyApplyCustomerPercentToPrice(A,t.id);S&&S.applied&&(A=S.price)}updatePricePerUnitDisplay(A,t,e)}var E=document.getElementById("product-sku-display");if(E){var L="function"==typeof getEcomText?getEcomText("sku",e.sku||"SKU"):e.sku||"SKU";y.sku?E.textContent=L+": "+y.sku:t.sku&&(E.textContent=L+": "+t.sku)}if(d&&y.image){var _=y.image;window.resolveProductImageUrl&&(_=window.resolveProductImageUrl(y.image)),d.src=_}else d&&window._originalMainImageSrc&&(d.src=window._originalMainImageSrc);"function"==typeof updateProductSpecificationsForVariant&&updateProductSpecificationsForVariant(y,t)}}else{window.selectedVariant=null;var I=document.getElementById("product-sku-display");if(I&&t.sku){var B="function"==typeof getEcomText?getEcomText("sku",e.sku||"SKU"):e.sku||"SKU";I.textContent=B+": "+t.sku}var q=function(){if(l().some(function(e){return!v(e)}))return!0;var e=i||window.currentProduct,t=e&&e.card_variants&&Array.isArray(e.card_variants.matrix)?e.card_variants.matrix:[];return!!t.length&&t.some(function(e){return e&&!1!==e.available&&!1!==e.is_active})}();if(r&&(q?(r.className="product-stock select-required",r.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>'+function(){var e=s||{};if("function"==typeof getEcomText)return getEcomText("selectVariant",e.selectVariant||"Select option");var t="rtl"===document.documentElement.getAttribute("dir")||"rtl"===document.body.getAttribute("dir");return e.selectVariant||(t?"בחר אפשרות":"Select option")}()):(r.className="product-stock out-of-stock",r.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>'+(e.outOfStock||"Out of Stock"))),p&&(q?(p.disabled=!1,p.style.opacity="",p.style.cursor=""):(p.disabled=!0,p.style.opacity="0.5",p.style.cursor="not-allowed")),c){f=t.currency||e.currency||"₪",h=window.productBasePrice||parseFloat(t.price)||0,b=window.productOriginalPrice||parseFloat(t.compare_at_price||t.original_price||0),w=window.productHasSalePrice;var M=window.productHasVariantPriceRange,N=window.productVariantMinPrice,T="function"==typeof window.__zappyApplyCustomerPercentToPrice&&t&&t.id?window.__zappyApplyCustomerPercentToPrice:null;if(M&&null!=N&&isFinite(N)){var F="function"==typeof getEcomText?getEcomText("startingAt",e.startingAt||"Starting at"):e.startingAt||"Starting at";if(T){var O=T(N,t.id);O&&O.applied?c.innerHTML=F+" "+f+O.price.toFixed(2)+' <span class="original-price">'+f+N.toFixed(2)+"</span>":c.textContent=F+" "+f+N.toFixed(2)}else c.textContent=F+" "+f+N.toFixed(2)}else if(T){var D=T(h,t.id);D&&D.applied?c.innerHTML=f+D.price.toFixed(2)+' <span class="original-price">'+f+h.toFixed(2)+"</span>":w&&b>h?c.innerHTML=f+h.toFixed(2)+' <span class="original-price">'+f+b.toFixed(2)+"</span>":c.textContent=f+h.toFixed(2)}else w&&b>h?c.innerHTML=f+h.toFixed(2)+' <span class="original-price">'+f+b.toFixed(2)+"</span>":c.textContent=f+h.toFixed(2)}if("function"==typeof updatePricePerUnitDisplay){var R=window.productHasVariantPriceRange,V=window.productVariantMinPrice,j=window.productBasePrice||parseFloat(t.price)||0,U=R&&null!=V&&isFinite(V)?V:j;if("function"==typeof window.__zappyApplyCustomerPercentToPrice&&t&&t.id){var H=window.__zappyApplyCustomerPercentToPrice(U,t.id);H&&H.applied&&(U=H.price)}updatePricePerUnitDisplay(U,t,e)}d&&window._originalMainImageSrc&&(d.src=window._originalMainImageSrc),"function"==typeof updateProductSpecificationsForVariant&&updateProductSpecificationsForVariant(null,t)}}}function x(){r();var e=i||window.currentProduct,t=s||window.productTranslations||{};if(e&&!a(e)&&(e.variants&&0!==e.variants.length||c(e))&&0!==document.querySelectorAll(".variant-option").length&&!window._zappyVariantFixed){if(window._zappyVariantFixed=!0,i=p(e),!t.pleaseSelect){var n="rtl"===document.documentElement.getAttribute("dir")||"rtl"===document.body.getAttribute("dir");t.pleaseSelect=n?"נא לבחור":"Please select"}s=t;var d=document.getElementById("zappy-variant-state-css");d&&d.remove(),document.querySelectorAll(".variant-option").forEach(function(e){e.style.display="",e.disabled=!1}),u(),function(){if(i&&i.variants){var e=l();if(0!==e.length){var t={xxxs:0,xxs:1,xs:2,s:3,m:4,l:5,xl:6,xxl:7,"2xl":7,xxxl:8,"3xl":8,"4xl":9,"5xl":10};document.querySelectorAll(".variant-group").forEach(function(t){var a=t.getAttribute("data-group");if(a&&"variant"!==a){var r=Array.prototype.slice.call(t.querySelectorAll(".variant-option"));if(0!==r.length){var o={},i=[];e.forEach(function(e){if(e.attributes&&Object.prototype.hasOwnProperty.call(e.attributes,a)){var t=e.attributes[a];null==t||o[t]||(o[t]=!0,i.push(t))}}),0!==i.length&&i.length===r.length&&(i.sort(n),r.forEach(function(e,t){var n=String(i[t]);(e.getAttribute("data-value")||"")!==n&&(e.setAttribute("data-value",n),e.setAttribute("data-display-value",n),e.classList.contains("color-swatch")||(e.textContent=n),e.title&&(e.title=n))}))}}})}}function n(e,n){var a=t[String(e).toLowerCase()],r=t[String(n).toLowerCase()],o=void 0===a?parseFloat(e):NaN,i=void 0===r?parseFloat(n):NaN;if(!isNaN(o)&&!isNaN(i))return o-i;if(void 0!==a&&void 0!==r)return a-r;var s=isNaN(o)?void 0!==a?1:2:0,l=isNaN(i)?void 0!==r?1:2:0;return s!==l?s-l:String(e).localeCompare(String(n))}}();var y={xxxs:0,xxs:1,xs:2,s:3,m:4,l:5,xl:6,xxl:7,"2xl":7,xxxl:8,"3xl":8,"4xl":9,"5xl":10};document.querySelectorAll(".variant-options").forEach(function(e){var t=Array.from(e.querySelectorAll(".variant-option"));t.length<2||(t.sort(function(e,t){var n=e.getAttribute("data-value")||"",a=t.getAttribute("data-value")||"",r=y[n.toLowerCase()],o=y[a.toLowerCase()],i=void 0===r?parseFloat(n):NaN,s=void 0===o?parseFloat(a):NaN;if(!isNaN(i)&&!isNaN(s))return i-s;if(void 0!==r&&void 0!==o)return r-o;var l=isNaN(i)?void 0!==r?1:2:0,c=isNaN(s)?void 0!==o?1:2:0;return l!==c?l-c:n.localeCompare(a)}),t.forEach(function(t){e.appendChild(t)}))});var h=window.addProductToCart;window.addProductToCart=function(){if(a(window.currentProduct))return h?h.apply(this,arguments):void 0;for(var e=m(),n=0;n<e.length;n++)if(!o.hasOwnProperty(e[n])){var r=document.querySelector('.variant-group[data-group="'+e[n]+'"]'),i=r?r.querySelector(".variant-group-label"):null,s=i?i.textContent.replace(/[:\s]+$/,"").trim():e[n],l=document.getElementById("product-stock-display");return l&&(l.className="product-stock select-required",l.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>'+(t.pleaseSelect||"Please select")+" "+s),void(r&&(r.style.transition="background 0.3s",r.style.background="rgba(255,0,0,0.05)",r.style.borderRadius="8px",setTimeout(function(){r.style.background=""},2e3)))}var c=g(o);c.length>0&&c.every(function(e){return v(e)})||h&&h.apply(this,arguments)},o={},document.querySelectorAll(".variant-option").forEach(function(e){e.classList.remove("selected","disabled","out-of-stock"),e.disabled=!1}),b(),f(),b(),w()}function b(){document.querySelectorAll(".variant-group").forEach(function(e){var t=e.getAttribute("data-group");if(t&&"variant"!==t&&!e.querySelector(".variant-option.selected")){var n=Array.prototype.slice.call(e.querySelectorAll(".variant-option")).filter(function(e){return e.getAttribute("data-attr")&&e.getAttribute("data-value")&&!e.classList.contains("disabled")&&!e.classList.contains("out-of-stock")});if(1===n.length){var a=n[0],r=a.getAttribute("data-value");a.classList.add("selected"),o[t]=r;var i=e.querySelector(".variant-selected-value");i&&(i.textContent=a.getAttribute("data-display-value")||r)}}})}}function z(){setTimeout(x,100)}document.addEventListener("click",function(e){if(!a(i||window.currentProduct)){var t=e.target.closest?e.target.closest(".variant-option"):null;if(t&&i&&0!==l().length){e.preventDefault(),e.stopImmediatePropagation();var n,r=t.getAttribute("data-attr"),s=t.getAttribute("data-value");if(r&&s)if(!(t.disabled||t.classList.contains("disabled")&&0===g((n={},n[r]=s,n)).length))o[r]!==s&&(document.querySelectorAll('.variant-option[data-attr="'+r+'"]').forEach(function(e){e.classList.remove("selected")}),o[r]=s,t.classList.add("selected"),b(r),f(),w())}}},!0),document.addEventListener("click",function(e){if(!a(i||window.currentProduct)&&((e.target.closest?e.target.closest('.add-to-cart-btn, .add-to-cart, #add-to-cart-btn, [onclick*="addProductToCart"]'):null)&&i&&0!==l().length)){for(var t=s||{},n=m(),r=0;r<n.length;r++)if(!o.hasOwnProperty(n[r])){e.preventDefault(),e.stopImmediatePropagation();var c=document.querySelector('.variant-group[data-group="'+n[r]+'"]'),p=c?c.querySelector(".variant-group-label"):null,d=p?p.textContent.replace(/[:\s]+$/,"").trim():n[r],u=document.getElementById("product-stock-display");return u&&(u.className="product-stock select-required",u.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>'+(t.pleaseSelect||"Please select")+" "+d),void(c&&(c.style.transition="background 0.3s",c.style.background="rgba(255,0,0,0.05)",c.style.borderRadius="8px",setTimeout(function(){c.style.background=""},2e3)))}var y=g(o);return y.length>0&&y.every(function(e){return v(e)})?(e.preventDefault(),void e.stopImmediatePropagation()):void 0}},!0),"complete"===document.readyState?z():window.addEventListener("load",z),setTimeout(x,2e3)}(),function(){if(!document.getElementById("zappy-terms-checkbox-css")){var e=document.createElement("style");e.id="zappy-terms-checkbox-css",e.textContent=".terms-checkbox-wrapper { margin: 16px 0; padding: 12px; background: var(--surface-color, var(--surface, #f9fafb)); border-radius: 8px; }.terms-checkbox-label { display: flex !important; align-items: center !important; gap: 10px !important; cursor: pointer; font-size: 14px; color: var(--text-color, var(--text, #374151)); }.terms-checkbox { width: 18px; height: 18px; cursor: pointer; accent-color: var(--primary-color, var(--primary, #ff0083)); flex-shrink: 0; }.terms-link { color: var(--primary-color, var(--primary, #ff0083)); text-decoration: underline; font-weight: 500; }",document.head.appendChild(e)}}(),function(){function e(e){e&&e.querySelectorAll(".cart-item-attr").forEach(function(e){if(!e.querySelector(".cart-item-color-swatch")){var t=e.querySelector(".cart-item-attr-label");if(t){var n=(t.textContent||"").replace(/[:\s]+$/,"").toLowerCase();if(-1!==["color","colour","צבע","لون","farbe","couleur","color","colore"].indexOf(n)){var a=e.textContent||"",r=t.textContent||"",o=a.replace(r,"").trim();if(o){var i=o;if(!/^#[0-9A-Fa-f]{3,6}$/.test(o)){var s=o.toLowerCase();i={"dark grey":"#555","dark gray":"#555","light grey":"#d3d3d3","light gray":"#d3d3d3","light blue":"lightblue","dark blue":"darkblue","light green":"lightgreen","dark green":"darkgreen","dark red":"darkred","light pink":"lightpink","dark orange":"darkorange","sky blue":"skyblue","royal blue":"royalblue","navy blue":"navy","forest green":"forestgreen","olive green":"olivedrab","hot pink":"hotpink","deep pink":"deeppink","dark violet":"darkviolet","slate grey":"slategrey","slate gray":"slategray","dim grey":"dimgrey","dim gray":"dimgray","off white":"#f5f5f0",burgundy:"#800020",charcoal:"#36454f",champagne:"#f7e7ce",sand:"#c2b280",taupe:"#483c32",wine:"#722f37",rust:"#b7410e",sage:"#bcb88a",mint:"#98ff98",peach:"#ffcba4",cream:"#fffdd0",mauve:"#e0b0ff"}[s]||s}var l=document.createElement("span");l.className="cart-item-color-swatch",l.title=o,l.style.cssText="display:inline-block;width:14px;height:14px;border-radius:50%;background-color:"+i+";border:1px solid rgba(0,0,0,0.15);vertical-align:middle;margin-inline-start:4px;",e.textContent="",e.appendChild(t.cloneNode(!0)),e.appendChild(document.createTextNode(" ")),e.appendChild(l)}}}}})}function t(){var t=document.getElementById("cart-drawer")||document.getElementById("cart-drawer-items");t&&(e(t),new MutationObserver(function(){e(t)}).observe(t,{childList:!0,subtree:!0}))}"complete"===document.readyState?setTimeout(t,200):window.addEventListener("load",function(){setTimeout(t,200)});var n=new MutationObserver(function(){document.getElementById("cart-drawer")&&(t(),n.disconnect())});document.body?n.observe(document.body,{childList:!0,subtree:!0}):document.addEventListener("DOMContentLoaded",function(){n.observe(document.body,{childList:!0,subtree:!0})})}(),function(){function e(e){if(null==e||""===e)return NaN;if("number"==typeof e)return isFinite(e)?e:NaN;var t=String(e).replace(/[^\d.,-]/g,"").replace(/,/g,""),n=parseFloat(t);return isFinite(n)?n:NaN}function t(t){var n=function(t){if(!t)return 0;if(t.selectedVariant&&null!==t.selectedVariant.price&&void 0!==t.selectedVariant.price&&""!==t.selectedVariant.price){var n=e(t.selectedVariant.price);if(isFinite(n))return n}var a=e(t.displayPrice);if(isFinite(a))return a;var r=e(t.price),o=e(t.sale_price);return isFinite(o)&&isFinite(r)&&o<r?o:isFinite(r)?r:0}(t),a=parseFloat(t&&t.quantity)||1,r=parseFloat(t&&(t.quantityStep||t.quantity_step))||1;return"piece"===(t&&(t.quantityUnit||t.quantity_unit)||"piece")?n*a:n*(a/r)}function n(e){if("function"==typeof window.zappyFormatMoney)return window.zappyFormatMoney(e);var t=parseFloat(e);isFinite(t)||(t=0);var n=(window.ZAPPY_CURRENCY_SYMBOL||"").trim()||"₪",r=a();try{if(window.ZAPPY_MULTI_CURRENCY&&window.ZAPPY_MULTI_CURRENCY.enabled){var o="";try{o=new URLSearchParams(window.location.search).get("lang")||""}catch(e){}!o&&window.zappyI18n&&"function"==typeof window.zappyI18n.getCurrentLanguage&&(o=window.zappyI18n.getCurrentLanguage()),o||(o=document.documentElement.getAttribute("lang")||""),o=String(o).split("-")[0].toLowerCase();var i=window.ZAPPY_MULTI_CURRENCY.languages||{};o&&i[o]?i[o].symbol&&(n=i[o].symbol):window.ZAPPY_MULTI_CURRENCY.base&&window.ZAPPY_MULTI_CURRENCY.base.symbol&&(n=window.ZAPPY_MULTI_CURRENCY.base.symbol)}}catch(e){}return n+function(e,t){var n=parseFloat(e);isFinite(n)||(n=0);var a=parseFloat(t);(!isFinite(a)||a<=0)&&(a=1);var r=n*a;return 1===a?Math.round(100*r)/100:Math.round(10*r)/10}(t,r).toFixed(2)}function a(){var e=1;try{if(window.ZAPPY_MULTI_CURRENCY&&window.ZAPPY_MULTI_CURRENCY.enabled){var t="";try{t=new URLSearchParams(window.location.search).get("lang")||""}catch(e){}!t&&window.zappyI18n&&"function"==typeof window.zappyI18n.getCurrentLanguage&&(t=window.zappyI18n.getCurrentLanguage()),t||(t=document.documentElement.getAttribute("lang")||""),t=String(t).split("-")[0].toLowerCase();var n=window.ZAPPY_MULTI_CURRENCY.languages||{};if(t&&n[t]){var a=parseFloat(n[t].exchangeRate);isFinite(a)&&a>0&&(e=a)}}}catch(e){}return e}function r(e){var t=String(e||"").match(/-?[\d,.]+/);if(!t)return NaN;var n=parseFloat(t[0].replace(/,/g,""));if(!isFinite(n))return NaN;var r=a();return r>0?Math.abs(n)/r:Math.abs(n)}function o(){var e=document.getElementById("cart-drawer");if(e){var a=function(){var e=window.ZAPPY_WEBSITE_ID||window.CONFIG&&window.CONFIG.websiteId;if(!e)return[];try{return JSON.parse(localStorage.getItem("zappy_cart_"+e)||"[]")}catch(e){return[]}}();if(a.length){var o=function(e){if(!e)return null;var t=document.getElementById("cart-drawer-total");if(t)return t;var a=e.querySelector(".cart-drawer-total");if(!a)return null;var r=a.textContent||"",o=r.match(/^([^:]+):/),i=o?o[1].trim():window.zappyI18n&&window.zappyI18n.t?window.zappyI18n.t("ecom_total"):"Total";return i&&"ecom_total"!==i||(i=-1!==r.indexOf("סה")?'סה"כ':"Total"),a.innerHTML="<span>"+i+':</span><span id="cart-drawer-total">'+n(0)+"</span>",document.getElementById("cart-drawer-total")}(e),i=0,s=e.querySelectorAll(".cart-item-price, .cart-drawer-item-price");if(a.forEach(function(e,a){var r=t(e);if(i+=r,s[a]){var o=n(r);s[a].textContent!==o&&(s[a].textContent=o)}}),o){var l=function(e){if(e){var t=parseFloat(e.getAttribute("data-zappy-auto-discount"));if(isFinite(t)&&t>.005)return t}var n=document.getElementById("cart-drawer-subtotal");if(n&&e){var a=r(n.textContent),o=r(e.textContent);if(isFinite(a)&&isFinite(o)&&a>=o){var i=a-o;if(i>.005)return i}}for(var s=0,l=document.querySelectorAll("#cart-drawer .zappy-cart-discount-row"),c=0;c<l.length;c++){var p=l[c];if(p&&"none"!==p.style.display){var d=r((p.querySelector("span:last-child")||p).textContent);isFinite(d)&&(s+=d)}}if(s>.005)return s;var u=document.querySelector(".cart-drawer-bundle-discount");if(!u||"none"===u.style.display)return 0;var m=document.getElementById("cart-drawer-bundle-discount");if(!m)return 0;var y=r(m.textContent);return isFinite(y)?y:0}(o),c=n(Math.max(0,i-l));o.textContent!==c&&(o.textContent=c)}}}}function i(){o();var e=document.getElementById("cart-drawer")||document.body;if(e){var t=!1;new MutationObserver(function(){t||(t=!0,setTimeout(function(){t=!1,o()},0))}).observe(e,{childList:!0,subtree:!0,characterData:!0})}}"complete"===document.readyState?setTimeout(i,250):window.addEventListener("load",function(){setTimeout(i,250)})}(),function(){var e={en:{inStock:"In Stock",outOfStock:"Out of Stock",selectVariant:"Select option",pleaseSelect:"Please select",color:"Color",size:"Size",material:"Material",style:"Style",weight:"Weight",capacity:"Capacity",length:"Length"},he:{inStock:"במלאי",outOfStock:"אזל מהמלאי",selectVariant:"בחר אפשרות",pleaseSelect:"נא לבחור",color:"צבע",size:"מידה",material:"חומר",style:"סגנון",weight:"משקל",capacity:"קיבולת",length:"אורך"}};function t(){if(window.zappyI18n&&"function"==typeof window.zappyI18n.getCurrentLanguage){var e=String(window.zappyI18n.getCurrentLanguage()||"").split("-")[0].toLowerCase();if(e)return e}var t=String(document.documentElement.lang||"").split("-")[0].toLowerCase();if(t)return t;try{var n=String(localStorage.getItem("zappy_lang")||localStorage.getItem("zappy-language")||localStorage.getItem("selectedLanguage")||"").split("-")[0].toLowerCase();if(n)return n}catch(e){}return"en"}function n(n){var a=t();if(e[a]&&e[a][n])return e[a][n];if(window.zappyI18n&&"function"==typeof window.zappyI18n.t){var r=window.zappyI18n.t("ecom_"+n);if(r&&r!=="ecom_"+n)return r}return e.en&&e.en[n]||n}function a(){if("function"==typeof window.getVariantAttributeLabels&&!window.getVariantAttributeLabels.__zappyRuntimeI18nWrapped){var e=window.getVariantAttributeLabels;window.getVariantAttributeLabels=function(t,a){var r=e(t,a)||{};return["color","size","material","style","weight","capacity","length"].forEach(function(e){r[e]=n(e)}),r},window.getVariantAttributeLabels.__zappyRuntimeI18nWrapped=!0}document.querySelectorAll(".variant-group").forEach(function(e){var a=e.getAttribute("data-group");if(a){var r=function(e){var t=window.currentProduct,a=window.productTranslations||{};if("function"==typeof window.getVariantAttributeLabels&&t){var r=window.getVariantAttributeLabels(t,a)||{},o=r[e]||r[String(e).toLowerCase()];if(o)return o}return n(String(e).toLowerCase())}(a),o=e.querySelector(".variant-group-label");if(o){var i=o.querySelector(".variant-selected-value"),s=i?i.textContent:"";(o.textContent||"").trim()!==(r+": "+s).trim()&&(o.textContent=r+": ",i&&o.appendChild(i))}e.querySelectorAll(".variant-option").forEach(function(e){var n=e.getAttribute("data-value"),r=function(e,n){var a=window.currentProduct,r=a&&Array.isArray(a.variants)?a.variants:[],o=t();function i(t){if("he"!==o)return"";if(-1===String(e||"").toLowerCase().indexOf("color")&&"colour"!==String(e||"").toLowerCase())return"";var n=String(null==t?"":t).trim();if(!n||/[\u0590-\u05FF]/.test(n))return"";var a={black:"שחור",white:"לבן",gray:"אפור",grey:"אפור",red:"אדום",green:"ירוק",blue:"כחול",navy:"כחול כהה",pink:"ורוד",purple:"סגול",yellow:"צהוב",orange:"כתום",brown:"חום",beige:"בז׳",gold:"זהב",silver:"כסף",teal:"טורקיז",mint:"מנטה",cream:"קרם",ivory:"שנהב"},r=a[n.toLowerCase().replace(/\s+/g," ")];if(r)return r;var i=n.split(/\s*-\s*/).filter(Boolean);if(i.length>1){var s=i.map(function(e){return a[String(e).toLowerCase().replace(/\s+/g," ")]});if(s.every(Boolean))return s.join("-")}return""}for(var s=0;s<r.length;s++){var l=r[s],c=l&&(l.attributes_source||l.attributes||{});if(String(c[e])===String(n)){var p=l.attributes_translations&&l.attributes_translations[o];if(p&&p[e])return i(p[e])||p[e];var d=l.attributes_display||{};if(d[e])return i(d[e])||d[e]}}return i(n)||n}(a,n);e.getAttribute("data-display-value")!==r&&e.setAttribute("data-display-value",r),e.getAttribute("title")!==r&&e.setAttribute("title",r),e.classList.contains("color-swatch")||e.textContent===r||(e.textContent=r)})}});var a=document.getElementById("product-stock-display");if(a){var r,o=a.querySelector("svg"),i=(a.textContent||"").trim(),s=n("pleaseSelect"),l=!(!i||0!==i.indexOf(s)&&!/^please select\b/i.test(i)&&0!==i.indexOf("נא לבחור"));i!==(r=l?i:a.classList.contains("select-required")?"function"==typeof getEcomText?getEcomText("selectVariant",n("selectVariant")):n("selectVariant"):a.classList.contains("in-stock")&&!a.classList.contains("out-of-stock")?n("inStock"):n("outOfStock"))&&(a.textContent="",o&&a.appendChild(o),a.appendChild(document.createTextNode(r)))}}function r(){setTimeout(a,100),setTimeout(a,500)}"complete"===document.readyState?r():window.addEventListener("load",r),window.zappyI18n&&"function"==typeof window.zappyI18n.onLanguageChange&&window.zappyI18n.onLanguageChange(r);var o=new MutationObserver(function(){r()});document.body&&o.observe(document.body,{childList:!0,subtree:!0})}(),function(){var e={en:{agreeToTerms:"I agree to the",termsAndConditions:"Terms of Use",subtotal:"Subtotal",vatIncluded:"Including VAT",shipping:"Shipping",pickup:"Pickup",discount:"Discount",totalToPay:"Total to Pay",days:"days",free:"Free"},he:{agreeToTerms:"אני מסכים/ה ל",termsAndConditions:"תנאי השימוש",subtotal:"סכום ביניים",vatIncluded:'כולל מע"מ',shipping:"משלוח",pickup:"איסוף",discount:"הנחה",totalToPay:'סה"כ לתשלום',days:"ימים",free:"חינם"}};function t(){if(window.zappyI18n&&"function"==typeof window.zappyI18n.getCurrentLanguage){var e=String(window.zappyI18n.getCurrentLanguage()||"").split("-")[0].toLowerCase();if(e)return e}var t=String(document.documentElement.lang||"").split("-")[0].toLowerCase();if(t)return t;try{var n=String(localStorage.getItem("zappy_lang")||"").split("-")[0].toLowerCase();if(n)return n}catch(e){}return"en"}function n(n){var a=t();return e[a]&&e[a][n]||e.en&&e.en[n]||""}function a(e,t){var a=document.querySelector(e);if(a&&a.parentElement){var r=a.parentElement.querySelector("span:first-child");if(r&&r!==a){var o=n(t)+":";r.textContent!==o&&(r.textContent=o)}}}function r(){var e,a,r,o=document.getElementById("checkout-discount-amount")||document.getElementById("discount"),i=document.getElementById("discount-row")||o&&o.closest(".discount-row, .order-totals-row");if(o&&Math.abs((e=o.textContent,a=String(e||"").replace(/[^\d.,-]/g,"").replace(/,/g,""),r=parseFloat(a),isFinite(r)?r:0))<.005){i&&i.classList.add("zappy-discount-hidden");var s=function(){var e=document.getElementById("subtotal");if(e){var n=(e.textContent||"").match(/^[^\d\s.-]+/);if(n&&n[0])return n[0]}try{if(window.ZAPPY_MULTI_CURRENCY&&window.ZAPPY_MULTI_CURRENCY.enabled){var a=t(),r=window.ZAPPY_MULTI_CURRENCY.languages||{};if(a&&r[a]&&r[a].symbol)return r[a].symbol;if(window.ZAPPY_MULTI_CURRENCY.base&&window.ZAPPY_MULTI_CURRENCY.base.symbol)return window.ZAPPY_MULTI_CURRENCY.base.symbol}}catch(e){}return window.ZAPPY_CURRENCY_SYMBOL||"₪"}()+"0.00";o.textContent!==s&&(o.textContent=s)}else i&&i.classList.remove("zappy-discount-hidden");var l=document.getElementById("shipping-cost");if(l&&/^(חינם|FREE)$/i.test((l.textContent||"").trim())){var c=n("free");l.textContent!==c&&(l.textContent=c)}}function o(e){return e?String(e).replace(/הוד השרון/g,"Hod Hasharon").replace(/הרדוף/g,"Harduf"):""}function i(){var e;(e=document.querySelectorAll(".order-totals-row")).length&&[{key:"subtotal",id:"subtotal",fallback:"₪0"},{key:"vatIncluded",id:"vat-amount",fallback:"₪0"},{key:"shipping",id:"shipping-cost",fallback:"₪0"},{key:"discount",id:"checkout-discount-amount",fallback:"₪0.00"},{key:"totalToPay",id:"order-total",fallback:"₪0"}].forEach(function(t,a){var r=e[a];if(r&&!r.querySelector("#"+t.id)){var o=(r.textContent||"").match(/-?\s*[₪$€£]\s*\d[\d,.]*/),i=o?o[0].replace(/\s+/g,""):t.fallback;r.innerHTML='<span data-ecom-label="'+t.key+'">'+n(t.key)+':</span><span id="'+t.id+'">'+i+"</span>"}});var t=document.querySelector('[data-i18n="ecom_agreeToTerms"]')||document.querySelector(".terms-checkbox-label > span > span:first-child");t&&t.textContent!==n("agreeToTerms")&&(t.textContent=n("agreeToTerms"));var o=document.querySelector('[data-i18n="ecom_termsAndConditions"]')||document.querySelector(".terms-checkbox-label .terms-link");o&&o.textContent!==n("termsAndConditions")&&(o.textContent=n("termsAndConditions")),a("#subtotal","subtotal"),a("#vat-amount","vatIncluded"),a("#shipping-cost",function(){if("boolean"==typeof window.__zappySelectedShippingIsPickup)return window.__zappySelectedShippingIsPickup;var e=document.querySelector('input[name="shipping"]:checked'),t=e?e.closest(".shipping-option"):document.querySelector(".shipping-option.selected");if(!t)return!1;var n=t.getAttribute("data-is-pickup");if("true"===n)return!0;if("false"===n)return!1;if(t.querySelector(".shipping-address"))return!0;var a=e&&e.value||t.getAttribute("data-method-id"),r=window.__zappyShippingMethodsCache;if(a&&Array.isArray(r))for(var o=0;o<r.length;o++)if(String(r[o].id)===String(a))return!!r[o].is_pickup;return!1}()?"pickup":"shipping"),a("#checkout-discount-amount","discount"),a("#discount","discount"),a("#order-total","totalToPay");var i=document.getElementById("shipping-cost");i&&/^(חינם|FREE)$/i.test((i.textContent||"").trim())&&(i.textContent=n("free")),r()}var s=!1;async function l(){var e=document.getElementById("shipping-methods"),a=window.ZAPPY_WEBSITE_ID||window.CONFIG&&window.CONFIG.websiteId;if(e&&a&&!s){s=!0;try{var r=t(),i=window.ZAPPY_API_BASE||"",l=await fetch(i+"/api/ecommerce/storefront/shipping?websiteId="+encodeURIComponent(a)+"&lang="+encodeURIComponent(r)),c=await l.json(),p=c&&c.data?c.data:[];window.__zappyShippingMethodsCache=p,p.forEach(function(a){var r=e.querySelector('.shipping-method-block[data-method-id="'+a.id+'"]');if(r){var i=r.querySelector(".shipping-name");i&&a.name&&(i.textContent=a.name);var s=r.querySelector(".shipping-desc"),l=a.estimated_days?String(a.estimated_days)+" "+n("days"):"",c=a.description||"",p=c&&l?c+" ("+l+")":c||l;if(s)s.textContent=p;else if(p){var d=r.querySelector(".shipping-info");if(d){var u=document.createElement("div");u.className="shipping-desc",u.textContent=p,d.appendChild(u)}}var m=r.querySelector(".shipping-price.free");m&&(m.textContent=n("free"));var y=r.querySelector(".shipping-address"),g=function(e){var n=e&&e.pickup_address;if(!n||!n.street)return"";var a=t();n.translations&&n.translations[a]&&(n=Object.assign({},n,n.translations[a]));var r=n.street,i=n.city;return"en"===a&&(r=o(r),i=o(i)),[r,i].filter(Boolean).join(", ")}(a);y&&g&&(y.textContent=g)}})}catch(e){}finally{s=!1}}}function c(){i(),l(),r()}var p=document.createElement("style");p.id="zappy-checkout-runtime-i18n-css",p.textContent=".checkout-order-details .order-totals-row{display:flex!important;justify-content:space-between!important;align-items:baseline!important;gap:12px!important}.checkout-order-details .order-totals-row.zappy-discount-hidden{display:none!important}.checkout-order-details .order-totals-row span:first-child{flex:1 1 auto;min-width:0}.checkout-order-details .order-totals-row span:last-child{flex:0 0 auto;text-align:end}",document.getElementById(p.id)||document.head.appendChild(p),"complete"===document.readyState?setTimeout(c,300):window.addEventListener("load",function(){setTimeout(c,300)}),setTimeout(c,1500),setTimeout(c,3500);var d=!1,u=new MutationObserver(function(){d||(d=!0,setTimeout(function(){d=!1,i()},50))});document.body&&u.observe(document.body,{childList:!0,subtree:!0,characterData:!0}),window.zappyI18n&&"function"==typeof window.zappyI18n.onLanguageChange&&window.zappyI18n.onLanguageChange(function(){setTimeout(c,300)})}(),a(),"loading"===document.readyState&&document.addEventListener("DOMContentLoaded",a,{once:!0}),window.addEventListener("load",a,{once:!0})}(),function(){if(!(window.__zappyEcomLanguageRoutingRuntime>=26)){window.__zappyEcomLanguageRoutingRuntime=26,function(){var e=a()||n()||r();if(e){e=String(e).split("-")[0].toLowerCase();try{localStorage.setItem("zappy_lang",e),localStorage.setItem("zappy-language",e),localStorage.setItem("selectedLanguage",e),localStorage.setItem("language",e)}catch(e){}document.documentElement.setAttribute("lang",e),document.documentElement.setAttribute("dir","he"===e||"ar"===e||"iw"===e?"rtl":"ltr")}}(),function(){var e=a();if(e&&!n()){var t=window.location.pathname||"";if(/^\/(product|category)(?:\/|$)/i.test(t))try{var r=new URL(window.location.href);r.searchParams.delete("lang");var o="/"+e.toLowerCase()+t,i=r.origin+o+(r.searchParams.toString()?"?"+r.searchParams.toString():"")+r.hash;window.location.replace(i)}catch(e){}}}();var e=["align-items","background","border","box-sizing","color","direction","display","flex","flex-wrap","font-size","font-weight","height","inset-inline-end","inset-inline-start","justify-content","left","line-height","margin","max-height","max-width","min-height","min-width","opacity","order","overflow","overflow-wrap","padding","padding-left","padding-right","pointer-events","position","right","text-align","transform","visibility","white-space","width"],t=null;window.addEventListener("resize",function(){t&&clearTimeout(t),t=setTimeout(l,200)},{passive:!0}),"loading"===document.readyState?document.addEventListener("DOMContentLoaded",y):y(),window.addEventListener("popstate",function(){setTimeout(y,0)}),window.addEventListener("zappy:languageChanged",function(){setTimeout(y,0)}),window.addEventListener("languageChanged",function(){setTimeout(y,0)}),window.addEventListener("resize",function(){setTimeout(m,100)},{passive:!0}),new MutationObserver(function(e){e.some(function(e){if("attributes"===e.type){var t=e.target;if(t&&1===t.nodeType&&"A"===t.tagName){var n=t.getAttribute("href");return s(n)&&n!==i(n)}return!1}return Array.prototype.some.call(e.addedNodes||[],function(e){return 1===e.nodeType&&(e.matches&&e.matches("a[href], .zappy-products-dropdown, #zappy-catalog-menu")||e.querySelector&&e.querySelector("a[href], .zappy-products-dropdown, #zappy-catalog-menu"))})})&&setTimeout(y,0)}).observe(document.documentElement,{childList:!0,subtree:!0,attributes:!0,attributeFilter:["href"]}),setTimeout(y,250),setTimeout(y,1500)}function n(){return(window.location.pathname.match(/^\/([a-z]{2})(?:\/|$)/i)||[])[1]}function a(){try{return new URLSearchParams(window.location.search).get("lang")}catch(e){return null}}function r(){try{if("string"==typeof window.__zappyDefaultLang&&window.__zappyDefaultLang)return window.__zappyDefaultLang.toLowerCase();if("string"==typeof zappyAdditionalDefaultLanguage&&zappyAdditionalDefaultLanguage)return zappyAdditionalDefaultLanguage.toLowerCase();if("string"==typeof zappyEcomDefaultLanguage&&zappyEcomDefaultLanguage)return zappyEcomDefaultLanguage.toLowerCase()}catch(e){}var e=document.documentElement.getAttribute("lang");return e?e.split("-")[0].toLowerCase():"he"}function o(){try{if(window.zappyI18n&&"function"==typeof window.zappyI18n.getCurrentLanguage){var e=window.zappyI18n.getCurrentLanguage();if(e)return String(e).split("-")[0].toLowerCase()}if(window.zappyI18n&&window.zappyI18n.language)return String(window.zappyI18n.language).split("-")[0].toLowerCase()}catch(e){}var t=a();if(t)return t.toLowerCase();var r=n();if(r)return r.toLowerCase();var o=document.documentElement.getAttribute("lang");if(o)return o.split("-")[0].toLowerCase();try{var i=localStorage.getItem("zappy_lang")||localStorage.getItem("zappy-language")||localStorage.getItem("selectedLanguage")||localStorage.getItem("language");if(i)return String(i).split("-")[0].toLowerCase()}catch(e){}return""}function i(e){if(!e||/^https?:\/\//i.test(e)||"#"===e.charAt(0))return e;var t="/"===e.charAt(0)?e:"/"+e,n=o(),a=r();if(!n||n===a)return t.replace(/^\/[a-z]{2}(?=\/)/i,"");var i=t.replace(/^\/[a-z]{2}(?=\/)/i,""),s="/"+n;return i===s||0===i.indexOf(s+"/")?i:s+i}function s(e){return/^\/(?:[a-z]{2}\/)?(?:product|category|products|account|login|cart|checkout)(?:\/|\?|#|$)/i.test(e||"")}function l(){if(!(window.matchMedia?window.matchMedia("(max-width: 768px)").matches:window.innerWidth<=768))return document.querySelectorAll('.mobile-submenu-toggle[data-zappy-runtime="ecom-routing"]').forEach(function(e){e.remove()}),document.querySelectorAll(".sub-menu.mobile-expanded").forEach(function(e){e.classList.remove("mobile-expanded")}),document.querySelectorAll('.zappy-products-dropdown > a > svg.dropdown-arrow[data-zappy-mobile-hidden="1"]').forEach(function(e){e.style.display="",e.removeAttribute("data-zappy-mobile-hidden")}),void p();document.querySelectorAll(".zappy-products-dropdown, .menu-item-has-children, .nav-menu li:has(> .sub-menu), nav li:has(> .sub-menu)").forEach(function(e){if(e&&e.querySelector){var t=e.querySelector(":scope > .sub-menu"),n=e.querySelector(":scope > a")||e.querySelector(":scope > .menu-group-title");if(t&&n){var a=n.querySelector("svg.dropdown-arrow");a&&!a.hasAttribute("data-zappy-mobile-hidden")&&(a.style.display="none",a.setAttribute("data-zappy-mobile-hidden","1"));var r=e.querySelector(":scope > .mobile-submenu-toggle");r||((r=document.createElement("button")).type="button",r.className="mobile-submenu-toggle",r.setAttribute("aria-label","Toggle submenu"),n.insertAdjacentElement("afterend",r)),r.setAttribute("aria-expanded",t.classList.contains("mobile-expanded")?"true":"false"),r.setAttribute("data-zappy-runtime","ecom-routing"),"1"!==r.getAttribute("data-zappy-runtime-bound")&&(r.setAttribute("data-zappy-runtime-bound","1"),r.addEventListener("click",function(e){e.preventDefault(),e.stopPropagation(),"function"==typeof e.stopImmediatePropagation&&e.stopImmediatePropagation(),document.querySelectorAll(".sub-menu.mobile-expanded").forEach(function(e){if(e!==t){e.classList.remove("mobile-expanded");var n=e.parentElement&&e.parentElement.querySelector(":scope > .mobile-submenu-toggle");n&&(n.classList.remove("expanded"),n.setAttribute("aria-expanded","false"))}});var n=!t.classList.contains("mobile-expanded");t.classList.toggle("mobile-expanded",n),r.classList.toggle("expanded",n),r.setAttribute("aria-expanded",n?"true":"false"),d()},!0))}}}),d()}function c(e,t,n){if(e&&e.style&&e.style.setProperty&&(e.style.setProperty(t,n,"important"),e.setAttribute)){e.setAttribute("data-zappy-mobile-layout-lock","1");var a=e.getAttribute("data-zappy-mobile-layout-lock-props")||"",r=a?a.split(","):[];-1===r.indexOf(t)&&(r.push(t),e.setAttribute("data-zappy-mobile-layout-lock-props",r.join(",")))}}function p(){document.querySelectorAll('[data-zappy-mobile-layout-lock="1"]').forEach(function(t){for(var n=(t.getAttribute("data-zappy-mobile-layout-lock-props")||"").split(","),a=[],r=0;r<n.length;r++){var o=n[r];o&&-1!==e.indexOf(o)&&a.push(o)}!function(e,t){if(e&&e.style&&e.style.removeProperty)for(var n=0;n<t.length;n++)e.style.removeProperty(t[n])}(t,a),t.removeAttribute("data-zappy-mobile-layout-lock"),t.removeAttribute("data-zappy-mobile-layout-lock-props")})}function d(){if(window.matchMedia?window.matchMedia("(max-width: 768px)").matches:window.innerWidth<=768){var e="rtl"===(document.documentElement.getAttribute("dir")||document.body.getAttribute("dir"));document.querySelectorAll(".nav-menu li:has(> .sub-menu), nav li:has(> .sub-menu), .navbar li:has(> .sub-menu)").forEach(function(t){var n=t.querySelector(":scope > .sub-menu"),a=t.querySelector(":scope > a")||t.querySelector(":scope > .menu-group-title"),r=t.querySelector(":scope > .mobile-submenu-toggle");if(n&&a&&r){c(t,"direction","ltr"),c(t,"display","flex"),c(t,"flex-wrap","wrap"),c(t,"align-items","flex-start"),c(t,"width","100%"),c(t,"max-width","100%"),c(t,"min-width","0"),c(t,"overflow","visible"),c(t,"box-sizing","border-box"),c(a,"display","flex"),c(a,"align-items","center"),c(a,"direction",e?"rtl":"ltr"),c(a,"flex","1 1 0"),c(a,"min-width","0"),c(a,"max-width","calc(100% - 48px)"),c(a,"width","auto"),c(a,"box-sizing","border-box"),c(a,"white-space","normal"),c(a,"overflow-wrap","anywhere"),c(a,"padding","12px 16px"),c(a,"min-height","44px"),c(a,"line-height","1.4"),c(a,"font-weight","600"),c(a,"text-align",e?"right":"left"),c(a,"order",e?"2":"1");var o=t.closest(".nav-menu, #navMenu");if(o&&(o.classList.contains("active")||o.classList.contains("open"))){var i=o.querySelector(":scope > li > a"),s="";try{s=i&&window.getComputedStyle(i).color||""}catch(e){}if(!s||"rgba(0, 0, 0, 0)"===s)try{s=(window.getComputedStyle(o).getPropertyValue("--nav-text")||"").trim()||(window.getComputedStyle(document.documentElement).getPropertyValue("--nav-text")||"").trim()||"#fff7ed"}catch(e){s="#fff7ed"}c(a,"color",s)}c(r,"display","flex"),c(r,"position","static"),c(r,"flex","0 0 48px"),c(r,"width","48px"),c(r,"height","44px"),c(r,"min-height","44px"),c(r,"align-items","center"),c(r,"justify-content","center"),c(r,"margin","0"),c(r,"padding","0"),c(r,"background","transparent"),c(r,"border","none"),c(r,"order",e?"1":"2"),c(n,"order","3"),c(n,"direction",e?"rtl":"ltr"),c(n,"text-align",e?"right":"left"),c(n,"flex","0 0 100%"),c(n,"width","100%"),c(n,"min-width","0"),c(n,"max-width","100%"),c(n,"box-sizing","border-box"),c(n,"margin","0"),c(n,"transform","none"),c(n,"left","auto"),c(n,"right","auto"),c(n,"inset-inline-start","auto"),c(n,"inset-inline-end","auto"),c(n,"position","static"),n.classList.contains("mobile-expanded")?(c(n,"display","block"),c(n,"visibility","visible"),c(n,"opacity","1"),c(n,"height","auto"),c(n,"max-height","none"),c(n,"overflow","visible"),c(n,"pointer-events","auto"),c(n,"padding","8px 0")):(c(n,"display","none"),c(n,"visibility","hidden"),c(n,"opacity","0"),c(n,"height","0"),c(n,"max-height","0"),c(n,"overflow","hidden"),c(n,"pointer-events","none")),n.querySelectorAll("a, .menu-group-title").forEach(function(t){var n=t.closest&&t.closest("li");c(t,"display","block"),c(t,"direction",e?"rtl":"ltr"),c(t,"width","100%"),c(t,"min-width","0"),c(t,"max-width","100%"),c(t,"box-sizing","border-box"),c(t,"white-space","normal"),c(t,"overflow-wrap","anywhere"),c(t,"padding","10px 8px"),c(t,"text-align",e?"right":"left"),n&&n.classList&&n.classList.contains("zappy-nav-parent")&&c(t,"font-weight","700"),n&&n.classList&&n.classList.contains("zappy-nav-child")&&(c(t,"padding-left",e?"16px":"36px"),c(t,"padding-right",e?"36px":"16px"),c(t,"font-size","0.94em"),c(t,"opacity","0.85"))})}})}else p()}function u(){[0,60,160,320,700,1200,2200].forEach(function(e){setTimeout(function(){l(),d()},e)})}function m(){window.innerWidth<=768||(window.__zappyNavOverflowInit?document.querySelectorAll(".nav-menu.zappy-desktop-wrap, #navMenu.zappy-desktop-wrap").forEach(function(e){e.classList.remove("zappy-desktop-wrap")}):document.querySelectorAll(".nav-container > .nav-menu, .nav-right-group > .nav-menu, .nav-container > #navMenu, .nav-right-group > #navMenu").forEach(function(e){if(e&&e.querySelectorAll){e.classList.remove("zappy-desktop-wrap");var t=window.getComputedStyle(e),n=parseFloat(t.columnGap||t.gap||"0")||0,a=Array.prototype.filter.call(e.children||[],function(e){return e&&1===e.nodeType&&"SCRIPT"!==e.tagName&&"STYLE"!==e.tagName});if(!(a.length<2))a.reduce(function(e,t){return e+t.getBoundingClientRect().width},0)+(a.length-1)*n>e.getBoundingClientRect().width+8&&e.classList.add("zappy-desktop-wrap")}}))}function y(){var e;!function(){var e=document.getElementById("zappy-ecom-routing-runtime-css");if(!e||"33"!==e.getAttribute("data-v")){e&&e.remove();var t=document.createElement("style");t.id="zappy-ecom-routing-runtime-css",t.setAttribute("data-zappy-runtime","ecom-routing"),t.setAttribute("data-v","33"),t.textContent='@media (min-width: 769px){html[dir="ltr"] .nav-container > .nav-brand,body[dir="ltr"] .nav-container > .nav-brand,html[dir="ltr"] .nav-right-group > .nav-brand,body[dir="ltr"] .nav-right-group > .nav-brand{order:-1!important}html[dir="ltr"] .nav-container > .nav-menu,body[dir="ltr"] .nav-container > .nav-menu,html[dir="ltr"] .nav-right-group > .nav-menu,body[dir="ltr"] .nav-right-group > .nav-menu{order:1!important;margin-inline-start:0!important;flex:1 1 0!important;min-width:0!important;overflow:visible!important;align-items:center!important}html[dir="ltr"] .nav-container > .nav-menu > li,body[dir="ltr"] .nav-container > .nav-menu > li,html[dir="ltr"] .nav-right-group > .nav-menu > li,body[dir="ltr"] .nav-right-group > .nav-menu > li{flex:0 0 auto!important}html[dir="ltr"] .nav-container > .lang-switcher,body[dir="ltr"] .nav-container > .lang-switcher,html[dir="ltr"] .nav-container > .nav-ecommerce-icons,body[dir="ltr"] .nav-container > .nav-ecommerce-icons,html[dir="ltr"] .nav-container > .nav-cta-container,body[dir="ltr"] .nav-container > .nav-cta-container,html[dir="ltr"] .nav-right-group > .lang-switcher,body[dir="ltr"] .nav-right-group > .lang-switcher,html[dir="ltr"] .nav-right-group > .nav-ecommerce-icons,body[dir="ltr"] .nav-right-group > .nav-ecommerce-icons,html[dir="ltr"] .nav-right-group > .nav-cta-container,body[dir="ltr"] .nav-right-group > .nav-cta-container{order:2!important;flex:0 0 auto!important;min-width:max-content!important}.nav-ecommerce-icons .nav-search-box{order:1!important}.nav-ecommerce-icons .lang-switcher{order:2!important}.nav-ecommerce-icons .login-link.nav-login{order:3!important}.nav-ecommerce-icons .cart-link.nav-cart{order:4!important}html[dir="ltr"] .nav-container > .nav-ecommerce-icons.nav-icons-left,body[dir="ltr"] .nav-container > .nav-ecommerce-icons.nav-icons-left,html[dir="ltr"] .nav-right-group > .nav-ecommerce-icons.nav-icons-left,body[dir="ltr"] .nav-right-group > .nav-ecommerce-icons.nav-icons-left{margin-inline-start:auto!important;flex:0 0 auto!important;min-width:max-content!important}html[dir="rtl"] .nav-container > .nav-menu,body[dir="rtl"] .nav-container > .nav-menu,html[dir="rtl"] .nav-right-group > .nav-menu,body[dir="rtl"] .nav-right-group > .nav-menu{flex:1 1 0!important;min-width:0!important;overflow:visible!important;align-items:center!important}html[dir="rtl"] .nav-container > .nav-menu > li,body[dir="rtl"] .nav-container > .nav-menu > li,html[dir="rtl"] .nav-right-group > .nav-menu > li,body[dir="rtl"] .nav-right-group > .nav-menu > li{flex:0 0 auto!important}html[dir="rtl"] .nav-container > .nav-ecommerce-icons,body[dir="rtl"] .nav-container > .nav-ecommerce-icons,html[dir="rtl"] .nav-right-group > .nav-ecommerce-icons,body[dir="rtl"] .nav-right-group > .nav-ecommerce-icons,html[dir="rtl"] .nav-container > .nav-ecommerce-icons.nav-icons-left,body[dir="rtl"] .nav-container > .nav-ecommerce-icons.nav-icons-left,html[dir="rtl"] .nav-right-group > .nav-ecommerce-icons.nav-icons-left,body[dir="rtl"] .nav-right-group > .nav-ecommerce-icons.nav-icons-left{flex:0 0 auto!important;min-width:max-content!important}html[dir="ltr"] .nav-search-btn,body[dir="ltr"] .nav-search-btn{position:absolute!important;left:auto!important;right:4px!important}html[dir="ltr"] .nav-search-input,body[dir="ltr"] .nav-search-input,html[dir="ltr"] .nav-search-box input,body[dir="ltr"] .nav-search-box input{direction:ltr!important;text-align:left!important;padding-left:14px!important;padding-right:40px!important}.nav-right-group>.nav-menu,.nav-container>.nav-menu{min-width:0!important;flex-shrink:1!important}html[dir="ltr"] .zappy-products-dropdown > a .dropdown-arrow,body[dir="ltr"] .zappy-products-dropdown > a .dropdown-arrow{display:inline-block!important;flex:0 0 auto!important;margin-inline-start:6px!important}html[dir="ltr"] .zappy-catalog-menu,html[dir="ltr"] .zappy-catalog-menu .catalog-menu-container,html[dir="ltr"] .zappy-catalog-menu .catalog-menu-categories{direction:ltr!important}html[dir="ltr"] .zappy-catalog-menu .catalog-menu-container{align-items:flex-start!important}html[dir="ltr"] .zappy-catalog-menu .catalog-menu-categories{display:flex!important;align-items:flex-start!important;align-content:flex-start!important;row-gap:4px!important;column-gap:2px!important}html[dir="ltr"] .zappy-catalog-menu .catalog-menu-item{padding-inline:10px!important}html[dir="ltr"] .zappy-catalog-menu .catalog-menu-all{margin-top:0!important;align-self:flex-start!important}.navbar .nav-menu>li:has(>.sub-menu),nav.navbar .nav-menu>li:has(>.sub-menu),#navMenu>li:has(>.sub-menu){position:relative!important}.navbar .nav-menu>li:not(.zappy-nav-more-item)>.sub-menu,nav.navbar .nav-menu>li:not(.zappy-nav-more-item)>.sub-menu,#navMenu>li:not(.zappy-nav-more-item)>.sub-menu{display:block!important;position:absolute!important;top:100%!important;inset-inline-start:0!important;inset-inline-end:auto!important;min-width:220px!important;max-width:min(420px,calc(100vw - 24px))!important;width:max-content!important;max-height:calc(100vh - 150px)!important;overflow-x:hidden!important;overflow-y:auto!important;border-radius:12px!important;box-shadow:0 8px 30px rgba(0,0,0,.15),0 2px 8px rgba(0,0,0,.06)!important;padding:8px!important;margin:0!important;list-style:none!important;opacity:0!important;visibility:hidden!important;pointer-events:none!important;transform:translateY(6px)!important;z-index:100001!important;box-sizing:border-box!important}.navbar .nav-menu>li:not(.zappy-nav-more-item):hover>.sub-menu,.navbar .nav-menu>li:not(.zappy-nav-more-item):focus-within>.sub-menu,nav.navbar .nav-menu>li:not(.zappy-nav-more-item):hover>.sub-menu,nav.navbar .nav-menu>li:not(.zappy-nav-more-item):focus-within>.sub-menu,#navMenu>li:not(.zappy-nav-more-item):hover>.sub-menu,#navMenu>li:not(.zappy-nav-more-item):focus-within>.sub-menu{opacity:1!important;visibility:visible!important;pointer-events:auto!important;transform:translateY(0)!important}.navbar .nav-menu>li:not(.zappy-nav-more-item)>.sub-menu>li,nav.navbar .nav-menu>li:not(.zappy-nav-more-item)>.sub-menu>li,#navMenu>li:not(.zappy-nav-more-item)>.sub-menu>li{display:block!important;width:100%!important;list-style:none!important;margin:0!important;padding:0!important}.navbar .nav-menu>li:not(.zappy-nav-more-item)>.sub-menu a,nav.navbar .nav-menu>li:not(.zappy-nav-more-item)>.sub-menu a,#navMenu>li:not(.zappy-nav-more-item)>.sub-menu a{display:block!important;white-space:normal!important;overflow-wrap:anywhere!important;word-break:break-word!important;max-width:100%!important;padding:10px 16px!important;border-radius:8px!important;text-decoration:none!important;box-sizing:border-box!important}.nav-menu .zappy-products-dropdown>.sub-menu,#navMenu .zappy-products-dropdown>.sub-menu{left:50%!important;right:auto!important;transform:translateX(-50%) translateY(8px)!important}.nav-menu .zappy-products-dropdown:hover>.sub-menu,#navMenu .zappy-products-dropdown:hover>.sub-menu,.nav-menu .zappy-products-dropdown:focus-within>.sub-menu,#navMenu .zappy-products-dropdown:focus-within>.sub-menu{transform:translateX(-50%) translateY(0)!important}.nav-menu.zappy-desktop-wrap,#navMenu.zappy-desktop-wrap{flex-wrap:wrap!important;max-height:44px!important;align-content:flex-start!important;row-gap:4px!important}}@media (max-width:768px){.nav-menu li:has(.sub-menu),.navbar li:has(.sub-menu),nav li:has(.sub-menu){direction:ltr!important;display:flex!important;flex-wrap:wrap!important;align-items:flex-start!important;max-width:100%!important;width:100%!important;overflow:visible!important;box-sizing:border-box!important}.navbar .nav-menu.active>li:has(>.sub-menu),nav.navbar .nav-menu.active>li:has(>.sub-menu),#navMenu.active>li:has(>.sub-menu),.nav-menu.open>li:has(>.sub-menu),.navbar .nav-menu.active>li.menu-item-has-children,nav.navbar .nav-menu.active>li.menu-item-has-children,#navMenu.active>li.menu-item-has-children,.nav-menu.open>li.menu-item-has-children{display:flex!important;flex-wrap:wrap!important;align-items:center!important;position:relative!important}.nav-menu li:has(.sub-menu)>a,.navbar li:has(.sub-menu)>a,nav li:has(.sub-menu)>a,li:has(.sub-menu)>.menu-group-title{display:flex!important;align-items:center!important;flex:1 1 0!important;order:1!important;width:auto!important;min-width:0!important;max-width:calc(100% - 48px)!important;padding:12px 16px!important;min-height:44px!important;box-sizing:border-box!important;white-space:normal!important;overflow-wrap:anywhere!important;line-height:1.4!important;font-weight:600!important;text-align:left!important;direction:ltr!important}.navbar .nav-menu.active>li>.menu-group-title,.navbar #navMenu.active>li>.menu-group-title,.nav-menu.open>li>.menu-group-title,html body .navbar.scrolled .nav-menu.active>li>.menu-group-title,html body .navbar.scrolled #navMenu.active>li>.menu-group-title{color:var(--nav-text,var(--text-light,#fff7ed))!important}html[dir="rtl"] .nav-menu li:has(.sub-menu)>a,body[dir="rtl"] .nav-menu li:has(.sub-menu)>a,html[dir="rtl"] .navbar li:has(.sub-menu)>a,body[dir="rtl"] .navbar li:has(.sub-menu)>a,html[dir="rtl"] nav li:has(.sub-menu)>a,body[dir="rtl"] nav li:has(.sub-menu)>a,html[dir="rtl"] li:has(.sub-menu)>.menu-group-title,body[dir="rtl"] li:has(.sub-menu)>.menu-group-title{direction:rtl!important;text-align:right!important;order:2!important}.nav-menu li:has(.sub-menu)>.mobile-submenu-toggle,.navbar li:has(.sub-menu)>.mobile-submenu-toggle,nav li:has(.sub-menu)>.mobile-submenu-toggle{display:flex!important;position:static!important;flex:0 0 48px!important;order:2!important;width:48px!important;height:44px!important;min-height:44px!important;align-items:center!important;justify-content:center!important;z-index:5!important;pointer-events:auto!important;margin:0!important;padding:0!important;background:transparent!important;border:none!important}html[dir="rtl"] .nav-menu li:has(.sub-menu)>.mobile-submenu-toggle,body[dir="rtl"] .nav-menu li:has(.sub-menu)>.mobile-submenu-toggle,html[dir="rtl"] .navbar li:has(.sub-menu)>.mobile-submenu-toggle,body[dir="rtl"] .navbar li:has(.sub-menu)>.mobile-submenu-toggle,html[dir="rtl"] nav li:has(.sub-menu)>.mobile-submenu-toggle,body[dir="rtl"] nav li:has(.sub-menu)>.mobile-submenu-toggle{order:1!important}.nav-menu li:has(.sub-menu)>.sub-menu,.navbar li:has(.sub-menu)>.sub-menu,nav li:has(.sub-menu)>.sub-menu{order:3!important;flex:0 0 100%!important;width:100%!important;min-width:0!important;max-width:100%!important;box-sizing:border-box!important;margin:0!important;transform:none!important;left:auto!important;right:auto!important;inset-inline-start:auto!important;inset-inline-end:auto!important}.nav-menu .sub-menu.mobile-expanded,.navbar .sub-menu.mobile-expanded,nav .sub-menu.mobile-expanded{padding:8px 0!important}.sub-menu a,.sub-menu .menu-group-title{display:block!important;width:100%!important;white-space:normal!important;overflow-wrap:anywhere!important;min-width:0!important;max-width:100%!important;box-sizing:border-box!important;padding:10px 8px!important}.zappy-products-dropdown>.sub-menu .zappy-nav-parent>a,.zappy-products-dropdown>.sub-menu .zappy-nav-parent>.menu-group-title{font-weight:700!important}.zappy-products-dropdown>.sub-menu .zappy-nav-child>a,.zappy-products-dropdown>.sub-menu .zappy-nav-child>.menu-group-title{padding-left:36px!important;padding-right:16px!important;font-size:.94em!important;opacity:.85!important}html[dir="rtl"] .zappy-products-dropdown>.sub-menu .zappy-nav-child>a,body[dir="rtl"] .zappy-products-dropdown>.sub-menu .zappy-nav-child>a,html[dir="rtl"] .zappy-products-dropdown>.sub-menu .zappy-nav-child>.menu-group-title,body[dir="rtl"] .zappy-products-dropdown>.sub-menu .zappy-nav-child>.menu-group-title{padding-left:16px!important;padding-right:36px!important}.navbar .nav-menu:not(.active):not(.open),nav.navbar .nav-menu:not(.active):not(.open),#navMenu:not(.active):not(.open){visibility:hidden!important;opacity:0!important;pointer-events:none!important}.navbar .nav-menu:not(.active):not(.open) *,nav.navbar .nav-menu:not(.active):not(.open) *,#navMenu:not(.active):not(.open) *{visibility:hidden!important;pointer-events:none!important}.navbar .nav-menu:not(.active):not(.open) .sub-menu,nav.navbar .nav-menu:not(.active):not(.open) .sub-menu,#navMenu:not(.active):not(.open) .sub-menu{display:none!important}#navMenu.active,#navMenu.open,.nav-menu.active,.nav-menu.open{display:flex!important;flex-direction:column!important;flex-wrap:nowrap!important;overflow-x:hidden!important;overflow-y:auto!important}#navMenu.active>li,#navMenu.open>li,.nav-menu.active>li,.nav-menu.open>li{position:static!important;width:100%!important;max-width:100%!important;flex:0 0 auto!important;top:auto!important;bottom:auto!important;left:auto!important;right:auto!important;inset:auto!important;transform:none!important}#navMenu .sub-menu,.nav-menu .sub-menu,.navbar .sub-menu,.zappy-products-dropdown>.sub-menu,.nav-menu .zappy-products-dropdown>.sub-menu,.nav-menu.active .zappy-products-dropdown>.sub-menu,.nav-menu.active .zappy-products-dropdown .sub-menu,#navMenu li:hover>.sub-menu,.nav-menu li:hover>.sub-menu,.navbar li:hover>.sub-menu,#navMenu li:focus-within>.sub-menu,.nav-menu li:focus-within>.sub-menu{display:none!important;visibility:hidden!important;opacity:0!important;height:0!important;max-height:0!important;overflow:hidden!important;pointer-events:none!important;position:static!important;transform:none!important}#navMenu .sub-menu.mobile-expanded,.nav-menu .sub-menu.mobile-expanded,.navbar .sub-menu.mobile-expanded,.zappy-products-dropdown>.sub-menu.mobile-expanded,.nav-menu.active .zappy-products-dropdown>.sub-menu.mobile-expanded,.nav-menu.active .zappy-products-dropdown .sub-menu.mobile-expanded{display:block!important;visibility:visible!important;opacity:1!important;height:auto!important;max-height:none!important;overflow:visible!important;pointer-events:auto!important;position:static!important;transform:none!important;width:100%!important;left:auto!important;right:auto!important;top:auto!important;float:none!important}}',(document.head||document.documentElement).appendChild(t)}}(),function(){if(!window.__zappyMobileSubmenuRefreshHooksInstalled&&(window.__zappyMobileSubmenuRefreshHooksInstalled=!0,document.addEventListener("click",function(e){e.target&&e.target.closest&&e.target.closest('.mobile-toggle,.menu-toggle,.hamburger,.navbar-toggle,.mobile-submenu-toggle,[aria-label="תפריט"],[aria-label="Menu"],[aria-label="menu"]')&&u()},!0),window.MutationObserver)){var e=function(){var e=document.getElementById("navMenu")||document.querySelector(".nav-menu");if(e&&"1"!==e.getAttribute("data-zappy-mobile-submenu-observed")){e.setAttribute("data-zappy-mobile-submenu-observed","1");var t=function(e){e.some(function(e){return"attributes"===e.type?"class"===e.attributeName||"style"===e.attributeName:Array.prototype.some.call(e.addedNodes||[],function(e){return 1===e.nodeType&&(e.classList&&e.classList.contains("mobile-submenu-toggle")||e.querySelector&&e.querySelector(".mobile-submenu-toggle"))})})&&u()};new MutationObserver(t).observe(e,{attributes:!0,attributeFilter:["class","style"],childList:!0}),new MutationObserver(t).observe(e,{childList:!0,subtree:!0})}};e(),setTimeout(e,500)}}(),((e=document)&&e.querySelectorAll?e:document).querySelectorAll("a[href]").forEach(function(e){var t=e.getAttribute("href");if(s(t)){var n=i(t);t!==n&&e.setAttribute("href",n)}}),function(){var e=document.querySelector(".zappy-products-dropdown > a");if(e&&(e.setAttribute("href",i("/products")),!e.querySelector("svg.dropdown-arrow"))){var t=document.createElementNS("http://www.w3.org/2000/svg","svg");t.setAttribute("class","dropdown-arrow"),t.setAttribute("width","12"),t.setAttribute("height","12"),t.setAttribute("viewBox","0 0 24 24"),t.setAttribute("fill","none"),t.setAttribute("stroke","currentColor"),t.setAttribute("stroke-width","2");var n=document.createElementNS("http://www.w3.org/2000/svg","path");n.setAttribute("d","M6 9l6 6 6-6"),t.appendChild(n),e.appendChild(document.createTextNode(" ")),e.appendChild(t)}}(),l(),function(){var e=document.getElementById("zappy-catalog-menu");if(e){var t=document.documentElement.getAttribute("dir")||("he"===o()?"rtl":"ltr");e.classList.toggle("rtl","rtl"===t),e.classList.toggle("ltr","rtl"!==t),e.setAttribute("dir",t),e.querySelectorAll(".catalog-menu-item, .sub-menu").forEach(function(e){e.setAttribute("dir",t)})}}(),m()}}(),function(){if(!(window.__zappyCheckoutFocusUX>=2)){window.__zappyCheckoutFocusUX=2;"loading"===document.readyState?document.addEventListener("DOMContentLoaded",n):n(),window.addEventListener("popstate",function(){setTimeout(e,0)}),setTimeout(n,250),setTimeout(n,1500)}function e(){var e=function(){var e=window.location.pathname||"";try{var t=new URLSearchParams(window.location.search).get("page");t&&(e=t)}catch(e){}return e.toLowerCase()}(),t=-1!==e.indexOf("/checkout"),n=-1!==e.indexOf("/product/")||"/product"===e||-1!==e.indexOf("/cart")||t||-1!==e.indexOf("/order-success")||-1!==e.indexOf("/order");document.body.classList.toggle("zappy-focused-page",n),document.body.classList.toggle("zappy-checkout-page",t)}function t(){var e=document.getElementById("cart-drawer"),t=document.getElementById("cart-drawer-overlay"),n=e&&e.classList.contains("active")||t&&t.classList.contains("active");document.body.classList.toggle("zappy-cart-open",!!n)}function n(){!function(){var e=document.getElementById("zappy-checkout-focus-ux-css");if(!e||"2"!==e.getAttribute("data-v")){e&&e.remove();var t=document.createElement("style");t.id="zappy-checkout-focus-ux-css",t.setAttribute("data-zappy-runtime","checkout-focus"),t.setAttribute("data-v","2"),t.textContent="body.zappy-cart-open #cc-main,body.zappy-cart-open #zappy-cookie-banner{display:none!important;visibility:hidden!important;opacity:0!important;pointer-events:none!important}body.zappy-checkout-page #zappy-cookie-banner{display:none!important;visibility:hidden!important;opacity:0!important;pointer-events:none!important}body.zappy-checkout-page nav.navbar:not(.zappy-catalog-menu) .nav-menu,body.zappy-checkout-page nav.navbar:not(.zappy-catalog-menu) .nav-links,body.zappy-checkout-page nav.navbar:not(.zappy-catalog-menu) .nav-cta,body.zappy-checkout-page nav.navbar:not(.zappy-catalog-menu) .nav-right-group .nav-menu,body.zappy-checkout-page .lang-switcher,body.zappy-checkout-page .nav-icons-right,body.zappy-checkout-page .nav-search-box,body.zappy-checkout-page .nav-search-toggle,body.zappy-checkout-page #mobile-search-toggle,body.zappy-checkout-page .mobile-search-panel,body.zappy-checkout-page .login-link.nav-login,body.zappy-checkout-page .nav-ecommerce-icons>*:not(.cart-link),body.zappy-checkout-page .mobile-hamburger-btn,body.zappy-checkout-page .mobile-toggle,body.zappy-checkout-page .hamburger,body.zappy-checkout-page .menu-toggle,body.zappy-checkout-page #mobileToggle,body.zappy-checkout-page nav.navbar:not(.zappy-catalog-menu) .phone-header-btn,body.zappy-checkout-page nav.navbar:not(.zappy-catalog-menu) .mobile-close-btn{display:none!important;visibility:hidden!important;pointer-events:none!important}body.zappy-checkout-page nav.navbar:not(.zappy-catalog-menu) .nav-container{display:flex!important;align-items:center!important;justify-content:space-between!important;width:100%!important}body.zappy-checkout-page .nav-brand,body.zappy-checkout-page .cart-link.nav-cart,body.zappy-checkout-page #cart-drawer-toggle{display:flex!important;visibility:visible!important;pointer-events:auto!important}body.zappy-checkout-page .nav-ecommerce-icons{display:inline-flex!important;align-items:center!important;margin-inline-start:auto!important}@media (max-width:768px){body.zappy-checkout-page nav.navbar:not(.zappy-catalog-menu) .nav-menu,body.zappy-checkout-page nav.navbar:not(.zappy-catalog-menu) .nav-menu.active,body.zappy-checkout-page nav.navbar:not(.zappy-catalog-menu) .nav-menu.open{display:none!important;visibility:hidden!important}}body.zappy-checkout-page .site-footer>*:not(.footer-bottom),body.zappy-checkout-page footer.site-footer>*:not(.footer-bottom){display:none!important;visibility:hidden!important}body.zappy-checkout-page .site-footer .footer-bottom,body.zappy-checkout-page footer.site-footer .footer-bottom{display:block!important;visibility:visible!important}body.zappy-checkout-page .site-footer:not(:has(.footer-bottom)),body.zappy-checkout-page footer.site-footer:not(:has(.footer-bottom)){display:none!important}",(document.head||document.documentElement).appendChild(t)}}(),e(),function(){t();var e=new MutationObserver(function(){t()});["cart-drawer","cart-drawer-overlay"].forEach(function(t){var n=document.getElementById(t);n&&e.observe(n,{attributes:!0,attributeFilter:["class"]})}),document.addEventListener("click",function(e){e.target&&e.target.closest&&e.target.closest("#cart-drawer-toggle,.cart-link.nav-cart,a.nav-cart,[data-cart-toggle],.cart-drawer-close,#cart-drawer-overlay")&&setTimeout(t,0)},!0),document.addEventListener("keydown",function(e){"Escape"===e.key&&setTimeout(t,0)})}()}}(),function(){"use strict";var e=0,t=null;function n(){return void 0!==window.CookieConsent?Promise.resolve(window.CookieConsent):t||(t=new Promise(function(e,t){var n=document.querySelector('script[data-zappy-cookie-consent="true"]');if(n){if("true"!==n.getAttribute("data-zappy-load-error"))return"true"===n.getAttribute("data-zappy-loaded")||"complete"===n.readyState?void e(window.CookieConsent):(n.addEventListener("load",function(){n.setAttribute("data-zappy-loaded","true"),e(window.CookieConsent)},{once:!0}),void n.addEventListener("error",function(e){n.setAttribute("data-zappy-load-error","true"),t(e)},{once:!0}));n.parentNode&&n.parentNode.removeChild(n)}var a=document.createElement("script");a.src="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.umd.js",a.async=!0,a.defer=!0,a.setAttribute("data-zappy-cookie-consent","true"),a.onload=function(){a.setAttribute("data-zappy-loaded","true"),e(window.CookieConsent)},a.onerror=function(e){a.setAttribute("data-zappy-load-error","true"),t(e)},document.head.appendChild(a)}).catch(function(){t=null}))}function a(){if(e++,void 0!==window.CookieConsent){if(!window.__zappyCookieConsentInitialized){window.__zappyCookieConsentInitialized=!0;var t=window.CookieConsent;try{var r={autoShow:!1,mode:"opt-in",revision:0,categories:{necessary:{enabled:!0,readOnly:!0},analytics:{enabled:!1,readOnly:!1,autoClear:{cookies:[{name:"_ga"},{name:"_ga_*"},{name:"_gid"},{name:"_gat"}]}},marketing:{enabled:!1,readOnly:!1,autoClear:{cookies:[{name:"_fbp"},{name:"_fbc"},{name:"fr"}]}}},language:{default:"he",translations:{en:{consentModal:{description:"We use cookies to improve your experience and analyze site usage.",acceptAllBtn:"Accept",showPreferencesBtn:"Customize"},preferencesModal:{title:"Cookie Preferences",acceptAllBtn:"Accept",acceptNecessaryBtn:"Accept Necessary",savePreferencesBtn:"Save Preferences",closeIconLabel:"Close",sections:[{title:"Essential Cookies",description:"These cookies are necessary for the website to function and cannot be disabled.",linkedCategory:"necessary"},{title:"Analytics Cookies",description:"These cookies help us understand how visitors interact with our website.",linkedCategory:"analytics"},{title:"Marketing Cookies",description:"These cookies are used to deliver personalized advertisements.",linkedCategory:"marketing"}]}},es:{consentModal:{description:"Usamos cookies para mejorar tu experiencia y analizar el uso del sitio.",acceptAllBtn:"Aceptar",showPreferencesBtn:"Personalizar"},preferencesModal:{title:"Preferencias de Cookies",acceptAllBtn:"Aceptar",acceptNecessaryBtn:"Solo Necesarias",savePreferencesBtn:"Guardar Preferencias",closeIconLabel:"Cerrar",sections:[{title:"Cookies Esenciales",description:"Estas cookies son necesarias para que el sitio web funcione y no se pueden desactivar.",linkedCategory:"necessary"},{title:"Cookies de Análisis",description:"Estas cookies nos ayudan a entender cómo los visitantes interactúan con nuestro sitio web.",linkedCategory:"analytics"},{title:"Cookies de Marketing",description:"Estas cookies se utilizan para entregar anuncios personalizados.",linkedCategory:"marketing"}]}},fr:{consentModal:{description:"Nous utilisons des cookies pour améliorer votre expérience et analyser l'utilisation du site.",acceptAllBtn:"Accepter",showPreferencesBtn:"Personnaliser"},preferencesModal:{title:"Préférences des Cookies",acceptAllBtn:"Accepter",acceptNecessaryBtn:"Accepter les Nécessaires",savePreferencesBtn:"Enregistrer les Préférences",closeIconLabel:"Fermer",sections:[{title:"Cookies Essentiels",description:"Ces cookies sont nécessaires au fonctionnement du site web et ne peuvent pas être désactivés.",linkedCategory:"necessary"},{title:"Cookies Analytiques",description:"Ces cookies nous aident à comprendre comment les visiteurs interagissent avec notre site web.",linkedCategory:"analytics"},{title:"Cookies Marketing",description:"Ces cookies sont utilisés pour diffuser des publicités personnalisées.",linkedCategory:"marketing"}]}},de:{consentModal:{description:"Wir verwenden Cookies, um Ihr Erlebnis zu verbessern und die Nutzung der Website zu analysieren.",acceptAllBtn:"Akzeptieren",showPreferencesBtn:"Anpassen"},preferencesModal:{title:"Cookie-Einstellungen",acceptAllBtn:"Akzeptieren",acceptNecessaryBtn:"Nur Notwendige",savePreferencesBtn:"Einstellungen speichern",closeIconLabel:"Schließen",sections:[{title:"Notwendige Cookies",description:"Diese Cookies sind für die Funktion der Website erforderlich und können nicht deaktiviert werden.",linkedCategory:"necessary"},{title:"Analyse-Cookies",description:"Diese Cookies helfen uns zu verstehen, wie Besucher mit unserer Website interagieren.",linkedCategory:"analytics"},{title:"Marketing-Cookies",description:"Diese Cookies werden verwendet, um personalisierte Werbung zu liefern.",linkedCategory:"marketing"}]}},it:{consentModal:{description:"Utilizziamo i cookie per migliorare la tua esperienza e analizzare l'utilizzo del sito.",acceptAllBtn:"Accetta",showPreferencesBtn:"Personalizza"},preferencesModal:{title:"Preferenze Cookie",acceptAllBtn:"Accetta",acceptNecessaryBtn:"Solo Necessari",savePreferencesBtn:"Salva Preferenze",closeIconLabel:"Chiudi",sections:[{title:"Cookie Essenziali",description:"Questi cookie sono necessari per il funzionamento del sito web e non possono essere disattivati.",linkedCategory:"necessary"},{title:"Cookie Analitici",description:"Questi cookie ci aiutano a capire come i visitatori interagiscono con il nostro sito web.",linkedCategory:"analytics"},{title:"Cookie di Marketing",description:"Questi cookie vengono utilizzati per fornire pubblicità personalizzate.",linkedCategory:"marketing"}]}},pt:{consentModal:{description:"Usamos cookies para melhorar sua experiência e analisar o uso do site.",acceptAllBtn:"Aceitar",showPreferencesBtn:"Personalizar"},preferencesModal:{title:"Preferências de Cookies",acceptAllBtn:"Aceitar",acceptNecessaryBtn:"Apenas Necessários",savePreferencesBtn:"Salvar Preferências",closeIconLabel:"Fechar",sections:[{title:"Cookies Essenciais",description:"Estes cookies são necessários para o funcionamento do site e não podem ser desativados.",linkedCategory:"necessary"},{title:"Cookies Analíticos",description:"Estes cookies nos ajudam a entender como os visitantes interagem com nosso site.",linkedCategory:"analytics"},{title:"Cookies de Marketing",description:"Estes cookies são usados para exibir anúncios personalizados.",linkedCategory:"marketing"}]}},nl:{consentModal:{description:"Wij gebruiken cookies om uw ervaring te verbeteren en het sitegebruik te analyseren.",acceptAllBtn:"Accepteren",showPreferencesBtn:"Aanpassen"},preferencesModal:{title:"Cookie-voorkeuren",acceptAllBtn:"Accepteren",acceptNecessaryBtn:"Alleen noodzakelijke",savePreferencesBtn:"Voorkeuren opslaan",closeIconLabel:"Sluiten",sections:[{title:"Noodzakelijke Cookies",description:"Deze cookies zijn nodig voor het functioneren van de website en kunnen niet worden uitgeschakeld.",linkedCategory:"necessary"},{title:"Analytische Cookies",description:"Deze cookies helpen ons te begrijpen hoe bezoekers onze website gebruiken.",linkedCategory:"analytics"},{title:"Marketing Cookies",description:"Deze cookies worden gebruikt om gepersonaliseerde advertenties te tonen.",linkedCategory:"marketing"}]}},he:{consentModal:{description:"אנחנו משתמשים בעוגיות כדי לשפר את החוויה שלך ולנתח שימוש באתר.",acceptAllBtn:"אישור",showPreferencesBtn:"התאמה אישית"},preferencesModal:{title:"העדפות עוגיות",acceptAllBtn:"אישור",acceptNecessaryBtn:"רק הכרחי",savePreferencesBtn:"שמור העדפות",closeIconLabel:"סגור",sections:[{title:"עוגיות חיוניות",description:"עוגיות אלה הכרחיות לתפקוד האתר ולא ניתן להשבית אותן.",linkedCategory:"necessary"},{title:"עוגיות ניתוח",description:"עוגיות אלה עוזרות לנו להבין איך המבקרים מתקשרים עם האתר שלנו.",linkedCategory:"analytics"},{title:"עוגיות שיווקיות",description:"עוגיות אלה משמשות להצגת פרסומות מותאמות אישית.",linkedCategory:"marketing"}]}},ar:{consentModal:{description:"نستخدم ملفات تعريف الارتباط لتحسين تجربتك وتحليل استخدام الموقع.",acceptAllBtn:"قبول",showPreferencesBtn:"تخصيص"},preferencesModal:{title:"تفضيلات ملفات تعريف الارتباط",acceptAllBtn:"قبول",acceptNecessaryBtn:"الضرورية فقط",savePreferencesBtn:"حفظ التفضيلات",closeIconLabel:"إغلاق",sections:[{title:"ملفات تعريف الارتباط الأساسية",description:"هذه الملفات ضرورية لعمل الموقع ولا يمكن تعطيلها.",linkedCategory:"necessary"},{title:"ملفات تعريف الارتباط التحليلية",description:"تساعدنا هذه الملفات في فهم كيفية تفاعل الزوار مع موقعنا.",linkedCategory:"analytics"},{title:"ملفات تعريف الارتباط التسويقية",description:"تُستخدم هذه الملفات لعرض إعلانات مخصصة.",linkedCategory:"marketing"}]}},tr:{consentModal:{description:"Deneyiminizi geliştirmek ve site kullanımını analiz etmek için çerezler kullanırız.",acceptAllBtn:"Kabul Et",showPreferencesBtn:"Özelleştir"},preferencesModal:{title:"Çerez Tercihleri",acceptAllBtn:"Kabul Et",acceptNecessaryBtn:"Sadece Gerekli",savePreferencesBtn:"Tercihleri Kaydet",closeIconLabel:"Kapat",sections:[{title:"Zorunlu Çerezler",description:"Bu çerezler web sitesinin çalışması için gereklidir ve devre dışı bırakılamaz.",linkedCategory:"necessary"},{title:"Analiz Çerezleri",description:"Bu çerezler, ziyaretçilerin web sitemizle nasıl etkileşime girdiğini anlamamıza yardımcı olur.",linkedCategory:"analytics"},{title:"Pazarlama Çerezleri",description:"Bu çerezler kişiselleştirilmiş reklamlar sunmak için kullanılır.",linkedCategory:"marketing"}]}},ru:{consentModal:{description:"Мы используем файлы cookie для улучшения вашего опыта и анализа использования сайта.",acceptAllBtn:"Принять",showPreferencesBtn:"Настроить"},preferencesModal:{title:"Настройки cookie",acceptAllBtn:"Принять",acceptNecessaryBtn:"Только необходимые",savePreferencesBtn:"Сохранить настройки",closeIconLabel:"Закрыть",sections:[{title:"Необходимые cookie",description:"Эти файлы cookie необходимы для работы сайта и не могут быть отключены.",linkedCategory:"necessary"},{title:"Аналитические cookie",description:"Эти файлы cookie помогают нам понять, как посетители взаимодействуют с нашим сайтом.",linkedCategory:"analytics"},{title:"Маркетинговые cookie",description:"Эти файлы cookie используются для показа персонализированной рекламы.",linkedCategory:"marketing"}]}},zh:{consentModal:{description:"我们使用 Cookie 来改善您的体验并分析网站使用情况。",acceptAllBtn:"接受",showPreferencesBtn:"自定义"},preferencesModal:{title:"Cookie 偏好设置",acceptAllBtn:"接受",acceptNecessaryBtn:"仅接受必要",savePreferencesBtn:"保存偏好",closeIconLabel:"关闭",sections:[{title:"必要 Cookie",description:"这些 Cookie 是网站正常运行所必需的，无法禁用。",linkedCategory:"necessary"},{title:"分析 Cookie",description:"这些 Cookie 帮助我们了解访问者如何与我们的网站互动。",linkedCategory:"analytics"},{title:"营销 Cookie",description:"这些 Cookie 用于投放个性化广告。",linkedCategory:"marketing"}]}},ja:{consentModal:{description:"お客様の体験向上とサイト利用状況の分析のためにCookieを使用しています。",acceptAllBtn:"許可する",showPreferencesBtn:"カスタマイズ"},preferencesModal:{title:"Cookie設定",acceptAllBtn:"許可する",acceptNecessaryBtn:"必要なもののみ",savePreferencesBtn:"設定を保存",closeIconLabel:"閉じる",sections:[{title:"必要なCookie",description:"これらのCookieはウェブサイトの機能に必要であり、無効にすることはできません。",linkedCategory:"necessary"},{title:"分析Cookie",description:"これらのCookieは、訪問者がウェブサイトとどのように対話するかを理解するのに役立ちます。",linkedCategory:"analytics"},{title:"マーケティングCookie",description:"これらのCookieはパーソナライズされた広告を配信するために使用されます。",linkedCategory:"marketing"}]}},ko:{consentModal:{description:"경험 향상과 사이트 사용 분석을 위해 쿠키를 사용합니다.",acceptAllBtn:"수락",showPreferencesBtn:"사용자 지정"},preferencesModal:{title:"쿠키 설정",acceptAllBtn:"수락",acceptNecessaryBtn:"필수만 수락",savePreferencesBtn:"설정 저장",closeIconLabel:"닫기",sections:[{title:"필수 쿠키",description:"이 쿠키는 웹사이트 작동에 필요하며 비활성화할 수 없습니다.",linkedCategory:"necessary"},{title:"분석 쿠키",description:"이 쿠키는 방문자가 웹사이트와 어떻게 상호작용하는지 이해하는 데 도움이 됩니다.",linkedCategory:"analytics"},{title:"마케팅 쿠키",description:"이 쿠키는 맞춤형 광고를 제공하는 데 사용됩니다.",linkedCategory:"marketing"}]}},pl:{consentModal:{description:"Używamy plików cookie, aby poprawić Twoje wrażenia i analizować korzystanie z witryny.",acceptAllBtn:"Akceptuję",showPreferencesBtn:"Dostosuj"},preferencesModal:{title:"Preferencje cookie",acceptAllBtn:"Akceptuję",acceptNecessaryBtn:"Tylko niezbędne",savePreferencesBtn:"Zapisz preferencje",closeIconLabel:"Zamknij",sections:[{title:"Niezbędne pliki cookie",description:"Te pliki cookie są niezbędne do działania strony i nie można ich wyłączyć.",linkedCategory:"necessary"},{title:"Analityczne pliki cookie",description:"Te pliki cookie pomagają nam zrozumieć, w jaki sposób odwiedzający korzystają z naszej strony.",linkedCategory:"analytics"},{title:"Marketingowe pliki cookie",description:"Te pliki cookie służą do wyświetlania spersonalizowanych reklam.",linkedCategory:"marketing"}]}},uk:{consentModal:{description:"Ми використовуємо файли cookie для покращення вашого досвіду та аналізу використання сайту.",acceptAllBtn:"Прийняти",showPreferencesBtn:"Налаштувати"},preferencesModal:{title:"Налаштування cookie",acceptAllBtn:"Прийняти",acceptNecessaryBtn:"Лише необхідні",savePreferencesBtn:"Зберегти налаштування",closeIconLabel:"Закрити",sections:[{title:"Необхідні cookie",description:"Ці файли cookie необхідні для роботи сайту і не можуть бути вимкнені.",linkedCategory:"necessary"},{title:"Аналітичні cookie",description:"Ці файли cookie допомагають нам зрозуміти, як відвідувачі взаємодіють з нашим сайтом.",linkedCategory:"analytics"},{title:"Маркетингові cookie",description:"Ці файли cookie використовуються для показу персоналізованої реклами.",linkedCategory:"marketing"}]}},ro:{consentModal:{description:"Folosim cookie-uri pentru a vă îmbunătăți experiența și a analiza utilizarea site-ului.",acceptAllBtn:"Acceptă",showPreferencesBtn:"Personalizează"},preferencesModal:{title:"Preferințe cookie",acceptAllBtn:"Acceptă",acceptNecessaryBtn:"Doar necesare",savePreferencesBtn:"Salvează preferințele",closeIconLabel:"Închide",sections:[{title:"Cookie-uri esențiale",description:"Aceste cookie-uri sunt necesare pentru funcționarea site-ului și nu pot fi dezactivate.",linkedCategory:"necessary"},{title:"Cookie-uri analitice",description:"Aceste cookie-uri ne ajută să înțelegem cum interacționează vizitatorii cu site-ul nostru.",linkedCategory:"analytics"},{title:"Cookie-uri de marketing",description:"Aceste cookie-uri sunt folosite pentru a afișa reclame personalizate.",linkedCategory:"marketing"}]}},bg:{consentModal:{description:"Използваме бисквитки, за да подобрим изживяването ви и да анализираме използването на сайта.",acceptAllBtn:"Приемам",showPreferencesBtn:"Персонализиране"},preferencesModal:{title:"Настройки за бисквитки",acceptAllBtn:"Приемам",acceptNecessaryBtn:"Само необходимите",savePreferencesBtn:"Запазване на предпочитанията",closeIconLabel:"Затвори",sections:[{title:"Необходими бисквитки",description:"Тези бисквитки са необходими за функционирането на уебсайта и не могат да бъдат деактивирани.",linkedCategory:"necessary"},{title:"Аналитични бисквитки",description:"Тези бисквитки ни помагат да разберем как посетителите взаимодействат с нашия уебсайт.",linkedCategory:"analytics"},{title:"Маркетингови бисквитки",description:"Тези бисквитки се използват за показване на персонализирани реклами.",linkedCategory:"marketing"}]}}}},guiOptions:{consentModal:{layout:"bar inline",position:"bottom",equalWeightButtons:!1,flipButtons:!1},preferencesModal:{layout:"box",equalWeightButtons:!1,flipButtons:!1}}},o={en:"Close",es:"Cerrar",fr:"Fermer",de:"Schließen",it:"Chiudi",pt:"Fechar",nl:"Sluiten",he:"סגור",ar:"إغلاق",tr:"Kapat",ru:"Закрыть",zh:"关闭",ja:"閉じる",ko:"닫기",pl:"Zamknij",uk:"Закрити",ro:"Închide",bg:"Затвори"},i=(document.documentElement.getAttribute("lang")||"").split("-")[0].toLowerCase();function c(){var e=(document.documentElement.getAttribute("lang")||"").split("-")[0].toLowerCase();return!e&&"undefined"!=typeof zappyI18n&&zappyI18n.language&&(e=String(zappyI18n.language).split("-")[0].toLowerCase()),e&&r.language.translations[e]||(e=r.language.default||"en"),r.language.translations[e]?e:"en"}function p(){var e=c(),t=r.language.translations||{},n=(t[e]||t.en||{}).consentModal||{},a=o||{};return{description:n.description||"",accept:n.acceptAllBtn||"Accept",customize:n.showPreferencesBtn||"Customize",close:a[e]||a.en||"Close"}}function d(){var e=document.getElementById("zappy-cookie-banner");e&&e.parentNode&&e.parentNode.removeChild(e),document.documentElement.classList.remove("zappy-cookie-banner-visible")}function u(){var e=document.getElementById("zappy-cookie-banner");if(e){var t=p(),n=e.querySelector("[data-zappy-cookie-description]"),a=e.querySelector("[data-zappy-cookie-accept]"),r=e.querySelector("[data-zappy-cookie-customize]"),o=e.querySelector("[data-zappy-cookie-close]");e.setAttribute("aria-label",t.description||t.close),n&&(n.textContent=t.description),a&&(a.textContent=t.accept),r&&(r.textContent=t.customize),o&&o.setAttribute("aria-label",t.close)}}function m(){"function"!=typeof gtag&&(window.dataLayer=window.dataLayer||[],window.gtag=function(){dataLayer.push(arguments)});var e=t.acceptedCategory("analytics"),n=t.acceptedCategory("marketing");gtag("consent","update",{analytics_storage:e?"granted":"denied",ad_storage:n?"granted":"denied",ad_user_data:n?"granted":"denied",ad_personalization:n?"granted":"denied"})}function y(e){try{t.acceptCategory(e)}catch(e){}d(),m()}function g(){try{if("function"==typeof t.validConsent&&t.validConsent())return void d();if(!document.body)return void setTimeout(g,50);if(document.getElementById("zappy-cookie-banner"))return void u();var e=p(),n=document.createElement("div");n.id="zappy-cookie-banner",n.className="zappy-cookie-banner",n.setAttribute("role","region"),n.setAttribute("aria-label",e.description||e.close);var a=document.createElement("div");a.className="zappy-cookie-banner__inner";var r=document.createElement("p");r.className="zappy-cookie-banner__text",r.setAttribute("data-zappy-cookie-description","true"),r.textContent=e.description;var o=document.createElement("div");o.className="zappy-cookie-banner__actions";var i=document.createElement("button");i.type="button",i.className="zappy-cookie-banner__button zappy-cookie-banner__button--customize",i.setAttribute("data-zappy-cookie-customize","true"),i.textContent=e.customize,i.addEventListener("click",function(e){e.preventDefault(),e.stopPropagation();try{t.showPreferences()}catch(e){}});var s=document.createElement("button");s.type="button",s.className="zappy-cookie-banner__button zappy-cookie-banner__button--accept",s.setAttribute("data-zappy-cookie-accept","true"),s.textContent=e.accept,s.addEventListener("click",function(e){e.preventDefault(),e.stopPropagation(),y("all")});var l=document.createElement("button");l.type="button",l.className="zappy-cookie-banner__close",l.setAttribute("data-zappy-cookie-close","true"),l.setAttribute("aria-label",e.close),l.textContent="×",l.addEventListener("click",function(e){e.preventDefault(),e.stopPropagation(),y([])}),o.appendChild(i),o.appendChild(s),a.appendChild(r),a.appendChild(o),a.appendChild(l),n.appendChild(a),document.body.appendChild(n),document.documentElement.classList.add("zappy-cookie-banner-visible")}catch(e){}}function v(){d(),m()}!i&&"undefined"!=typeof zappyI18n&&zappyI18n.language&&(i=String(zappyI18n.language).split("-")[0].toLowerCase()),i&&r.language.translations[i]&&(r.language.default=i),r.onFirstConsent=v,r.onConsent=v,r.onChange=v;var s=t.run(r),l=function(){m(),t.validConsent&&t.validConsent()||g()};s&&"function"==typeof s.then?s.then(l).catch(l):setTimeout(l,0),"undefined"!=typeof zappyI18n&&"function"==typeof zappyI18n.onLanguageChange&&zappyI18n.onLanguageChange(function(e){try{r.language.translations[e]&&(r.language.default=e,t.setLanguage(e,!0),u())}catch(e){}})}catch(f){window.__zappyCookieConsentInitialized=!1}}}else e<50&&setTimeout(function(){n().then(a)},100)}function r(){var e=function(){n().then(a)};"function"==typeof window.requestIdleCallback?window.requestIdleCallback(e,{timeout:7e3}):setTimeout(e,7e3)}"complete"===document.readyState?r():"undefined"!=typeof window&&window.addEventListener?window.addEventListener("load",r,{once:!0}):setTimeout(r,1e3)}(),function(){try{function e(){if(!document.getElementById("zappy-mobile-nav-icon-alignment-fix")){var e=document.createElement("style");e.id="zappy-mobile-nav-icon-alignment-fix",e.textContent='\n\n/* ZAPPY_MOBILE_NAV_ICON_ALIGNMENT_FIX */\n/* ZAPPY_MOBILE_NAV_ICON_ALIGNMENT_FIX_V3 */\n/* ZAPPY_MOBILE_NAV_ICON_ALIGNMENT_FIX_V4 */\n/* ZAPPY_MOBILE_NAV_ICON_ALIGNMENT_FIX_V5 */\n/* The mobile hamburger / phone buttons are absolutely positioned. Keep the\n   navbar itself as a non-collapsing containing block so auto-margin centering\n   stays aligned even when generated mobile CSS moves every nav child out of flow. */\n@media (max-width: 768px) {\n  .navbar,\n  nav.navbar {\n    min-height: 70px !important;\n  }\n\n  /* V5: Desktop .nav-search-box must stay hidden on mobile. AI/customization CSS\n     often force-shows it with higher specificity than the generator\'s plain\n     .nav-search-box { display:none } (e.g. .navbar .nav-ecommerce-icons.nav-icons-left\n     .nav-search-box { display:flex; background: cream }), which paints an empty\n     cream/white square left of the cart on RTL ecommerce navs. Beat that chain. */\n  html body .navbar .nav-search-box,\n  html body nav.navbar .nav-search-box,\n  html body .navbar .nav-ecommerce-icons .nav-search-box,\n  html body .navbar .nav-ecommerce-icons.nav-icons-left .nav-search-box,\n  html body .navbar .nav-container .nav-ecommerce-icons.nav-icons-left .nav-search-box {\n    display: none !important;\n    visibility: hidden !important;\n    width: 0 !important;\n    height: 0 !important;\n    min-width: 0 !important;\n    max-width: 0 !important;\n    overflow: hidden !important;\n    padding: 0 !important;\n    margin: 0 !important;\n    border: none !important;\n    background: transparent !important;\n    pointer-events: none !important;\n  }\n\n  /* V5: Search-toggle SVG is frequently recolored to --nav-text (cream/white) by\n     AI customization at .navbar .nav-container .nav-ecommerce-icons.nav-icons-right\n     .nav-search-toggle svg, while the pill button itself keeps the correct\n     contrasting color from the luminance-aware pill rules. Inherit that color\n     with a selector that out-ranks the nav-text stroke paint so the icon stays\n     legible on light AND dark pills (no hardcoded text-dark). */\n  html body .navbar .nav-container .nav-ecommerce-icons.nav-icons-right .nav-search-toggle svg,\n  html body .navbar .nav-container .nav-ecommerce-icons.nav-icons-right .nav-search-toggle svg *,\n  html body .navbar .nav-ecommerce-icons.nav-icons-right .nav-search-toggle svg,\n  html body .navbar .nav-ecommerce-icons.nav-icons-right .nav-search-toggle svg * {\n    color: inherit !important;\n    stroke: currentColor !important;\n    fill: none !important;\n  }\n\n  /* V5: Keep the three mobile icon couples on one baseline — absolute groups +\n     hamburger all center against the same navbar box. */\n  html body .navbar .nav-ecommerce-icons.nav-icons-left,\n  html body .navbar .nav-ecommerce-icons.nav-icons-right,\n  html body .navbar .nav-icons-left,\n  html body .navbar .nav-icons-right {\n    top: 50% !important;\n    bottom: auto !important;\n    transform: translateY(-50%) !important;\n    align-items: center !important;\n  }\n  html body .navbar .nav-ecommerce-icons.nav-icons-right .nav-search-toggle,\n  html body .navbar .nav-search-toggle {\n    width: 36px !important;\n    height: 36px !important;\n    min-width: 36px !important;\n    padding: 0 !important;\n    margin: 0 !important;\n    border-radius: 9999px !important;\n    align-self: center !important;\n  }\n\n  /* E-commerce mobile navbar icon-group alignment.\n     The icon couples (search after the hamburger; login+cart at the end edge)\n     are absolutely positioned with inset-inline offsets — inset-inline-start:52px\n     to clear the 36px hamburger that sits at left:12px on the .navbar, and\n     inset-inline-end:12px to hug the end edge. Those offsets are authored in the\n     NAVBAR\'s full-width coordinate space (the hamburger uses the same one). But\n     the offsets are resolved against the nearest positioned ancestor, and the\n     generated CSS makes .nav-container position:relative. When .nav-container is\n     ALSO inset by the navbar\'s horizontal padding (max-width / padding from the\n     LLM-authored navbar), the groups resolve to that inset box instead of the\n     full-width navbar: the search drifts ~20px away from the hamburger and the\n     cart leaves a fat asymmetric gap before the screen edge. Dropping\n     .nav-container out of the containing-block chain on mobile makes both couples\n     resolve to .navbar (always full-bleed) so they line up tightly with the\n     hamburger and sit symmetrically against both edges regardless of any\n     navbar/container padding. Scoped via :has() to navbars that actually carry\n     the e-commerce icon couples so non-ecommerce navs are untouched. */\n  .navbar:has(.nav-ecommerce-icons) .nav-container,\n  nav.navbar:has(.nav-ecommerce-icons) .nav-container,\n  header:has(.nav-ecommerce-icons) .nav-container {\n    position: static !important;\n  }\n\n  /* Some generated RTL nav CSS sets both left:50% and right:50% on the\n     absolute .nav-brand. That collapses it to 0px wide, so the logo flows\n     left from the center instead of being centered on it. */\n  .navbar .nav-brand,\n  nav.navbar .nav-brand,\n  html[dir="rtl"] .navbar .nav-brand,\n  html[dir="rtl"] nav.navbar .nav-brand,\n  html[lang="he"] .navbar .nav-brand,\n  html[lang="he"] nav.navbar .nav-brand,\n  html[lang="ar"] .navbar .nav-brand,\n  html[lang="ar"] nav.navbar .nav-brand {\n    position: absolute !important;\n    left: 50% !important;\n    right: auto !important;\n    top: 50% !important;\n    width: auto !important;\n    min-width: max-content !important;\n    max-width: calc(100% - 168px) !important;\n    transform: translate(-50%, -50%) !important;\n    margin: 0 !important;\n    text-align: center !important;\n    justify-content: center !important;\n  }\n\n  .navbar .nav-brand .logo-link,\n  nav.navbar .nav-brand .logo-link,\n  .navbar .nav-brand a,\n  nav.navbar .nav-brand a {\n    display: inline-flex !important;\n    justify-content: center !important;\n    align-items: center !important;\n    margin-left: auto !important;\n    margin-right: auto !important;\n  }\n\n  .navbar > .mobile-toggle,\n  nav.navbar > .mobile-toggle,\n  .navbar .mobile-toggle,\n  nav.navbar .mobile-toggle,\n  #mobileToggle,\n  .navbar > .phone-header-btn,\n  nav.navbar > .phone-header-btn,\n  .navbar .phone-header-btn,\n  nav.navbar .phone-header-btn {\n    position: absolute !important;\n    top: 0 !important;\n    bottom: 0 !important;\n    transform: none !important;\n    margin-top: auto !important;\n    margin-bottom: auto !important;\n    align-self: center !important;\n    align-items: center !important;\n    justify-content: center !important;\n    line-height: 0 !important;\n  }\n\n  .navbar > .mobile-toggle,\n  nav.navbar > .mobile-toggle,\n  .navbar .mobile-toggle,\n  nav.navbar .mobile-toggle,\n  #mobileToggle {\n    display: flex !important;\n  }\n\n  html:not([data-zappy-site-type="ecommerce"]) .navbar > .phone-header-btn,\n  html:not([data-zappy-site-type="ecommerce"]) nav.navbar > .phone-header-btn,\n  html:not([data-zappy-site-type="ecommerce"]) .navbar .phone-header-btn,\n  html:not([data-zappy-site-type="ecommerce"]) nav.navbar .phone-header-btn {\n    display: flex !important;\n  }\n\n  html[data-zappy-site-type="ecommerce"] .phone-header-btn,\n  body[data-zappy-site-type="ecommerce"] .phone-header-btn,\n  html[data-zappy-site-type="ecommerce"] header .phone-header-btn,\n  html[data-zappy-site-type="ecommerce"] nav .phone-header-btn {\n    display: none !important;\n    visibility: hidden !important;\n    width: 0 !important;\n    height: 0 !important;\n    min-width: 0 !important;\n    overflow: hidden !important;\n  }\n}\n',document.head.appendChild(e)}}"loading"===document.readyState?document.addEventListener("DOMContentLoaded",e):e(),window.addEventListener("load",e),setTimeout(e,250),setTimeout(e,1e3)}catch(t){}}(),function(){try{if(window.__zappyNavOverflowInit)return;window.__zappyNavOverflowInit=!0;var e={en:"More",he:"עוד",es:"Más",fr:"Plus",de:"Mehr",it:"Altro",pt:"Mais",ar:"المزيد",ru:"Ещё",nl:"Meer",pl:"Więcej",tr:"Daha",ja:"その他",zh:"更多",hi:"और",sv:"Mer",uk:"Ще",ro:"Mai mult",cs:"Více",da:"Mere",fi:"Lisää",no:"Mer",el:"Περισσότερα"},t=null;function n(){var t=(document.documentElement.getAttribute("lang")||"en").slice(0,2).toLowerCase();return e[t]||"More"}function a(){var e=document.getElementById("zappy-nav-overflow-css");e||((e=document.createElement("style")).id="zappy-nav-overflow-css"),e.textContent="@media (min-width:769px){.zappy-nav-more-item{position:relative!important;flex:0 0 auto!important;}.zappy-nav-more-item>.zappy-nav-more-toggle{cursor:pointer;display:inline-flex!important;align-items:center;gap:6px;white-space:nowrap;}.navbar .zappy-nav-more-item>.sub-menu{display:block!important;left:auto!important;right:0!important;min-width:200px!important;opacity:0!important;visibility:hidden!important;pointer-events:none!important;transform:translateY(6px);transition:opacity .18s ease,visibility .18s ease,transform .18s ease;}.navbar .zappy-nav-more-item:hover>.sub-menu,.navbar .zappy-nav-more-item:focus-within>.sub-menu,.navbar .zappy-nav-more-item.open>.sub-menu{opacity:1!important;visibility:visible!important;pointer-events:auto!important;transform:translateY(0)!important;}.zappy-nav-more-item>.sub-menu>li{display:block!important;width:100%!important;flex:0 0 auto!important;}.zappy-nav-more-item>.sub-menu>li.mobile-contact-link,.zappy-nav-more-item>.sub-menu>li.nav-cta-mobile-item,.zappy-nav-more-item>.sub-menu>li.mobile-only{display:none!important;}.zappy-nav-more-item>.sub-menu{width:min(420px,calc(100vw - 24px))!important;max-width:min(420px,calc(100vw - 24px))!important;overflow-x:hidden!important;overflow-y:auto!important;box-sizing:border-box!important;}.zappy-nav-more-item>.sub-menu>li>a{display:block!important;white-space:normal!important;overflow-wrap:anywhere!important;word-break:break-word!important;padding:10px 16px!important;max-width:100%!important;box-sizing:border-box!important;}html body .navbar .zappy-nav-more-item .sub-menu .sub-menu,html body .navbar .zappy-nav-more-item > .sub-menu > li > .sub-menu,html body nav.navbar .zappy-nav-more-item .sub-menu ul.sub-menu,html body .zappy-nav-more-item .sub-menu .sub-menu{position:static!important;top:auto!important;left:auto!important;right:auto!important;transform:none!important;box-shadow:none!important;min-width:0!important;width:100%!important;max-width:100%!important;margin:0!important;display:none!important;opacity:0!important;visibility:hidden!important;pointer-events:none!important;height:0!important;overflow:hidden!important;padding:0!important;}html body .navbar .zappy-nav-more-item .zappy-more-nested-open > .sub-menu,html body .navbar .zappy-nav-more-item > .sub-menu > li.zappy-more-nested-open > .sub-menu,html body .zappy-nav-more-item .zappy-more-nested-open > .sub-menu{display:block!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important;height:auto!important;overflow-x:hidden!important;overflow-y:visible!important;padding-inline-start:12px!important;}.zappy-nav-more-item>.sub-menu>li.zappy-more-nested-parent>a{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:8px!important;width:100%!important;max-width:100%!important;box-sizing:border-box!important;}.zappy-nav-more-item>.sub-menu>li.zappy-more-nested-parent>a .dropdown-arrow{display:inline-block!important;flex:0 0 auto!important;width:12px!important;height:12px!important;margin-inline-start:auto!important;pointer-events:auto!important;cursor:pointer!important;transition:transform .2s ease!important;opacity:1!important;visibility:visible!important;}.zappy-nav-more-item>.sub-menu>li.zappy-more-nested-open>a .dropdown-arrow{transform:rotate(180deg)!important;}}@media (max-width:768px){.zappy-nav-more-item{display:none!important;}}",(document.head||document.documentElement).appendChild(e)}function r(e){if(e&&e.querySelectorAll)for(var t=e.querySelectorAll(".sub-menu"),n=0;n<t.length;n++){var a=t[n];a.classList&&a.classList.contains("zappy-nav-more-menu")||(a.setAttribute("data-zappy-more-flattened","1"),a.style.setProperty("position","static","important"),a.style.setProperty("top","auto","important"),a.style.setProperty("left","auto","important"),a.style.setProperty("right","auto","important"),a.style.setProperty("transform","none","important"),a.style.setProperty("box-shadow","none","important"),a.style.setProperty("min-width","0","important"),a.style.setProperty("width","100%","important"),a.style.removeProperty("pointer-events"),a.style.removeProperty("opacity"),a.style.removeProperty("visibility"),a.style.removeProperty("display"),a.style.removeProperty("height"))}}function o(e){if(e&&e.querySelectorAll){for(var t=e.querySelectorAll("[data-zappy-more-flattened]"),n=0;n<t.length;n++){var a=t[n];a.removeAttribute("data-zappy-more-flattened"),a.style.removeProperty("position"),a.style.removeProperty("top"),a.style.removeProperty("left"),a.style.removeProperty("right"),a.style.removeProperty("opacity"),a.style.removeProperty("visibility"),a.style.removeProperty("pointer-events"),a.style.removeProperty("transform"),a.style.removeProperty("box-shadow"),a.style.removeProperty("min-width"),a.style.removeProperty("width"),a.style.removeProperty("display"),a.style.removeProperty("height")}if(e.classList){e.classList.remove("zappy-more-nested-open","zappy-more-nested-parent");for(var r=!1,o=0;o<e.children.length;o++)if("UL"===e.children[o].tagName){r=!0;break}r&&e.classList.add("menu-item-has-children")}}}function i(){return document.querySelector(".nav-container > .nav-menu, .nav-right-group > .nav-menu")||document.getElementById("navMenu")||document.querySelector(".nav-menu")}function s(e,t){var n=[e.style.getPropertyValue("width"),e.style.getPropertyPriority("width"),e.style.getPropertyValue("flex-shrink"),e.style.getPropertyPriority("flex-shrink"),e.style.getPropertyValue("flex-grow"),e.style.getPropertyPriority("flex-grow"),e.style.getPropertyValue("flex-basis"),e.style.getPropertyPriority("flex-basis")];return e.style.setProperty("flex-shrink","0","important"),e.style.setProperty("flex-grow","0","important"),e.style.setProperty("flex-basis","auto","important"),null!=t&&e.style.setProperty("width",t+"px","important"),n}function l(e,t){t[0]?e.style.setProperty("width",t[0],t[1]):e.style.removeProperty("width"),t[2]?e.style.setProperty("flex-shrink",t[2],t[3]):e.style.removeProperty("flex-shrink"),t[4]?e.style.setProperty("flex-grow",t[4],t[5]):e.style.removeProperty("flex-grow"),t[6]?e.style.setProperty("flex-basis",t[6],t[7]):e.style.removeProperty("flex-basis")}function c(e){var t=s(e,1e5),n=function(e){for(var t=1/0,n=-1/0,a=!1,r=e.children,o=0;o<r.length;o++){var i=r[o];if(i&&"LI"===i.tagName){var s="";try{s=getComputedStyle(i).position}catch(e){}if("absolute"!==s&&"fixed"!==s){var l=i.getBoundingClientRect();0===l.width&&0===l.height||(l.left<t&&(t=l.left),l.right>n&&(n=l.right),a=!0)}}}return a?n-t:0}(e);return l(e,t),n}function p(e,t){var n=e.parentElement;if(!n)return!1;var a=[];function r(e){a.push([e,e.style.getPropertyValue("flex-shrink"),e.style.getPropertyPriority("flex-shrink")]),e.style.setProperty("flex-shrink","0","important")}var o,i,c,p=n.children,d=s(e,t);for(o=0;o<p.length;o++)if((i=p[o])!==e){c="";try{c=getComputedStyle(i).position}catch(e){}"absolute"!==c&&"fixed"!==c&&r(i)}var u,m=1/0,y=-1/0;for(o=0;o<p.length;o++){i=p[o],c="";try{c=getComputedStyle(i).position}catch(e){}"absolute"!==c&&"fixed"!==c&&(0===(u=i.getBoundingClientRect()).width&&0===u.height||(u.left<m&&(m=u.left),u.right>y&&(y=u.right)))}var g=(y>m?y-m:0)>n.clientWidth+2;for(o=a.length-1;o>=0;o--){var v=a[o],f=v[0];v[1]?f.style.setProperty("flex-shrink",v[1],v[2]):f.style.removeProperty("flex-shrink")}return l(e,d),g}function d(){var e=document.createElement("li");e.className="menu-item-has-children zappy-nav-more-item",e.setAttribute("data-zappy-nav-more","1");var t=document.createElement("a");t.href="#",t.className="zappy-nav-more-toggle nav-link",t.setAttribute("aria-haspopup","true"),t.setAttribute("aria-expanded","false"),t.innerHTML='<span class="zappy-nav-more-label"></span><svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg>',t.querySelector(".zappy-nav-more-label").textContent=n();var a=document.createElement("ul");return a.className="sub-menu zappy-nav-more-menu",a.setAttribute("role","menu"),e.appendChild(t),e.appendChild(a),t.addEventListener("click",function(n){n.preventDefault();var a=e.classList.toggle("open");t.setAttribute("aria-expanded",a?"true":"false")}),e}function u(e){if(!e)return!1;if(!(e=(""+e).trim())||"#"===e.charAt(0))return!1;var t=e.indexOf("page=");if(-1!==t){var n=e.slice(t+5),a=n.search(/[&#]/);-1!==a&&(n=n.slice(0,a));try{n=decodeURIComponent(n)}catch(e){}return"/"===(n=n.replace(/index\.html$/i,"").replace(/^\/[a-z]{2}\/$/i,"/"))||""===n}var r=e.split("?")[0].split("#")[0].trim();return""===(r=r.replace(/^https?:\/\/[^/]+/i,"").replace(/^\.\//,"/").replace(/index\.html$/i,""))||"/"===r||/^\/[a-z]{2}\/?$/i.test(r)}function m(){var e=i();if(e){t&&t.disconnect();try{if(e.classList.remove("zappy-desktop-wrap"),function(e){e&&(e.style.removeProperty("width"),e.style.removeProperty("flex-shrink"),e.style.removeProperty("flex-basis"),e.style.removeProperty("flex-grow"),e.removeAttribute("data-zappy-nav-fitted"))}(e),function(e){var t=e.querySelector(":scope > .zappy-nav-more-item");if(t){for(var n=t.querySelector(".sub-menu");n&&n.firstElementChild;){var a=n.firstElementChild;o(a),e.insertBefore(a,t)}t.remove()}}(e),function(e){var t=e.querySelector(":scope > li.nav-home-item");if(!t)for(var n=Array.prototype.filter.call(e.children,function(e){return"LI"===e.tagName&&!(e.classList&&e.classList.contains("zappy-nav-more-item"))}),a=0;a<n.length;a++){var r=n[a].querySelector(":scope > a");if(r&&u(r.getAttribute("href"))){t=n[a];break}}t&&e.firstElementChild!==t&&e.insertBefore(t,e.firstElementChild)}(e),window.innerWidth<=768)return;for(var n=null,a=null,l=0;l<200&&(l++,p(e,Math.ceil(c(e))));){var m=Array.prototype.filter.call(e.children,function(e){if(e===n||"LI"!==e.tagName)return!1;if(e.classList&&(e.classList.contains("mobile-contact-link")||e.classList.contains("nav-cta-mobile-item")||e.classList.contains("mobile-only")))return!1;try{if("none"===getComputedStyle(e).display)return!1}catch(e){}return!0});if(m.length<=1)break;n||(n=d(),e.appendChild(n),a=n.querySelector(".sub-menu"));var y=m[m.length-1];r(y),a.insertBefore(y,a.firstChild)}n&&a&&!a.firstElementChild&&n.remove(),n&&function(e){if(e){var t=e.querySelector(":scope > .sub-menu");if(t)for(var n=t.children,a=0;a<n.length;a++){var r=n[a];if(r&&"LI"===r.tagName){for(var o=null,i=0;i<r.children.length;i++)if("UL"===r.children[i].tagName){o=r.children[i];break}if(o){r.classList.add("zappy-more-nested-parent"),r.__zappyMoreNestedUserOpened||r.classList.remove("zappy-more-nested-open");var s=r.querySelector(":scope > a");if(s){var l=s.querySelector("svg.dropdown-arrow");if(!l){(l=document.createElementNS("http://www.w3.org/2000/svg","svg")).setAttribute("class","dropdown-arrow"),l.setAttribute("width","12"),l.setAttribute("height","12"),l.setAttribute("viewBox","0 0 24 24"),l.setAttribute("fill","none"),l.setAttribute("stroke","currentColor"),l.setAttribute("stroke-width","2"),l.setAttribute("aria-hidden","true");var c=document.createElementNS("http://www.w3.org/2000/svg","path");c.setAttribute("d","M6 9l6 6 6-6"),l.appendChild(c),s.appendChild(l)}r.__zappyMoreNestedBound||(r.__zappyMoreNestedBound=!0,function(e,t){t.addEventListener("click",function(t){t.preventDefault(),t.stopPropagation();var n=e.classList.toggle("zappy-more-nested-open");e.__zappyMoreNestedUserOpened=n})}(r,l))}}else r.classList.remove("zappy-more-nested-parent","zappy-more-nested-open")}}}}(n);var g=c(e);g>e.clientWidth+2&&(s(e,Math.ceil(g)),e.setAttribute("data-zappy-nav-fitted","1"))}finally{!function(){if(!window.MutationObserver)return;var e=i();if(!e)return;t||(t=new MutationObserver(function(){v()}));t.observe(e,{childList:!0,subtree:!0})}()}}}function y(){var e=i();if(e){var t=e.querySelector(".zappy-nav-more-label");t&&(t.textContent=n())}}var g=null;function v(){g&&clearTimeout(g),g=setTimeout(m,150)}function f(){a(),m()}"loading"===document.readyState?document.addEventListener("DOMContentLoaded",f):f(),window.addEventListener("load",function(){a(),m()}),window.addEventListener("resize",v,{passive:!0}),window.addEventListener("orientationchange",v,{passive:!0}),window.addEventListener("popstate",function(){setTimeout(m,0)}),window.addEventListener("zappy:languageChanged",function(){setTimeout(function(){y(),m()},0)}),window.addEventListener("languageChanged",function(){setTimeout(function(){y(),m()},0)}),document.addEventListener("click",function(e){var t=i();if(t){var n=t.querySelector(":scope > .zappy-nav-more-item");if(n&&n.classList.contains("open")&&!n.contains(e.target)){n.classList.remove("open");var a=n.querySelector(".zappy-nav-more-toggle");a&&a.setAttribute("aria-expanded","false")}}},!0),setTimeout(m,300),setTimeout(m,1200)}catch(h){}}(),function(){try{if(window.__zappyNavMorePointerFixV4)return;window.__zappyNavMorePointerFixV4=!0,window.__zappyNavMorePointerFixV3=!0,window.__zappyNavMorePointerFixV2=!0,window.__zappyNavMorePointerFixV1=!0;var e="zappy-nav-more-pointer-fix",t=!1,n='@media (min-width:769px){html[dir="rtl"] body .navbar .zappy-nav-more-item > .sub-menu,html[dir="rtl"] body .navbar .zappy-nav-more-item:hover > .sub-menu,html[dir="rtl"] body .navbar .zappy-nav-more-item:focus-within > .sub-menu,html[dir="rtl"] body .navbar .zappy-nav-more-item.open > .sub-menu{left:auto!important;right:0!important;}html body .navbar .zappy-nav-more-item:not(:hover):not(:focus-within):not(.open) > .sub-menu,html body .navbar .zappy-nav-more-item:not(:hover):not(:focus-within):not(.open) > .sub-menu *{pointer-events:none!important;}html body .navbar .zappy-nav-more-item > .sub-menu{width:min(420px,calc(100vw - 24px))!important;max-width:min(420px,calc(100vw - 24px))!important;overflow-x:hidden!important;overflow-y:auto!important;box-sizing:border-box!important;}html body .navbar .zappy-nav-more-item > .sub-menu a{white-space:normal!important;overflow-wrap:anywhere!important;word-break:break-word!important;max-width:100%!important;box-sizing:border-box!important;}html body .navbar .zappy-nav-more-item .sub-menu .sub-menu,html body .navbar .zappy-nav-more-item > .sub-menu > li > .sub-menu,html body .zappy-nav-more-item [data-zappy-more-flattened]{position:static!important;display:none!important;opacity:0!important;visibility:hidden!important;pointer-events:none!important;height:0!important;overflow:hidden!important;padding:0!important;margin:0!important;box-shadow:none!important;transform:none!important;width:100%!important;max-width:100%!important;}html body .navbar .zappy-nav-more-item .zappy-more-nested-open > .sub-menu,html body .navbar .zappy-nav-more-item > .sub-menu > li.zappy-more-nested-open > .sub-menu{display:block!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important;height:auto!important;overflow-x:hidden!important;overflow-y:visible!important;padding-inline-start:12px!important;width:100%!important;max-width:100%!important;}.zappy-nav-more-item>.sub-menu>li.zappy-more-nested-parent>a{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:8px!important;width:100%!important;max-width:100%!important;box-sizing:border-box!important;}.zappy-nav-more-item>.sub-menu>li.zappy-more-nested-parent>a .dropdown-arrow{display:inline-block!important;flex:0 0 auto!important;width:12px!important;height:12px!important;margin-inline-start:auto!important;pointer-events:auto!important;cursor:pointer!important;transition:transform .2s ease!important;opacity:1!important;visibility:visible!important;}.zappy-nav-more-item>.sub-menu>li.zappy-more-nested-open>a .dropdown-arrow{transform:rotate(180deg)!important;}html body .navbar .zappy-nav-more-item:hover > .sub-menu,html body .navbar .zappy-nav-more-item:focus-within > .sub-menu,html body .navbar .zappy-nav-more-item.open > .sub-menu{pointer-events:auto!important;}}';function a(){if(!t){t=!0;try{(a=document.getElementById(e))||((a=document.createElement("style")).id=e),a.textContent!==n&&(a.textContent=n),(a.parentNode!==(document.head||document.documentElement)||a.nextSibling)&&(document.head||document.documentElement).appendChild(a),function(){for(var e=document.querySelectorAll("[data-zappy-more-flattened]"),t=0;t<e.length;t++){var n=e[t];n.style.getPropertyValue("pointer-events")&&n.style.removeProperty("pointer-events"),n.style.getPropertyValue("opacity")&&n.style.removeProperty("opacity"),n.style.getPropertyValue("visibility")&&n.style.removeProperty("visibility"),n.style.getPropertyValue("display")&&n.style.removeProperty("display")}}(),function(){var e=document.querySelector(".zappy-nav-more-item");if(e){var t=e.querySelector(":scope > .sub-menu");if(t)for(var n=t.children,a=0;a<n.length;a++){var r=n[a];if(r&&"LI"===r.tagName){for(var o=null,i=0;i<r.children.length;i++)if("UL"===r.children[i].tagName){o=r.children[i];break}if(o){r.classList.add("zappy-more-nested-parent"),r.__zappyMoreNestedUserOpened||r.classList.remove("zappy-more-nested-open");for(var s=null,l=0;l<r.children.length;l++)if("A"===r.children[l].tagName){s=r.children[l];break}if(s){var c=s.querySelector("svg.dropdown-arrow");if(!c){(c=document.createElementNS("http://www.w3.org/2000/svg","svg")).setAttribute("class","dropdown-arrow"),c.setAttribute("width","12"),c.setAttribute("height","12"),c.setAttribute("viewBox","0 0 24 24"),c.setAttribute("fill","none"),c.setAttribute("stroke","currentColor"),c.setAttribute("stroke-width","2"),c.setAttribute("aria-hidden","true");var p=document.createElementNS("http://www.w3.org/2000/svg","path");p.setAttribute("d","M6 9l6 6 6-6"),c.appendChild(p),s.appendChild(c)}r.__zappyMoreNestedBound||(r.__zappyMoreNestedBound=!0,function(e,t){t.addEventListener("click",function(t){t.preventDefault(),t.stopPropagation();var n=e.classList.toggle("zappy-more-nested-open");e.__zappyMoreNestedUserOpened=n})}(r,c))}}else r.classList.remove("zappy-more-nested-parent","zappy-more-nested-open")}}}}()}finally{t=!1}var a}}var r=!1;function o(){r||t||(r=!0,setTimeout(function(){r=!1,a()},0))}if(a(),"loading"===document.readyState&&document.addEventListener("DOMContentLoaded",o),"function"==typeof MutationObserver)new MutationObserver(o).observe(document.documentElement,{subtree:!0,childList:!0,attributes:!0,attributeFilter:["style","data-zappy-more-flattened"]})}catch(i){}}(),function(){if(!window.__zappyAnnouncementHeaderSyncV4){window.__zappyAnnouncementHeaderSyncV4=!0,window.__zappyAnnouncementHeaderSyncV3=!0,window.__zappyAnnouncementHeaderSyncV2=!0,window.__zappyAnnouncementHeaderSyncV1=!0;var e=null;"loading"===document.readyState?document.addEventListener("DOMContentLoaded",function(){a(0)}):a(0),window.addEventListener("load",function(){a(0)}),window.addEventListener("resize",function(){a(50)},{passive:!0}),window.addEventListener("zappy:languageChanged",function(){a(50)}),window.addEventListener("languageChanged",function(){a(50)}),[50,150,350,750,1500,3e3].forEach(function(e){setTimeout(n,e)});try{new MutationObserver(function(e){for(var t=0;t<e.length;t++){var n=e[t],r=n.target,o=r&&r.classList;if("childList"===n.type)for(var i=0;i<n.addedNodes.length;i++){var s=n.addedNodes[i],l=s&&s.classList;if(l&&(l.contains("zappy-announcement-bar")||l.contains("zappy-catalog-menu")||l.contains("navbar")))return void a(0)}if(r===document.body&&"class"===n.attributeName||o&&(o.contains("zappy-announcement-bar")||o.contains("zappy-catalog-menu")))return void a(0)}}).observe(document.body||document.documentElement,{childList:!0,subtree:!0,attributes:!0,attributeFilter:["class","style"]})}catch(e){}}function t(e){if(!e)return 0;var t;try{t=window.getComputedStyle(e)}catch(e){}if(t&&("none"===t.display||"hidden"===t.visibility))return 0;var n=e.getBoundingClientRect?e.getBoundingClientRect():null;return Math.ceil(n&&n.height||e.offsetHeight||0)}function n(){var e=function(){for(var e=["nav#navbar","nav.navbar",".navbar:not(.zappy-catalog-menu)",'nav[class*="nav"]',"header.navbar",'header:not([class*="gallery"]):not([class*="hero"]):not([class*="section"])'],t=0;t<e.length;t++){var n=document.querySelector(e[t]);if(n&&!(n.classList&&n.classList.contains("zappy-catalog-menu")||"zappy-catalog-menu"===n.id||n.classList&&n.classList.contains("mobile-search-panel")||"HEADER"===n.tagName&&n.closest("section")||n.classList&&(n.classList.contains("lookbook-gallery-header")||n.classList.contains("hero-header")||n.classList.contains("section-header")||n.classList.contains("page-header"))))return n}return null}(),n=document.querySelector(".zappy-announcement-bar"),a=document.querySelector(".zappy-catalog-menu"),r=t(n);if(e){e.style.setProperty("position","fixed","important"),e.style.setProperty("top",r+"px","important"),e.style.setProperty("left","0","important"),e.style.setProperty("right","0","important"),e.style.setProperty("z-index","100000","important"),e.style.marginBottom="0";var o=t(e),i=r+o;a&&t(a)>0&&(a.style.marginTop="0",a.style.setProperty("top",i+"px","important"),i+=t(a)),document.documentElement.style.setProperty("--header-height",o+"px"),document.documentElement.style.setProperty("--total-header-height",i+"px"),document.documentElement.style.setProperty("--zappy-mobile-menu-top",r+o+"px"),document.documentElement.style.setProperty("--zappy-announcement-height",r+"px"),document.documentElement.style.setProperty("--zappy-header-stack-height",i+"px"),document.body.style.setProperty("padding-top",i+"px","important");var s=document.querySelector('section[data-hero-type^="fullscreen"], .index-hero-section, main > section[class*="hero"]:first-of-type');if(s&&i>0){var l=!1;try{var c=getComputedStyle(e),p=c.backgroundColor||"",d=c.backgroundImage||"none",u=p.match(/rgba?\([^)]*[,\s]([0-9.]+)\s*\)$/i);l="none"===d&&("transparent"===p||u&&parseFloat(u[1])<.3)}catch(e){}l?(s.style.setProperty("margin-top","-"+i+"px","important"),s.style.setProperty("padding-top",i+"px","important"),s.setAttribute("data-zappy-nav-underlap","true")):("true"===s.getAttribute("data-zappy-nav-underlap")||s.style.marginTop==="-"+i+"px"&&s.style.paddingTop===i+"px")&&(s.style.removeProperty("margin-top"),s.style.removeProperty("padding-top"),s.removeAttribute("data-zappy-nav-underlap"))}}else r>0&&document.body.style.setProperty("padding-top",r+"px","important")}function a(t){e&&clearTimeout(e),e=setTimeout(n,t||0)}}(),function(){function e(e){var t=e&&e.getAttribute&&e.getAttribute("data-interval"),n=parseInt(t,10);return(!isFinite(n)||n<1e3)&&(n=4e3),n}function t(t,n,a){if(t){var r=isFinite(n)&&n>=1e3?n:e(t),o=t.querySelectorAll(".zappy-announcement-message");if(o.length<=1)return window.__zappyAnnouncementRotateTimer&&(clearInterval(window.__zappyAnnouncementRotateTimer),window.__zappyAnnouncementRotateTimer=null),window.__zappyAnnouncementRotateBar=null,void(window.__zappyAnnouncementRotateMs=null);if((a||!window.__zappyAnnouncementRotateTimer||window.__zappyAnnouncementRotateBar!==t||window.__zappyAnnouncementRotateMs!==r)&&(window.__zappyAnnouncementRotateTimer&&(clearInterval(window.__zappyAnnouncementRotateTimer),window.__zappyAnnouncementRotateTimer=null),function(e){if(e)for(var t=e.querySelectorAll(".zappy-announcement-message"),n=0;n<t.length;n++){var a=t[n];a&&a.parentNode&&a.parentNode.replaceChild(a.cloneNode(!0),a)}}(t),!((o=t.querySelectorAll(".zappy-announcement-message")).length<=1))){for(var i=0,s=0;s<o.length;s++)0===s?o[s].classList.add("active"):o[s].classList.remove("active");window.__zappyAnnouncementRotateBar=t,window.__zappyAnnouncementRotateMs=r,window.__zappyAnnouncementRotateTimer=setInterval(function(){var e=t.querySelectorAll(".zappy-announcement-message");!e||e.length<=1||(i>=e.length&&(i=0),e[i].classList.remove("active"),e[i=(i+1)%e.length].classList.add("active"))},r)}}}function n(){if(!document.body||!document.body.classList.contains("zappy-focused-page")){var n=document.querySelector(".zappy-announcement-bar");n&&t(n,e(n),!1)}}window.__zappyAnnouncementBarRotationV4||(window.__zappyAnnouncementBarRotationV4=!0,window.__zappyAnnouncementBarRotationV3=!0,window.__zappyAnnouncementBarRotationV2=!0,window.zappyStartAnnouncementRotation=t,"loading"===document.readyState?document.addEventListener("DOMContentLoaded",n):n(),[300,1e3,2500].forEach(function(e){setTimeout(n,e)}))}(),function(){function e(){var e=document.querySelector("#navMenu, .nav-menu, .navbar-menu");e&&(e.classList.remove("active"),e.classList.remove("open"),e.style.removeProperty("display"));var t=document.querySelector(".mobile-toggle, #mobileToggle");if(t){t.classList.remove("active"),t.setAttribute&&t.setAttribute("aria-expanded","false");var n=t.querySelector(".hamburger-icon"),a=t.querySelector(".close-icon");n&&n.style.setProperty("display","block","important"),a&&a.style.setProperty("display","none","important")}document.body.style.overflow=""}window.__zappyMobileMenuClosedIconsV2||(window.__zappyMobileMenuClosedIconsV2=!0,e(),"loading"===document.readyState&&document.addEventListener("DOMContentLoaded",e,{once:!0}))}(),function(){function e(){document.querySelectorAll(".zappy-products-dropdown > .mobile-categories-submenu:not(.active), li.menu-item-has-children > .mobile-categories-submenu:not(.active)").forEach(function(e){var t=e.parentElement;t&&t.querySelector(":scope > .sub-menu, :scope > ul.sub-menu")&&e.remove()})}function t(){var t=null;try{"function"==typeof window.initMobileCategoriesSubmenu&&(t=window.initMobileCategoriesSubmenu)}catch(e){}if(!t)try{"function"==typeof initMobileCategoriesSubmenu&&(t=initMobileCategoriesSubmenu)}catch(e){}if(t){var n=function(){if(!document.querySelector(".zappy-products-dropdown > .sub-menu, .zappy-products-dropdown > ul.sub-menu, #zappy-nav-category-links"))return t.apply(this,arguments);e()};try{window.initMobileCategoriesSubmenu=n}catch(e){}try{initMobileCategoriesSubmenu=n}catch(e){}}}window.__zappyMobileCategoriesSubmenuGuardV1||(window.__zappyMobileCategoriesSubmenuGuardV1=!0,function(){if(!document.getElementById("zappy-mobile-categories-submenu-css")){var e=document.createElement("style");e.id="zappy-mobile-categories-submenu-css",e.textContent=".mobile-categories-submenu{display:none!important}.mobile-categories-submenu.active{display:block!important}",(document.head||document.documentElement).appendChild(e)}}(),t(),e(),"loading"===document.readyState&&document.addEventListener("DOMContentLoaded",function(){t(),e()}),[50,200,800,1600,3200].forEach(function(n){setTimeout(function(){t(),e()},n)}))}(),function(){function e(e,t){var n=function(e){var t=window.__zappyCustomerDiscountConfig;return t&&t.discountPercent?-1!==(t.excludedProductIds||[]).indexOf(e)?null:t:null}(t);if(!n||!Number.isFinite(e)||e<=0)return{price:e,applied:!1};var a=e-e*parseFloat(n.discountPercent)/100;return!Number.isFinite(a)||a>=e?{price:e,applied:!1}:{price:a,applied:!0,originalPrice:e}}function t(e){var t=String(e||"").match(/[₪$€£]/);return t?t[0]:"₪"}function n(t,n){if(!t)return!0;if(t.getAttribute("data-customer-discount-applied"))return!0;var a=t.querySelector(".original-price");if(!a||!n)return!1;var r=(t.textContent||"").match(/[\d,.]+/g);if(!r||!r.length)return!1;var o=parseFloat(r[0].replace(/,/g,"")),i=(a.textContent||"").match(/[\d,.]+/g);if(!i||!i.length)return!1;var s=parseFloat(i[i.length-1].replace(/,/g,""));if(!Number.isFinite(o)||!Number.isFinite(s))return!1;var l=e(s,n);return!!l.applied&&Math.abs(o-l.price)<.02}function a(){window.__zappyCustomerDiscountConfig&&window.__zappyCustomerDiscountConfig.discountPercent&&document.querySelectorAll("[data-product-id]").forEach(function(a){var r=a.getAttribute("data-product-id"),o=a.querySelector(".price")||a.querySelector(".product-price");if(o&&!n(o,r)){var i=o.textContent||"",s=/(?:Starting at|החל מ)/i.test(i),l=i.match(/[\d,.]+/g);if(l&&l.length){var c=parseFloat(l[0].replace(/,/g,""));if(Number.isFinite(c)&&!(c<=0)){var p=e(c,r);if(p.applied){var d=t(i);if(s){var u=i.match(/(?:Starting at|החל מ)/i),m=u?u[0]:"Starting at";o.innerHTML=m+" "+d+p.price.toFixed(2)+' <span class="original-price">'+d+c.toFixed(2)+"</span>"}else o.innerHTML=d+p.price.toFixed(2)+' <span class="original-price">'+d+c.toFixed(2)+"</span>";o.setAttribute("data-customer-discount-applied","1")}}}}})}function r(){if(window.currentProduct&&window.__zappyCustomerDiscountConfig)if("function"==typeof window.__zappyUpdateVariantUI&&window.productTranslations)window.__zappyUpdateVariantUI(window.selectedVariant||null,window.currentProduct,window.productTranslations,{});else{var a=document.getElementById("product-price-display");if(a&&!n(a,window.currentProduct.id)){var r=a.textContent||"",o=/(?:Starting at|החל מ)/i.test(r),i=r.match(/[\d,.]+/g);if(i&&i.length){var s=parseFloat((o&&i.length>1?i[i.length-1]:i[0]).replace(/,/g,""));if(Number.isFinite(s)&&!(s<=0)){var l=e(s,window.currentProduct.id);if(l.applied){var c=t(r);if(o){var p=r.match(/(?:Starting at|החל מ)/i),d=p?p[0]:"Starting at";a.innerHTML=d+" "+c+l.price.toFixed(2)+' <span class="original-price">'+c+s.toFixed(2)+"</span>"}else a.innerHTML=c+l.price.toFixed(2)+' <span class="original-price">'+c+s.toFixed(2)+"</span>";a.setAttribute("data-customer-discount-applied","1")}}}}}}async function o(){if("function"!=typeof window.__zappyFetchCustomerDiscount){var e=window.ZAPPY_WEBSITE_ID;if(e){var t=localStorage.getItem("zappy_customer_token_"+e);if(t){try{var n=await fetch((i="/api/ecommerce/storefront/customer-discount?websiteId="+encodeURIComponent(e),s=window.ZAPPY_API_BASE||"",s.endsWith("/")&&(s=s.slice(0,-1)),s+i),{headers:{Authorization:"Bearer "+t}}),o=await n.json();o.success&&o.data&&o.data.discountPercent>0?window.__zappyCustomerDiscountConfig=o.data:window.__zappyCustomerDiscountConfig=null}catch(e){console.warn("[ZAPPY] Customer discount runtime fetch failed",e),window.__zappyCustomerDiscountConfig=null}var i,s;if(a(),r(),"function"==typeof window.loadProducts)try{window.loadProducts()}catch(e){}if("function"==typeof window.__zappyScheduleDynamicProductGridsDiscountRefresh)try{window.__zappyScheduleDynamicProductGridsDiscountRefresh()}catch(e){}[800,2500].forEach(function(e){setTimeout(r,e)})}else window.__zappyCustomerDiscountConfig=null}}else{try{await window.__zappyFetchCustomerDiscount()}catch(e){console.warn("[ZAPPY] Customer discount runtime delegate failed",e)}if(a(),r(),"function"==typeof window.loadProducts)try{window.loadProducts()}catch(e){}if("function"==typeof window.__zappyScheduleDynamicProductGridsDiscountRefresh)try{window.__zappyScheduleDynamicProductGridsDiscountRefresh()}catch(e){}[800,2500].forEach(function(e){setTimeout(r,e)})}}function i(){o();var e=document.getElementById("product-detail");e&&"undefined"!=typeof MutationObserver&&new MutationObserver(function(){r()}).observe(e,{childList:!0,subtree:!0});var t=document.getElementById("zappy-product-grid");t&&"undefined"!=typeof MutationObserver&&new MutationObserver(function(){a()}).observe(t,{childList:!0,subtree:!0})}window.__zappyCustomerDiscountRuntimeV1||(window.__zappyCustomerDiscountRuntimeV1=!0,window.__zappyApplyCustomerPercentToPrice=e,"loading"===document.readyState?document.addEventListener("DOMContentLoaded",i):i())}(),function(){if(!window.__zappyCartAutomaticDiscountRuntimeV4){window.__zappyCartAutomaticDiscountRuntimeV4=!0;var e=null,t=null,n=null,a=null,r=null,o=0,i=b;b=function(){o++;try{return i.apply(this,arguments)}finally{o--}},k(),document.addEventListener("DOMContentLoaded",k),window.addEventListener("load",function(){setTimeout(k,100)}),setTimeout(k,500),setTimeout(k,1500),document.addEventListener("click",function(e){e.target&&e.target.closest&&e.target.closest("#cart-drawer-toggle, [data-cart-toggle], .cart-link.nav-cart, a.nav-cart")&&(setTimeout(w,50),setTimeout(w,400))},!0)}function s(){return window.ZAPPY_WEBSITE_ID||document.body.getAttribute("data-website-id")||document.documentElement.getAttribute("data-website-id")||""}function l(e){var t=window.ZAPPY_API_BASE||window.location.origin||"";return t.endsWith("/")&&(t=t.slice(0,-1)),t+e}function c(e){if("function"==typeof window.zappyFormatMoney)try{return window.zappyFormatMoney(e)}catch(e){}var t="₪";try{window.zappyStoreSettings&&window.zappyStoreSettings.currencySymbol&&(t=window.zappyStoreSettings.currencySymbol)}catch(e){}return t+(parseFloat(e)||0).toFixed(2)}function p(e,t){if("function"==typeof getEcomText)try{var n=getEcomText(e,t);if(n)return n}catch(e){}return t}function d(e){if(e&&e.selectedVariant&&null!=e.selectedVariant.price&&""!==e.selectedVariant.price){var t=parseFloat(e.selectedVariant.price);if(Number.isFinite(t))return t}if(e&&null!=e.displayPrice&&""!==e.displayPrice){var n=parseFloat(e.displayPrice);if(Number.isFinite(n))return n}var a=parseFloat(e&&e.price),r=parseFloat(e&&e.sale_price);return Number.isFinite(r)&&Number.isFinite(a)&&r<a?r:Number.isFinite(a)?a:0}function u(e){var t=d(e),n=parseInt(e.quantity,10)||1,a=parseFloat(e.quantityStep||e.quantity_step)||1;return"piece"===(e.quantityUnit||e.quantity_unit||"piece")?t*n:t*(n/a)}function m(e){return String(e&&(e.productId||e.id)||"")}function y(e,t){for(var n=String(t||""),a=0;a<e.length;a++)if(String(e[a])===n)return!0;return!1}function g(e,t){for(var n={},a=0;a<e.length;a++){var r=e[a],o=parseInt(r.quantity,10),i=parseFloat(r.bundlePrice);if(!(!o||o<2||!Number.isFinite(i)||i<0)){var s=Array.isArray(r.eligibleProductIds)?r.eligibleProductIds.map(function(e){return String(e||"")}).filter(Boolean).sort():[],l="all"===r.appliesTo;if(l||0!==s.length){var c=l?"all":"products:"+s.join("|");n[c]||(n[c]={appliesToAll:l,ids:s,bundles:[]}),n[c].bundles.push({qty:o,bPrice:i})}}}var p=0;return Object.keys(n).forEach(function(e){for(var a=n[e],r=[],o=0;o<t.length;o++){var i=t[o],s=m(i);if(a.appliesToAll||y(a.ids,s))for(var l=d(i),c=parseInt(i.quantity,10)||1,u=0;u<c;u++)r.push(l)}p+=function(e,t){if(!e.length||!t.length)return 0;t.sort(function(e,t){return t-e});for(var n=[0],a=0;a<t.length;a++)n.push(n[n.length-1]+t[a]);for(var r=[0],o=1;o<=t.length;o++){for(var i=r[o-1]||0,s=0;s<e.length;s++){var l=e[s];if(!(o<l.qty)){var c=n[o]-n[o-l.qty],p=Math.max(0,c-l.bPrice);p<=0||(i=Math.max(i,(r[o-l.qty]||0)+p))}}r[o]=i}return r[t.length]||0}(a.bundles,r)}),p}function v(){if(e)return Promise.resolve(e);if(t)return t;var n=s();return n?t=fetch(l("/api/ecommerce/storefront/quantity-bundles?websiteId="+encodeURIComponent(n))).then(function(e){return e.json()}).then(function(t){return e=t&&t.success&&Array.isArray(t.data)?t.data:[]}).catch(function(){return e=[]}).finally(function(){t=null}):Promise.resolve([])}function f(){if(n)return Promise.resolve(n);if(a)return a;var e=s();return e?a=fetch(l("/api/ecommerce/storefront/seasonal-discounts?websiteId="+encodeURIComponent(e))).then(function(e){return e.json()}).then(function(e){return n=e&&e.success&&Array.isArray(e.data)?e.data:[]}).catch(function(){return n=[]}).finally(function(){a=null}):Promise.resolve([])}function h(){var e=s();if(!e)return Promise.resolve(null);var t,n,a=null;try{a=localStorage.getItem("zappy_customer_token_"+e)}catch(e){}return a?(t=window.__zappyCustomerDiscountConfig,n=parseFloat(t&&(t.discountPercent||t.discount_percent)),Number.isFinite(n)&&n>0?Promise.resolve(window.__zappyCustomerDiscountConfig):r||(r="function"==typeof window.__zappyFetchCustomerDiscount?Promise.resolve(window.__zappyFetchCustomerDiscount()).then(function(){return window.__zappyCustomerDiscountConfig||null}).catch(function(){return null}).finally(function(){r=null}):fetch(l("/api/ecommerce/storefront/customer-discount?websiteId="+encodeURIComponent(e)),{headers:{Authorization:"Bearer "+a}}).then(function(e){return e.json()}).then(function(e){return window.__zappyCustomerDiscountConfig=e&&e.success&&e.data&&e.data.discountPercent>0?e.data:null,window.__zappyCustomerDiscountConfig}).catch(function(){return window.__zappyCustomerDiscountConfig=null,null}).finally(function(){r=null}))):(window.__zappyCustomerDiscountConfig=null,Promise.resolve(null))}function b(){var t,a;t=".cart-drawer-footer .zappy-cart-summary-row{display:flex;justify-content:space-between;align-items:center;font-size:.95rem;margin-bottom:8px}.cart-drawer-footer .cart-drawer-subtotal,.cart-drawer-footer .cart-drawer-subtotal span{color:var(--zappy-cart-drawer-total-color,var(--text-light,#f9fafb))}.cart-drawer-footer .zappy-cart-discount-row{color:var(--primary-color,var(--accent,var(--primary,#059669)));font-weight:500}.cart-drawer-subtotal,.cart-drawer-bundle-discount,.cart-drawer-seasonal-discount,.cart-drawer-customer-discount{display:none}",(a=document.getElementById("zappy-cart-bundle-discount-css"))?a.textContent=t:((a=document.createElement("style")).id="zappy-cart-bundle-discount-css",a.textContent=t,(document.head||document.documentElement).appendChild(a));var r=function(){var e=document.getElementById("cart-drawer-total");if(e)return e;var t=document.querySelector("#cart-drawer .cart-drawer-total");return t?(t.innerHTML="<span>"+p("total","Total")+':</span><span id="cart-drawer-total">'+c(0)+"</span>",document.getElementById("cart-drawer-total")):null}(),o=function(){var e=document.querySelector("#cart-drawer .cart-drawer-footer");if(!e)return null;var t=e.querySelector(".cart-drawer-total");if(!t)return null;var n=e.querySelector(".cart-drawer-subtotal");n||((n=document.createElement("div")).className="cart-drawer-subtotal zappy-cart-summary-row",n.innerHTML='<span class="cart-drawer-subtotal-label"></span><span id="cart-drawer-subtotal"></span>',e.insertBefore(n,t));var a=e.querySelector(".cart-drawer-bundle-discount");a||((a=document.createElement("div")).className="cart-drawer-bundle-discount zappy-cart-summary-row zappy-cart-discount-row",a.innerHTML='<span class="cart-drawer-bundle-discount-label"></span><span id="cart-drawer-bundle-discount"></span>',e.insertBefore(a,t));var r=e.querySelector(".cart-drawer-seasonal-discount");r||((r=document.createElement("div")).className="cart-drawer-seasonal-discount zappy-cart-summary-row zappy-cart-discount-row",r.innerHTML='<span class="cart-drawer-seasonal-discount-label"></span><span id="cart-drawer-seasonal-discount"></span>',e.insertBefore(r,t));var o=e.querySelector(".cart-drawer-customer-discount");return o||((o=document.createElement("div")).className="cart-drawer-customer-discount zappy-cart-summary-row zappy-cart-discount-row",o.innerHTML='<span class="cart-drawer-customer-discount-label"></span><span id="cart-drawer-customer-discount"></span>',e.insertBefore(o,t)),{subtotalRow:n,bundleRow:a,seasonalRow:r,customerRow:o,totalRow:t}}();if(r&&o){try{var i=window.getComputedStyle(o.totalRow||r).color;i&&o.subtotalRow.style.setProperty("--zappy-cart-drawer-total-color",i)}catch(e){}var l=function(){var e=s();if(!e)return[];try{var t=JSON.parse(localStorage.getItem("zappy_cart_"+e)||"[]");return Array.isArray(t)?t:[]}catch(e){return[]}}();if(!l.length)return o.subtotalRow.style.display="none",o.bundleRow.style.display="none",o.seasonalRow.style.display="none",o.customerRow.style.display="none",r.setAttribute("data-zappy-auto-discount","0"),void(r.textContent=c(0));var d=function(e){for(var t=0,n=0;n<e.length;n++)t+=u(e[n]);return t}(l),v=g(e||[],l),f=function(e,t){for(var n=0,a=0;a<e.length;a++){for(var r=e[a],o=Array.isArray(r.product_ids)?r.product_ids:[],i="all"===r.applies_to||0===o.length,s=0,l=0;l<t.length;l++){var c=t[l];(i||y(o,m(c)))&&(s+=u(c))}var p=parseFloat(r.value);!Number.isFinite(p)||s<=0||("percentage"===r.type?n+=s*p/100:"fixed"===r.type&&(n+=Math.min(p,s)))}return n}(n||[],l),h=function(e){var t=window.__zappyCustomerDiscountConfig,n=parseFloat(t&&(t.discountPercent||t.discount_percent));if(!Number.isFinite(n)||n<=0)return 0;for(var a=Array.isArray(t.excludedProductIds)?t.excludedProductIds:Array.isArray(t.excluded_product_ids)?t.excluded_product_ids:[],r=0,o=0;o<e.length;o++){var i=e[o];y(a,m(i))||(r+=u(i))}return r>0?r*n/100:0}(l),b=(v||0)+(f||0)+(h||0);b>d&&(b=d);var w=d-b,x=b>.005,z=b,k=Math.min(Math.max(v||0,0),z);z-=k;var C=Math.min(Math.max(f||0,0),z);z-=C;var P=Math.min(Math.max(h||0,0),z);if(o.subtotalRow.style.display=x?"flex":"none",o.bundleRow.style.display=k>.005?"flex":"none",o.seasonalRow.style.display=C>.005?"flex":"none",o.customerRow.style.display=P>.005?"flex":"none",x){var A=o.subtotalRow.querySelector(".cart-drawer-subtotal-label");A&&(A.textContent=p("subtotal","Subtotal")+":");var S=document.getElementById("cart-drawer-subtotal");S&&(S.textContent=c(d))}if(k>.005){var E=o.bundleRow.querySelector(".cart-drawer-bundle-discount-label");E&&(E.textContent=p("bundleDiscount","Bundle Discount")+":");var L=document.getElementById("cart-drawer-bundle-discount");L&&(L.textContent="-"+c(k))}if(C>.005){var _=o.seasonalRow.querySelector(".cart-drawer-seasonal-discount-label");_&&(_.textContent=p("seasonalDiscount","Seasonal Discount")+":");var I=document.getElementById("cart-drawer-seasonal-discount");I&&(I.textContent="-"+c(C))}if(P>.005){var B=o.customerRow.querySelector(".cart-drawer-customer-discount-label");B&&(B.textContent=p("customerDiscount","Customer Discount")+":");var q=document.getElementById("cart-drawer-customer-discount");q&&(q.textContent="-"+c(P))}r.setAttribute("data-zappy-auto-discount",String(b)),r.textContent=c(w)}}function w(){Promise.all([v(),f(),h()]).then(function(){b()})}function x(e){var t=window[e];"function"!=typeof t||t.__zappyAutomaticDiscountWrappedV4||(window[e]=function(){var e=t.apply(this,arguments);return w(),e},window[e].__zappyAutomaticDiscountWrappedV4=!0)}function z(){var e;x("zappyAddToCart"),x("zappyUpdateQty"),x("zappyRemoveFromCart"),"function"!=typeof(e=window.zappyRenderCartDrawer)||e.__zappyAutomaticDiscountWrappedV4||(window.zappyRenderCartDrawer=function(){var t=e.apply(this,arguments);return w(),t},window.zappyRenderCartDrawer.__zappyAutomaticDiscountWrappedV4=!0)}function k(){z(),function(){var e=document.getElementById("cart-drawer");if(e&&!e.__zappyAutomaticDiscountObservedV4){e.__zappyAutomaticDiscountObservedV4=!0,e.__zappyAutomaticDiscountObservedV3=!0;var t=!1;new MutationObserver(function(){e.classList.contains("active")&&(o>0||t||(t=!0,setTimeout(function(){t=!1,o>0||w()},0)))}).observe(e,{attributes:!0,attributeFilter:["class"],childList:!0,subtree:!0})}}(),w()}}(),function(){var e="zappy-cart-bundle-summary-color-css",t=".cart-drawer-footer .zappy-cart-summary-row{display:flex;justify-content:space-between;align-items:center;font-size:.95rem;margin-bottom:8px}.cart-drawer-footer .cart-drawer-subtotal,.cart-drawer-footer .cart-drawer-subtotal span{color:var(--zappy-cart-drawer-total-color,var(--text-light,#f9fafb))}.cart-drawer-footer .zappy-cart-discount-row{color:var(--primary-color,var(--accent,var(--primary,#059669)));font-weight:500}",n=document.getElementById(e);if(n)n.textContent=t;else{var a=document.createElement("style");a.id=e,a.textContent=t,(document.head||document.documentElement).appendChild(a)}function r(){var e=document.querySelector(".cart-drawer-footer"),t=document.querySelector(".cart-drawer-footer .cart-drawer-total");if(e&&t)try{var n=getComputedStyle(t).color;n&&e.style.setProperty("--zappy-cart-drawer-total-color",n)}catch(e){}}r(),document.addEventListener("DOMContentLoaded",r),window.addEventListener("load",r),setTimeout(r,50),setTimeout(r,500)}();
+
+/* ZAPPY_STOREFRONT_FETCH_COALESCE_V1 */
+(function(){
+  if (window.__zappyStorefrontFetchCoalesceV1 || typeof window.fetch !== 'function' || typeof window.Response !== 'function') return;
+  window.__zappyStorefrontFetchCoalesceV1 = true;
+  var nativeFetch = window.fetch.bind(window);
+  var cache = {};
+  function cacheableUrl(input, init) {
+    var method = init && init.method ? String(init.method).toUpperCase() : 'GET';
+    if (method !== 'GET') return '';
+    var url = typeof input === 'string' ? input : (input && input.url) || '';
+    if (!/\/api\/ecommerce\/storefront\/(?:settings|categories)\?/.test(url)) return '';
+    return url;
+  }
+  window.fetch = function(input, init) {
+    var key = cacheableUrl(input, init);
+    if (!key) return nativeFetch(input, init);
+    if (!cache[key]) {
+      cache[key] = nativeFetch(input, init).then(function(response) {
+        return response.text().then(function(body) {
+          var cached = {
+            body: body,
+            status: response.status,
+            statusText: response.statusText,
+            headers: Array.from(response.headers.entries()),
+            ok: response.ok
+          };
+          // Never keep failed/non-OK responses for the page lifetime —
+          // later callers must be able to retry the network.
+          if (!cached.ok) delete cache[key];
+          return cached;
+        });
+      }).catch(function(error) {
+        delete cache[key];
+        throw error;
+      });
+    }
+    return cache[key].then(function(cached) {
+      return new Response(cached.body, {
+        status: cached.status,
+        statusText: cached.statusText,
+        headers: cached.headers
+      });
+    });
+  };
+})();
+
+document.addEventListener('DOMContentLoaded', function () {
+
+  // ============================================================
+  // 1. SMOOTH SCROLL FOR ANCHOR LINKS
+  // ============================================================
+  document.body.addEventListener('click', function (e) {
+    const target = e.target.closest('a[href^="#"]');
+    if (!target) return;
+
+    const hash = target.getAttribute('href');
+    if (!hash || hash === '#') return;
+
+    const destination = document.querySelector(hash);
+    if (!destination) return;
+
+    e.preventDefault();
+
+    const navbarEl = document.querySelector('.navbar, nav, header');
+    const navbarHeight = navbarEl ? navbarEl.offsetHeight : 0;
+    const elementTop = destination.getBoundingClientRect().top + window.pageYOffset;
+    const offsetPosition = elementTop - navbarHeight;
+
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: 'smooth'
+    });
+
+    if (history.pushState) {
+      history.pushState(null, null, hash);
+    }
+  });
+
+  // ============================================================
+  // 2. NAVBAR SCROLL EFFECT
+  // ============================================================
+  const navbar = document.querySelector('.navbar, nav, header');
+
+  if (navbar) {
+    const SCROLL_THRESHOLD = 50;
+
+    function handleNavbarScroll() {
+      if (window.pageYOffset > SCROLL_THRESHOLD) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    }
+
+    let navbarTicking = false;
+    window.addEventListener('scroll', function () {
+      if (!navbarTicking) {
+        window.requestAnimationFrame(function () {
+          handleNavbarScroll();
+          navbarTicking = false;
+        });
+        navbarTicking = true;
+      }
+    }, { passive: true });
+
+    handleNavbarScroll();
+  }
+
+  // ============================================================
+  // 3. CONTACT FORM VALIDATION
+  // ============================================================
+  const contactForm = document.querySelector('.contact-form');
+
+  if (contactForm) {
+    const VALIDATION_RULES = {
+      required: function (value) {
+        return value.trim() !== '';
+      },
+      email: function (value) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
+      },
+      minLength: function (value, length) {
+        return value.trim().length >= parseInt(length, 10);
+      },
+      phone: function (value) {
+        return /^[\+]?[\d\s\-\(\)]{7,20}$/.test(value.trim());
+      }
+    };
+
+    function getErrorMessage(rule, field) {
+      const label = field.closest('.form-group, .field-wrapper, label')
+        ? (field.closest('.form-group, .field-wrapper')
+            ? (field.closest('.form-group, .field-wrapper').querySelector('label')
+                ? field.closest('.form-group, .field-wrapper').querySelector('label').textContent.trim()
+                : field.name || field.id || 'This field')
+            : field.name || field.id || 'This field')
+        : field.name || field.id || 'This field';
+
+      const messages = {
+        required: label + ' is required.',
+        email: 'Please enter a valid email address.',
+        minLength: label + ' is too short.',
+        phone: 'Please enter a valid phone number.'
+      };
+      return messages[rule] || label + ' is invalid.';
+    }
+
+    function showError(field, message) {
+      clearError(field);
+
+      field.classList.add('is-invalid');
+      field.setAttribute('aria-invalid', 'true');
+
+      const errorEl = document.createElement('span');
+      errorEl.className = 'form-error-message';
+      errorEl.setAttribute('role', 'alert');
+      errorEl.setAttribute('aria-live', 'polite');
+      errorEl.textContent = message;
+
+      const parent = field.closest('.form-group, .field-wrapper') || field.parentNode;
+      parent.appendChild(errorEl);
+
+      const errorId = 'error-' + (field.id || field.name || Math.random().toString(36).substr(2, 9));
+      errorEl.id = errorId;
+      field.setAttribute('aria-describedby', errorId);
+    }
+
+    function clearError(field) {
+      field.classList.remove('is-invalid');
+      field.classList.remove('is-valid');
+      field.removeAttribute('aria-invalid');
+
+      const parent = field.closest('.form-group, .field-wrapper') || field.parentNode;
+      const existingError = parent.querySelector('.form-error-message');
+      if (existingError) {
+        existingError.remove();
+      }
+
+      field.removeAttribute('aria-describedby');
+    }
+
+    function markValid(field) {
+      clearError(field);
+      field.classList.add('is-valid');
+    }
+
+    function validateField(field) {
+      if (field.type === 'submit' || field.type === 'button' || field.type === 'reset' || field.type === 'hidden') {
+        return true;
+      }
+
+      const value = field.type === 'checkbox' ? field.checked.toString() : field.value;
+      const isRequired = field.hasAttribute('required') || field.dataset.required === 'true';
+      const fieldType = field.type;
+      const minLength = field.getAttribute('minlength') || field.dataset.minLength;
+
+      if (isRequired && !VALIDATION_RULES.required(fieldType === 'checkbox' ? (field.checked ? 'checked' : '') : value)) {
+        showError(field, getErrorMessage('required', field));
+        return false;
+      }
+
+      if (value.trim() === '' && !isRequired) {
+        clearError(field);
+        return true;
+      }
+
+      if (fieldType === 'email' && value.trim() !== '') {
+        if (!VALIDATION_RULES.email(value)) {
+          showError(field, getErrorMessage('email', field));
+          return false;
+        }
+      }
+
+      if (fieldType === 'tel' && value.trim() !== '') {
+        if (!VALIDATION_RULES.phone(value)) {
+          showError(field, getErrorMessage('phone', field));
+          return false;
+        }
+      }
+
+      if (minLength && value.trim() !== '') {
+        if (!VALIDATION_RULES.minLength(value, minLength)) {
+          showError(field, getErrorMessage('minLength', field));
+          return false;
+        }
+      }
+
+      markValid(field);
+      return true;
+    }
+
+    function validateForm() {
+      const fields = contactForm.querySelectorAll('input, textarea, select');
+      let isFormValid = true;
+      let firstInvalidField = null;
+
+      fields.forEach(function (field) {
+        const isValid = validateField(field);
+        if (!isValid && !firstInvalidField) {
+          firstInvalidField = field;
+          isFormValid = false;
+        } else if (!isValid) {
+          isFormValid = false;
+        }
+      });
+
+      if (firstInvalidField) {
+        firstInvalidField.focus();
+      }
+
+      return isFormValid;
+    }
+
+    contactForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const isValid = validateForm();
+
+      if (isValid) {
+        contactForm.classList.add('form-submitted');
+        const submitBtn = contactForm.querySelector('[type="submit"]');
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.setAttribute('aria-busy', 'true');
+        }
+
+        const successEvent = new CustomEvent('formValidationSuccess', {
+          detail: { form: contactForm },
+          bubbles: true
+        });
+        contactForm.dispatchEvent(successEvent);
+      } else {
+        contactForm.classList.add('form-has-errors');
+        setTimeout(function () {
+          contactForm.classList.remove('form-has-errors');
+        }, 600);
+      }
+    });
+
+    contactForm.addEventListener('blur', function (e) {
+      const field = e.target;
+      if (field.tagName === 'INPUT' || field.tagName === 'TEXTAREA' || field.tagName === 'SELECT') {
+        if (field.type !== 'submit' && field.type !== 'button' && field.type !== 'reset') {
+          validateField(field);
+        }
+      }
+    }, true);
+
+    contactForm.addEventListener('input', function (e) {
+      const field = e.target;
+      if (field.classList.contains('is-invalid')) {
+        validateField(field);
+      }
+    });
+  }
+
+  // ============================================================
+  // 4. SCROLL ANIMATIONS (FADE-IN ON SCROLL)
+  // ============================================================
+  const ANIMATION_CLASSES = [
+    '.fade-in',
+    '.fade-in-up',
+    '.fade-in-down',
+    '.fade-in-left',
+    '.fade-in-right',
+    '.slide-up',
+    '.slide-in',
+    '.animate-on-scroll',
+    '.reveal'
+  ];
+
+  const animatedElements = document.querySelectorAll(ANIMATION_CLASSES.join(', '));
+
+  if (animatedElements.length > 0) {
+    if ('IntersectionObserver' in window) {
+      const observerOptions = {
+        root: null,
+        rootMargin: '0px 0px -60px 0px',
+        threshold: 0.1
+      };
+
+      const intersectionCallback = function (entries, observer) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            const el = entry.target;
+            const delay = el.dataset.delay || el.dataset.animationDelay || '0';
+
+            if (delay && parseFloat(delay) > 0) {
+              setTimeout(function () {
+                el.classList.add('is-visible', 'animated');
+              }, parseFloat(delay) * 1000);
+            } else {
+              el.classList.add('is-visible', 'animated');
+            }
+
+            observer.unobserve(el);
+          }
+        });
+      };
+
+      const scrollObserver = new IntersectionObserver(intersectionCallback, observerOptions);
+
+      animatedElements.forEach(function (el) {
+        el.classList.add('animation-ready');
+        scrollObserver.observe(el);
+      });
+
+    } else {
+      animatedElements.forEach(function (el) {
+        el.classList.add('is-visible', 'animated', 'animation-ready');
+      });
+    }
+  }
+
+  // ============================================================
+  // RTL SUPPORT UTILITIES
+  // ============================================================
+  (function initRTL() {
+    const isRTL = document.documentElement.dir === 'rtl' ||
+                  document.body.dir === 'rtl' ||
+                  getComputedStyle(document.documentElement).direction === 'rtl';
+
+    if (isRTL) {
+      document.documentElement.classList.add('is-rtl');
+
+      const rtlEvent = new CustomEvent('rtlDetected', {
+        detail: { isRTL: true },
+        bubbles: true
+      });
+      document.dispatchEvent(rtlEvent);
+    }
+  })();
+
+});
+/* === NAVBAR SCROLL JS OVERRIDE START === */
+(function(){var nb=document.querySelector('nav.navbar,.navbar:not(.zappy-catalog-menu)');var cm=document.querySelector('.zappy-catalog-menu,#zappy-catalog-menu');if(!nb)return;var bodyBg=getComputedStyle(document.body).backgroundColor||'rgb(0,0,0)';var m=bodyBg.match(/\d+/g);var cr=m?parseInt(m[0]):0,cg=m?parseInt(m[1]):0,cb=m?parseInt(m[2]):0;var fb='rgba('+cr+','+cg+','+cb+',0.85)';var sR=cr/255,sG=cg/255,sB=cb/255;sR=sR<=0.03928?sR/12.92:Math.pow((sR+0.055)/1.055,2.4);sG=sG<=0.03928?sG/12.92:Math.pow((sG+0.055)/1.055,2.4);sB=sB<=0.03928?sB/12.92:Math.pow((sB+0.055)/1.055,2.4);var lum=0.2126*sR+0.7152*sG+0.0722*sB;var rs=getComputedStyle(document.documentElement);var td=rs.getPropertyValue('--text-dark').trim()||'#1a1a1a';var tl=rs.getPropertyValue('--text-light').trim()||'#ffffff';var st=(lum>0.4)?td:tl;var th=60;var neSel='a,.navbar-brand,.navbar-brand a,.dropdown-toggle,.mobile-toggle,.phone-header-btn,.mobile-hamburger-btn,.mobile-close-btn,.mobile-submenu-toggle,.nav-link';var skipCls=['cart-link','login-link','nav-search-toggle','search-toggle','nav-cta-btn'];function sTC(c,clr){var els=c.querySelectorAll(neSel);for(var i=0;i<els.length;i++){var sk=false;if(els[i].closest('.sub-menu')||els[i].closest('.dropdown-menu')){sk=true;}for(var j=0;j<skipCls.length;j++){if(els[i].classList.contains(skipCls[j])){sk=true;break;}}if(!sk)els[i].style.setProperty('color',clr,'important');}}function cTC(c){var els=c.querySelectorAll(neSel);for(var i=0;i<els.length;i++){if(els[i].closest('.sub-menu')||els[i].closest('.dropdown-menu'))continue;els[i].style.removeProperty('color');}}function onS(){if(window._zappyNavOverrideActive)return;if(window._zappyNavNoDarkHero)return;if(window.innerWidth<=768){nb.style.removeProperty('background');nb.style.removeProperty('background-color');nb.style.removeProperty('background-image');nb.style.removeProperty('--frosted-text');nb.style.backdropFilter='';nb.style.webkitBackdropFilter='';nb.style.boxShadow='';nb.classList.remove('scrolled');cTC(nb);if(cm){cm.style.removeProperty('background');cm.style.removeProperty('background-color');cm.style.removeProperty('backdrop-filter');cm.style.removeProperty('-webkit-backdrop-filter');cm.classList.remove('scrolled');cTC(cm);}return;}var y=window.scrollY||window.pageYOffset;if(y>th){nb.classList.add('scrolled');nb.style.setProperty('background-color',fb,'important');nb.style.setProperty('background-image','none','important');nb.style.setProperty('--frosted-text',st);nb.style.backdropFilter='blur(12px)';nb.style.webkitBackdropFilter='blur(12px)';nb.style.boxShadow='0 2px 16px rgba(0,0,0,0.12)';sTC(nb,st);if(cm){cm.classList.add('scrolled');cm.style.setProperty('background',fb,'important');cm.style.setProperty('backdrop-filter','blur(12px)','important');cm.style.setProperty('-webkit-backdrop-filter','blur(12px)','important');sTC(cm,st);}}else{if(window._zappyNavNoDarkHero)return;nb.classList.remove('scrolled');nb.style.setProperty('background-color','transparent','important');nb.style.removeProperty('background-image');nb.style.removeProperty('--frosted-text');nb.style.backdropFilter='none';nb.style.webkitBackdropFilter='none';nb.style.boxShadow='none';cTC(nb);if(cm){cm.classList.remove('scrolled');cm.style.setProperty('background','transparent','important');cm.style.setProperty('backdrop-filter','none','important');cm.style.setProperty('-webkit-backdrop-filter','none','important');cTC(cm);}}}if(window._zappyNavScrollCleanup)window._zappyNavScrollCleanup();window.addEventListener('scroll',onS,{passive:true});window.addEventListener('resize',onS,{passive:true});window._zappyNavScrollCleanup=function(){window.removeEventListener('scroll',onS);window.removeEventListener('resize',onS);};onS();function sLum(rv,gv,bv){rv/=255;gv/=255;bv/=255;rv=rv<=0.03928?rv/12.92:Math.pow((rv+0.055)/1.055,2.4);gv=gv<=0.03928?gv/12.92:Math.pow((gv+0.055)/1.055,2.4);bv=bv<=0.03928?bv/12.92:Math.pow((bv+0.055)/1.055,2.4);return 0.2126*rv+0.7152*gv+0.0722*bv;}var heroEl=document.querySelector('section[class*="hero"],[data-hero-type],main>section:first-child');var hasDH=false;if(heroEl){var hCs=getComputedStyle(heroEl);var hBI=hCs.backgroundImage;if(hBI&&hBI!=='none'){if(hBI.indexOf('url(')!==-1){var hM2=hCs.backgroundColor.match(/\d+/g);if(hM2&&hM2.length>=3){hasDH=sLum(parseInt(hM2[0]),parseInt(hM2[1]),parseInt(hM2[2]))<0.4;}else{hasDH=true;}}else if(hBI.indexOf('gradient')!==-1){var cM=hBI.match(/rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/g);if(cM&&cM.length>0){var tLm=0;for(var ci=0;ci<cM.length;ci++){var pts=cM[ci].match(/\d+/g);tLm+=sLum(parseInt(pts[0]),parseInt(pts[1]),parseInt(pts[2]));}hasDH=(tLm/cM.length)<0.4;}else{hasDH=true;}}else{hasDH=true;}}else{var hM=hCs.backgroundColor.match(/\d+/g);if(hM&&hM.length>=3){hasDH=sLum(parseInt(hM[0]),parseInt(hM[1]),parseInt(hM[2]))<0.4;}}}if(!hasDH){window.removeEventListener('scroll',onS);window.removeEventListener('resize',onS);delete window._zappyNavScrollCleanup;nb.classList.add('scrolled');if(window.innerWidth>768){nb.style.setProperty('--frosted-text',st);nb.style.setProperty('background-image','none','important');nb.style.setProperty('background-color',fb,'important');nb.style.backdropFilter='blur(12px)';nb.style.webkitBackdropFilter='blur(12px)';nb.style.boxShadow='0 2px 16px rgba(0,0,0,0.12)';sTC(nb,st);}if(cm){cm.classList.add('scrolled');if(window.innerWidth>768){cm.style.setProperty('background',fb,'important');cm.style.setProperty('backdrop-filter','blur(12px)','important');cm.style.setProperty('-webkit-backdrop-filter','blur(12px)','important');sTC(cm,st);}}window._zappyNavNoDarkHero=true;var origNbR=nb.classList.remove.bind(nb.classList);nb._origClassListRemove=origNbR;nb.classList.remove=function(){var a=[];for(var i=0;i<arguments.length;i++){if(arguments[i]!=='scrolled')a.push(arguments[i]);}if(a.length>0)origNbR.apply(null,a);};if(cm){var origCmR=cm.classList.remove.bind(cm.classList);cm._origClassListRemove=origCmR;cm.classList.remove=function(){var a=[];for(var i=0;i<arguments.length;i++){if(arguments[i]!=='scrolled')a.push(arguments[i]);}if(a.length>0)origCmR.apply(null,a);};}}})();
+/* === NAVBAR SCROLL JS OVERRIDE END === */
+
+
+/* Accessibility Features */
+
+/* Mickidum Accessibility Toolbar Initialization - Zappy Style */
+
+window.onload = function() {
+    
+    try { /* ZAPPY_A11Y_DYNAMIC_LANG */
+        var htmlEl = document.documentElement;
+        var pageLang = (htmlEl.getAttribute('lang') || 'en').toLowerCase().split('-')[0];
+        var pageDir = (htmlEl.getAttribute('dir') || '').toLowerCase();
+        var rtlLangs = ['he', 'ar', 'fa', 'ur', 'yi', 'iw'];
+        var isPageRTL = pageDir === 'rtl' || rtlLangs.indexOf(pageLang) !== -1;
+        var buttonSide = isPageRTL ? 'left' : 'right';
+        var langMap = { en: 'en-US', es: 'es-ES', fr: 'fr-FR', de: 'de-DE', it: 'it-IT', pt: 'pt-PT', nl: 'nl-NL', he: 'he-IL', ar: 'ar-SA' };
+        var forceLang = langMap[pageLang] || 'en-US';
+        var iconPos = { bottom: { size: 50, units: 'px' }, type: 'fixed' };
+        iconPos[buttonSide] = { size: 20, units: 'px' };
+        window.micAccessTool = new MicAccessTool({
+            buttonPosition: buttonSide,
+            forceLang: forceLang,
+            icon: { position: iconPos, backgroundColor: 'transparent', color: 'transparent', img: 'accessible', circular: false },
+            menu: { dimensions: { width: { size: 300, units: 'px' }, height: { size: 'auto', units: 'px' } } }
+        });
+    } catch (error) {}
+    
+    // Keyboard shortcut handler: ALT+A (Option+A on Mac) to toggle accessibility widget visibility (desktop only)
+    document.addEventListener('keydown', function(event) {
+        // Check if ALT+A is pressed (ALT on Windows/Linux, Option on Mac)
+        var isAltOrOption = event.altKey;
+        // Use event.code for reliable physical key detection (works regardless of Option key character output)
+        var isAKey = event.code === 'KeyA' || event.keyCode === 65 || event.which === 65 || 
+                      (event.key && (event.key.toLowerCase() === 'a' || event.key === 'å' || event.key === 'Å'));
+        
+        if (isAltOrOption && isAKey) {
+            // Only work on desktop (screen width > 768px)
+            if (window.innerWidth > 768) {
+                event.preventDefault();
+                event.stopPropagation();
+                
+                // Toggle visibility class on body
+                var isVisible = document.body.classList.contains('accessibility-widget-visible');
+                
+                if (isVisible) {
+                    // Hide the widget
+                    document.body.classList.remove('accessibility-widget-visible');
+                } else {
+                    // Show the widget
+                    document.body.classList.add('accessibility-widget-visible');
+                    
+                    // After a short delay, click the button to open the menu
+                    setTimeout(function() {
+                        var accessButton = document.getElementById('mic-access-tool-general-button');
+                        if (accessButton) {
+                            accessButton.click();
+                        }
+                    }, 200);
+                }
+            }
+        }
+    }, true);
+};
+
+
+// Zappy Contact Form API Integration (Fallback)
+(function() {
+    if (window.zappyContactFormLoaded) {
+        console.log('📧 Zappy contact form already loaded');
+        return;
+    }
+    window.zappyContactFormLoaded = true;
+
+    function zappyNotify(message, type) {
+        var existing = document.querySelectorAll('.zappy-notification');
+        existing.forEach(function(el) { el.remove(); });
+        var el = document.createElement('div');
+        el.className = 'zappy-notification';
+        var bg = type === 'success' ? '#d4edda' : type === 'error' ? '#f8d7da' : '#d1ecf1';
+        var fg = type === 'success' ? '#155724' : type === 'error' ? '#721c24' : '#0c5460';
+        var border = type === 'success' ? '#c3e6cb' : type === 'error' ? '#f5c6cb' : '#bee5eb';
+        var icon = type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️';
+        el.style.cssText = 'position:fixed;top:20px;right:20px;max-width:400px;padding:16px;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,0.15);z-index:10000;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;font-size:14px;line-height:1.4;animation:slideInRight .3s ease-out;background:' + bg + ';color:' + fg + ';border:1px solid ' + border;
+        el.innerHTML = '<span style="margin-right:8px">' + icon + '</span>' + message + '<button onclick="this.parentElement.remove()" style="background:none;border:none;font-size:18px;cursor:pointer;float:right;opacity:.7;padding:0 0 0 12px">&times;</button>';
+        if (!document.getElementById('zappy-notify-anim')) {
+            var s = document.createElement('style');
+            s.id = 'zappy-notify-anim';
+            s.textContent = '@keyframes slideInRight{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}';
+            document.head.appendChild(s);
+        }
+        document.body.appendChild(el);
+        setTimeout(function() { if (el.parentElement) el.remove(); }, type === 'error' ? 8000 : 5000);
+    }
+
+    function initContactFormIntegration() {
+        console.log('📧 Zappy: Initializing contact form API integration...');
+
+        var contactForm = document.querySelector('.contact-form') || 
+                           document.querySelector('form[action*="contact"]') ||
+                           document.querySelector('form#contact') ||
+                           document.querySelector('form#contactForm') ||
+                           document.getElementById('contactForm') ||
+                           document.querySelector('section.contact form') ||
+                           document.querySelector('section#contact form') ||
+                           document.querySelector('form');
+        
+        if (!contactForm) {
+            console.log('⚠️ Zappy: No contact form found on page');
+            return;
+        }
+        
+        console.log('✅ Zappy: Contact form found:', contactForm.className || contactForm.id || 'unnamed form');
+
+    contactForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        // Validate privacy consent checkbox if present (required for GDPR)
+        var privacyCheckbox = this.querySelector('.privacy-consent-checkbox');
+        if (privacyCheckbox && !privacyCheckbox.checked) {
+            zappyNotify('Please accept the Terms & Conditions and Privacy Policy to continue', 'error');
+            privacyCheckbox.focus();
+            return;
+        }
+
+        // Collect form data with multi-value support (checkboxes, multi-selects)
+        var formData = new FormData(this);
+        var data = {};
+        for (var pair of formData.entries()) {
+            if (data[pair[0]] !== undefined) {
+                if (Array.isArray(data[pair[0]])) data[pair[0]].push(pair[1]);
+                else data[pair[0]] = [data[pair[0]], pair[1]];
+            } else {
+                data[pair[0]] = pair[1];
+            }
+        }
+
+        // Smart field mapping
+        var _coreNameFields = ['name','firstName','first_name','fname','lastName','last_name','lname'];
+        var _coreEmailFields = ['email','emailAddress','mail','e-mail'];
+        var _corePhoneFields = ['phone','tel','telephone','mobile','cellphone'];
+        var _coreMsgFields = ['message','msg','comments','comment','description','details','notes','body','text','inquiry'];
+        var _coreSubjectFields = ['subject','topic','regarding','re'];
+        var _allCoreFields = [].concat(_coreNameFields, _coreEmailFields, _corePhoneFields, _coreMsgFields, _coreSubjectFields);
+
+        var resolvedName = (data.name || '').trim()
+            || [data.firstName || data.first_name || data.fname || '', data.lastName || data.last_name || data.lname || ''].filter(Boolean).join(' ').trim()
+            || (data.email || data.emailAddress || data.mail || '').trim()
+            || 'Anonymous';
+        var resolvedEmail = (data.email || data.emailAddress || data.mail || data['e-mail'] || '').trim();
+        var resolvedPhone = data.phone || data.tel || data.telephone || data.mobile || data.cellphone || null;
+        var resolvedSubject = data.subject || data.topic || data.regarding || data.re || 'Contact Form Submission';
+        var resolvedMessage = (data.message || data.msg || data.comments || data.comment || data.description || data.details || data.body || data.text || data.inquiry || '').trim();
+        if (!resolvedMessage) {
+            var extraEntries = Object.entries(data).filter(function(e) { return _allCoreFields.indexOf(e[0]) === -1; });
+            if (extraEntries.length > 0) {
+                resolvedMessage = extraEntries.map(function(e) {
+                    var label = e[0].replace(/([A-Z])/g, ' $1').replace(/[_-]/g, ' ').trim();
+                    var val = Array.isArray(e[1]) ? e[1].join(', ') : e[1];
+                    return label + ': ' + val;
+                }).join('\n');
+            } else {
+                resolvedMessage = 'Form submission from ' + window.location.pathname;
+            }
+        }
+
+        var extraFields = {};
+        for (var k of Object.keys(data)) {
+            if (_allCoreFields.indexOf(k) === -1 && data[k] !== '' && data[k] !== null && data[k] !== undefined) {
+                extraFields[k] = data[k];
+            }
+        }
+
+        // Loading state
+        var submitBtn = this.querySelector('button[type="submit"], input[type="submit"]');
+        var originalText = submitBtn ? (submitBtn.value || submitBtn.textContent) : '';
+        if (submitBtn) {
+            if (submitBtn.tagName === 'INPUT') submitBtn.value = 'Sending...';
+            else submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+        }
+
+        var currentPagePath = window.location.pathname;
+        if (window.ZAPPY_CONFIG && window.ZAPPY_CONFIG.currentPagePath) {
+            currentPagePath = window.ZAPPY_CONFIG.currentPagePath;
+        } else {
+            try {
+                var p = new URLSearchParams(window.location.search).get('page');
+                if (p) currentPagePath = p;
+            } catch (ignored) {}
+        }
+
+        var theForm = this;
+        try {
+            console.log('📧 Zappy: Sending contact form to backend API...');
+            var apiBase = (window.ZAPPY_API_BASE || 'https://api.zappy5.com').replace(/\/$/, '');
+            var payload = {
+                websiteId: 'c0b48f4a-a208-4018-9fa5-ae9d5deae5b3',
+                name: resolvedName,
+                email: resolvedEmail,
+                subject: resolvedSubject,
+                message: resolvedMessage,
+                phone: resolvedPhone,
+                currentPagePath: currentPagePath
+            };
+            if (Object.keys(extraFields).length > 0) {
+                payload.extraFields = extraFields;
+            }
+            var response = await fetch(apiBase + '/api/email/contact-form', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            var result = await response.json();
+            
+            if (result.success) {
+                console.log('✅ Zappy: Contact form data sent successfully to backend');
+
+                // Thank-you page redirect
+                if (result.thankYouPagePath && result.ticketNumber) {
+                    var ticketParam = 'ticket=' + encodeURIComponent(result.ticketNumber);
+                    var isPreview = window.location.pathname.indexOf('/preview') !== -1;
+                    var thankYouUrl;
+                    if (isPreview && window.ZAPPY_CONFIG) {
+                        var wid = window.ZAPPY_CONFIG.websiteId || 'c0b48f4a-a208-4018-9fa5-ae9d5deae5b3';
+                        var pt = window.location.pathname.indexOf('fullscreen') !== -1 ? 'preview-fullscreen' : 'preview';
+                        thankYouUrl = window.location.origin + '/api/website/' + pt + '/' + wid + '?page=' + encodeURIComponent(result.thankYouPagePath) + '&' + ticketParam;
+                        if (window.ZAPPY_CONFIG.authToken) thankYouUrl += '&auth_token=' + encodeURIComponent(window.ZAPPY_CONFIG.authToken);
+                    } else {
+                        thankYouUrl = result.thankYouPagePath + '?' + ticketParam;
+                    }
+                    window.location.href = thankYouUrl;
+                    return;
+                }
+
+                var _siteLang = document.documentElement.lang || '';
+                var _isHeSite = _siteLang === 'he' || (_siteLang !== 'ar' && document.documentElement.dir === 'rtl');
+                var _isArSite = _siteLang === 'ar';
+                var _successFallback = _isHeSite ? 'ההודעה שלך נשלחה בהצלחה! נחזור אליך בהקדם.' : _isArSite ? 'تم إرسال رسالتك بنجاح! سنرد عليك قريبًا.' : 'Thank you for your message! We\'ll get back to you soon.';
+                zappyNotify(result.message || _successFallback, 'success');
+                theForm.reset();
+            } else {
+                console.log('⚠️ Zappy: Backend returned error:', result.error);
+                var _isHeSiteErr = _siteLang === 'he' || (_siteLang !== 'ar' && document.documentElement.dir === 'rtl');
+                var _isArSiteErr = _siteLang === 'ar';
+                var _errFallback = _isHeSiteErr ? 'שליחת ההודעה נכשלה. אנא נסו שוב.' : _isArSiteErr ? 'فشل في إرسال الرسالة. يرجى المحاولة مرة أخرى.' : 'Failed to send message. Please try again.';
+                zappyNotify(result.error || _errFallback, 'error');
+            }
+        } catch (error) {
+            console.error('❌ Zappy: Failed to send to backend API:', error);
+            var _isHeSiteNet = _siteLang === 'he' || (_siteLang !== 'ar' && document.documentElement.dir === 'rtl');
+            var _isArSiteNet = _siteLang === 'ar';
+            var _netFallback = _isHeSiteNet ? 'לא ניתן לשלוח הודעה כרגע. אנא נסו שוב מאוחר יותר.' : _isArSiteNet ? 'لا يمكن إرسال الرسالة الآن. يرجى المحاولة مرة أخرى لاحقًا.' : 'Unable to send message right now. Please try again later.';
+            zappyNotify(_netFallback, 'error');
+        } finally {
+            if (submitBtn) {
+                if (submitBtn.tagName === 'INPUT') submitBtn.value = originalText;
+                else submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }
+        }
+        }, true);
+
+        console.log('✅ Zappy: Contact form API integration initialized');
+    } // End of initContactFormIntegration
+    
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initContactFormIntegration);
+    } else {
+        initContactFormIntegration();
+    }
+})();
+
+
+/* Added Component Script */
+/* Optional: accessible keyboard navigation for gallery items */
+document.addEventListener('DOMContentLoaded', function () {
+  const items = document.querySelectorAll('.villa-gallery-item');
+  items.forEach(function (item) {
+    item.setAttribute('tabindex', '0');
+    item.setAttribute('role', 'button');
+    const img = item.querySelector('.villa-gallery-img');
+    if (img) {
+      item.setAttribute('aria-label', img.getAttribute('alt') || 'תמונת גלריה');
+    }
+    item.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        item.click();
+      }
+    });
+  });
+});
+
+/* Added Component Script */
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('bookingForm');
+  const phoneInput = document.getElementById('phone');
+  const checkInInput = document.getElementById('checkIn');
+  const checkOutInput = document.getElementById('checkOut');
+
+  // Set minimum dates for check-in and check-out
+  const today = new Date();
+  const todayStr = today.toISOString().split('T')[0];
+  const tomorrow = new Date(today);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const tomorrowStr = tomorrow.toISOString().split('T')[0];
+
+  checkInInput.setAttribute('min', todayStr);
+  checkOutInput.setAttribute('min', tomorrowStr);
+
+  // Update check-out min when check-in changes
+  checkInInput.addEventListener('change', function() {
+    const checkInDate = new Date(this.value);
+    if (!isNaN(checkInDate.getTime())) {
+      const nextDay = new Date(checkInDate);
+      nextDay.setDate(nextDay.getDate() + 1);
+      const nextDayStr = nextDay.toISOString().split('T')[0];
+      checkOutInput.setAttribute('min', nextDayStr);
+      if (checkOutInput.value && checkOutInput.value <= this.value) {
+        checkOutInput.value = '';
+      }
+    }
+  });
+
+  // Phone formatting
+  phoneInput.addEventListener('input', function(e) {
+    let value = this.value.replace(/[^\d]/g, '');
+    if (value.length > 10) value = value.slice(0, 10);
+    this.value = value;
+  });
+
+  function showError(fieldId, message) {
+    const errorEl = document.getElementById(fieldId + 'Error');
+    const inputEl = document.getElementById(fieldId);
+    if (errorEl) {
+      errorEl.textContent = message;
+      errorEl.classList.add('visible');
+    }
+    if (inputEl) {
+      inputEl.classList.add('error');
+    }
+  }
+
+  function clearError(fieldId) {
+    const errorEl = document.getElementById(fieldId + 'Error');
+    const inputEl = document.getElementById(fieldId);
+    if (errorEl) {
+      errorEl.textContent = '';
+      errorEl.classList.remove('visible');
+    }
+    if (inputEl) {
+      inputEl.classList.remove('error');
+    }
+  }
+
+  function clearAllErrors() {
+    const fields = ['fullName', 'phone', 'email', 'checkIn', 'checkOut', 'guests'];
+    fields.forEach(clearError);
+  }
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    clearAllErrors();
+
+    let isValid = true;
+    const fullName = document.getElementById('fullName').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const checkIn = document.getElementById('checkIn').value;
+    const checkOut = document.getElementById('checkOut').value;
+    const guests = document.getElementById('guests').value;
+    const notes = document.getElementById('notes').value.trim();
+
+    // Validation
+    if (!fullName) {
+      showError('fullName', 'נא להזין שם מלא');
+      isValid = false;
+    } else if (fullName.length < 2) {
+      showError('fullName', 'שם חייב להכיל לפחות 2 תווים');
+      isValid = false;
+    }
+
+    if (!phone) {
+      showError('phone', 'נא להזין מספר טלפון');
+      isValid = false;
+    } else if (!/^\d{9,10}$/.test(phone)) {
+      showError('phone', 'נא להזין מספר טלפון תקין (9-10 ספרות)');
+      isValid = false;
+    }
+
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      showError('email', 'נא להזין כתובת אימייל תקינה');
+      isValid = false;
+    }
+
+    if (!checkIn) {
+      showError('checkIn', 'נא לבחור תאריך כניסה');
+      isValid = false;
+    }
+
+    if (!checkOut) {
+      showError('checkOut', 'נא לבחור תאריך יציאה');
+      isValid = false;
+    } else if (checkIn && checkOut && checkOut <= checkIn) {
+      showError('checkOut', 'תאריך יציאה חייב להיות אחרי תאריך כניסה');
+      isValid = false;
+    }
+
+    if (!guests) {
+      showError('guests', 'נא לבחור מספר אורחים');
+      isValid = false;
+    }
+
+    if (!isValid) return;
+
+    // Build WhatsApp message
+    let message = 'היי, הגיעה הזמנה חדשה מוילה בית הלוגים:%0A%0A';
+    message += '*שם מלא:* ' + encodeURIComponent(fullName) + '%0A';
+    message += '*טלפון:* ' + encodeURIComponent(phone) + '%0A';
+    if (email) message += '*אימייל:* ' + encodeURIComponent(email) + '%0A';
+    message += '*תאריך כניסה:* ' + encodeURIComponent(checkIn) + '%0A';
+    message += '*תאריך יציאה:* ' + encodeURIComponent(checkOut) + '%0A';
+    message += '*מספר אורחים:* ' + encodeURIComponent(guests) + '%0A';
+    if (notes) message += '*הערות:* ' + encodeURIComponent(notes) + '%0A';
+
+    const whatsappUrl = 'https://wa.me/972528282481?text=' + message;
+
+    // Show success state briefly then redirect
+    form.classList.add('success');
+    const btn = form.querySelector('.form-submit-btn');
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '✓ נשלח בהצלחה!';
+    btn.setAttribute('disabled', 'disabled');
+
+    setTimeout(function() {
+      window.open(whatsappUrl, '_blank');
+      // Reset form after opening WhatsApp
+      form.reset();
+      form.classList.remove('success');
+      btn.innerHTML = originalText;
+      btn.removeAttribute('disabled');
+    }, 800);
+  });
+
+  // Clear errors on input
+  const allInputs = form.querySelectorAll('.form-input');
+  allInputs.forEach(function(input) {
+    input.addEventListener('input', function() {
+      const fieldId = this.id;
+      clearError(fieldId);
+    });
+    input.addEventListener('change', function() {
+      const fieldId = this.id;
+      clearError(fieldId);
+    });
+  });
+});
+
+/* Added Component Script */
+(function() {
+  const form = document.getElementById('bookingForm');
+  const successMsg = document.getElementById('bookingSuccess');
+  const checkInInput = document.getElementById('checkIn');
+  const checkOutInput = document.getElementById('checkOut');
+  const phoneInput = document.getElementById('phone');
+
+  const today = new Date().toISOString().split('T')[0];
+  checkInInput.setAttribute('min', today);
+  checkOutInput.setAttribute('min', today);
+
+  checkInInput.addEventListener('change', function() {
+    if (checkInInput.value) {
+      const nextDay = new Date(checkInInput.value);
+      nextDay.setDate(nextDay.getDate() + 1);
+      const minCheckOut = nextDay.toISOString().split('T')[0];
+      checkOutInput.setAttribute('min', minCheckOut);
+      if (checkOutInput.value && checkOutInput.value < minCheckOut) {
+        checkOutInput.value = '';
+      }
+    }
+  });
+
+  phoneInput.addEventListener('input', function() {
+    let val = phoneInput.value.replace(/[^\d]/g, '');
+    if (val.length > 2) {
+      val = val.slice(0, 3) + '-' + val.slice(3, 10);
+    }
+    phoneInput.value = val;
+  });
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    let isValid = true;
+    const fullName = document.getElementById('fullName').value.trim();
+    const phone = phoneInput.value.trim();
+    const email = document.getElementById('email').value.trim();
+    const checkIn = checkInInput.value;
+    const checkOut = checkOutInput.value;
+    const guests = document.getElementById('guests').value;
+    const notes = document.getElementById('notes').value.trim();
+
+    document.querySelectorAll('.form-input').forEach(input => {
+      input.classList.remove('invalid');
+    });
+    document.querySelectorAll('.form-error').forEach(err => {
+      err.style.display = 'none';
+    });
+
+    if (!fullName) {
+      document.getElementById('fullName').classList.add('invalid');
+      document.getElementById('fullNameError').style.display = 'block';
+      isValid = false;
+    }
+
+    const phoneRegex = /^0\d{1,2}-?\d{7}$/;
+    if (!phone || !phoneRegex.test(phone)) {
+      phoneInput.classList.add('invalid');
+      document.getElementById('phoneError').style.display = 'block';
+      isValid = false;
+    }
+
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      document.getElementById('email').classList.add('invalid');
+      document.getElementById('emailError').style.display = 'block';
+      isValid = false;
+    }
+
+    if (!checkIn) {
+      checkInInput.classList.add('invalid');
+      document.getElementById('checkInError').style.display = 'block';
+      isValid = false;
+    }
+
+    if (!checkOut) {
+      checkOutInput.classList.add('invalid');
+      document.getElementById('checkOutError').style.display = 'block';
+      isValid = false;
+    }
+
+    if (checkIn && checkOut && checkOut <= checkIn) {
+      checkOutInput.classList.add('invalid');
+      document.getElementById('checkOutError').textContent = 'תאריך יציאה חייב להיות אחרי תאריך כניסה';
+      document.getElementById('checkOutError').style.display = 'block';
+      isValid = false;
+    }
+
+    if (!guests) {
+      document.getElementById('guests').classList.add('invalid');
+      document.getElementById('guestsError').style.display = 'block';
+      isValid = false;
+    }
+
+    if (!isValid) {
+      return;
+    }
+
+    const message = encodeURIComponent(
+      `*הזמנה חדשה - וילה בית הלוגים*\n\n` +
+      `👤 *שם מלא:* ${fullName}\n` +
+      `📞 *טלפון:* ${phone}\n` +
+      (email ? `📧 *אימייל:* ${email}\n` : '') +
+      `📅 *תאריך כניסה:* ${checkIn}\n` +
+      `📅 *תאריך יציאה:* ${checkOut}\n` +
+      `👥 *מספר אורחים:* ${guests}\n` +
+      (notes ? `📝 *הערות:* ${notes}\n` : '')
+    );
+
+    const whatsappUrl = `https://wa.me/972528282481?text=${message}`;
+
+    form.style.display = 'none';
+    successMsg.classList.add('visible');
+
+    setTimeout(() => {
+      window.open(whatsappUrl, '_blank');
+    }, 600);
+  });
+
+  const style = document.createElement('style');
+  style.textContent = `
+    .form-input.invalid {
+      border-color: #e07a5f !important;
+      background: #fff8f7 !important;
+    }
+    .form-input.invalid:focus {
+      box-shadow: 0 0 0 4px rgba(224, 122, 95, 0.15) !important;
+    }
+  `;
+  document.head.appendChild(style);
+})();
+
+/* ZAPPY_CUSTOM_JS_START:e8fb5d2ecb47 */
+(function () {
+  function __zappyCustomInit() {
+    try {
+(function() {
+  const form = document.querySelector('#ai-section-1783414537408-9v7az3x #bookingForm');
+  if (!form) return;
+
+  const newForm = form.cloneNode(true);
+  form.parentNode.replaceChild(newForm, form);
+
+  // Set min dates
+  const today = new Date().toISOString().split('T')[0];
+  const checkInEl = document.getElementById('checkIn');
+  const checkOutEl = document.getElementById('checkOut');
+  if (checkInEl) checkInEl.setAttribute('min', today);
+  if (checkOutEl) checkOutEl.setAttribute('min', today);
+
+  newForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    var getVal = function(id) {
+      var el = document.getElementById(id);
+      return el ? el.value.trim() : '';
+    };
+
+    var fullName = getVal('fullName');
+    var phone = getVal('phone');
+    var email = getVal('email');
+    var checkIn = getVal('checkIn');
+    var checkOut = getVal('checkOut');
+    var guestsEl = document.getElementById('guests');
+    var guestsText = guestsEl && guestsEl.selectedIndex > 0 ? guestsEl.options[guestsEl.selectedIndex].text : '';
+    var notes = getVal('notes');
+
+    if (!fullName || !phone) {
+      alert('נא למלא לפחות שם מלא וטלפון');
+      return;
+    }
+
+    var message = 'היי, אני מעוניין/ת להתארח בוילה בית הלוגים:%0A%0A';
+    message += '👤 שם מלא: ' + encodeURIComponent(fullName) + '%0A';
+    message += '📞 טלפון: ' + encodeURIComponent(phone) + '%0A';
+    if (email) message += '📧 אימייל: ' + encodeURIComponent(email) + '%0A';
+    if (checkIn) message += '📅 תאריך כניסה: ' + encodeURIComponent(checkIn) + '%0A';
+    if (checkOut) message += '📅 תאריך יציאה: ' + encodeURIComponent(checkOut) + '%0A';
+    if (guestsText) message += '👥 מספר אורחים: ' + encodeURIComponent(guestsText) + '%0A';
+    if (notes) message += '📝 הערות: ' + encodeURIComponent(notes) + '%0A';
+
+    window.location.href = 'https://wa.me/972528282481?text=' + message;
+  });
+})();
+    } catch (e) {
+      if (typeof console !== 'undefined' && console.warn) { console.warn('[zappy-custom-js]', e); }
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', __zappyCustomInit);
+  } else {
+    __zappyCustomInit();
+  }
+})();
+/* ZAPPY_CUSTOM_JS_END:e8fb5d2ecb47 */
+
+/* ZAPPY_CUSTOM_JS_START:700d6a342985 */
+(function () {
+  function __zappyCustomInit() {
+    try {
+(function() {
+  var form = document.getElementById('bookingForm');
+  if (!form) return;
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    var fullName = (document.getElementById('fullName')?.value || '').trim();
+    var phone = (document.getElementById('phone')?.value || '').trim();
+    var email = (document.getElementById('email')?.value || '').trim();
+    var checkIn = (document.getElementById('checkIn')?.value || '').trim();
+    var checkOut = (document.getElementById('checkOut')?.value || '').trim();
+    var guests = document.getElementById('guests')?.value || '';
+    var notes = (document.getElementById('notes')?.value || '').trim();
+
+    if (!fullName) {
+      alert('נא למלא שם מלא');
+      return;
+    }
+    if (!phone) {
+      alert('נא למלא מספר טלפון');
+      return;
+    }
+
+    var message = '🌟 *הזמנה חדשה - וילה בית הלוגים* 🌟\n\n';
+    message += '👤 *שם מלא:* ' + fullName + '\n';
+    message += '📞 *טלפון:* ' + phone + '\n';
+    if (email) message += '📧 *אימייל:* ' + email + '\n';
+    if (checkIn) message += '📅 *תאריך כניסה:* ' + checkIn + '\n';
+    if (checkOut) message += '📅 *תאריך יציאה:* ' + checkOut + '\n';
+    if (guests) message += '👥 *מספר אורחים:* ' + guests + '\n';
+    if (notes) message += '📝 *הערות:* ' + notes + '\n';
+
+    var encoded = encodeURIComponent(message);
+    var waUrl = 'https://wa.me/972528282481?text=' + encoded;
+    window.location.href = waUrl;
+  });
+})();
+    } catch (e) {
+      if (typeof console !== 'undefined' && console.warn) { console.warn('[zappy-custom-js]', e); }
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', __zappyCustomInit);
+  } else {
+    __zappyCustomInit();
+  }
+})();
+/* ZAPPY_CUSTOM_JS_END:700d6a342985 */
+
+
+/* Added Component Script */
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('whatsapp-booking-form');
+  const phoneNumber = '972528282481';
+
+  // Set minimum dates for checkin/checkout
+  const today = new Date().toISOString().split('T')[0];
+  const checkinInput = document.getElementById('checkin');
+  const checkoutInput = document.getElementById('checkout');
+
+  if (checkinInput) {
+    checkinInput.setAttribute('min', today);
+  }
+
+  if (checkinInput && checkoutInput) {
+    checkinInput.addEventListener('change', function() {
+      checkoutInput.setAttribute('min', this.value);
+      if (checkoutInput.value && checkoutInput.value < this.value) {
+        checkoutInput.value = this.value;
+      }
+    });
+
+    checkoutInput.addEventListener('change', function() {
+      if (checkinInput.value && this.value < checkinInput.value) {
+        this.value = checkinInput.value;
+      }
+    });
+  }
+
+  if (form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const fullName = document.getElementById('full-name').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const guests = document.getElementById('guests').value;
+      const checkin = document.getElementById('checkin').value;
+      const checkout = document.getElementById('checkout').value;
+      const notes = document.getElementById('notes').value.trim();
+
+      // Validate required fields
+      if (!fullName || !phone || !checkin || !checkout) {
+        alert('אנא מלאו את כל שדות החובה המסומנים בכוכבית (*)');
+        return;
+      }
+
+      // Build WhatsApp message
+      let message = 'היי, הגעתי מאתר וילה בית הלוגים!\n\n';
+      message += 'אני מעוניין/ת לקבל פרטים על החופשה:\n\n';
+      message += '👤 *שם מלא:* ' + fullName + '\n';
+      message += '📞 *טלפון:* ' + phone + '\n';
+      if (email) message += '📧 *אימייל:* ' + email + '\n';
+      message += '📅 *תאריך כניסה:* ' + checkin + '\n';
+      message += '📅 *תאריך יציאה:* ' + checkout + '\n';
+      if (guests) message += '👥 *מספר אורחים:* ' + guests + '\n';
+      if (notes) message += '📝 *הערות:* ' + notes + '\n';
+      message += '\nאשמח לקבל הצעת מחיר 🙏';
+
+      // Encode message for URL
+      const encodedMessage = encodeURIComponent(message);
+      const whatsappUrl = 'https://wa.me/' + phoneNumber + '?text=' + encodedMessage;
+
+      // Open WhatsApp
+      window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+    });
+  }
+});
+
+/* ZAPPY_CUSTOM_JS_START:ae54b3d9753c */
+(function () {
+  function __zappyCustomInit() {
+    try {
+(function() {
+  var form = document.getElementById('whatsapp-booking-form');
+  if (!form) return;
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    var fullName = (document.getElementById('full-name')?.value || '').trim();
+    var phone = (document.getElementById('phone')?.value || '').trim();
+    var email = (document.getElementById('email')?.value || '').trim();
+    var checkIn = (document.getElementById('checkin')?.value || '').trim();
+    var checkOut = (document.getElementById('checkout')?.value || '').trim();
+    var guests = document.getElementById('guests')?.value || '';
+    var notes = (document.getElementById('notes')?.value || '').trim();
+
+    if (!fullName) {
+      alert('נא למלא שם מלא');
+      return;
+    }
+    if (!phone) {
+      alert('נא למלא מספר טלפון');
+      return;
+    }
+
+    var message = '🌟 *הזמנה חדשה - וילה בית הלוגים* 🌟\n\n';
+    message += '👤 *שם מלא:* ' + fullName + '\n';
+    message += '📞 *טלפון:* ' + phone + '\n';
+    if (email) message += '📧 *אימייל:* ' + email + '\n';
+    if (checkIn) message += '📅 *תאריך כניסה:* ' + checkIn + '\n';
+    if (checkOut) message += '📅 *תאריך יציאה:* ' + checkOut + '\n';
+    if (guests) message += '👥 *מספר אורחים:* ' + guests + '\n';
+    if (notes) message += '📝 *הערות:* ' + notes + '\n';
+
+    var encoded = encodeURIComponent(message);
+    var waUrl = 'https://wa.me/972528282481?text=' + encoded;
+    window.location.href = waUrl;
+  });
+})();
+    } catch (e) {
+      if (typeof console !== 'undefined' && console.warn) { console.warn('[zappy-custom-js]', e); }
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', __zappyCustomInit);
+  } else {
+    __zappyCustomInit();
+  }
+})();
+/* ZAPPY_CUSTOM_JS_END:ae54b3d9753c */
+
+
+/* Added Component Script */
+(function() {
+  const floatBtn = document.querySelector('.wa-float-btn');
+  const formWrapper = document.getElementById('wa-lead-form');
+  const closeBtn = document.querySelector('.wa-close-btn');
+  const form = document.getElementById('wa-contact-form');
+  const successEl = document.querySelector('.wa-success');
+  const phoneInput = document.getElementById('wa-phone');
+
+  // Pulse animation
+  floatBtn.classList.add('pulse');
+
+  // Open form
+  floatBtn.addEventListener('click', function() {
+    formWrapper.classList.add('active');
+    floatBtn.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+    // Focus first input
+    setTimeout(() => {
+      document.getElementById('wa-name').focus();
+    }, 350);
+  });
+
+  // Close form
+  function closeForm() {
+    formWrapper.classList.remove('active');
+    floatBtn.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+    floatBtn.focus();
+  }
+
+  closeBtn.addEventListener('click', closeForm);
+
+  formWrapper.addEventListener('click', function(e) {
+    if (e.target === formWrapper) {
+      closeForm();
+    }
+  });
+
+  // Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && formWrapper.classList.contains('active')) {
+      closeForm();
+    }
+  });
+
+  // Phone formatting
+  phoneInput.addEventListener('input', function(e) {
+    let val = e.target.value.replace(/[^\d]/g, '');
+    if (val.length > 10) val = val.slice(0, 10);
+    if (val.length > 7) {
+      val = val.slice(0, 3) + '-' + val.slice(3);
+    } else if (val.length > 3) {
+      val = val.slice(0, 3) + '-' + val.slice(3);
+    }
+    e.target.value = val;
+  });
+
+  // Form validation
+  function showError(input, message) {
+    const field = input.closest('.wa-field');
+    const errorEl = field.querySelector('.wa-error');
+    input.classList.add('error');
+    if (errorEl) errorEl.textContent = message;
+  }
+
+  function clearError(input) {
+    const field = input.closest('.wa-field');
+    const errorEl = field.querySelector('.wa-error');
+    input.classList.remove('error');
+    if (errorEl) errorEl.textContent = '';
+  }
+
+  function validateForm() {
+    let isValid = true;
+    const nameInput = document.getElementById('wa-name');
+    const phoneInputEl = document.getElementById('wa-phone');
+    const emailInput = document.getElementById('wa-email');
+    const privacyCheckbox = form.querySelector('input[name="privacy"]');
+
+    // Name
+    if (!nameInput.value.trim()) {
+      showError(nameInput, 'נא להזין שם מלא');
+      isValid = false;
+    } else {
+      clearError(nameInput);
+    }
+
+    // Phone
+    const phoneRaw = phoneInputEl.value.replace(/[^\d]/g, '');
+    if (!phoneRaw || phoneRaw.length < 9) {
+      showError(phoneInputEl, 'נא להזין מספר טלפון תקין');
+      isValid = false;
+    } else {
+      clearError(phoneInputEl);
+    }
+
+    // Email (optional)
+    if (emailInput.value.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value.trim())) {
+      showError(emailInput, 'נא להזין כתובת אימייל תקינה');
+      isValid = false;
+    } else {
+      clearError(emailInput);
+    }
+
+    // Privacy
+    if (!privacyCheckbox.checked) {
+      const privacyField = privacyCheckbox.closest('.wa-field');
+      const privacyError = privacyField.querySelector('.wa-error');
+      privacyError.textContent = 'יש לאשר את מדיניות הפרטיות';
+      isValid = false;
+    } else {
+      const privacyField = privacyCheckbox.closest('.wa-field');
+      const privacyError = privacyField.querySelector('.wa-error');
+      privacyError.textContent = '';
+    }
+
+    return isValid;
+  }
+
+  // Clear errors on input
+  form.querySelectorAll('.wa-input').forEach(input => {
+    input.addEventListener('input', function() {
+      clearError(this);
+    });
+  });
+
+  form.querySelector('input[name="privacy"]').addEventListener('change', function() {
+    const field = this.closest('.wa-field');
+    const errorEl = field.querySelector('.wa-error');
+    errorEl.textContent = '';
+  });
+
+  // Submit
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    if (!validateForm()) return;
+
+    const submitBtn = form.querySelector('.wa-submit-btn');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'שולח...';
+
+    // Collect data
+    const name = document.getElementById('wa-name').value.trim();
+    const phone = document.getElementById('wa-phone').value.replace(/[^\d]/g, '');
+    const email = document.getElementById('wa-email').value.trim();
+    const message = document.getElementById('wa-message').value.trim();
+
+    // Build WhatsApp message
+    let waText = encodeURIComponent('הודעה חדשה מאתר וילה בית הלוגים:\n\n');
+    waText += encodeURIComponent('שם: ' + name + '\n');
+    waText += encodeURIComponent('טלפון: ' + phone + '\n');
+    if (email) waText += encodeURIComponent('אימייל: ' + email + '\n');
+    if (message) waText += encodeURIComponent('הודעה: ' + message + '\n');
+    waText += encodeURIComponent('\nאשמח לקבל פרטים על החופשה המושלמת בצפון!');
+
+    const waNumber = '972528282481';
+    const waLink = 'https://wa.me/' + waNumber + '?text=' + waText;
+
+    // Show success
+    setTimeout(() => {
+      form.style.display = 'none';
+      successEl.classList.add('active');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'שלחו לנו הודעה';
+
+      // Open WhatsApp
+      window.open(waLink, '_blank');
+
+      // Reset after delay
+      setTimeout(() => {
+        form.style.display = '';
+        successEl.classList.remove('active');
+        form.reset();
+        closeForm();
+      }, 3000);
+    }, 800);
+  });
+})();
+
+/* Added Component Script */
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('villaContactForm');
+  const successMessage = document.getElementById('villaSuccessMessage');
+
+  if (form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const fullName = form.querySelector('#fullName').value.trim();
+      const phoneNumber = form.querySelector('#phoneNumber').value.trim();
+      const message = form.querySelector('#message').value.trim();
+
+      if (!fullName || !phoneNumber) {
+        alert('אנא מלאו את כל שדות החובה.');
+        return;
+      }
+
+      // Simulate form submission
+      form.style.display = 'none';
+      successMessage.classList.add('visible');
+
+      // Log for demo purposes (replace with actual API call)
+      console.log('Form submitted:', { fullName, phoneNumber, message });
+
+      // Optional: Reset after a few seconds
+      // setTimeout(function() {
+      //   form.reset();
+      //   form.style.display = 'flex';
+      //   successMessage.classList.remove('visible');
+      // }, 5000);
+    });
+  }
+});
+
+/* Added Component Script */
+document.addEventListener('DOMContentLoaded', function () {
+  const form = document.getElementById('fb-lead-form');
+  const thankyou = document.getElementById('fb-lead-thankyou');
+  const section = document.querySelector('.fb-lead-section');
+
+  if (!form || !thankyou) return;
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    // Basic validation
+    const name = document.getElementById('fb-lead-name').value.trim();
+    const phone = document.getElementById('fb-lead-phone').value.trim();
+
+    if (!name || !phone) {
+      alert('נא למלא שם מלא וטלפון');
+      return;
+    }
+
+    // Track Lead event via Meta Pixel
+    if (typeof fbq !== 'undefined') {
+      fbq('track', 'Lead');
+    }
+
+    // Show thank you overlay
+    thankyou.style.display = 'flex';
+
+    // Optional: hide thank you on click outside or after delay
+    thankyou.addEventListener('click', function (event) {
+      if (event.target === thankyou) {
+        thankyou.style.display = 'none';
+      }
+    });
+
+    // Auto-hide after 6 seconds
+    setTimeout(function () {
+      if (thankyou.style.display === 'flex') {
+        thankyou.style.display = 'none';
+      }
+    }, 6000);
+
+    // Reset form
+    form.reset();
+  });
+});
+
+/* ZAPPY_CUSTOM_JS_START:2c102084a9e7 */
+(function () {
+  function __zappyCustomInit() {
+    try {
+// Facebook Pixel Lead tracking for fb-lead-form
+(function() {
+  var fbForm = document.getElementById('fb-lead-form');
+  if (!fbForm) return;
+  
+  fbForm.addEventListener('submit', function(e) {
+    if (typeof fbq !== 'undefined') {
+      fbq('track', 'Lead', {content_name: 'fb_lead_form'});
+    }
+  });
+})();
+    } catch (e) {
+      if (typeof console !== 'undefined' && console.warn) { console.warn('[zappy-custom-js]', e); }
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', __zappyCustomInit);
+  } else {
+    __zappyCustomInit();
+  }
+})();
+/* ZAPPY_CUSTOM_JS_END:2c102084a9e7 */
+
+
+/* ZAPPY_PUBLISHED_LIGHTBOX_RUNTIME */
+(function(){
+  try {
+    if (window.__zappyPublishedLightboxInit) return;
+    window.__zappyPublishedLightboxInit = true;
+
+    function safeText(s){ try { return String(s || '').replace(/"/g,'&quot;'); } catch(e){ return ''; } }
+
+    function ensureOverlayForToggle(toggle){
+      try {
+        if (!toggle || !toggle.id) return;
+        if (toggle.id.indexOf('zappy-lightbox-toggle-') !== 0) return;
+        var elementId = toggle.id.replace('zappy-lightbox-toggle-','');
+        var label = document.querySelector('label.zappy-lightbox-trigger[for="' + toggle.id + '"]');
+        if (!label) return;
+
+        // If toggle is inside the label (corrupted), move it before the label so the for attribute works consistently.
+        try {
+          if (label.contains(toggle) && label.parentNode) {
+            label.parentNode.insertBefore(toggle, label);
+          }
+        } catch (e0) {}
+
+        var lightboxId = 'zappy-lightbox-' + elementId;
+        var lb = document.getElementById(lightboxId);
+        if (lb && lb.parentNode !== document.body) {
+          try { document.body.appendChild(lb); } catch (eMove) {}
+        }
+
+        if (!lb) {
+          var img = null;
+          try { img = label.querySelector('img'); } catch (eImg0) {}
+          if (!img) {
+            try { img = document.querySelector('img[data-element-id="' + elementId + '"]'); } catch (eImg1) {}
+          }
+          if (!img) return;
+
+          lb = document.createElement('div');
+          lb.id = lightboxId;
+          lb.className = 'zappy-lightbox';
+          lb.setAttribute('data-zappy-image-lightbox','true');
+          lb.style.display = 'none';
+          lb.innerHTML =
+            '<label class="zappy-lightbox-backdrop" for="' + toggle.id + '" aria-label="Close"></label>' +
+            '<div class="zappy-lightbox-content">' +
+              '<label class="zappy-lightbox-close" for="' + toggle.id + '" aria-label="Close">×</label>' +
+              '<img class="zappy-lightbox-image" src="' + safeText(img.currentSrc || img.src || img.getAttribute('src')) + '" alt="' + safeText(img.getAttribute('alt') || 'Image') + '">' +
+            '</div>';
+          document.body.appendChild(lb);
+        }
+
+        // Keep overlay image in sync at open time (in case src changed / responsive currentSrc)
+        function syncOverlayImage(){
+          try {
+            var imgCur = label.querySelector('img');
+            var imgLb = lb.querySelector('img');
+            if (imgCur && imgLb) {
+              imgLb.src = imgCur.currentSrc || imgCur.src || imgLb.src;
+              imgLb.alt = imgCur.alt || imgLb.alt;
+            }
+          } catch (eSync) {}
+        }
+
+        if (!toggle.__zappyLbBound) {
+          toggle.addEventListener('change', function(){
+            if (toggle.checked) syncOverlayImage();
+            lb.style.display = toggle.checked ? 'flex' : 'none';
+          });
+          toggle.__zappyLbBound = true;
+        }
+
+        if (!lb.__zappyLbBound) {
+          lb.addEventListener('click', function(ev){
+            try {
+              var t = ev.target;
+              if (!t) return;
+              if (t.classList && (t.classList.contains('zappy-lightbox-backdrop') || t.classList.contains('zappy-lightbox-close'))) {
+                ev.preventDefault();
+                toggle.checked = false;
+                lb.style.display = 'none';
+              }
+            } catch (e2) {}
+          });
+          lb.__zappyLbBound = true;
+        }
+
+        if (!label.__zappyLbClick) {
+          label.addEventListener('click', function(ev){
+            try {
+              if (document.body && document.body.classList && document.body.classList.contains('zappy-edit-mode')) return;
+              if (ev && ev.target && ev.target.closest && ev.target.closest('a[href],button,input,select,textarea')) return;
+              ev.preventDefault();
+              ev.stopPropagation();
+              toggle.checked = true;
+              syncOverlayImage();
+              lb.style.display = 'flex';
+            } catch (e3) {}
+          }, true);
+          label.__zappyLbClick = true;
+        }
+      } catch (e) {}
+    }
+
+    function ensureLightboxCss(){
+      try {
+        var head = document.head || document.querySelector('head');
+        if (!head || head.querySelector('style[data-zappy-image-lightbox="true"]')) return;
+        var s = document.createElement('style');
+        s.setAttribute('data-zappy-image-lightbox','true');
+        s.textContent =
+          '.zappy-lightbox{position:fixed;inset:0;background:rgba(0,0,0,.72);display:none;align-items:center;justify-content:center;z-index:9999;padding:24px;}'+
+          '.zappy-lightbox-content{position:relative;max-width:min(1100px,92vw);max-height:92vh;}'+
+          '.zappy-lightbox-content img{max-width:92vw;max-height:92vh;display:block;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.45);}'+
+          '.zappy-lightbox-close{position:absolute;top:-14px;right:-14px;width:32px;height:32px;border-radius:999px;background:#fff;color:#111;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 8px 24px rgba(0,0,0,.25);cursor:pointer;}'+
+          '.zappy-lightbox-backdrop{position:absolute;inset:0;display:block;cursor:pointer;}'+
+          'input.zappy-lightbox-toggle{position:absolute;opacity:0;pointer-events:none;}'+
+          'label.zappy-lightbox-trigger{display:contents;}'+
+          'label.zappy-lightbox-trigger{cursor:zoom-in;}'+
+          'label.zappy-lightbox-trigger [data-zappy-zoom-wrapper="true"],'+
+          'label.zappy-lightbox-trigger img{cursor:zoom-in !important;}'+
+          'input.zappy-lightbox-toggle:checked + label.zappy-lightbox-trigger + .zappy-lightbox{display:flex;}';
+        head.appendChild(s);
+      } catch(e){}
+    }
+
+    function initZappyPublishedLightboxes(){
+      try {
+        ensureLightboxCss();
+        // Repair orphaned labels (label has for=toggleId but input is missing)
+        var orphanLabels = document.querySelectorAll('label.zappy-lightbox-trigger[for^="zappy-lightbox-toggle-"]');
+        for (var i=0;i<orphanLabels.length;i++){
+          var lbl = orphanLabels[i];
+          var forId = lbl && lbl.getAttribute ? lbl.getAttribute('for') : null;
+          if (!forId) continue;
+          if (!document.getElementById(forId)) {
+            var t = document.createElement('input');
+            t.type = 'checkbox';
+            t.id = forId;
+            t.className = 'zappy-lightbox-toggle';
+            t.setAttribute('data-zappy-image-lightbox','true');
+            if (lbl.parentNode) lbl.parentNode.insertBefore(t, lbl);
+          }
+        }
+
+        var toggles = document.querySelectorAll('input.zappy-lightbox-toggle[id^="zappy-lightbox-toggle-"]');
+        for (var j=0;j<toggles.length;j++){
+          ensureOverlayForToggle(toggles[j]);
+        }
+
+        // Close on ESC if any lightbox is open
+        if (!document.__zappyLbEscBound) {
+          document.addEventListener('keydown', function(ev){
+            try {
+              if (!ev || ev.key !== 'Escape') return;
+              var openLb = document.querySelector('.zappy-lightbox[style*="display: flex"]');
+              if (openLb) {
+                var openToggle = null;
+                try {
+                  var id = openLb.id || '';
+                  if (id.indexOf('zappy-lightbox-') === 0) {
+                    openToggle = document.getElementById('zappy-lightbox-toggle-' + id.replace('zappy-lightbox-',''));
+                  }
+                } catch (e4) {}
+                if (openToggle) openToggle.checked = false;
+                openLb.style.display = 'none';
+              }
+            } catch (e5) {}
+          });
+          document.__zappyLbEscBound = true;
+        }
+      } catch (eInit) {}
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initZappyPublishedLightboxes, { once: true });
+    } else {
+      initZappyPublishedLightboxes();
+    }
+  } catch (eOuter) {}
+})();
+/* END ZAPPY_PUBLISHED_LIGHTBOX_RUNTIME */
+
+
+/* ZAPPY_PUBLISHED_ZOOM_WRAPPER_RUNTIME_V4 */
+(function(){
+  try {
+    if (window.__zappyPublishedZoomInitV4) return;
+    window.__zappyPublishedZoomInitV4 = true;
+    window.__zappyPublishedZoomInitV3 = true; // legacy guard — keep stale V3 copies inert
+
+    function isHeroBgWrapper(wrapper) {
+      var img = wrapper.querySelector('img');
+      if (img && (img.getAttribute('data-hero-bg') === 'true' || img.getAttribute('data-hero-background') === 'true')) return true;
+      var pos = (wrapper.style.position || '').replace(/\s*!important\s*/g, '').trim();
+      var w = (wrapper.style.width || '').replace(/\s*!important\s*/g, '').trim();
+      var h = (wrapper.style.height || '').replace(/\s*!important\s*/g, '').trim();
+      if (pos === 'absolute' && w === '100%' && h === '100%') return true;
+      return false;
+    }
+
+    // SYNC: These helpers must match sharedZoomCropMath.js
+    function parseObjPos(op) {
+      var x = null, y = null;
+      try {
+        if (typeof op === 'string' && op.trim()) {
+          var tokens = op.trim().toLowerCase().split(/\s+/).slice(0, 2);
+          for (var i = 0; i < tokens.length; i++) {
+            var tok = tokens[i];
+            var val;
+            if (tok === 'left') { x = 0; continue; }
+            if (tok === 'right') { x = 100; continue; }
+            if (tok === 'top') { y = 0; continue; }
+            if (tok === 'bottom') { y = 100; continue; }
+            if (tok === 'center') val = 50;
+            else if (/^-?\d*\.?\d+%$/.test(tok)) val = parseFloat(tok);
+            else val = 50;
+            if (x === null) x = val; else if (y === null) y = val;
+          }
+        }
+      } catch (e) {}
+      if (x === null || !isFinite(x)) x = 50; if (y === null || !isFinite(y)) y = 50;
+      return { x: Math.max(0, Math.min(100, x)), y: Math.max(0, Math.min(100, y)) };
+    }
+
+    function coverPercents(imgA, contA) {
+      if (!isFinite(imgA) || imgA <= 0 || !isFinite(contA) || contA <= 0)
+        return { w: 100, h: 100 };
+      if (imgA >= contA) return { w: (imgA / contA) * 100, h: 100 };
+      return { w: 100, h: (contA / imgA) * 100 };
+    }
+    function containPercents(imgA, contA) {
+      if (!isFinite(imgA) || imgA <= 0 || !isFinite(contA) || contA <= 0)
+        return { w: 100, h: 100 };
+      if (imgA >= contA) return { w: 100, h: (contA / imgA) * 100 };
+      return { w: (imgA / contA) * 100, h: 100 };
+    }
+
+    var IMAGE_SLOT_CLASS_TOKENS = ['image-wrap', 'image-tile', 'image-slot', 'card-image', 'card-media', 'media-wrap', 'portrait-wrap'];
+    function classNameHasImageSlotMarker(className) {
+      var raw = (className || '').toString().toLowerCase();
+      if (!raw.trim()) return false;
+      var classes = raw.split(/\s+/);
+      for (var c = 0; c < classes.length; c++) {
+        var segments = classes[c].split(/[^a-z0-9]+/).filter(function(s) { return !!s; });
+        for (var t = 0; t < IMAGE_SLOT_CLASS_TOKENS.length; t++) {
+          var tokenParts = IMAGE_SLOT_CLASS_TOKENS[t].split('-');
+          for (var i = 0; i <= segments.length - tokenParts.length; i++) {
+            var match = true;
+            for (var j = 0; j < tokenParts.length; j++) {
+              if (segments[i + j] !== tokenParts[j]) { match = false; break; }
+            }
+            if (match) return true;
+          }
+        }
+      }
+      return false;
+    }
+
+    function normalizeInsertedZoomParent(wrapper) {
+      try {
+        var parent = wrapper && wrapper.parentElement;
+        if (!parent) return;
+        var parentClass = (parent.className || '').toString();
+        var isInserted = / zappy-inserted-element |^zappy-inserted-element | zappy-inserted-element$|^zappy-inserted-element$/.test(' ' + parentClass + ' ');
+        if (!isInserted) return;
+        parent.style.setProperty('width', '100%', 'important');
+        parent.style.setProperty('max-width', '100%', 'important');
+        parent.style.setProperty('height', 'auto', 'important');
+        parent.style.setProperty('min-height', '0', 'important');
+        parent.style.setProperty('max-height', 'none', 'important');
+        parent.setAttribute('data-zappy-inserted-zoom-parent-normalized', '1');
+      } catch (_e) {}
+    }
+
+    function findImageSlotContainerForZoomWrapper(wrapper, maxWalk) {
+      try {
+        if (!wrapper || !wrapper.parentElement) return null;
+        var node = wrapper.parentElement;
+        for (var walk = 0; walk < (maxWalk || 4) && node && node !== document.body; walk++) {
+          var nodeClass = (node.className || '').toString();
+          if (classNameHasImageSlotMarker(nodeClass)) return node;
+
+          var nodeCS = window.getComputedStyle(node);
+          var rawClass = (node.className || '').toString();
+          var isThinAnchor = node.tagName === 'A' && nodeCS && nodeCS.display === 'contents';
+          var isUnclassedDiv = node.tagName === 'DIV' && !rawClass.trim();
+          var isInsertedEl = / zappy-inserted-element |^zappy-inserted-element | zappy-inserted-element$|^zappy-inserted-element$/.test(' ' + rawClass + ' ');
+          if (!(isThinAnchor || isUnclassedDiv || isInsertedEl)) break;
+          node = node.parentElement;
+        }
+      } catch (_e) {}
+      return null;
+    }
+
+    function hasSyncedDecorativeImageFrame(wrapper) {
+      try {
+        if (!wrapper) return false;
+        var node = wrapper.parentElement;
+        for (var walk = 0; walk < 4 && node && node !== document.body; walk++) {
+          if (node.getAttribute && node.getAttribute('data-zappy-image-frame-synced') === 'true') {
+            return true;
+          }
+          var nodeCS = window.getComputedStyle(node);
+          var rawClass = (node.className || '').toString();
+          var isThinAnchor = node.tagName === 'A' && nodeCS && nodeCS.display === 'contents';
+          var isUnclassedDiv = node.tagName === 'DIV' && !rawClass.trim();
+          var isInsertedEl = / zappy-inserted-element |^zappy-inserted-element | zappy-inserted-element$|^zappy-inserted-element$/.test(' ' + rawClass + ' ');
+          if (!(isThinAnchor || isUnclassedDiv || isInsertedEl)) break;
+          node = node.parentElement;
+        }
+      } catch (_e) {}
+      return false;
+    }
+
+    // FULL-BLEED FIRST-CHILD MEDIA: when the wrapper's parent (the image-wrap)
+    // is the first visible child of a padded card, apply negative margins on all
+    // sides equal to the card's padding so the image extends edge-to-edge of the
+    // card. Without this, every padded card leaves a visible padding "frame"
+    // around the image which users perceive as the image not filling the card.
+    // Applies on BOTH desktop and mobile — this is a layout concern, not a
+    // viewport-specific one. Skipped for hero backgrounds and full-width wrappers.
+    function applyFirstChildBleed(wrapper) {
+      try {
+        if (!wrapper || isHeroBgWrapper(wrapper)) return;
+        var widthMode = wrapper.getAttribute('data-zappy-zoom-wrapper-width-mode');
+        if (widthMode === 'full') return;
+        // Bleed only recognized image-slot wrappers that are direct children
+        // of padded card-like containers. This still handles editor-injected
+        // wrappers (card -> image-wrap -> zappy-inserted-element -> wrapper)
+        // but avoids bleeding media into full section/layout containers.
+        var slotForBleed = null;
+        var slotNode = wrapper.parentElement;
+        for (var slotWalk = 0; slotWalk < 4 && slotNode && slotNode !== document.body; slotWalk++) {
+          var slotNodeClass = (slotNode.className || '').toString();
+          if (classNameHasImageSlotMarker(slotNodeClass)) {
+            slotForBleed = slotNode;
+            break;
+          }
+          var slotNodeCS = window.getComputedStyle(slotNode);
+          var slotNodeRawClass = (slotNode.className || '').toString();
+          var slotThinAnchor = slotNode.tagName === 'A' && slotNodeCS.display === 'contents';
+          var slotUnclassedDiv = slotNode.tagName === 'DIV' && !slotNodeRawClass.trim();
+          var slotInserted = / zappy-inserted-element |^zappy-inserted-element | zappy-inserted-element$|^zappy-inserted-element$/.test(' ' + slotNodeRawClass + ' ');
+          if (!(slotThinAnchor || slotUnclassedDiv || slotInserted)) break;
+          slotNode = slotNode.parentElement;
+        }
+        var directInsertedForBleed = null;
+        if (!slotForBleed && wrapper.parentElement) {
+          var directParentClass = (wrapper.parentElement.className || '').toString();
+          var directParentIsInserted = / zappy-inserted-element |^zappy-inserted-element | zappy-inserted-element$|^zappy-inserted-element$/.test(' ' + directParentClass + ' ');
+          var directCard = wrapper.parentElement.parentElement;
+          var directCardClass = (directCard && directCard.className || '').toString().toLowerCase();
+          if (directParentIsInserted && /(card|tile|article|post|news|mention|press|journey|philosophy|feature|service)/.test(directCardClass)) {
+            directInsertedForBleed = wrapper.parentElement;
+          }
+        }
+        var bleedTarget = slotForBleed || directInsertedForBleed;
+        var card = bleedTarget && bleedTarget.parentElement;
+        var cardClass = (card && card.className || '').toString().toLowerCase();
+        var isCardLike = /(card|tile|article|post|news|mention|press|journey|philosophy|feature|service)/.test(cardClass);
+        if (!bleedTarget || !card || card === document.body || !isCardLike) return;
+        var firstVisibleChild = null;
+        for (var ci = 0; ci < card.children.length; ci++) {
+          var ch = card.children[ci];
+          var chCS = window.getComputedStyle(ch);
+          if (chCS.display !== 'none' && chCS.visibility !== 'hidden') {
+            firstVisibleChild = ch;
+            break;
+          }
+        }
+        if (firstVisibleChild !== bleedTarget) return;
+        var cardCS = window.getComputedStyle(card);
+        var padT = parseFloat(cardCS.paddingTop) || 0;
+        var padL = parseFloat(cardCS.paddingLeft) || 0;
+        var padR = parseFloat(cardCS.paddingRight) || 0;
+        if (padL <= 0 && padR <= 0 && padT <= 0) return;
+        bleedTarget.style.setProperty('margin-left', '-' + padL + 'px', 'important');
+        bleedTarget.style.setProperty('margin-right', '-' + padR + 'px', 'important');
+        bleedTarget.style.setProperty('margin-top', '-' + padT + 'px', 'important');
+        bleedTarget.style.setProperty('width', 'calc(100% + ' + (padL + padR) + 'px)', 'important');
+        bleedTarget.style.setProperty('max-width', 'calc(100% + ' + (padL + padR) + 'px)', 'important');
+        bleedTarget.style.setProperty('height', 'auto', 'important');
+        bleedTarget.style.setProperty('min-height', '0', 'important');
+        bleedTarget.style.setProperty('max-height', 'none', 'important');
+        bleedTarget.setAttribute('data-zappy-mobile-bleed', '1');
+        wrapper.style.setProperty('width', '100%', 'important');
+        wrapper.style.setProperty('max-width', '100%', 'important');
+        var bleedSW = parseFloat(wrapper.getAttribute('data-zappy-zoom-wrapper-width')) || 0;
+        var bleedSH = parseFloat(wrapper.getAttribute('data-zappy-zoom-wrapper-height')) || 0;
+        if (bleedSW > 0 && bleedSH > 0) {
+          wrapper.style.setProperty('aspect-ratio', bleedSW + '/' + bleedSH, 'important');
+          wrapper.style.setProperty('height', 'auto', 'important');
+        }
+      } catch (_e) {}
+    }
+
+    // FILL CARD-SLOT CONTAINER: stretch the wrapper to fill its parent when
+    // the parent is a designed image-slot container (class includes
+    // image-wrap / image-tile / image-slot / card-image / card-media /
+    // portrait-wrap) AND the wrapper is materially narrower than the parent.
+    // This handles the case where the saved desktop pixel width (e.g. 383px)
+    // is smaller than the rendered card slot at certain viewports / card
+    // variants (e.g. journey-card--short which is 790px wide while the saved
+    // image is 383px), leaving large empty gaps on the sides.
+    // Logos, footer brand marks, and intentionally smaller media are not
+    // matched because their parents do not carry image-slot class names.
+    // Skipped for hero backgrounds and full-width wrappers.
+    function applyCardSlotFill(wrapper, img) {
+      try {
+        if (!wrapper || isHeroBgWrapper(wrapper)) return;
+        var widthMode = wrapper.getAttribute('data-zappy-zoom-wrapper-width-mode');
+        if (widthMode === 'full') return;
+        var forceCardSlotFill = widthMode === 'card-slot' || wrapper.getAttribute('data-zappy-card-slot-fill') === '1';
+        if (hasSyncedDecorativeImageFrame(wrapper)) return;
+        // Walk UP through editor-injected / "thin" wrappers to find the real
+        // visual image-slot container. We tolerate at most 3 levels of:
+        //   - <a style="display:contents">           (editor link wrap)
+        //   - <div class="zappy-inserted-element">  (editor inserted media)
+        //   - <div> with no class                    (anonymous inline wrap)
+        var node = wrapper.parentElement;
+        var slotEl = null;
+        for (var walk = 0; walk < 3 && node && node !== document.body; walk++) {
+          var nodeClass = (node.className || '').toString();
+          if (classNameHasImageSlotMarker(nodeClass)) {
+            slotEl = node;
+            break;
+          }
+          var nodeCS = window.getComputedStyle(node);
+          var nodeRawClass = (node.className || '').toString();
+          var isThinAnchor = node.tagName === 'A' && nodeCS.display === 'contents';
+          var isUnclassedDiv = node.tagName === 'DIV' && !nodeRawClass.trim();
+          var isInsertedEl = / zappy-inserted-element |^zappy-inserted-element | zappy-inserted-element$|^zappy-inserted-element$/.test(' ' + nodeRawClass + ' ');
+          if (!(isThinAnchor || isUnclassedDiv || isInsertedEl)) break;
+          node = node.parentElement;
+        }
+        if (!slotEl) {
+          if (forceCardSlotFill) {
+            var forcedSW = parseFloat(wrapper.getAttribute('data-zappy-zoom-wrapper-width')) || 0;
+            var forcedSH = parseFloat(wrapper.getAttribute('data-zappy-zoom-wrapper-height')) || 0;
+            wrapper.style.setProperty('width', '100%', 'important');
+            wrapper.style.setProperty('max-width', '100%', 'important');
+            wrapper.style.setProperty('padding-bottom', '0', 'important');
+            if (forcedSW > 0 && forcedSH > 0) {
+              wrapper.style.setProperty('aspect-ratio', forcedSW + '/' + forcedSH, 'important');
+              wrapper.style.setProperty('height', 'auto', 'important');
+            }
+            wrapper.setAttribute('data-zappy-card-slot-fill', '1');
+          }
+          // No image-slot found. Check if the walk stopped at a card-like
+          // container and the saved width fills most of the card — this handles
+          // user-replaced images where the original image-wrap is empty and the
+          // new image is in a zappy-inserted-element sibling.
+          if (node && node !== document.body && !wrapper.getAttribute('data-zappy-card-slot-fill')) {
+            var caClass = (node.className || '').toString().toLowerCase();
+            var caIsCard = /(card|tile|article|post|news|mention|press|journey|philosophy|feature|service)/.test(caClass);
+            if (caIsCard) {
+              var caSavedW = parseFloat(wrapper.getAttribute('data-zappy-zoom-wrapper-width')) || 0;
+              var caSavedH = parseFloat(wrapper.getAttribute('data-zappy-zoom-wrapper-height')) || 0;
+              var caRect = node.getBoundingClientRect();
+              if (caSavedW > 0 && caRect.width > 0 && caSavedW >= caRect.width * 0.8) {
+                wrapper.style.setProperty('width', '100%', 'important');
+                wrapper.style.setProperty('max-width', '100%', 'important');
+                if (caSavedH > 0) {
+                  wrapper.style.setProperty('aspect-ratio', caSavedW + '/' + caSavedH, 'important');
+                  wrapper.style.setProperty('height', 'auto', 'important');
+                }
+                wrapper.setAttribute('data-zappy-card-slot-fill', '1');
+                var caInt = wrapper.parentElement;
+                for (var cai = 0; cai < 3 && caInt && caInt !== node; cai++) {
+                  var caiRaw = (caInt.className || '').toString();
+                  if (/ zappy-inserted-element |^zappy-inserted-element | zappy-inserted-element$|^zappy-inserted-element$/.test(' ' + caiRaw + ' ')) {
+                    var caHasBleed = caInt.getAttribute('data-zappy-mobile-bleed');
+                    if (!caHasBleed) {
+                      caInt.style.setProperty('width', '100%', 'important');
+                      caInt.style.setProperty('max-width', '100%', 'important');
+                    }
+                    caInt.style.setProperty('height', 'auto', 'important');
+                    caInt.style.setProperty('min-height', '0', 'important');
+                    caInt.style.setProperty('max-height', 'none', 'important');
+                    var caIsFirst = true;
+                    var caPrev = caInt.previousElementSibling;
+                    while (caPrev) {
+                      if (caPrev.getBoundingClientRect().height > 1) { caIsFirst = false; break; }
+                      caPrev = caPrev.previousElementSibling;
+                    }
+                    if (caIsFirst) {
+                      if (!caHasBleed) {
+                        caInt.style.setProperty('margin-top', '0', 'important');
+                      }
+                      caInt.style.setProperty('border-radius', 'var(--radius-card, 20px) var(--radius-card, 20px) 0 0', 'important');
+                      caInt.style.setProperty('overflow', 'hidden', 'important');
+                    }
+                  }
+                  caInt = caInt.parentElement;
+                }
+              }
+            }
+          }
+          return;
+        }
+        var slotRect = slotEl.getBoundingClientRect();
+        var wrapRect = wrapper.getBoundingClientRect();
+        var slotCS = window.getComputedStyle(slotEl);
+        var slotWidthGap = slotRect.width - wrapRect.width;
+        var slotHeightGap = wrapRect.height - slotRect.height;
+        if (!forceCardSlotFill && slotWidthGap <= 4 && !(slotHeightGap > 4 && slotRect.height > 0 && slotCS.overflow !== 'visible')) return;
+        var swStr = wrapper.getAttribute('data-zappy-zoom-wrapper-width');
+        var shStr = wrapper.getAttribute('data-zappy-zoom-wrapper-height');
+        var swNum = parseFloat(swStr) || 0;
+        var shNum = parseFloat(shStr) || 0;
+        // If the slot's height is only as tall as the wrapper, that height is
+        // content-driven by THIS wrapper (common for .home-feature-image-wrap
+        // with no CSS height). Switching to height:100% then collapses on the
+        // next layout pass because the absolute <img> no longer contributes
+        // intrinsic height — the Artistic Epoxy / nwooda middle-card bug.
+        var slotSizedByWrapper = Math.abs(slotRect.height - wrapRect.height) <= 2;
+        var canFillSlotHeight = slotRect.height > 0 && !slotSizedByWrapper &&
+          (forceCardSlotFill || (slotHeightGap > 4 && slotCS.overflow !== 'visible'));
+        wrapper.style.setProperty('width', '100%', 'important');
+        wrapper.style.setProperty('max-width', '100%', 'important');
+        if (canFillSlotHeight) {
+          wrapper.style.setProperty('height', '100%', 'important');
+          wrapper.style.setProperty('aspect-ratio', 'auto', 'important');
+          wrapper.style.setProperty('padding-bottom', '0', 'important');
+          // Recompute image crop after changing the wrapper from stale saved
+          // portrait dimensions to the real clipped slot height. Otherwise the
+          // image may keep horizontal-overflow-only sizing, making vertical
+          // object-position ineffective.
+          if (img) {
+            var finalRect = wrapper.getBoundingClientRect();
+            var nW = img.naturalWidth || 0;
+            var nH = img.naturalHeight || 0;
+            if (finalRect && finalRect.width > 0 && finalRect.height > 0 && nW > 0 && nH > 0) {
+              var finalCover = coverPercents(nW / nH, finalRect.width / finalRect.height);
+              var zAttr = parseFloat(img.getAttribute('data-zappy-mobile-zoom') || img.getAttribute('data-zappy-zoom') || '1');
+              var finalZoom = (isFinite(zAttr) && zAttr > 0) ? zAttr : 1;
+              var finalW = 100;
+              var finalH = 100;
+              if (finalZoom >= 1) {
+                finalW = finalCover.w * finalZoom;
+                finalH = finalCover.h * finalZoom;
+              } else {
+                var finalT = (finalZoom - 0.5) / 0.5;
+                if (!isFinite(finalT)) finalT = 0;
+                finalT = Math.max(0, Math.min(1, finalT));
+                finalW = 100 + finalT * (finalCover.w - 100);
+                finalH = 100 + finalT * (finalCover.h - 100);
+              }
+              var finalPos = parseObjPos(img.getAttribute('data-zappy-mobile-object-position') || img.getAttribute('data-zappy-object-position') || img.style.objectPosition || '50% 50%');
+              img.style.setProperty('position', 'absolute', 'important');
+              img.style.setProperty('left', ((100 - finalW) * (finalPos.x / 100)) + '%', 'important');
+              img.style.setProperty('top', ((100 - finalH) * (finalPos.y / 100)) + '%', 'important');
+              img.style.setProperty('width', finalW + '%', 'important');
+              img.style.setProperty('height', finalH + '%', 'important');
+              img.style.setProperty('max-width', 'none', 'important');
+              img.style.setProperty('max-height', 'none', 'important');
+              img.style.setProperty('display', 'block', 'important');
+              img.style.setProperty('object-fit', finalZoom < 1 ? 'fill' : 'cover', 'important');
+              img.style.setProperty('margin', '0', 'important');
+            }
+          }
+        } else if (swNum > 0 && shNum > 0) {
+          // Heightless / content-sized slots (and already-collapsed wrappers):
+          // keep width:100% and size via the saved aspect ratio so absolute
+          // images remain visible after refresh.
+          wrapper.style.setProperty('aspect-ratio', swNum + '/' + shNum, 'important');
+          wrapper.style.setProperty('height', 'auto', 'important');
+          wrapper.style.setProperty('padding-bottom', '0', 'important');
+        }
+        wrapper.setAttribute('data-zappy-card-slot-fill', '1');
+        // Also stretch any intermediate .zappy-inserted-element ancestors up
+        // to the slot, so an editor-inserted media wrapper with a saved
+        // desktop pixel width doesn't constrain the wrapper we just stretched
+        // to 100%.
+        var intermediate = wrapper.parentElement;
+        for (var iw = 0; iw < 3 && intermediate && intermediate !== slotEl; iw++) {
+          var iwRawClass = (intermediate.className || '').toString();
+          var iwIsInserted = / zappy-inserted-element |^zappy-inserted-element | zappy-inserted-element$|^zappy-inserted-element$/.test(' ' + iwRawClass + ' ');
+          if (iwIsInserted) {
+            intermediate.style.setProperty('width', '100%', 'important');
+            intermediate.style.setProperty('max-width', '100%', 'important');
+            intermediate.style.setProperty('height', 'auto', 'important');
+            intermediate.style.setProperty('min-height', '0', 'important');
+            intermediate.style.setProperty('max-height', 'none', 'important');
+            intermediate.setAttribute('data-zappy-inserted-stretched', '1');
+          }
+          intermediate = intermediate.parentElement;
+        }
+      } catch (_fillErr) {}
+    }
+
+    function applyZoom(wrapper, img) {
+      var zoom = parseFloat(img.getAttribute('data-zappy-zoom')) || 1;
+      if (!(zoom > 0)) zoom = 1;
+
+      var widthMode = wrapper.getAttribute('data-zappy-zoom-wrapper-width-mode');
+      if (widthMode === 'full') return;
+      if (isHeroBgWrapper(wrapper)) return;
+      normalizeInsertedZoomParent(wrapper);
+
+      var isMobile = window.innerWidth <= 768;
+      if (isMobile) {
+        var mSrc = img.getAttribute('data-zappy-mobile-src');
+        var mPos = img.getAttribute('data-zappy-mobile-object-position');
+        var mZoomStr = img.getAttribute('data-zappy-mobile-zoom');
+        var mZoom = parseFloat(mZoomStr);
+        if (mSrc) img.src = mSrc;
+
+        wrapper.style.setProperty('width', '100%', 'important');
+        wrapper.style.setProperty('max-width', '100%', 'important');
+        wrapper.style.setProperty('overflow', 'hidden', 'important');
+        wrapper.style.setProperty('position', 'relative', 'important');
+
+        var _sW = parseFloat(wrapper.getAttribute('data-zappy-zoom-wrapper-width')) || 0;
+        var _sH = parseFloat(wrapper.getAttribute('data-zappy-zoom-wrapper-height')) || 0;
+        var hasMobileOverrides = mPos || (isFinite(mZoom) && mZoom > 0);
+
+        if (hasMobileOverrides && _sW > 0 && _sH > 0) {
+          wrapper.style.setProperty('padding-bottom', '0', 'important');
+          wrapper.style.setProperty('aspect-ratio', _sW + '/' + _sH, 'important');
+          wrapper.style.setProperty('height', 'auto', 'important');
+
+          function applyMobileZoomCrop(_img, _wrapper, _effPos, _effZoom) {
+            var rect = _wrapper.getBoundingClientRect();
+            if (!rect || !rect.width || !rect.height) return;
+            var nW = _img.naturalWidth || 0, nH = _img.naturalHeight || 0;
+            if (!(nW > 0 && nH > 0)) return;
+            var imgA = nW / nH;
+            var contA = rect.width / rect.height;
+            var cover = coverPercents(imgA, contA);
+            var wP = 100, hP = 100;
+            if (_effZoom >= 1) { wP = cover.w * _effZoom; hP = cover.h * _effZoom; }
+            else { var t2 = (_effZoom - 0.5) / 0.5; if (!isFinite(t2)) t2 = 0; t2 = Math.max(0, Math.min(1, t2)); wP = 100 + t2 * (cover.w - 100); hP = 100 + t2 * (cover.h - 100); }
+            var p2 = parseObjPos(_effPos);
+            var lP = (100 - wP) * (p2.x / 100);
+            var tP = (100 - hP) * (p2.y / 100);
+            _img.style.setProperty('position', 'absolute', 'important');
+            _img.style.setProperty('left', lP + '%', 'important');
+            _img.style.setProperty('top', tP + '%', 'important');
+            _img.style.setProperty('width', wP + '%', 'important');
+            _img.style.setProperty('height', hP + '%', 'important');
+            _img.style.setProperty('max-width', 'none', 'important');
+            _img.style.setProperty('max-height', 'none', 'important');
+            _img.style.setProperty('display', 'block', 'important');
+            _img.style.setProperty('object-fit', _effZoom < 1 ? 'fill' : 'cover', 'important');
+            _img.style.setProperty('margin', '0', 'important');
+          }
+
+          var effZoom = (isFinite(mZoom) && mZoom > 0) ? mZoom : zoom;
+          var effPos = mPos || img.getAttribute('data-zappy-object-position') || img.style.objectPosition || '50% 50%';
+          applyMobileZoomCrop(img, wrapper, effPos, effZoom);
+          if (!(img.complete && img.naturalWidth > 0)) {
+            img.addEventListener('load', function _onLoad() {
+              img.removeEventListener('load', _onLoad);
+              try { applyMobileZoomCrop(img, wrapper, effPos, effZoom); } catch(e) {}
+            });
+          }
+        } else if (_sW > 0 && _sH > 0) {
+          // No mobile overrides but the wrapper has a saved desktop aspect ratio.
+          // Preserve that crop frame at mobile width and use object-fit:cover with the
+          // saved object-position. This keeps the visual layout consistent with desktop
+          // (same crop, just narrower) without applying the percentage-offset math that
+          // produced "image overflows wrapper" rendering on the previous build.
+          var _savedObjPos = img.getAttribute('data-zappy-object-position') ||
+                             img.style.objectPosition || '50% 50%';
+          wrapper.style.setProperty('aspect-ratio', _sW + '/' + _sH, 'important');
+          wrapper.style.setProperty('padding-bottom', '0', 'important');
+          wrapper.style.setProperty('height', 'auto', 'important');
+          img.style.setProperty('position', 'absolute', 'important');
+          img.style.setProperty('top', '0', 'important');
+          img.style.setProperty('left', '0', 'important');
+          img.style.setProperty('width', '100%', 'important');
+          img.style.setProperty('height', '100%', 'important');
+          img.style.setProperty('max-width', '100%', 'important');
+          img.style.setProperty('max-height', 'none', 'important');
+          img.style.setProperty('display', 'block', 'important');
+          img.style.setProperty('object-fit', 'cover', 'important');
+          img.style.setProperty('object-position', _savedObjPos, 'important');
+          img.style.removeProperty('right');
+          img.style.removeProperty('bottom');
+          img.style.setProperty('margin', '0', 'important');
+        } else {
+          // Legacy wrappers without saved dimensions — natural-aspect responsive image.
+          wrapper.style.setProperty('aspect-ratio', 'auto', 'important');
+          wrapper.style.setProperty('padding-bottom', '0', 'important');
+          wrapper.style.setProperty('height', 'auto', 'important');
+          img.style.setProperty('position', 'relative', 'important');
+          img.style.setProperty('width', '100%', 'important');
+          img.style.setProperty('height', 'auto', 'important');
+          img.style.setProperty('max-width', '100%', 'important');
+          img.style.setProperty('max-height', '300px', 'important');
+          img.style.setProperty('display', 'block', 'important');
+          img.style.setProperty('object-fit', 'cover', 'important');
+          img.style.removeProperty('left');
+          img.style.removeProperty('top');
+          img.style.setProperty('margin', '0', 'important');
+        }
+
+        applyFirstChildBleed(wrapper);
+        applyCardSlotFill(wrapper, img);
+        return;
+      }
+
+      // Desktop zoom === 1: image fills the wrapper exactly — no crop math
+      // needed. Always set 100%/100% to override any stale inline styles
+      // that may have been baked in with incorrect values.
+      if (zoom === 1) {
+        wrapper.style.setProperty('overflow', 'hidden', 'important');
+        wrapper.style.setProperty('position', 'relative', 'important');
+        img.style.setProperty('position', 'absolute', 'important');
+        img.style.setProperty('width', '100%', 'important');
+        img.style.setProperty('height', '100%', 'important');
+        img.style.setProperty('left', '0%', 'important');
+        img.style.setProperty('top', '0%', 'important');
+        img.style.setProperty('max-width', 'none', 'important');
+        img.style.setProperty('max-height', 'none', 'important');
+        img.style.setProperty('object-fit', 'cover', 'important');
+        img.style.setProperty('display', 'block', 'important');
+        img.style.setProperty('margin', '0', 'important');
+        applyFirstChildBleed(wrapper);
+        applyCardSlotFill(wrapper, img);
+        return;
+      }
+
+      // Desktop zoom > 1: if the image already has zoom styles saved from
+      // the editor (position:absolute + percentage-based width), trust
+      // them.  Sites published before the zoom-out fix had wrong values
+      // baked in for zoom < 1 (used cover*zoom instead of the
+      // interpolation formula), so those must always be recalculated.
+      var existingPos = (img.style.position || '').replace(/s*!importants*/g, '').trim();
+      var existingW = (img.style.width || '').replace(/s*!importants*/g, '').trim();
+      if (existingPos === 'absolute' && existingW.indexOf('%') !== -1 && zoom > 1) {
+        wrapper.style.setProperty('overflow', 'hidden', 'important');
+        wrapper.style.setProperty('position', 'relative', 'important');
+        applyFirstChildBleed(wrapper);
+        applyCardSlotFill(wrapper, img);
+        return;
+      }
+
+      // Image lacks saved zoom styles — calculate from scratch
+      var rect = wrapper.getBoundingClientRect();
+      if (!rect || !rect.width || !rect.height) return;
+
+      var nW = img.naturalWidth || 0, nH = img.naturalHeight || 0;
+      if (!(nW > 0 && nH > 0)) return;
+
+      var imgA = nW / nH;
+      var contA = rect.width / rect.height;
+      var cover = coverPercents(imgA, contA);
+      var contain = containPercents(imgA, contA);
+
+      var wPct = 100, hPct = 100;
+      if (zoom >= 1) {
+        wPct = cover.w * zoom;
+        hPct = cover.h * zoom;
+      } else if (zoom <= 0.5) {
+        wPct = contain.w;
+        hPct = contain.h;
+      } else {
+        var t = (zoom - 0.5) / 0.5;
+        if (!isFinite(t)) t = 0;
+        t = Math.max(0, Math.min(1, t));
+        wPct = 100 + t * (cover.w - 100);
+        hPct = 100 + t * (cover.h - 100);
+      }
+
+      var op = img.getAttribute('data-zappy-object-position') || img.style.objectPosition || window.getComputedStyle(img).objectPosition || '50% 50%';
+      var pos = parseObjPos(op);
+      var leftPct = (100 - wPct) * (pos.x / 100);
+      var topPct = (100 - hPct) * (pos.y / 100);
+
+      img.style.setProperty('position', 'absolute', 'important');
+      img.style.setProperty('left', leftPct + '%', 'important');
+      img.style.setProperty('top', topPct + '%', 'important');
+      img.style.setProperty('width', wPct + '%', 'important');
+      img.style.setProperty('height', hPct + '%', 'important');
+      img.style.setProperty('max-width', 'none', 'important');
+      img.style.setProperty('max-height', 'none', 'important');
+      img.style.setProperty('display', 'block', 'important');
+      img.style.setProperty('object-fit', zoom < 1 ? 'fill' : 'cover', 'important');
+      img.style.setProperty('margin', '0', 'important');
+      applyFirstChildBleed(wrapper);
+      applyCardSlotFill(wrapper, img);
+    }
+
+    function fixOrphanedZoomImages() {
+      if (window.innerWidth > 768) return;
+      var zoomImgs = document.querySelectorAll('img[data-zappy-zoom]');
+      for (var j = 0; j < zoomImgs.length; j++) {
+        var img = zoomImgs[j];
+        if (img.closest && img.closest('[data-zappy-zoom-wrapper="true"]')) continue;
+        // Carousel slide imgs are absolute cover-fill inside their slide —
+        // forcing position:relative + max-height here would collapse the slide.
+        if (img.closest && img.closest('.zappy-carousel-slide')) continue;
+        img.style.setProperty('position', 'relative', 'important');
+        img.style.setProperty('width', '100%', 'important');
+        img.style.setProperty('height', 'auto', 'important');
+        img.style.setProperty('max-width', '100%', 'important');
+        img.style.setProperty('max-height', '300px', 'important');
+        img.style.setProperty('object-fit', 'cover', 'important');
+        img.style.removeProperty('left');
+        img.style.removeProperty('top');
+      }
+    }
+
+    function restoreWrapperDimensions(wrapper) {
+      var widthMode = wrapper.getAttribute('data-zappy-zoom-wrapper-width-mode') || 'px';
+      if (widthMode === 'full' || widthMode === 'grid-responsive') return;
+      if (isHeroBgWrapper(wrapper)) return;
+
+      if ((widthMode === 'card-slot' || wrapper.getAttribute('data-zappy-card-slot-fill') === '1') &&
+          !findImageSlotContainerForZoomWrapper(wrapper, 4) &&
+          hasSyncedDecorativeImageFrame(wrapper)) {
+        // Older published runtimes used substring matching and could persist
+        // card-slot fill on decorative frames like "showcase-image-wrapper".
+        // Clear that stale marker so saved pixel crop dimensions win again.
+        wrapper.removeAttribute('data-zappy-card-slot-fill');
+        if (widthMode === 'card-slot') {
+          wrapper.setAttribute('data-zappy-zoom-wrapper-width-mode', 'px');
+          widthMode = 'px';
+        }
+      }
+
+      var storedW = wrapper.getAttribute('data-zappy-zoom-wrapper-width');
+      var storedH = wrapper.getAttribute('data-zappy-zoom-wrapper-height');
+      if (!storedW && !storedH) return;
+
+      if (widthMode === 'px' && storedW) {
+        var curW = (wrapper.style.width || '').replace(/s*!importants*/g, '').trim();
+        var storedWNorm = storedW.replace(/s*!importants*/g, '').trim();
+        if (!curW || curW === '100%' || curW.indexOf('%') !== -1 || curW !== storedWNorm) {
+          wrapper.style.setProperty('width', storedW, 'important');
+          wrapper.style.setProperty('max-width', '100%', 'important');
+        }
+      }
+      if (storedH) {
+        var curH = (wrapper.style.height || '').replace(/s*!importants*/g, '').trim();
+        var storedHNorm = storedH.replace(/s*!importants*/g, '').trim();
+        if (!curH || curH === 'auto' || curH === '100%' || curH.indexOf('%') !== -1 || curH !== storedHNorm) {
+          wrapper.style.setProperty('height', storedH, 'important');
+        }
+      }
+      wrapper.style.setProperty('overflow', 'hidden', 'important');
+      wrapper.style.setProperty('position', 'relative', 'important');
+    }
+
+    function fixHeroBgWrapperStyles(wrapper) {
+      if (!isHeroBgWrapper(wrapper)) return;
+      wrapper.style.setProperty('position', 'absolute', 'important');
+      wrapper.style.setProperty('top', '0', 'important');
+      wrapper.style.setProperty('left', '0', 'important');
+      wrapper.style.setProperty('width', '100%', 'important');
+      wrapper.style.setProperty('height', '100%', 'important');
+      wrapper.style.setProperty('max-width', 'none', 'important');
+      wrapper.style.setProperty('overflow', 'hidden', 'important');
+      wrapper.setAttribute('data-zappy-zoom-wrapper-width-mode', 'full');
+      var img = wrapper.querySelector('img');
+      if (img) {
+        img.style.setProperty('width', '100%', 'important');
+        img.style.setProperty('height', '100%', 'important');
+        img.style.setProperty('object-fit', 'cover', 'important');
+        img.style.setProperty('position', 'relative', 'important');
+        img.style.setProperty('top', '0', 'important');
+        img.style.setProperty('left', '0', 'important');
+        img.style.setProperty('max-width', 'none', 'important');
+        img.style.setProperty('max-height', 'none', 'important');
+        img.style.setProperty('display', 'block', 'important');
+        if (window.innerWidth <= 768) {
+          var mSrc = img.getAttribute('data-zappy-mobile-src');
+          var mPos = img.getAttribute('data-zappy-mobile-object-position');
+          var mZoom = parseFloat(img.getAttribute('data-zappy-mobile-zoom'));
+          if (mSrc) img.src = mSrc;
+          if (mPos) img.style.setProperty('object-position', mPos, 'important');
+          if (mZoom > 1) {
+            // Match the editor's wrapper-crop geometry (percentage pan window)
+            // instead of transform:scale — the scale path zooms around the
+            // focal point of the already-cropped view, which visibly diverges
+            // from what the user framed in the editor's Mobile Only tab.
+            var applyHeroMobileCrop = function() {
+              var rect = wrapper.getBoundingClientRect();
+              var nW = img.naturalWidth || 0, nH = img.naturalHeight || 0;
+              if (!rect || !rect.width || !rect.height || !(nW > 0 && nH > 0)) {
+                img.style.setProperty('transform', 'scale(' + mZoom + ')', 'important');
+                img.style.setProperty('transform-origin', mPos || '50% 50%', 'important');
+                return;
+              }
+              var cover = coverPercents(nW / nH, rect.width / rect.height);
+              var wP = cover.w * mZoom, hP = cover.h * mZoom;
+              var p = parseObjPos(mPos || img.getAttribute('data-zappy-object-position') || '50% 50%');
+              img.style.setProperty('position', 'absolute', 'important');
+              img.style.setProperty('left', ((100 - wP) * (p.x / 100)) + '%', 'important');
+              img.style.setProperty('top', ((100 - hP) * (p.y / 100)) + '%', 'important');
+              img.style.setProperty('width', wP + '%', 'important');
+              img.style.setProperty('height', hP + '%', 'important');
+              img.style.setProperty('object-fit', 'cover', 'important');
+              img.style.removeProperty('transform');
+              img.style.removeProperty('transform-origin');
+            };
+            if (img.complete && img.naturalWidth > 0) applyHeroMobileCrop();
+            else img.addEventListener('load', applyHeroMobileCrop, { once: true });
+          }
+        }
+      }
+    }
+
+    function initZoomWrappers() {
+      var wrappers = document.querySelectorAll('[data-zappy-zoom-wrapper="true"]');
+      for (var i = 0; i < wrappers.length; i++) {
+        (function(wrapper) {
+          var img = wrapper.querySelector('img');
+          if (!img) return;
+          if (wrapper.closest && wrapper.closest('.zappy-carousel-js-init, .zappy-carousel-active')) return;
+          fixHeroBgWrapperStyles(wrapper);
+          if (window.innerWidth > 768) restoreWrapperDimensions(wrapper);
+          if (img.complete && img.naturalWidth > 0) {
+            setTimeout(function() { applyZoom(wrapper, img); }, 0);
+          } else {
+            img.addEventListener('load', function onLoad() {
+              img.removeEventListener('load', onLoad);
+              applyZoom(wrapper, img);
+            }, { once: true });
+          }
+        })(wrappers[i]);
+      }
+      fixOrphanedZoomImages();
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initZoomWrappers, { once: true });
+    } else {
+      setTimeout(initZoomWrappers, 50);
+    }
+  } catch (eOuter) {}
+})();
+/* END ZAPPY_PUBLISHED_ZOOM_WRAPPER_RUNTIME */
+
+
+/* ZAPPY_PUBLISHED_MOBILE_IMAGE_SWAP_V3 */
+(function(){
+  try {
+    if (window.__zappyMobileImageSwapInitV3) return;
+    window.__zappyMobileImageSwapInitV3 = true;
+    window.__zappyMobileImageSwapInitV2 = true; // keep stale V2 copies inert
+    var SEL = 'img[data-zappy-mobile-src],img[data-zappy-mobile-object-position],img[data-zappy-mobile-zoom]';
+    var applied = false;
+    function standalone(img){ return img && !img.closest('[data-zappy-zoom-wrapper="true"]'); }
+    // SYNC: must match sharedZoomCropMath.js
+    function parseOp(op){
+      var x=null,y=null;
+      try{
+        if(typeof op==='string'&&op.trim()){
+          var toks=op.trim().toLowerCase().split(/\s+/).slice(0,2);
+          for(var i=0;i<toks.length;i++){
+            var tk=toks[i],v;
+            if(tk==='left'){x=0;continue;} if(tk==='right'){x=100;continue;}
+            if(tk==='top'){y=0;continue;} if(tk==='bottom'){y=100;continue;}
+            if(tk==='center')v=50; else if(/^-?\d*\.?\d+%$/.test(tk))v=parseFloat(tk); else v=50;
+            if(x===null)x=v; else if(y===null)y=v;
+          }
+        }
+      }catch(e){}
+      if(x===null||!isFinite(x))x=50; if(y===null||!isFinite(y))y=50;
+      return {x:Math.max(0,Math.min(100,x)),y:Math.max(0,Math.min(100,y))};
+    }
+    // Editor-parity mobile zoom: reproduce the zoom-wrapper crop geometry
+    // using the img's PARENT as the crop box (the editor builds a transient
+    // wrapper in preview, but cleanSectionHtmlForSave removes it when desktop
+    // needs no zoom — so a mobile-only zoom ships as a standalone img).
+    // Falls back to the legacy transform:scale approximation whenever the
+    // geometry can't be measured, so something always applies.
+    function applyStandaloneMobileZoom(img, mZoom, mPos){
+      try {
+        var p = img.parentElement;
+        if (!p) return;
+        if (!p._zappyDesktop) p._zappyDesktop = { style: p.getAttribute('style') };
+        p.style.setProperty('overflow', 'hidden', 'important');
+        function legacyScale(){
+          img.style.setProperty('transform', 'scale(' + mZoom + ')', 'important');
+          img.style.setProperty('transform-origin', mPos || '50% 50%', 'important');
+        }
+        function run(){
+          try {
+            var rect = p.getBoundingClientRect ? p.getBoundingClientRect() : null;
+            var nW = img.naturalWidth || 0, nH = img.naturalHeight || 0;
+            if (!rect || !(rect.width > 0) || !(rect.height > 0) || !(nW > 0 && nH > 0)) { legacyScale(); return; }
+            // Lock the parent's current box BEFORE pulling the img out of flow,
+            // otherwise the parent collapses when the img was its height source.
+            try {
+              var pcs = window.getComputedStyle(p);
+              if (pcs && pcs.position === 'static') p.style.setProperty('position', 'relative', 'important');
+              p.style.setProperty('aspect-ratio', String(Math.round((rect.width / rect.height) * 10000) / 10000), 'important');
+            } catch(e0) {}
+            var imgA = nW / nH, contA = rect.width / rect.height;
+            var cw = 100, ch = 100;
+            if (imgA >= contA) { cw = (imgA / contA) * 100; } else { ch = (contA / imgA) * 100; }
+            var wP = cw * mZoom, hP = ch * mZoom;
+            var pos = parseOp(mPos || img.getAttribute('data-zappy-object-position') || '50% 50%');
+            img.style.setProperty('position', 'absolute', 'important');
+            img.style.setProperty('left', ((100 - wP) * (pos.x / 100)) + '%', 'important');
+            img.style.setProperty('top', ((100 - hP) * (pos.y / 100)) + '%', 'important');
+            img.style.setProperty('width', wP + '%', 'important');
+            img.style.setProperty('height', hP + '%', 'important');
+            img.style.setProperty('max-width', 'none', 'important');
+            img.style.setProperty('max-height', 'none', 'important');
+            img.style.setProperty('object-fit', 'cover', 'important');
+            img.style.setProperty('margin', '0', 'important');
+            if (img.style.removeProperty) { img.style.removeProperty('transform'); img.style.removeProperty('transform-origin'); }
+          } catch(e1) { try { legacyScale(); } catch(e2) {} }
+        }
+        if (img.complete && img.naturalWidth > 0) run();
+        else if (typeof img.addEventListener === 'function') {
+          legacyScale(); // immediate approximation, refined once dimensions load
+          img.addEventListener('load', run, { once: true });
+        } else legacyScale();
+      } catch(eZ) {}
+    }
+    function applyMobile(){
+      if (applied) return; applied = true;
+      document.querySelectorAll(SEL).forEach(function(img){
+        if (!standalone(img)) return;
+        if (!img._zappyDesktop) img._zappyDesktop = { src: img.getAttribute('src'), style: img.getAttribute('style') };
+        var mSrc = img.getAttribute('data-zappy-mobile-src');
+        var mPos = img.getAttribute('data-zappy-mobile-object-position');
+        var mZoom = parseFloat(img.getAttribute('data-zappy-mobile-zoom'));
+        if (mSrc) img.src = mSrc;
+        if (mPos) img.style.setProperty('object-position', mPos, 'important');
+        if (isFinite(mZoom) && mZoom > 1) {
+          applyStandaloneMobileZoom(img, mZoom, mPos);
+        }
+      });
+    }
+    function revertDesktop(){
+      if (!applied) return; applied = false;
+      document.querySelectorAll(SEL).forEach(function(img){
+        if (!standalone(img)) return;
+        if (img._zappyDesktop) {
+          if (img._zappyDesktop.src != null) img.setAttribute('src', img._zappyDesktop.src);
+          if (img._zappyDesktop.style != null) img.setAttribute('style', img._zappyDesktop.style);
+          else img.removeAttribute('style');
+        }
+        var p = img.parentElement;
+        if (p && p._zappyDesktop) {
+          if (p._zappyDesktop.style != null) p.setAttribute('style', p._zappyDesktop.style);
+          else p.removeAttribute('style');
+        }
+      });
+    }
+    function init(){
+      var mq = window.matchMedia('(max-width:768px)');
+      function onChange(e){ if (e.matches) applyMobile(); else revertDesktop(); }
+      if (mq.matches) applyMobile();
+      try { mq.addEventListener('change', onChange); } catch (e) { mq.addListener(onChange); }
+    }
+    // script.js loads at end of <body>, so the <img> elements already exist —
+    // run immediately to minimise the desktop-image flash, with a
+    // DOMContentLoaded fallback for the head-loaded edge case.
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });
+    else init();
+  } catch (eOuter) {}
+})();
+/* END ZAPPY_PUBLISHED_MOBILE_IMAGE_SWAP_V3 */
+
+
+/* ZAPPY_MOBILE_MENU_TOGGLE_V3 */
+(function(){
+  try {
+    if (window.__zappyMobileMenuToggleInitV3) return;
+    window.__zappyMobileMenuToggleInitV3 = true;
+    window.__zappyMobileMenuToggleInit = true; // legacy guards
+
+    function menuIsOpen(menu) {
+      return !!(menu && (
+        menu.classList.contains('active') ||
+        menu.classList.contains('open') ||
+        menu.style.display === 'block'
+      ));
+    }
+
+    function closeMenu(menu) {
+      if (!menu) return;
+      menu.classList.remove('active');
+      menu.classList.remove('open');
+      menu.style.display = '';
+    }
+
+    function setClosedIcons(toggle) {
+      if (!toggle) return;
+      toggle.classList.remove('active');
+      var hamburgerIcon = toggle.querySelector('.hamburger-icon');
+      var closeIcon = toggle.querySelector('.close-icon');
+      if (hamburgerIcon) hamburgerIcon.style.setProperty('display', 'block', 'important');
+      if (closeIcon) closeIcon.style.setProperty('display', 'none', 'important');
+    }
+
+    function setOpenIcons(toggle) {
+      if (!toggle) return;
+      toggle.classList.add('active');
+      var hamburgerIcon = toggle.querySelector('.hamburger-icon');
+      var closeIcon = toggle.querySelector('.close-icon');
+      if (hamburgerIcon) hamburgerIcon.style.setProperty('display', 'none', 'important');
+      if (closeIcon) closeIcon.style.setProperty('display', 'block', 'important');
+    }
+
+    function initMobileToggle() {
+      var toggle = document.querySelector('.mobile-toggle, #mobileToggle');
+      var navMenu = document.querySelector('#navMenu, .nav-menu, .navbar-menu');
+      if (!toggle || !navMenu) return;
+
+      // Skip if this toggle already has a click handler from the site's own JS
+      if (toggle.__zappyMobileToggleBound) return;
+      toggle.__zappyMobileToggleBound = true;
+
+      // Always start closed. A save while the overlay was open bakes
+      // .nav-menu.active into HTML; repairing icons alone leaves the panel up.
+      closeMenu(navMenu);
+      setClosedIcons(toggle);
+      document.body.style.overflow = '';
+
+      toggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (menuIsOpen(navMenu)) {
+          closeMenu(navMenu);
+          setClosedIcons(toggle);
+          document.body.style.overflow = '';
+        } else {
+          navMenu.classList.add('active');
+          navMenu.classList.remove('open');
+          navMenu.style.display = 'block';
+          setOpenIcons(toggle);
+          document.body.style.overflow = 'hidden';
+        }
+      }, true);
+
+      // Close on clicking outside
+      document.addEventListener('click', function(e) {
+        if (!menuIsOpen(navMenu)) return;
+        if (toggle.contains(e.target) || navMenu.contains(e.target)) return;
+        closeMenu(navMenu);
+        setClosedIcons(toggle);
+        document.body.style.overflow = '';
+      });
+
+      // Close on Escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && menuIsOpen(navMenu)) {
+          closeMenu(navMenu);
+          setClosedIcons(toggle);
+          document.body.style.overflow = '';
+        }
+      });
+
+      // Close when clicking a nav link (navigating)
+      navMenu.querySelectorAll('a').forEach(function(link) {
+        link.addEventListener('click', function() {
+          closeMenu(navMenu);
+          setClosedIcons(toggle);
+          document.body.style.overflow = '';
+        });
+      });
+    }
+
+    function initPhoneButton() {
+      var phoneBtn = document.querySelector('.phone-header-btn');
+      if (!phoneBtn || phoneBtn.__zappyPhoneBound) return;
+      phoneBtn.__zappyPhoneBound = true;
+
+      phoneBtn.addEventListener('click', function() {
+        var phoneNumber = phoneBtn.getAttribute('data-phone') || null;
+
+        if (!phoneNumber) {
+          var telLinks = document.querySelectorAll('a[href^="tel:"]');
+          if (telLinks.length > 0) {
+            phoneNumber = telLinks[0].getAttribute('href').replace('tel:', '');
+          }
+        }
+
+        if (!phoneNumber) {
+          var allLinks = document.querySelectorAll('a[href]');
+          for (var i = 0; i < allLinks.length; i++) {
+            var h = allLinks[i].getAttribute('href') || '';
+            var cleaned = h.replace(/[-\s()]/g, '');
+            if (/^(\+?\d{9,15}|0\d{8,9})$/.test(cleaned)) {
+              phoneNumber = cleaned;
+              break;
+            }
+          }
+        }
+
+        if (phoneNumber && phoneNumber.indexOf('[') === -1) {
+          window.location.href = 'tel:' + phoneNumber;
+        }
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function() { initMobileToggle(); initPhoneButton(); }, { once: true });
+    } else {
+      initMobileToggle();
+      initPhoneButton();
+    }
+  } catch (e) {}
+})();
+/* END ZAPPY_MOBILE_MENU_TOGGLE */
+
+
+/* ZAPPY_FAQ_ACCORDION_TOGGLE */
+(function(){
+  try {
+    if (window.__zappyFaqToggleInit) return;
+    window.__zappyFaqToggleInit = true;
+
+    var answerSel = '[class*="faq-answer"], [class*="faq-content"], [class*="faq-body"], [class*="faq-item__answer"], .accordion-content, .accordion-body';
+
+    // Pick the collapsible answer element for an item WITHOUT ever choosing a
+    // wrapper that contains the question/header toggle. Some AI-generated FAQs
+    // nest the clickable question INSIDE a .faq-content wrapper; collapsing that
+    // wrapper (max-height:0/opacity:0) would hide the question itself, leaving
+    // only the number visible and nothing to click to expand. Skipping any
+    // candidate that contains the toggle keeps the header visible and collapses
+    // only the real answer body.
+    function pickAnswer(item, question) {
+      var matches = item.querySelectorAll(answerSel);
+      for (var i = 0; i < matches.length; i++) {
+        var el = matches[i];
+        if (el === question) continue;
+        if (question && el.contains(question)) continue;
+        return el;
+      }
+      // No safe collapsible found (only wrappers that hold the toggle): leave
+      // the content expanded rather than hiding the question.
+      return null;
+    }
+
+    function initFaqToggle() {
+      var items = document.querySelectorAll('[class*="faq-item"], .accordion-item');
+      if (!items.length) return;
+
+      items.forEach(function(item) {
+        if (item.closest(answerSel)) return;
+        var question = item.querySelector(
+          '[class*="faq-question"], [class*="faq-header"], [class*="faq-item__question"], [class*="faq-item__btn"], [class*="faq-btn"], .accordion-header, .accordion-toggle'
+        );
+        if (!question) return;
+        if (question.__zappyFaqBound) return;
+        if (question.hasAttribute('onclick')) question.removeAttribute('onclick');
+        question.__zappyFaqBound = true;
+        question.style.cursor = 'pointer';
+
+        // Shared answer expand/collapse animation (used by both the <details>
+        // toggle path and the generic click path) so the two stay identical.
+        function expandFaqAnswer(answer) {
+          if (!answer) return;
+          answer.style.display = '';
+          answer.style.paddingTop = '';
+          answer.style.paddingBottom = '';
+          var inners = answer.querySelectorAll(answerSel);
+          inners.forEach(function(inn) {
+            inn.style.maxHeight = '';
+            inn.style.overflow = '';
+            inn.style.opacity = '';
+            inn.style.paddingTop = '';
+            inn.style.paddingBottom = '';
+          });
+          answer.style.transition = 'none';
+          answer.style.maxHeight = 'none';
+          answer.style.opacity = '0';
+          var realH = answer.scrollHeight;
+          answer.style.maxHeight = '0';
+          answer.offsetHeight;
+          answer.style.transition = 'max-height 0.35s ease, opacity 0.25s ease, padding 0.25s ease';
+          answer.style.maxHeight = realH + 'px';
+          answer.style.overflow = 'hidden';
+          answer.style.opacity = '1';
+        }
+        function collapseFaqAnswer(answer) {
+          if (!answer) return;
+          answer.style.transition = 'max-height 0.35s ease, opacity 0.25s ease, padding 0.25s ease';
+          answer.style.maxHeight = '0';
+          answer.style.overflow = 'hidden';
+          answer.style.opacity = '0';
+          answer.style.paddingTop = '0';
+          answer.style.paddingBottom = '0';
+        }
+
+        // Native <details>/<summary> accordions: the browser hides the answer
+        // whenever the <details> lacks the `open` attribute, so animating
+        // max-height alone is NOT enough — and a click handler that
+        // preventDefault()s the summary blocks the native open toggle, leaving
+        // the answer permanently clamped (max-height:0 inside a closed details).
+        // Drive the animation off the native `toggle` event instead — it fires
+        // no matter WHERE inside the summary the user clicks (text, icon,
+        // padding) — and let the browser own the `open` state. This is the
+        // modern FAQ markup the legacy click+preventDefault path never handled.
+        var detailsEl = (item.tagName === 'DETAILS')
+          ? item
+          : (question.closest ? question.closest('details') : null);
+        if (detailsEl) {
+          if (detailsEl.__zappyFaqToggleBound) return;
+          detailsEl.__zappyFaqToggleBound = true;
+          detailsEl.addEventListener('toggle', function() {
+            var isActive = detailsEl.open;
+            item.classList.toggle('active', isActive);
+            question.setAttribute('aria-expanded', isActive ? 'true' : 'false');
+            if (isActive) {
+              // Single-open accordion: close the OTHER open <details> in this
+              // FAQ list. Match by the SAME faq-item selector (NOT
+              // `details[class*="faq-item"]`) and resolve each item's
+              // <details>, because the faq-item / accordion-item class
+              // frequently lives on a WRAPPER (e.g.
+              // `<div class="faq-item"><details>…</details></div>`) rather
+              // than on the <details> itself — querying for class-bearing
+              // <details> would miss those siblings and let multiple answers
+              // stay open.
+              var parent = item.parentElement;
+              if (parent) {
+                var sibItems = parent.querySelectorAll('[class*="faq-item"], .accordion-item');
+                sibItems.forEach(function(sibItem) {
+                  if (sibItem === item) return;
+                  var sibDetails = (sibItem.tagName === 'DETAILS') ? sibItem : sibItem.querySelector('details');
+                  if (sibDetails && sibDetails !== detailsEl && sibDetails.open) sibDetails.open = false;
+                });
+              }
+              expandFaqAnswer(pickAnswer(item, question));
+            } else {
+              collapseFaqAnswer(pickAnswer(item, question));
+            }
+            var chevron = question.querySelector('[class*="chevron"], [class*="icon"], svg');
+            if (chevron) {
+              chevron.style.transform = isActive ? 'rotate(180deg)' : 'rotate(0deg)';
+              chevron.style.transition = 'transform 0.3s ease';
+            }
+          });
+          if (detailsEl.open) { item.classList.add('active'); expandFaqAnswer(pickAnswer(item, question)); }
+          return;
+        }
+
+        question.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+
+          var parent = item.parentElement;
+          if (parent) {
+            var siblings = parent.querySelectorAll('[class*="faq-item"], .accordion-item');
+            siblings.forEach(function(sib) {
+              if (sib !== item && sib.classList.contains('active')) {
+                sib.classList.remove('active');
+                var sibQ = sib.querySelector('[class*="faq-question"], [class*="faq-header"], [class*="faq-item__question"], [class*="faq-item__btn"], [class*="faq-btn"], .accordion-header');
+                if (sibQ) sibQ.setAttribute('aria-expanded', 'false');
+                var sibA = pickAnswer(sib, sibQ);
+                if (sibA) {
+                  sibA.style.maxHeight = '0';
+                  sibA.style.overflow = 'hidden';
+                  sibA.style.opacity = '0';
+                  sibA.style.paddingTop = '0';
+                  sibA.style.paddingBottom = '0';
+                }
+              }
+            });
+          }
+
+          var isActive = item.classList.toggle('active');
+          question.setAttribute('aria-expanded', isActive ? 'true' : 'false');
+
+          var answer = pickAnswer(item, question);
+          if (answer) {
+            if (isActive) {
+              answer.style.display = '';
+              answer.style.paddingTop = '';
+              answer.style.paddingBottom = '';
+              var inners = answer.querySelectorAll(answerSel);
+              inners.forEach(function(inn) {
+                inn.style.maxHeight = '';
+                inn.style.overflow = '';
+                inn.style.opacity = '';
+                inn.style.paddingTop = '';
+                inn.style.paddingBottom = '';
+              });
+              answer.style.transition = 'none';
+              answer.style.maxHeight = 'none';
+              answer.style.opacity = '0';
+              var realH = answer.scrollHeight;
+              answer.style.maxHeight = '0';
+              answer.offsetHeight;
+              answer.style.transition = 'max-height 0.35s ease, opacity 0.25s ease, padding 0.25s ease';
+              answer.style.maxHeight = realH + 'px';
+              answer.style.overflow = 'hidden';
+              answer.style.opacity = '1';
+            } else {
+              answer.style.transition = 'max-height 0.35s ease, opacity 0.25s ease, padding 0.25s ease';
+              answer.style.maxHeight = '0';
+              answer.style.overflow = 'hidden';
+              answer.style.opacity = '0';
+              answer.style.paddingTop = '0';
+              answer.style.paddingBottom = '0';
+            }
+          }
+
+          var chevron = question.querySelector('[class*="chevron"], [class*="icon"], svg');
+          if (chevron) {
+            chevron.style.transform = isActive ? 'rotate(180deg)' : 'rotate(0deg)';
+            chevron.style.transition = 'transform 0.3s ease';
+          }
+        });
+      });
+
+      items.forEach(function(item) {
+        if (item.classList.contains('active')) return;
+        // Native <details> manage their own open/closed visibility; never clamp
+        // an open one to max-height:0 (its toggle handler already expanded it).
+        if (item.tagName === 'DETAILS' && item.open) return;
+        if (item.closest(answerSel)) return;
+        var question = item.querySelector('[class*="faq-question"], [class*="faq-header"], [class*="faq-item__question"], [class*="faq-item__btn"], [class*="faq-btn"], .accordion-header, .accordion-toggle');
+        // No clickable question/header toggle exists → this is a STATIC FAQ
+        // (e.g. a grid of badge + always-visible content), not an accordion.
+        // Collapsing it here would hide the content with no way to expand it,
+        // since no click handler was bound above. Leave it fully visible.
+        if (!question) return;
+        var answer = pickAnswer(item, question);
+        if (answer) {
+          answer.style.maxHeight = '0';
+          answer.style.overflow = 'hidden';
+          answer.style.opacity = '0';
+          answer.style.paddingTop = '0';
+          answer.style.paddingBottom = '0';
+          answer.style.transition = 'max-height 0.35s ease, opacity 0.25s ease, padding 0.25s ease';
+        }
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initFaqToggle, { once: true });
+    } else {
+      initFaqToggle();
+    }
+  } catch (e) {}
+})();
+/* END ZAPPY_FAQ_ACCORDION_TOGGLE */
+
+
+/* ZAPPY_RUNTIME_CONTRAST_FIX */
+(function(){
+  try {
+/**
+ * Shared runtime contrast-fix IIFE body.
+ *
+ * This file is the SINGLE SOURCE OF TRUTH for the client-side WCAG contrast
+ * fixer that runs on both preview (02-navigation.js) and published sites
+ * (githubService.js → ensureRuntimeContrastFix). Any fix applied here
+ * automatically propagates to both surfaces.
+ *
+ * IMPORTANT: This file is read as a string template by Node, NOT executed
+ * directly. It contains raw browser-side JavaScript (ES5-compat, no require,
+ * no import). The consumers wrap it in an IIFE and append their own trigger
+ * (preview: setTimeout; publish: DOMContentLoaded).
+ *
+ * To add/change the contrast logic, edit THIS file and run:
+ *   node server/tests/sectionBackgroundTextColorSync.test.js
+ * The test pins that both consumers include the shared code.
+ */
+
+if (window.__zappyContrastFixInit) return;
+window.__zappyContrastFixInit = true;
+
+function getLum(r,g,b){
+  var a=[r,g,b].map(function(v){v/=255;return v<=0.03928?v/12.92:Math.pow((v+0.055)/1.055,2.4);});
+  return a[0]*0.2126+a[1]*0.7152+a[2]*0.0722;
+}
+function contrastRatio(c1,c2){
+  var l1=getLum(c1.r,c1.g,c1.b),l2=getLum(c2.r,c2.g,c2.b);
+  return (Math.max(l1,l2)+0.05)/(Math.min(l1,l2)+0.05);
+}
+function parseRGB(c){
+  if(!c)return null;var m=c.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+  return m?{r:+m[1],g:+m[2],b:+m[3]}:null;
+}
+function effectiveBg(el){
+  var e=el;
+  while(e){
+    var cs=window.getComputedStyle(e);
+    var bi=cs.backgroundImage;
+    if(bi&&bi!=='none'){
+      if(bi.indexOf('url(')>=0) return null;
+      var isRgba=bi.match(/rgba\(/);
+      if(!isRgba){
+        var gm=bi.match(/rgb\(\s*(\d+),\s*(\d+),\s*(\d+)/);
+        if(gm) return 'rgb('+gm[1]+','+gm[2]+','+gm[3]+')';
+      }
+    }
+    var bg=cs.backgroundColor;
+    if(bg&&bg!=='rgba(0, 0, 0, 0)'&&bg!=='transparent'){
+      var am=bg.match(/rgba\(\s*\d+,\s*\d+,\s*\d+,\s*([\d.]+)/);
+      if(!am||parseFloat(am[1])>=0.6) return bg;
+    }
+    e=e.parentElement;
+  }
+  return 'rgb(255,255,255)';
+}
+
+function isElementVisible(el,stopAt){
+  var n=el;
+  while(n&&n!==stopAt&&n!==document.body){
+    var s=window.getComputedStyle(n);
+    if(s.display==='none'||s.visibility==='hidden') return false;
+    if(parseFloat(s.opacity||'1')<=0.1) return false;
+    n=n.parentElement;
+  }
+  return true;
+}
+
+function hasImageOrVideoBackground(el){
+  var e=el;
+  while(e&&e!==document.body){
+    if(e.getAttribute){
+      var bgType=e.getAttribute('data-zappy-bg-type');
+      if(bgType==='image'||bgType==='video') return true;
+    }
+    var cs=window.getComputedStyle(e);
+    var bi=cs.backgroundImage;
+    if(bi&&bi.indexOf('url(')>=0) return true;
+    e=e.parentElement;
+  }
+  var section=el.closest&&el.closest(
+    'section,article,[data-zappy-section],[data-zappy-component],[class*="hero"],[class*="section"]'
+  );
+  if(section){
+    var bgChild=section.querySelector(
+      'img[data-hero-bg],.zappy-section-video-bg,.zappy-section-video,'+
+      'img[class*="hero-bg"],img[class*="bg-image"],img[class*="background-image"],'+
+      'video[class*="bg"],video[autoplay][loop]'
+    );
+    if(bgChild&&isElementVisible(bgChild,section)){
+      return true;
+    }
+  }
+  return false;
+}
+
+function resolveVar(val){
+  if(!val||val.indexOf('var(')===-1)return val;
+  var m=val.match(/var\(--([^,)]+)/);
+  if(!m)return val;
+  return getComputedStyle(document.documentElement).getPropertyValue('--'+m[1]).trim()||val;
+}
+
+// An explicit inline `color:` on the element itself means the colour is
+// intentional and must not be auto-"fixed" (handled in the loop). The SAME
+// intent applies when an ANCESTOR set an explicit inline colour and this element
+// merely inherits it (e.g. a panel whose <h3 style="color:#fff"> wraps a <span>
+// that inherits white). Without this, removing a child's own colour to let it
+// inherit would make the child eligible for the fixer, which on a mid-tone
+// background can compute black > white contrast and flip intentional white text
+// to black with !important (the "white flash then black" bug). Respecting the
+// ancestor's explicit colour keeps the fixer for genuinely un-styled text only.
+function ancestorHasExplicitColor(el){
+  var n=el&&el.parentElement;
+  while(n&&n!==document.body){
+    var st=n.getAttribute&&n.getAttribute('style');
+    if(st&&/(?:^|;)\s*color\s*:/i.test(st))return true;
+    n=n.parentElement;
+  }
+  return false;
+}
+
+// Respect deliberate author-level `color: ... !important` rules. The runtime
+// fixer runs late and writes inline `!important`, so without this check it can
+// override an explicit user/AI styling request (e.g. white FAQ text on a brand
+// orange card) simply because black has a slightly higher WCAG ratio. We still
+// fix ordinary generated CSS, but an author `!important` colour is intentional.
+function elementMatchesColorRule(el, importantOnly){
+  if(!el||!el.matches)return false;
+  function ruleApplies(rule){
+    if(!rule)return false;
+    if(rule.type===1){
+      try{
+        if(rule.style&&rule.style.getPropertyValue('color')&&
+          (!importantOnly||rule.style.getPropertyPriority('color')==='important')&&
+          el.matches(rule.selectorText)){
+          return true;
+        }
+      }catch(e){return false;}
+    }
+    if(rule.cssRules){
+      try{
+        for(var ri=0;ri<rule.cssRules.length;ri++){
+          if(ruleApplies(rule.cssRules[ri]))return true;
+        }
+      }catch(e2){return false;}
+    }
+    return false;
+  }
+  for(var si=0;si<document.styleSheets.length;si++){
+    var rules=null;
+    try{rules=document.styleSheets[si].cssRules;}catch(e3){continue;}
+    if(!rules)continue;
+    for(var i=0;i<rules.length;i++){
+      if(ruleApplies(rules[i]))return true;
+    }
+  }
+  return false;
+}
+function elementMatchesImportantColorRule(el){
+  return elementMatchesColorRule(el,true);
+}
+function elementMatchesAuthorColorRule(el){
+  return elementMatchesColorRule(el,false);
+}
+function selfOrAncestorHasImportantAuthorColor(el){
+  var n=el;
+  while(n&&n!==document.body){
+    if(elementMatchesImportantColorRule(n))return true;
+    n=n.parentElement;
+  }
+  return false;
+}
+function selfOrAncestorHasAuthorColor(el){
+  var n=el;
+  while(n&&n!==document.body){
+    if(elementMatchesAuthorColorRule(n))return true;
+    n=n.parentElement;
+  }
+  return false;
+}
+
+function isDecorativeAccentText(el){
+  if(!el||!el.matches)return false;
+  if(el.matches('.font-accent,.hero-logotype,.hero-logotype-line,[class*="script"],[class*="accent-line"],[class*="subheadline"]'))return true;
+  if(el.closest('.font-accent,.hero-logotype,.hero-logotype-line,[class*="script"],[class*="accent-line"],[class*="subheadline"]'))return true;
+  if(el.matches('.display-xl,.display-1,.display-2,[class*="hero-word"],[class*="hero-pizza"],[class*="hero-anywhere"],[class*="pizza-word"],[class*="anywhere-word"],[class*="headline-pizza"],[class*="headline-anywhere"],[class*="headline-on-the"],[class*="headline-move"],[class*="logotype"],[class*="wordmark"]'))return true;
+  if(el.closest('[class*="hero-word"],[class*="hero-pizza"],[class*="hero-anywhere"],[class*="pizza-word"],[class*="anywhere-word"],[class*="headline-pizza"],[class*="headline-anywhere"],[class*="headline-on-the"],[class*="headline-move"],[class*="logotype"],[class*="wordmark"]'))return true;
+  if(el.closest('h1.display-xl,h2.display-xl,h1.display-1,h2.display-1,h1.display-2,h2.display-2'))return true;
+  return false;
+}
+
+function fixContrast(){
+  var root=getComputedStyle(document.documentElement);
+  var dark=root.getPropertyValue('--text-dark').trim()||root.getPropertyValue('--text').trim()||'#1a1a1a';
+  var light=root.getPropertyValue('--text-light').trim()||root.getPropertyValue('--background').trim()||'#ffffff';
+  var darkRGB=parseRGB(dark);
+  if(!darkRGB){
+    var d=document.createElement('div');d.style.color=dark;document.body.appendChild(d);
+    darkRGB=parseRGB(getComputedStyle(d).color);d.remove();
+  }
+  var lightRGB=parseRGB(light);
+  if(!lightRGB){
+    var d2=document.createElement('div');d2.style.color=light;document.body.appendChild(d2);
+    lightRGB=parseRGB(getComputedStyle(d2).color);d2.remove();
+  }
+  if(!darkRGB)darkRGB={r:26,g:26,b:26};
+  if(!lightRGB)lightRGB={r:255,g:255,b:255};
+
+  var TEXT_SEL='h1,h2,h3,h4,h5,h6,p,span,a,button,li,label,td,th,dt,dd,figcaption';
+  var mainEl=document.querySelector('main')||document.body;
+  var els=[];
+  var mainNodes=mainEl.querySelectorAll(TEXT_SEL);
+  for(var mi=0;mi<mainNodes.length;mi++)els.push(mainNodes[mi]);
+  // The page footer (e.g. <footer class="site-footer">) usually lives OUTSIDE
+  // <main>, so it would never be scanned otherwise. Pull in any footer not
+  // already covered by mainEl so its (often muted-on-dark) text is fixed too.
+  var extraFooters=document.querySelectorAll('footer,.site-footer,.zappy-footer');
+  for(var fi=0;fi<extraFooters.length;fi++){
+    var ft=extraFooters[fi];
+    if(mainEl.contains(ft))continue;
+    var fNodes=ft.querySelectorAll(TEXT_SEL);
+    for(var fj=0;fj<fNodes.length;fj++)els.push(fNodes[fj]);
+  }
+  // The navbar CTA pill (.nav-cta-btn / .cta-button) is a SOLID-FILL button, so
+  // unlike plain nav links (which are transparent over the managed navbar bg and
+  // are intentionally skipped below) its text contrast is well-defined against
+  // its own fill. It lives OUTSIDE <main>, so add it + its text nodes explicitly.
+  var ctaPills=document.querySelectorAll('.nav-cta-btn,.cta-button');
+  for(var ci=0;ci<ctaPills.length;ci++){
+    var cp=ctaPills[ci];
+    if(mainEl.contains(cp))continue;
+    els.push(cp);
+    var cpNodes=cp.querySelectorAll(TEXT_SEL);
+    for(var cj=0;cj<cpNodes.length;cj++)els.push(cpNodes[cj]);
+  }
+  var fixed=0;
+  for(var i=0;i<els.length;i++){
+    var el=els[i];
+    // Skip the navbar/header only — those are managed by the navbar contrast
+    // helpers. Footers are NOT skipped: the page footer (e.g. .site-footer) is
+    // often a dark band with muted/grey text, AND the LLM frequently uses a
+    // semantic <footer> for citation/role text INSIDE testimonial/blockquote
+    // cards — both need the same computed-background contrast fix as body text.
+    // The navbar CTA pill is the ONE nav element we DO fix: it's a solid-fill
+    // button whose text/bg contrast is self-contained (the AI sometimes paints
+    // the label the same hue as the fill → invisible until hover).
+    if(el.closest('nav,header,.zappy-header')&&!el.closest('.nav-cta-btn,.cta-button'))continue;
+    if(isDecorativeAccentText(el))continue;
+    if(hasImageOrVideoBackground(el))continue;
+    var inlineStyle=el.getAttribute('style')||'';
+    if(/(?:^|;\s*)color\s*:/i.test(inlineStyle))continue;
+    if(ancestorHasExplicitColor(el))continue;
+    if(selfOrAncestorHasImportantAuthorColor(el))continue;
+    if(el.tagName==='FONT'&&el.hasAttribute('color'))continue;
+    var txt=el.textContent?el.textContent.trim():'';
+    if(!txt)continue;
+    var r=el.getBoundingClientRect();
+    if(r.width===0||r.height===0)continue;
+    var cs=getComputedStyle(el);
+    var col=resolveVar(cs.color);
+    var bg=effectiveBg(el);
+    var cRGB=parseRGB(col),bRGB=parseRGB(bg);
+    if(!cRGB||!bRGB)continue;
+    var ratio=contrastRatio(cRGB,bRGB);
+    if(ratio<4.5){
+      if(ratio>=3&&selfOrAncestorHasAuthorColor(el))continue;
+      var darkC=contrastRatio(darkRGB,bRGB);
+      var lightC=contrastRatio(lightRGB,bRGB);
+      var best=darkC>=lightC?dark:light;
+      var bestRatio=Math.max(darkC,lightC);
+      if(bestRatio<4.5){
+        var blackC=contrastRatio({r:0,g:0,b:0},bRGB);
+        var whiteC=contrastRatio({r:255,g:255,b:255},bRGB);
+        best=blackC>=whiteC?'#000000':'#ffffff';
+      }
+      el.style.setProperty('color',best,'important');
+      fixed++;
+    }
+  }
+  if(fixed>0)console.log('[Contrast Fix] Fixed '+fixed+' low-contrast elements');
+}
+
+    if(document.readyState==='loading'){
+      document.addEventListener('DOMContentLoaded',fixContrast,{once:true});
+    } else {
+      fixContrast();
+    }
+  }catch(e){}
+})();
+/* END ZAPPY_RUNTIME_CONTRAST_FIX */
+
+// ZAPPY_CARD_IMAGE_BLEED
+(function(){
+  function run(){
+    var cards=document.querySelectorAll('article,[class*="card"],[class*="tile"]');
+    cards.forEach(function(card){
+      var cs=window.getComputedStyle(card);
+      var padL=parseFloat(cs.paddingLeft)||0;
+      var padR=parseFloat(cs.paddingRight)||0;
+      var padT=parseFloat(cs.paddingTop)||0;
+      if(padL<8&&padR<8)return;
+      var fv=null;
+      for(var i=0;i<card.children.length;i++){
+        var ch=card.children[i];
+        var chCs=window.getComputedStyle(ch);
+        if(chCs.display!=='none'&&chCs.visibility!=='hidden'&&ch.getBoundingClientRect().height>0){fv=ch;break;}
+      }
+      if(!fv)return;
+      if(fv.getAttribute('data-zappy-mobile-bleed'))return;
+      if(fv.querySelector('[data-zappy-zoom-wrapper]'))return;
+      var img=fv.querySelector('img');
+      if(!img)return;
+      var ir=img.getBoundingClientRect();
+      var cw=card.clientWidth-padL-padR;
+      if(cw<=0||ir.width<cw*0.8)return;
+      fv.style.setProperty('margin-left','-'+padL+'px','important');
+      fv.style.setProperty('margin-right','-'+padR+'px','important');
+      if(padT>0)fv.style.setProperty('margin-top','-'+padT+'px','important');
+      fv.style.setProperty('width','calc(100% + '+(padL+padR)+'px)','important');
+      fv.style.setProperty('max-width','calc(100% + '+(padL+padR)+'px)','important');
+      fv.setAttribute('data-zappy-mobile-bleed','1');
+      if(window.getComputedStyle(img).objectFit==='contain'){img.style.setProperty('object-fit','cover','important');}
+    });
+  }
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',function(){setTimeout(run,200);});}
+  else{setTimeout(run,200);}
+})();
+
+
+/* ZAPPY_NAV_SCROLL_PADDING */
+(function(){
+  try {
+    if (window.__zappyNavScrollPaddingInit) return;
+    window.__zappyNavScrollPaddingInit = true;
+    function updateScrollPadding() {
+      var nav = document.querySelector('nav.navbar') || document.querySelector('nav') || document.querySelector('header');
+      if (!nav) return;
+      var s = window.getComputedStyle(nav);
+      if (s.position !== 'fixed' && s.position !== 'sticky') return;
+      var h = nav.offsetHeight;
+      if (h > 0) document.documentElement.style.scrollPaddingTop = h + 'px';
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', updateScrollPadding, { once: true });
+    } else {
+      updateScrollPadding();
+    }
+    window.addEventListener('resize', updateScrollPadding, { passive: true });
+  } catch (e) {}
+})();
+/* END ZAPPY_NAV_SCROLL_PADDING */
+
+
+/* ZAPPY_CONTACT_FORM_PREVENT_DEFAULT */
+(function(){
+  try {
+    var _kw=['contact','booking','inquiry','enquiry','register','signup','sign-up','order','request','apply'];
+    function isContactForm(form) {
+      var cls=(form.className||'').toLowerCase();
+      var id=(form.id||'').toLowerCase();
+      var act=(form.getAttribute('action')||'').toLowerCase();
+      if(_kw.some(function(k){return cls.indexOf(k)!==-1||id.indexOf(k)!==-1||act.indexOf(k)!==-1;})) return true;
+      var sec=form.closest&&form.closest('section');
+      if(sec){
+        var sc=(sec.className||'').toLowerCase();
+        var si=(sec.id||'').toLowerCase();
+        if(_kw.some(function(k){return sc.indexOf(k)!==-1||si.indexOf(k)!==-1;})) return true;
+        if(sc.indexOf('form-section')!==-1||sc.indexOf('form_section')!==-1) return true;
+      }
+      if(window.zappyContactFormLoaded){
+        var inputs=form.querySelectorAll('input,textarea,select');
+        var hasEmail=false,hasPassword=false,visibleCount=0;
+        for(var i=0;i<inputs.length;i++){
+          var inp=inputs[i];
+          var t=(inp.type||'').toLowerCase();
+          var n=(inp.name||'').toLowerCase();
+          if(t==='hidden'||t==='submit'||t==='button'||t==='reset') continue;
+          visibleCount++;
+          if(t==='email'||n.indexOf('email')!==-1||n.indexOf('mail')!==-1) hasEmail=true;
+          if(t==='password') hasPassword=true;
+        }
+        if(hasEmail&&visibleCount>=2&&!hasPassword) return true;
+      }
+      return false;
+    }
+
+    function showFormFeedback(form, msg, type) {
+      var old = form.querySelector('.zappy-form-feedback');
+      if (old) old.remove();
+
+      var bg = type==='success'?'#d4edda':type==='error'?'#f8d7da':'#d1ecf1';
+      var fg = type==='success'?'#155724':type==='error'?'#721c24':'#0c5460';
+      var bd = type==='success'?'#c3e6cb':type==='error'?'#f5c6cb':'#bee5eb';
+      var ic = type==='success'?'\u2705':type==='error'?'\u274C':'\u2139\uFE0F';
+
+      var el = document.createElement('div');
+      el.className = 'zappy-form-feedback';
+      el.setAttribute('role', 'alert');
+      el.style.cssText = 'padding:14px 18px;border-radius:8px;margin:12px 0 0;font-size:14px;line-height:1.5;background:'+bg+';color:'+fg+';border:1px solid '+bd+';text-align:center;font-family:inherit;';
+      el.innerHTML = '<span style="margin-inline-end:6px">'+ic+'</span>'+msg;
+
+      if (type === 'success') {
+        form.reset();
+        var formChildren = form.children;
+        for (var i = 0; i < formChildren.length; i++) {
+          if (formChildren[i] !== el) formChildren[i].style.display = 'none';
+        }
+        form.appendChild(el);
+        el.style.cssText += 'padding:32px 24px;font-size:16px;';
+      } else {
+        var btn = form.querySelector('button[type="submit"],input[type="submit"]');
+        if (btn) btn.parentNode.insertBefore(el, btn.nextSibling);
+        else form.appendChild(el);
+        setTimeout(function(){ if(el.parentElement) el.remove(); }, 8000);
+      }
+    }
+
+    var _coreNameFields=['name','firstName','first_name','fname','lastName','last_name','lname'];
+    var _coreEmailFields=['email','emailAddress','mail','e-mail'];
+    var _corePhoneFields=['phone','tel','telephone','mobile','cellphone'];
+    var _coreMsgFields=['message','msg','comments','comment','description','details','notes','body','text','inquiry'];
+    var _coreSubjectFields=['subject','topic','regarding','re'];
+    var _allCoreFields=[].concat(_coreNameFields,_coreEmailFields,_corePhoneFields,_coreMsgFields,_coreSubjectFields);
+
+    document.addEventListener('submit', function(e) {
+      var form = e.target;
+      if (!form || form.tagName !== 'FORM' || !isContactForm(form)) return;
+      e.preventDefault();
+      e.stopPropagation();
+
+      var origSubmit = form.submit;
+      form.submit = function(){ };
+
+      if (form.__zappySubmitting) return;
+      form.__zappySubmitting = true;
+
+      var oldFeedback = form.querySelector('.zappy-form-feedback');
+      if (oldFeedback) oldFeedback.remove();
+
+      var btn = form.querySelector('button[type="submit"],input[type="submit"]');
+      var origText = btn ? (btn.value || btn.textContent) : '';
+      if (btn) {
+        if (btn.tagName === 'INPUT') btn.value = 'Sending...';
+        else btn.textContent = 'Sending...';
+        btn.disabled = true;
+      }
+
+      var fd = new FormData(form);
+      var data = {};
+      for(var pair of fd.entries()){
+        if(data[pair[0]]!==undefined){
+          if(Array.isArray(data[pair[0]])) data[pair[0]].push(pair[1]);
+          else data[pair[0]]=[data[pair[0]],pair[1]];
+        } else data[pair[0]]=pair[1];
+      }
+
+      var resolvedName=(data.name||'').trim()
+        ||[data.firstName||data.first_name||data.fname||'',data.lastName||data.last_name||data.lname||''].filter(Boolean).join(' ').trim()
+        ||(data.email||data.emailAddress||data.mail||'').trim()
+        ||'Anonymous';
+      var resolvedEmail=(data.email||data.emailAddress||data.mail||data['e-mail']||'').trim();
+      var resolvedPhone=data.phone||data.tel||data.telephone||data.mobile||data.cellphone||null;
+      var resolvedSubject=data.subject||data.topic||data.regarding||data.re||'Contact Form Submission';
+      var resolvedMsg=(data.message||data.msg||data.comments||data.comment||data.description||data.details||data.notes||data.body||data.text||data.inquiry||'').trim();
+      if(!resolvedMsg){
+        var _extra=Object.entries(data).filter(function(e){return _allCoreFields.indexOf(e[0])===-1;});
+        if(_extra.length>0) resolvedMsg=_extra.map(function(e){var l=e[0].replace(/([A-Z])/g,' $1').replace(/[_-]/g,' ').trim();var v=Array.isArray(e[1])?e[1].join(', '):e[1];return l+': '+v;}).join('\n');
+        else resolvedMsg='Form submission from '+window.location.pathname;
+      }
+
+      var extraFields={};
+      Object.keys(data).forEach(function(k){if(_allCoreFields.indexOf(k)===-1&&data[k]!==''&&data[k]!=null) extraFields[k]=data[k];});
+
+      var currentPath = window.location.pathname;
+      try { var pg=new URLSearchParams(window.location.search).get('page'); if(pg) currentPath=pg; } catch(x){}
+
+      var wid = 'c0b48f4a-a208-4018-9fa5-ae9d5deae5b3';
+
+      var apiBase = (window.ZAPPY_API_BASE || 'https://api.zappy5.com').replace(/\/$/,'');
+      apiBase = apiBase + '/api/email/contact-form';
+
+      var payload={
+        websiteId: wid,
+        name: resolvedName,
+        email: resolvedEmail,
+        subject: resolvedSubject,
+        message: resolvedMsg,
+        phone: resolvedPhone,
+        currentPagePath: currentPath
+      };
+      if(Object.keys(extraFields).length>0) payload.extraFields=extraFields;
+
+      fetch(apiBase, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).then(function(r){ return r.json(); }).then(function(result){
+        if (result.success) {
+          if (result.thankYouPagePath && result.ticketNumber) {
+            window.location.href = result.thankYouPagePath + '?ticket=' + encodeURIComponent(result.ticketNumber);
+            return;
+          }
+          showFormFeedback(form, result.message || 'Thank you! We will get back to you soon.', 'success');
+        } else {
+          showFormFeedback(form, result.error || 'Failed to send. Please try again.', 'error');
+        }
+      }).catch(function(){
+        showFormFeedback(form, 'Unable to send message right now. Please try again later.', 'error');
+      }).finally(function(){
+        form.__zappySubmitting = false;
+        form.submit = origSubmit;
+        if (btn) {
+          if (btn.tagName === 'INPUT') btn.value = origText;
+          else btn.textContent = origText;
+          btn.disabled = false;
+        }
+      });
+    }, true);
+  } catch (e) {}
+})();
+/* END ZAPPY_CONTACT_FORM_PREVENT_DEFAULT */
+
+
+/* ZAPPY_PUBLISHED_GRID_CENTERING_V2 */
+(function(){
+  try {
+    if (window.__zappyGridCenteringInit) return;
+    window.__zappyGridCenteringInit = true;
+
+    function centerPartialGridRows() {
+      var grids = document.querySelectorAll('[data-zappy-explicit-columns="true"], [data-zappy-auto-grid="true"]');
+      for (var g = 0; g < grids.length; g++) {
+        try {
+          var container = grids[g];
+
+          // Clear previous centering so we can recalculate (e.g. after i18n direction change)
+          if (container.getAttribute('data-zappy-grid-centered') === 'true') {
+            var prevItems = Array.from(container.children);
+            for (var p = 0; p < prevItems.length; p++) {
+              if (prevItems[p].getAttribute && prevItems[p].getAttribute('data-zappy-gc') === '1') {
+                prevItems[p].style.transform = prevItems[p].getAttribute('data-zappy-gc-orig') || '';
+                prevItems[p].removeAttribute('data-zappy-gc');
+                prevItems[p].removeAttribute('data-zappy-gc-orig');
+              }
+            }
+            container.removeAttribute('data-zappy-grid-centered');
+          }
+
+          // List grids (<ul>/<ol>) read in document order and align to the start
+          // (first column); centering a checklist's lonely last item breaks its
+          // column alignment with the rows above. Cards (div grids) still center.
+          // The cleanup above already reverted any prior centering, so a list
+          // centered before this runtime shipped snaps back to its natural spot.
+          var containerTag = (container.tagName || '').toLowerCase();
+          if (containerTag === 'ul' || containerTag === 'ol') continue;
+
+          var items = [];
+          for (var c = 0; c < container.children.length; c++) {
+            var ch = container.children[c];
+            if (!ch || !ch.tagName) continue;
+            var tag = ch.tagName.toLowerCase();
+            if (tag === 'script' || tag === 'style') continue;
+            if (ch.getAttribute('aria-hidden') === 'true') continue;
+            if (ch.getAttribute('data-zappy-internal') === 'true') continue;
+            var pos = window.getComputedStyle(ch).position;
+            if (pos === 'absolute' || pos === 'fixed') continue;
+            items.push(ch);
+          }
+          var totalItems = items.length;
+          if (totalItems === 0) continue;
+
+          var cs = window.getComputedStyle(container);
+          if (cs.display !== 'grid') continue;
+          var gta = (cs.gridTemplateAreas || '').trim();
+          if (gta && gta !== 'none') continue;
+          var gtc = (cs.gridTemplateColumns || '').trim();
+          if (!gtc || gtc === 'none') continue;
+          var colWidths = gtc.split(' ').filter(function(v) { return v && parseFloat(v) > 0; });
+          var colCount = colWidths.length;
+          if (colCount <= 1) continue;
+
+          var itemsInLastRow = totalItems % colCount;
+          if (itemsInLastRow === 0) continue;
+
+          var colWidth = parseFloat(colWidths[0]) || 0;
+          var gap = parseFloat(cs.columnGap);
+          if (isNaN(gap)) gap = parseFloat(cs.gap) || 0;
+
+          // Skip non-uniform column widths (mirrors preview autoCenterAllGrids).
+          // Centering assumes equal columns; mixed tracks produce wrong offsets.
+          var parsedWidths = colWidths.map(function(w) { return parseFloat(w) || 0; });
+          if (Math.max.apply(null, parsedWidths) > Math.min.apply(null, parsedWidths) * 1.5) continue;
+
+          // Skip multi-span items (e.g. grid-column: 1 / -1 full-bleed cards, or
+          // bento tiles with span 2+). totalItems % colCount cannot account for
+          // spanned tracks, so a lone full-span card in a 4-col auto-fit grid was
+          // mis-classified as a 1-of-4 orphan and shifted by translateX(~459px).
+          var singleColThreshold = colWidth * 1.5 + gap;
+          var anyMultiSpan = items.some(function(it) {
+            return it.getBoundingClientRect().width > singleColThreshold;
+          });
+          if (anyMultiSpan) continue;
+
+          var missingCols = colCount - itemsInLastRow;
+          var offset = missingCols * (colWidth + gap) / 2;
+
+          // Detect RTL — use the computed direction which already accounts for
+          // CSS cascade, html[dir], and inheritance. Do NOT walk up checking inline
+          // styles because multi-language sites may have stale direction:rtl on
+          // parent elements from the primary language while serving an LTR page.
+          var dir = cs.direction || 'ltr';
+          var translateValue = dir === 'rtl' ? -offset : offset;
+
+          var startIndex = totalItems - itemsInLastRow;
+          var savedTransitions = [];
+          for (var i = startIndex; i < totalItems; i++) {
+            var item = items[i];
+            savedTransitions.push(item.style.transition);
+            item.style.transition = 'none';
+            var existingTransform = item.style.transform || '';
+            item.setAttribute('data-zappy-gc-orig', existingTransform);
+            var newTransform = existingTransform
+              ? existingTransform + ' translateX(' + translateValue + 'px)'
+              : 'translateX(' + translateValue + 'px)';
+            item.style.transform = newTransform;
+            item.setAttribute('data-zappy-gc', '1');
+          }
+
+          void container.offsetHeight;
+
+          for (var j = startIndex; j < totalItems; j++) {
+            items[j].style.transition = savedTransitions[j - startIndex];
+          }
+
+          container.setAttribute('data-zappy-grid-centered', 'true');
+        } catch(e) {}
+      }
+    }
+
+    if (document.readyState === 'complete') {
+      centerPartialGridRows();
+    } else {
+      window.addEventListener('load', centerPartialGridRows);
+    }
+
+    // Re-center when i18n script changes the page direction
+    try {
+      var dirObs = new MutationObserver(function() { centerPartialGridRows(); });
+      dirObs.observe(document.documentElement, { attributes: true, attributeFilter: ['dir'] });
+    } catch(e) {}
+  } catch(e) {}
+})();
+
+
+/* ZAPPY_CONTENT_ALIGNMENT_RUNTIME */
+(function(){
+  try {
+    if (window.__zappyContentAlignInit) return;
+    window.__zappyContentAlignInit = true;
+
+    var vShiftMap = { top: -0.5, upper: -0.25, center: 0, lower: 0.25, bottom: 0.5 };
+    var hShiftMap = { left: -0.5, 'mid-left': -0.25, center: 0, 'mid-right': 0.25, right: 0.5 };
+
+    function restoreContentAlignments() {
+      var sections = document.querySelectorAll('[data-zappy-content-align]');
+      for (var i = 0; i < sections.length; i++) {
+        try { applyAlignment(sections[i]); } catch(e) {}
+      }
+    }
+
+    function applyAlignment(section) {
+      var target = section.querySelector('[data-zappy-align-target]');
+      if (!target) return;
+
+      var align = section.getAttribute('data-zappy-content-align') || 'center-center';
+      var idx = align.indexOf('-');
+      if (idx === -1) return;
+      var vAlign = align.substring(0, idx) || 'center';
+      var hAlign = align.substring(idx + 1) || 'center';
+
+      if (!section.id) {
+        section.id = 'zappy-section-' + Date.now() + '-' + Math.random().toString(36).substr(2, 6);
+      }
+      var sel = '#' + section.id;
+
+      var old = section.querySelector('style[data-zappy-align-style]');
+      if (old) old.remove();
+
+      var ts = window.getComputedStyle(target);
+      var isFlex = (ts.display === 'flex' || ts.display === 'inline-flex');
+      var isColumn = (ts.flexDirection === 'column' || ts.flexDirection === 'column-reverse');
+
+      var sectionRect = section.getBoundingClientRect();
+      var sW = sectionRect.width || section.offsetWidth || 0;
+      var sH = sectionRect.height || section.offsetHeight || 0;
+
+      var orig = target.style.cssText;
+      target.style.setProperty('width', 'fit-content', 'important');
+      target.style.setProperty('height', 'auto', 'important');
+      target.style.setProperty('min-height', '0', 'important');
+      target.style.setProperty('max-height', 'none', 'important');
+      target.style.setProperty('align-self', 'flex-start', 'important');
+      target.style.setProperty('flex', 'none', 'important');
+      var tRect = target.getBoundingClientRect();
+      var tW = tRect.width || 0;
+      var tH = tRect.height || 0;
+      target.style.cssText = orig;
+
+      var freeH = Math.max(0, sW - tW);
+      var freeV = Math.max(0, sH - tH);
+      var hPx = Math.round((hShiftMap[hAlign] || 0) * freeH);
+      var vPx = Math.round((vShiftMap[vAlign] || 0) * freeV);
+
+      var t = [];
+      t.push('margin:auto!important');
+      if (hPx !== 0 || vPx !== 0) {
+        t.push('transform:translate(' + hPx + 'px,' + vPx + 'px)!important');
+      }
+      if (isFlex) {
+        t.push('align-items:center!important');
+        t.push('justify-content:center!important');
+      } else {
+        t.push('display:flex!important');
+        t.push('flex-direction:column!important');
+        t.push('align-items:center!important');
+      }
+
+      var c = ['justify-content:center!important'];
+      if (hAlign === 'center') {
+        c.push('margin-left:auto!important');
+        c.push('margin-right:auto!important');
+        c.push('text-align:center!important');
+      }
+      if (!isFlex && hAlign !== 'center') {
+        c.push('min-width:33.33%!important');
+        c.push('text-align:start!important');
+      }
+
+      var css = '';
+      if (hPx !== 0 || vPx !== 0) css += sel + '{overflow:hidden!important}';
+      if (hAlign === 'center') {
+        css += sel + '{display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:center!important;text-align:center!important}';
+        t.push('text-align:center!important');
+      }
+      css += sel + ' [data-zappy-align-target]{' + t.join(';') + '}';
+      css += sel + ' [data-zappy-align-target]>*{' + c.join(';') + '}';
+      css += '@media(max-width:768px){' +
+        sel + ' [data-zappy-align-target]{align-items:center!important;margin-left:auto!important;margin-right:auto!important;' +
+        (vPx !== 0 ? 'transform:translateY(' + vPx + 'px)!important' : 'transform:none!important') +
+        '}' + sel + ' [data-zappy-align-target]>*{margin-left:auto!important;margin-right:auto!important}}';
+
+      var s = document.createElement('style');
+      s.setAttribute('data-zappy-align-style', 'true');
+      s.textContent = css;
+      section.insertBefore(s, section.firstChild);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', restoreContentAlignments);
+    } else {
+      restoreContentAlignments();
+    }
+
+    var _timer = null;
+    window.addEventListener('resize', function() {
+      clearTimeout(_timer);
+      _timer = setTimeout(restoreContentAlignments, 200);
+    });
+    window.addEventListener('orientationchange', function() {
+      clearTimeout(_timer);
+      _timer = setTimeout(restoreContentAlignments, 200);
+    });
+  } catch(e) {}
+})();
+
+
+/* ZAPPY_SECTION_ID_FROM_CLASS */
+(function(){
+  function assignIds(){
+    document.querySelectorAll('section').forEach(function(s){
+      if(s.id)return;
+      var cls=(s.className||'').split(/\s+/)[0];
+      if(cls && !document.getElementById(cls)){s.id=cls;}
+    });
+  }
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',assignIds,{once:true});}
+  else{assignIds();}
+})();
+/* END ZAPPY_SECTION_ID_FROM_CLASS */
+
+
+/* ZAPPY_EMPTY_SUBMENU_HIDDEN */
+(function(){
+  function markEmpty(){
+    document.querySelectorAll('.sub-menu, .dropdown-menu').forEach(function(ul){
+      var hasVisible=false;
+      for(var i=0;i<ul.children.length;i++){
+        if(window.getComputedStyle(ul.children[i]).display!=='none'){hasVisible=true;break;}
+      }
+      ul.classList.toggle('zappy-empty-submenu',!hasVisible);
+    });
+  }
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',markEmpty,{once:true});}
+  else{markEmpty();}
+})();
+/* END ZAPPY_EMPTY_SUBMENU_HIDDEN */
+
+
+/* ZAPPY_INTERNAL_LINKS_NO_NEW_TAB */
+(function(){
+  try {
+    function fixLinks(){
+      var docRe=/\.(pdf|doc|docx|xls|xlsx|ppt|pptx|txt|csv|rtf|odt|ods|odp)(\?|$)/i;
+      document.querySelectorAll('a[target="_blank"]').forEach(function(a){
+        var h=a.getAttribute('href');
+        if(!h)return;
+        if(h.indexOf('://')!==-1||h.indexOf('mailto:')===0||h.indexOf('tel:')===0)return;
+        if(docRe.test(h))return;
+        a.removeAttribute('target');
+        a.removeAttribute('rel');
+      });
+    }
+    if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',fixLinks)}
+    else{fixLinks()}
+  }catch(e){}
+})();
+
+
+/* ZAPPY_IOS_VIEWPORT_GAP_FIX */
+(function(){
+  try {
+    if (window.__zappyIosViewportGapInit) return;
+    window.__zappyIosViewportGapInit = true;
+
+    function update() {
+      try {
+        var visual = window.innerWidth;
+        var layout = document.documentElement.clientWidth;
+        var gap = Math.max(0, (visual || 0) - (layout || 0));
+        document.documentElement.style.setProperty('--ios-viewport-gap', gap + 'px');
+
+        // Also publish the navbar bottom so the mobile dropdown menu CSS can
+        // anchor `top` below announcement bars + fixed navbar. This is needed because
+        // older v2 patches set `top: 100% !important` on .nav-menu, which
+        // with position:fixed resolves against the viewport (=height of
+        // screen) instead of the navbar. --zappy-navbar-bottom gives the
+        // v3 CSS something concrete to override that with.
+        var nav = document.querySelector('nav.navbar, .navbar, header nav, header.navbar');
+        if (nav) {
+          var rect = nav.getBoundingClientRect();
+          var bottom = Math.round(rect.bottom);
+          if (bottom > 0) {
+            document.documentElement.style.setProperty('--zappy-navbar-bottom', bottom + 'px');
+          }
+        }
+      } catch (e) {}
+    }
+
+    update();
+    window.addEventListener('resize', update, { passive: true });
+    window.addEventListener('orientationchange', update, { passive: true });
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', update);
+    }
+    document.addEventListener('DOMContentLoaded', update);
+    window.addEventListener('load', update);
+    // Re-measure after the navbar layout settles (fonts, images, logo load).
+    setTimeout(update, 250);
+    setTimeout(update, 1000);
+  } catch (e) {}
+})();
+
+
+/* ZAPPY_STOREFRONT_RUNTIME_V1 — appended from preview-scripts/00-config.js for preview/live parity */
+;(function() {
+  'use strict';
+  // ===== DESKTOP NAVBAR FIX =====
+  // Clear mobile-only positioning inline styles on desktop viewport
+  // This fixes sites generated with old code that applied these styles unconditionally
+  function clearMobileNavbarStyles() {
+    if (window.innerWidth > 768) {
+      var mobileToggle = document.querySelector('.mobile-toggle');
+      var phoneBtn = document.querySelector('.phone-header-btn');
+      
+      if (mobileToggle) {
+        mobileToggle.style.removeProperty('position');
+        mobileToggle.style.removeProperty('top');
+        mobileToggle.style.removeProperty('transform');
+        mobileToggle.style.removeProperty('z-index');
+        mobileToggle.style.removeProperty('left');
+        mobileToggle.style.removeProperty('right');
+      }
+      
+      if (phoneBtn) {
+        phoneBtn.style.removeProperty('position');
+        phoneBtn.style.removeProperty('top');
+        phoneBtn.style.removeProperty('transform');
+        phoneBtn.style.removeProperty('z-index');
+        phoneBtn.style.removeProperty('left');
+        phoneBtn.style.removeProperty('right');
+      }
+      
+      console.log('📦 [00-config] Cleared mobile navbar inline styles on desktop');
+    }
+  }
+  
+  // Run on load and resize
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', clearMobileNavbarStyles);
+  } else {
+    clearMobileNavbarStyles();
+  }
+  window.addEventListener('load', clearMobileNavbarStyles);
+  window.addEventListener('resize', clearMobileNavbarStyles);
+
+  // ===== LAYOUT SECTION NORMALIZATION =====
+  // Ensure layout sections create a block formatting context so that child
+  // element margins (e.g. <h2> default margin-top) don't collapse outside
+  // the section. Without this, sections render differently in edit mode
+  // (where .zappy-removable adds position:relative) vs view mode.
+  (function() {
+    var layoutNormStyle = document.createElement('style');
+    layoutNormStyle.id = 'zappy-layout-norm';
+    layoutNormStyle.textContent = 'section.layout-section { overflow: hidden; }';
+    document.head.appendChild(layoutNormStyle);
+  })();
+
+  // ===== GRID CELL MULTI-CHILD FIX =====
+  // Grid cells (inserted elements inside horizontal grids) that contain multiple
+  // child inserted elements must use flex-direction: column so children stack
+  // vertically. This can be lost if inline styles are overwritten during editing.
+  (function() {
+    function fixGridCellFlexDirection() {
+      try {
+        var cells = document.querySelectorAll('.zappy-inserted-element');
+        for (var i = 0; i < cells.length; i++) {
+          var cell = cells[i];
+          var style = cell.getAttribute('style') || '';
+          if (style.indexOf('display: flex') === -1 && style.indexOf('display:flex') === -1) continue;
+          if (style.indexOf('flex-direction') !== -1) continue;
+          var childInserted = cell.querySelector('.zappy-inserted-element');
+          if (!childInserted) continue;
+          cell.style.flexDirection = 'column';
+          cell.style.alignItems = 'center';
+        }
+      } catch (e) {}
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', fixGridCellFlexDirection);
+    } else {
+      fixGridCellFlexDirection();
+    }
+  })();
+
+  // ===== E-COMMERCE VARIANT SELECTION FIX =====
+  // Inject CSS for variant option states:
+  //   .disabled        = non-existent combination OR out-of-stock → gray + text strikethrough, always clickable
+  //   .out-of-stock    = same visual as disabled, used for stock-specific logic
+  // This ensures existing sites get the correct styling without regeneration.
+  (function() {
+    // 1) Inject CSS immediately (uses separate ID so fixVariantSelection doesn't remove it)
+    if (!document.getElementById('zappy-variant-visual-css')) {
+      var s = document.createElement('style');
+      s.id = 'zappy-variant-visual-css';
+      s.textContent =
+        /* False variant options: gray + text strikethrough */
+        '.variant-option.disabled { opacity: 0.4 !important; cursor: pointer !important; text-decoration: line-through !important; }' +
+        '.variant-option.disabled::after, .variant-option.disabled::before { content: none !important; }' +
+        /* Color swatches: only opacity, no strikethrough */
+        '.variant-option.color-swatch.disabled { text-decoration: none !important; }' +
+        /* Out-of-stock: same treatment */
+        '.variant-option.out-of-stock { opacity: 0.4 !important; cursor: pointer !important; text-decoration: line-through !important; }' +
+        '.variant-option.out-of-stock::after, .variant-option.out-of-stock::before { content: none !important; }' +
+        '.variant-option.color-swatch.out-of-stock { text-decoration: none !important; }' +
+        /* Incomplete selection prompt (must not look like hard OOS) */
+        '.product-info .product-stock.select-required { color: #d97706 !important; }';
+      document.head.appendChild(s);
+    }
+
+    // 2) Override initVariantSelection early to prevent the page's default selection behavior.
+    // The page's initVariantSelection calls .click() on first options, auto-selecting defaults.
+    // We replace it with a version that only does setup (CSS, sorting, handlers) but skips auto-select.
+    // Ticket-style multi-qty products keep the baked initMultiQuantitySelection path.
+    var _initOverridden = false;
+    var _origInitVariantSelection = null;
+    function _isMultiQtyProduct(p) {
+      return !!(p && p.card_variants && p.card_variants.multiQuantity)
+        || !!(typeof window.isProductMultiQuantity === 'function' && window.isProductMultiQuantity(p))
+        || !!document.querySelector('[data-multi-quantity="true"]');
+    }
+    function _overrideInitVariantSelection() {
+      if (_initOverridden) return;
+      // Wait until the page defines initVariantSelection so we can keep a real
+      // original for multi-qty products (ticket-style per-value steppers).
+      if (typeof window.initVariantSelection !== 'function') return;
+      _initOverridden = true;
+      _origInitVariantSelection = window.initVariantSelection;
+      window.initVariantSelection = function(product, t) {
+        if (_isMultiQtyProduct(product)) {
+          if (typeof _origInitVariantSelection === 'function') {
+            return _origInitVariantSelection.call(this, product, t);
+          }
+          return;
+        }
+        // Store product data for our fix (variants[] OR card_variants.matrix)
+        if (product && ((product.variants && product.variants.length > 0) || _hasMatrix(product))) {
+          _variantProduct = _augmentProductFromCardVariants(product);
+          var trans = t || {};
+          // Ensure pleaseSelect is available (for sites generated before this key was added)
+          if (!trans.pleaseSelect) {
+            var isRTL = document.documentElement.getAttribute('dir') === 'rtl' || document.body.getAttribute('dir') === 'rtl';
+            trans.pleaseSelect = isRTL ? 'נא לבחור' : 'Please select';
+          }
+          _variantTranslations = trans;
+          // Re-trigger fixVariantSelection here. Our scheduled setTimeout(..., 100) and
+          // setTimeout(..., 2000) may have already fired before the product API resolved
+          // (slow DB / large payloads), in which case both calls bailed at the
+          // `if (!product || !product.variants...) return;` guard and never repaired
+          // truncated data-value attributes nor auto-selected single-option groups.
+          // Running it again now (deferred so DOM mutations from the page's own init
+          // settle first) ensures the fix executes exactly once for late-arriving data.
+          setTimeout(function() { try { fixVariantSelection(); } catch (e) {} }, 0);
+        }
+        // Do NOT call the original (which would auto-select defaults and inject conflicting CSS).
+        // Our fixVariantSelection handles all setup.
+      };
+    }
+    _overrideInitVariantSelection();
+    
+    // 3) Document-level click delegation for variant options.
+    // Uses capture phase on document so it fires before any element-level handlers
+    // and works regardless of when variant buttons are created/recreated.
+    var selectedAttributes = {};
+    var _variantProduct = null;
+    var _variantTranslations = {};
+    
+    function _getVariants() {
+      if (!_variantProduct) return [];
+      var rows = (_variantProduct.variants || []).filter(function(v) { return v && v.is_active !== false; });
+      if (rows.length) return rows;
+      // Matrix-only / incomplete variants[] — same fallback as updateVariantUI / V12 overlay.
+      var m = _variantProduct.card_variants && Array.isArray(_variantProduct.card_variants.matrix)
+        ? _variantProduct.card_variants.matrix : [];
+      return m.filter(function(r) { return r && r.is_active !== false; });
+    }
+
+    function _hasMatrix(p) {
+      return !!(p && p.card_variants && Array.isArray(p.card_variants.matrix) && p.card_variants.matrix.length > 0);
+    }
+
+    /** True when any purchasable variant/matrix row remains (incomplete-selection gate). */
+    function _anyVariantAvailable() {
+      var rows = _getVariants();
+      if (rows.some(function(v) { return !_isOOS(v); })) return true;
+      var p = _variantProduct || window.currentProduct;
+      var m = p && p.card_variants && Array.isArray(p.card_variants.matrix) ? p.card_variants.matrix : [];
+      if (m.length) return m.some(function(r) { return r && r.available !== false && r.is_active !== false; });
+      return false;
+    }
+
+    function _selectVariantMessage() {
+      var t = _variantTranslations || {};
+      if (typeof getEcomText === 'function') return getEcomText('selectVariant', t.selectVariant || 'Select option');
+      var rtl = document.documentElement.getAttribute('dir') === 'rtl' || document.body.getAttribute('dir') === 'rtl';
+      return t.selectVariant || (rtl ? 'בחר אפשרות' : 'Select option');
+    }
+
+    function _augmentProductFromCardVariants(product) {
+      if (!product || !product.card_variants || !Array.isArray(product.card_variants.matrix)) return product;
+      var byId = {};
+      (Array.isArray(product.variants) ? product.variants : []).forEach(function(v) {
+        if (v && v.id != null) byId[String(v.id)] = v;
+      });
+      product.card_variants.matrix.forEach(function(row) {
+        if (!row || row.id == null) return;
+        var existing = byId[String(row.id)] || {};
+        byId[String(row.id)] = Object.assign({}, existing, {
+          id: row.id,
+          attributes: row.attributes || existing.attributes || {},
+          price: row.price != null ? row.price : existing.price,
+          image: row.image || existing.image,
+          sku: row.sku || existing.sku,
+          custom_fields: existing.custom_fields || existing.customFields || row.custom_fields || row.customFields || {},
+          available: typeof row.available === 'boolean' ? row.available : existing.available,
+          is_active: existing.is_active !== false
+        });
+      });
+      product.variants = Object.keys(byId).map(function(id) { return byId[id]; });
+      return product;
+    }
+
+    function _variantCssUrl(value) {
+      return String(value == null ? '' : value).replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/\n|\r/g, '');
+    }
+
+    function _cardVariantSwatchStyle(value) {
+      if (typeof window.zappyCardSwatchStyle === 'function') return window.zappyCardSwatchStyle(value);
+      if (value && (value.swatchImage || value.image)) {
+        var resolver = window.resolveProductImageUrl || function(src) { return src; };
+        return "background-image:url('" + _variantCssUrl(resolver(value.swatchImage || value.image)) + "');background-size:" + (value.imageSize || 'cover') + ';background-position:' + (value.imagePosition || '50% 50%') + ';';
+      }
+      if (value && value.hex2) return 'background:linear-gradient(90deg,' + (value.hex || '#94a3b8') + ' 0 50%,' + value.hex2 + ' 50% 100%);';
+      return 'background:' + ((value && (value.hex || value.value)) || '#94a3b8') + ';';
+    }
+
+    function _translateVariantOptionLabel(product, key, value, fallback) {
+      if (typeof window.zappyTranslateVariantValue === 'function') {
+        return window.zappyTranslateVariantValue(product, key, value, fallback);
+      }
+      var lang = '';
+      try {
+        lang = String((typeof getCurrentEcomLanguage === 'function' ? getCurrentEcomLanguage() : (document.documentElement.lang || '')) || '').split('-')[0].toLowerCase();
+      } catch (e) {}
+      function translateKnownColor(rawValue) {
+        if (lang !== 'he') return '';
+        if (String(key || '').toLowerCase().indexOf('color') === -1 && String(key || '').toLowerCase() !== 'colour') return '';
+        var raw = String(rawValue == null ? '' : rawValue).trim();
+        if (!raw || /[\u0590-\u05FF]/.test(raw)) return '';
+        var map = { black:'שחור', white:'לבן', gray:'אפור', grey:'אפור', red:'אדום', green:'ירוק', blue:'כחול', navy:'כחול כהה', pink:'ורוד', purple:'סגול', yellow:'צהוב', orange:'כתום', brown:'חום', beige:'בז׳', gold:'זהב', silver:'כסף', teal:'טורקיז', mint:'מנטה', cream:'קרם', ivory:'שנהב' };
+        var direct = map[raw.toLowerCase().replace(/\s+/g, ' ')];
+        if (direct) return direct;
+        var parts = raw.split(/\s*-\s*/).filter(Boolean);
+        if (parts.length > 1) {
+          var translated = parts.map(function(part) { return map[String(part).toLowerCase().replace(/\s+/g, ' ')]; });
+          if (translated.every(Boolean)) return translated.join('-');
+        }
+        return '';
+      }
+      var wanted = String(value);
+      var variants = product && Array.isArray(product.variants) ? product.variants : [];
+      for (var i = 0; i < variants.length; i++) {
+        var variant = variants[i] || {};
+        var attrs = variant.attributes_source || variant.attributes || {};
+        if (!attrs || String(attrs[key]) !== wanted) continue;
+        var translatedAttrs = variant.attributes_translations && lang && variant.attributes_translations[lang];
+        if (translatedAttrs && translatedAttrs[key]) return translateKnownColor(translatedAttrs[key]) || String(translatedAttrs[key]);
+        var displayAttrs = variant.attributes_display || {};
+        if (displayAttrs && displayAttrs[key]) return translateKnownColor(displayAttrs[key]) || String(displayAttrs[key]);
+      }
+      var matrix = product && product.card_variants && Array.isArray(product.card_variants.matrix) ? product.card_variants.matrix : [];
+      for (var j = 0; j < matrix.length; j++) {
+        var row = matrix[j] || {};
+        var rowAttrs = row.attributes || {};
+        if (rowAttrs && String(rowAttrs[key]) === wanted && row.attributes_display && row.attributes_display[key]) {
+          return translateKnownColor(row.attributes_display[key]) || String(row.attributes_display[key]);
+        }
+      }
+      return translateKnownColor(fallback) || fallback;
+    }
+
+    function _ensureCardVariantOptionButtons() {
+      var product = _variantProduct || window.currentProduct;
+      var cv = product && product.card_variants;
+      if (!cv || !Array.isArray(cv.options)) return;
+      cv.options.forEach(function(option) {
+        if (!option || !option.key || !Array.isArray(option.values)) return;
+        var group = null;
+        document.querySelectorAll('.variant-group').forEach(function(candidate) {
+          if (candidate.getAttribute('data-group') === option.key) group = candidate;
+        });
+        var container = group && group.querySelector('.variant-options');
+        if (!container) return;
+        var isColor = option.type === 'color' || String(option.key).toLowerCase().indexOf('color') !== -1;
+        option.values.forEach(function(entry) {
+          if (!entry || entry.value == null) return;
+          var displayLabel = String(entry.label || entry.value);
+          displayLabel = _translateVariantOptionLabel(product, option.key, entry.value, displayLabel);
+          var existingButton = null;
+          container.querySelectorAll('.variant-option').forEach(function(btn) {
+            if (btn.getAttribute('data-value') === String(entry.value)) existingButton = btn;
+          });
+          if (existingButton) {
+            existingButton.setAttribute('data-display-value', displayLabel);
+            existingButton.title = displayLabel;
+            if (isColor) existingButton.style.cssText = _cardVariantSwatchStyle(entry);
+            else existingButton.textContent = displayLabel;
+            return;
+          }
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'variant-option' + (isColor ? ' color-swatch' : '');
+          btn.setAttribute('data-attr', option.key);
+          btn.setAttribute('data-value', String(entry.value));
+          btn.setAttribute('data-display-value', displayLabel);
+          btn.title = displayLabel;
+          if (isColor) btn.style.cssText = _cardVariantSwatchStyle(entry);
+          else btn.textContent = displayLabel;
+          container.appendChild(btn);
+        });
+      });
+    }
+    
+    function _getAttributeKeys() {
+      var keys = [], seen = {};
+      document.querySelectorAll('.variant-option').forEach(function(btn) {
+        var k = btn.getAttribute('data-attr');
+        if (k && !seen[k]) { seen[k] = true; keys.push(k); }
+      });
+      return keys;
+    }
+    
+    // Wildcard semantics, shared with window.zappyVariantMatrix (baked storefront
+    // JS) when present; the inline fallback mirrors it so preview (which may not
+    // load the baked module) and publish never diverge on strict-vs-wildcard.
+    function _matchesAll(v, selections) {
+      if (!v || !v.attributes || v.is_active === false) return false;
+      for (var k in selections) {
+        if (!selections.hasOwnProperty(k)) continue;
+        if (v.attributes.hasOwnProperty(k) && v.attributes[k] !== selections[k]) return false;
+      }
+      return true;
+    }
+
+    function _comboExists(selections) {
+      if (window.zappyVariantMatrix) return window.zappyVariantMatrix.filterMatching(_getVariants(), selections).length > 0;
+      return _getVariants().some(function(v) { return _matchesAll(v, selections); });
+    }
+    
+    function _findMatching(selections) {
+      if (window.zappyVariantMatrix) return window.zappyVariantMatrix.filterMatching(_getVariants(), selections);
+      return _getVariants().filter(function(v) { return _matchesAll(v, selections); });
+    }
+    
+    function _isOOS(v) {
+      if (window.zappyVariantMatrix) return window.zappyVariantMatrix.isUnavailable(v);
+      if (!v) return true;
+      // Matrix rows often only set `available` (no stock_status / inventory).
+      if (typeof v.available === 'boolean') return !v.available;
+      if (v.is_active === false) return true;
+      if (v.stock_status === 'out_of_stock') return true;
+      var i = v.inventory_quantity != null ? v.inventory_quantity : v.inventoryQuantity;
+      if (i != null && i !== '') {
+        var n = parseFloat(i);
+        if (isFinite(n)) return n <= 0;
+      }
+      var s = v.stock_quantity;
+      if (s != null && s !== '') {
+        var m = parseFloat(s);
+        if (isFinite(m)) return m <= 0;
+      }
+      return false;
+    }
+    
+    function _updateVisuals() {
+      var variants = _getVariants();
+      if (variants.length === 0) return;
+      document.querySelectorAll('.variant-option').forEach(function(btn) {
+        var ak = btn.getAttribute('data-attr');
+        var av = btn.getAttribute('data-value');
+        var test = {};
+        for (var k in selectedAttributes) {
+          if (selectedAttributes.hasOwnProperty(k) && k !== ak) test[k] = selectedAttributes[k];
+        }
+        test[ak] = av;
+        var matching = _findMatching(test);
+        var globalMatching = _findMatching((function() { var any = {}; any[ak] = av; return any; })());
+        btn.classList.remove('disabled', 'out-of-stock');
+        btn.disabled = false;
+        if (matching.length === 0) {
+          btn.classList.add('disabled');
+          btn.disabled = globalMatching.length === 0;
+        } else if (matching.every(function(v) { return _isOOS(v); })) {
+          btn.classList.add('disabled');
+          btn.classList.add('out-of-stock');
+          btn.disabled = true;
+        }
+      });
+    }
+
+    function _hasAvailableCombination(selections) {
+      return _findMatching(selections).filter(function(v) { return !_isOOS(v); }).length > 0;
+    }
+
+    function _syncSelectedDom() {
+      document.querySelectorAll('.variant-option').forEach(function(btn) {
+        var key = btn.getAttribute('data-attr');
+        var value = btn.getAttribute('data-value');
+        btn.classList.toggle('selected', !!key && selectedAttributes[key] === value);
+      });
+    }
+
+    function _reconcileSelectedAttributes(changedKey) {
+      var keys = _getAttributeKeys();
+      var next = {};
+      if (changedKey && selectedAttributes[changedKey]) {
+        var changedOnly = {};
+        changedOnly[changedKey] = selectedAttributes[changedKey];
+        if (_hasAvailableCombination(changedOnly)) next[changedKey] = selectedAttributes[changedKey];
+      }
+      keys.forEach(function(key) {
+        if (key === changedKey || !selectedAttributes.hasOwnProperty(key)) return;
+        var candidate = Object.assign({}, next);
+        candidate[key] = selectedAttributes[key];
+        if (_hasAvailableCombination(candidate)) next[key] = selectedAttributes[key];
+      });
+      selectedAttributes = next;
+      var guard = 0;
+      var changed = true;
+      while (changed && guard++ < keys.length + 2) {
+        changed = false;
+        keys.forEach(function(key) {
+          if (selectedAttributes.hasOwnProperty(key)) return;
+          var viable = [];
+          document.querySelectorAll('.variant-option[data-attr="' + key + '"]').forEach(function(candidateBtn) {
+            var val = candidateBtn.getAttribute('data-value');
+            if (!val) return;
+            var candidate = Object.assign({}, selectedAttributes);
+            candidate[key] = val;
+            if (_hasAvailableCombination(candidate)) viable.push(candidateBtn);
+          });
+          if (viable.length === 1) {
+            selectedAttributes[key] = viable[0].getAttribute('data-value');
+            changed = true;
+          }
+        });
+      }
+      _syncSelectedDom();
+    }
+    
+    function _updateProductDisplay() {
+      var t = _variantTranslations;
+      var product = _variantProduct;
+      if (!product) return;
+      var keys = _getAttributeKeys();
+      // keys.length===0 must NOT vacuous-true allSelected — that used to resolve
+      // the first (often OOS) variant and flash "Out of Stock" before a pick.
+      var allSelected = keys.length > 0 && keys.every(function(k) { return selectedAttributes.hasOwnProperty(k); });
+      var stockDisplay = document.getElementById('product-stock-display');
+      var priceDisplay = document.getElementById('product-price-display');
+      var addBtn = document.getElementById('add-to-cart-btn');
+      keys.forEach(function(k) {
+        var sp = document.querySelector('.variant-group[data-group="' + k + '"] .variant-selected-value');
+        if (sp) {
+          var selBtn = document.querySelector('.variant-option[data-attr="' + k + '"].selected');
+          sp.textContent = (selBtn && selBtn.getAttribute('data-display-value')) || selectedAttributes[k] || '';
+        }
+      });
+      var mainImage = document.getElementById('product-main-image');
+      if (mainImage && !window._originalMainImageSrc) {
+        window._originalMainImageSrc = mainImage.src;
+      }
+      if (allSelected) {
+        var matching = _findMatching(selectedAttributes);
+        if (matching.length > 0) {
+          var v = matching[0];
+          // Set window.selectedVariant so the page's addProductToCart can use it
+          window.selectedVariant = v;
+          if (_isOOS(v)) {
+            if (stockDisplay) {
+              stockDisplay.className = 'product-stock out-of-stock';
+              stockDisplay.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>' + (t.outOfStock || 'Out of Stock');
+            }
+            if (addBtn) { addBtn.disabled = true; addBtn.style.opacity = '0.5'; addBtn.style.cursor = 'not-allowed'; }
+          } else {
+            if (stockDisplay) {
+              stockDisplay.className = 'product-stock in-stock';
+              stockDisplay.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>' + (t.inStock || 'In Stock');
+            }
+            if (addBtn) { addBtn.disabled = false; addBtn.style.opacity = ''; addBtn.style.cursor = ''; }
+          }
+          // Always update price when a variant is matched.
+          //
+          // CUSTOMER-DISCOUNT AWARENESS (per-customer percentage off):
+          // When the active shopper has a customer-specific percentage discount
+          // configured (delivered into window.__zappyCustomerDiscountConfig by
+          // the storefront's customer-discount runtime), we MUST apply it here
+          // too — otherwise variant clicks in the fullscreen-preview editor
+          // overwrite the discounted price with the raw variant price, leaving
+          // merchants unable to preview "what their customer sees" while
+          // editing. This mirrors the V2 patch in
+          // githubService.ensureVariantSelectionFix that runs on the published
+          // site; the two click-handler paths must stay in sync since the
+          // editor's capture-phase handler (this one) runs first and
+          // stopImmediatePropagation()s the published-site V2 handler. Pinned
+          // by server/tests/previewVariantDisplayCustomerDiscount.test.js.
+          if (priceDisplay) {
+            var currency = product.currency || t.currency || '₪';
+            var baseP = window.productBasePrice || parseFloat(product.price) || 0;
+            var origP = window.productOriginalPrice || parseFloat(product.compare_at_price || product.original_price || 0);
+            var hasSale = window.productHasSalePrice;
+            var finalPrice = (v.price != null) ? parseFloat(v.price) : baseP;
+            var _cdApplied = false;
+            var _cdOrig = finalPrice;
+            if (typeof window.__zappyApplyCustomerPercentToPrice === 'function' && product && product.id) {
+              var _cdRes = window.__zappyApplyCustomerPercentToPrice(finalPrice, product.id);
+              if (_cdRes && _cdRes.applied) {
+                _cdApplied = true;
+                _cdOrig = finalPrice;
+                finalPrice = _cdRes.price;
+              }
+            }
+            var html = currency + finalPrice.toFixed(2);
+            if (_cdApplied) {
+              html += ' <span class="original-price">' + currency + _cdOrig.toFixed(2) + '</span>';
+            } else if (v.price != null) {
+              if (origP && origP > finalPrice) {
+                html += ' <span class="original-price">' + currency + origP.toFixed(2) + '</span>';
+              }
+            } else if (hasSale && origP > finalPrice) {
+              html += ' <span class="original-price">' + currency + origP.toFixed(2) + '</span>';
+            }
+            priceDisplay.innerHTML = html;
+          }
+          // Update price-per-unit if the function exists. Feed the discounted
+          // price (when a customer discount applied) so per-unit math matches
+          // the headline price.
+          if (typeof updatePricePerUnitDisplay === 'function') {
+            var effPrice = (v.price != null) ? parseFloat(v.price) : (window.productBasePrice || parseFloat(product.price) || 0);
+            if (typeof window.__zappyApplyCustomerPercentToPrice === 'function' && product && product.id) {
+              var _cdResUnit = window.__zappyApplyCustomerPercentToPrice(effPrice, product.id);
+              if (_cdResUnit && _cdResUnit.applied) effPrice = _cdResUnit.price;
+            }
+            updatePricePerUnitDisplay(effPrice, product, t);
+          }
+          // Update SKU: prefer variant SKU, fall back to base product SKU.
+          // Resolve the label through getEcomText so it follows the active
+          // storefront language — `t.sku || 'SKU'` alone returns Hebrew
+          // ("מק״ט") on every English page because the static `t` dictionary
+          // baked at server-render time is the merchant's source language
+          // (Hebrew, in the artori-design case) and a Hebrew string is
+          // truthy, so the English fallback is never reached.
+          var skuDisplay = document.getElementById('product-sku-display');
+          if (skuDisplay) {
+            var skuLabel = (typeof getEcomText === 'function') ? getEcomText('sku', t.sku || 'SKU') : (t.sku || 'SKU');
+            if (v.sku) {
+              skuDisplay.textContent = skuLabel + ': ' + v.sku;
+            } else if (product.sku) {
+              skuDisplay.textContent = skuLabel + ': ' + product.sku;
+            }
+          }
+          // Update main image if variant has a specific image
+          if (mainImage && v.image) {
+            var variantImgSrc = v.image;
+            if (window.resolveProductImageUrl) {
+              variantImgSrc = window.resolveProductImageUrl(v.image);
+            }
+            mainImage.src = variantImgSrc;
+          } else if (mainImage && window._originalMainImageSrc) {
+            mainImage.src = window._originalMainImageSrc;
+          }
+          if (typeof updateProductSpecificationsForVariant === 'function') {
+            updateProductSpecificationsForVariant(v, product);
+          }
+        }
+      } else {
+        window.selectedVariant = null;
+        // Reset SKU to base product SKU
+        var skuDisplay2 = document.getElementById('product-sku-display');
+        if (skuDisplay2 && product.sku) {
+          var skuLabel2 = (typeof getEcomText === 'function') ? getEcomText('sku', t.sku || 'SKU') : (t.sku || 'SKU');
+          skuDisplay2.textContent = skuLabel2 + ': ' + product.sku;
+        }
+        // Incomplete selection: prompt to pick an option when any variant is still
+        // purchasable. Never echo parent stock_status / blanket "In Stock" here —
+        // that flashed OOS or In Stock before the shopper chose (preview path).
+        var avail = _anyVariantAvailable();
+        if (stockDisplay) {
+          if (avail) {
+            stockDisplay.className = 'product-stock select-required';
+            stockDisplay.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>' + _selectVariantMessage();
+          } else {
+            stockDisplay.className = 'product-stock out-of-stock';
+            stockDisplay.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>' + (t.outOfStock || 'Out of Stock');
+          }
+        }
+        if (addBtn) {
+          if (avail) { addBtn.disabled = false; addBtn.style.opacity = ''; addBtn.style.cursor = ''; }
+          else { addBtn.disabled = true; addBtn.style.opacity = '0.5'; addBtn.style.cursor = 'not-allowed'; }
+        }
+        // Reset price to initial state (Starting at / base price). Same
+        // customer-discount path as the variant-matched branch above; without
+        // this, partially-selecting a variant and then deselecting another
+        // wipes the customer's discount until they re-pick a full combo.
+        if (priceDisplay) {
+          var currency = product.currency || t.currency || '₪';
+          var baseP = window.productBasePrice || parseFloat(product.price) || 0;
+          var origP = window.productOriginalPrice || parseFloat(product.compare_at_price || product.original_price || 0);
+          var hasSale = window.productHasSalePrice;
+          var hasRange = window.productHasVariantPriceRange;
+          var minP = window.productVariantMinPrice;
+          var _cdFn = (typeof window.__zappyApplyCustomerPercentToPrice === 'function' && product && product.id)
+            ? window.__zappyApplyCustomerPercentToPrice
+            : null;
+          if (hasRange && minP != null && isFinite(minP)) {
+            var startLabel = (typeof getEcomText === 'function') ? getEcomText('startingAt', t.startingAt || 'Starting at') : (t.startingAt || 'Starting at');
+            if (_cdFn) {
+              var _cdRange = _cdFn(minP, product.id);
+              if (_cdRange && _cdRange.applied) {
+                priceDisplay.innerHTML = startLabel + ' ' + currency + _cdRange.price.toFixed(2) +
+                  ' <span class="original-price">' + currency + minP.toFixed(2) + '</span>';
+              } else {
+                priceDisplay.textContent = startLabel + ' ' + currency + minP.toFixed(2);
+              }
+            } else {
+              priceDisplay.textContent = startLabel + ' ' + currency + minP.toFixed(2);
+            }
+          } else if (_cdFn) {
+            var _cdBase = _cdFn(baseP, product.id);
+            if (_cdBase && _cdBase.applied) {
+              priceDisplay.innerHTML = currency + _cdBase.price.toFixed(2) +
+                ' <span class="original-price">' + currency + baseP.toFixed(2) + '</span>';
+            } else if (hasSale && origP > baseP) {
+              priceDisplay.innerHTML = currency + baseP.toFixed(2) +
+                ' <span class="original-price">' + currency + origP.toFixed(2) + '</span>';
+            } else {
+              priceDisplay.textContent = currency + baseP.toFixed(2);
+            }
+          } else if (hasSale && origP > baseP) {
+            priceDisplay.innerHTML = currency + baseP.toFixed(2) + ' <span class="original-price">' + currency + origP.toFixed(2) + '</span>';
+          } else {
+            priceDisplay.textContent = currency + baseP.toFixed(2);
+          }
+        }
+        // Reset price-per-unit (apply customer discount when active so the
+        // per-unit math matches the headline reset price).
+        if (typeof updatePricePerUnitDisplay === 'function') {
+          var hasRange2 = window.productHasVariantPriceRange;
+          var minP2 = window.productVariantMinPrice;
+          var baseP2 = window.productBasePrice || parseFloat(product.price) || 0;
+          var resetPrice = (hasRange2 && minP2 != null && isFinite(minP2)) ? minP2 : baseP2;
+          if (typeof window.__zappyApplyCustomerPercentToPrice === 'function' && product && product.id) {
+            var _cdResetUnit = window.__zappyApplyCustomerPercentToPrice(resetPrice, product.id);
+            if (_cdResetUnit && _cdResetUnit.applied) resetPrice = _cdResetUnit.price;
+          }
+          updatePricePerUnitDisplay(resetPrice, product, t);
+        }
+        // Restore original image when no variant is fully selected
+        if (mainImage && window._originalMainImageSrc) {
+          mainImage.src = window._originalMainImageSrc;
+        }
+        if (typeof updateProductSpecificationsForVariant === 'function') {
+          updateProductSpecificationsForVariant(null, product);
+        }
+      }
+    }
+    
+    // Document-level capture handler - fires BEFORE any element-level handlers
+    document.addEventListener('click', function(e) {
+      if (_isMultiQtyProduct(_variantProduct || window.currentProduct)) return;
+      var btn = e.target.closest ? e.target.closest('.variant-option') : null;
+      if (!btn) return;
+      if (!_variantProduct || _getVariants().length === 0) return;
+      
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      
+      var ak = btn.getAttribute('data-attr');
+      var av = btn.getAttribute('data-value');
+      if (!ak || !av) return;
+      if (btn.disabled || (btn.classList.contains('disabled') && _findMatching((function() { var any = {}; any[ak] = av; return any; })()).length === 0)) return;
+      
+      // If already selected, do nothing (no manual deselect)
+      if (selectedAttributes[ak] === av) {
+        return;
+      }
+      // Select new option in this group
+      document.querySelectorAll('.variant-option[data-attr="' + ak + '"]').forEach(function(b) { b.classList.remove('selected'); });
+      selectedAttributes[ak] = av;
+      btn.classList.add('selected');
+      _reconcileSelectedAttributes(ak);
+      
+      _updateVisuals();
+      _updateProductDisplay();
+    }, true); // capture phase
+    
+    // Document-level add-to-cart interceptor (capture phase)
+    // This fires before any element-level onclick or inline onclick handlers,
+    // preventing the page's original alert()-based validation.
+    document.addEventListener('click', function(e) {
+      if (_isMultiQtyProduct(_variantProduct || window.currentProduct)) return;
+      var addBtn = e.target.closest ? e.target.closest('.add-to-cart-btn, .add-to-cart, #add-to-cart-btn, [onclick*="addProductToCart"]') : null;
+      if (!addBtn) return;
+      if (!_variantProduct || _getVariants().length === 0) return;
+      
+      var t = _variantTranslations || {};
+      var keys = _getAttributeKeys();
+      
+      // Sequential validation: check each variant group in order
+      for (var i = 0; i < keys.length; i++) {
+        if (!selectedAttributes.hasOwnProperty(keys[i])) {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          var grp = document.querySelector('.variant-group[data-group="' + keys[i] + '"]');
+          var lbl = grp ? grp.querySelector('.variant-group-label') : null;
+          var name = lbl ? lbl.textContent.replace(/[:\s]+$/, '').trim() : keys[i];
+          var sd = document.getElementById('product-stock-display');
+          if (sd) {
+            // select-required (not out-of-stock): i18n patch must not rewrite
+            // "Please select Material" → "Out of Stock".
+            sd.className = 'product-stock select-required';
+            sd.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>' +
+              (t.pleaseSelect || 'Please select') + ' ' + name;
+          }
+          if (grp) {
+            grp.style.transition = 'background 0.3s';
+            grp.style.background = 'rgba(255,0,0,0.05)';
+            grp.style.borderRadius = '8px';
+            setTimeout(function() { grp.style.background = ''; }, 2000);
+          }
+          return;
+        }
+      }
+      
+      // All selected: check if combo is out of stock
+      var matching = _findMatching(selectedAttributes);
+      if (matching.length > 0 && matching.every(function(v) { return _isOOS(v); })) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        return;
+      }
+      // Valid selection - let the click through to the original handler
+    }, true); // capture phase
+    
+    // Post-load init: sort options, clear selections, override addProductToCart
+    function fixVariantSelection() {
+      // Re-assert initVariantSelection override in case it was redefined
+      _overrideInitVariantSelection();
+      
+      var product = _variantProduct || window.currentProduct;
+      var t = _variantTranslations || window.productTranslations || {};
+      if (!product) return;
+      if (_isMultiQtyProduct(product)) return;
+      if ((!product.variants || product.variants.length === 0) && !_hasMatrix(product)) return;
+      if (document.querySelectorAll('.variant-option').length === 0) return;
+      if (window._zappyVariantFixed) return;
+      window._zappyVariantFixed = true;
+      
+      _variantProduct = _augmentProductFromCardVariants(product);
+      // Ensure pleaseSelect translation exists (for sites generated before this key was added)
+      if (!t.pleaseSelect) {
+        var isRTL = document.documentElement.getAttribute('dir') === 'rtl' || document.body.getAttribute('dir') === 'rtl';
+        t.pleaseSelect = isRTL ? 'נא לבחור' : 'Please select';
+      }
+      _variantTranslations = t;
+      
+      // Remove old dynamic CSS injected by the original initVariantSelection
+      var oldStyle = document.getElementById('zappy-variant-state-css');
+      if (oldStyle) oldStyle.remove();
+      document.querySelectorAll('.variant-option').forEach(function(btn) {
+        btn.style.display = '';
+        btn.disabled = false;
+      });
+
+      // Repair variant button attributes that were truncated by the browser
+      // when the (pre-fix) renderProductDetail in older website.content.js
+      // serialized values containing " (e.g. Hebrew sizes like '19  מ"מ',
+      // US sizes 5'10") into data-value/data-display-value without HTML
+      // escaping. We rebuild data-value, data-display-value, and the visible
+      // text from _variantProduct.variants[*].attributes — the unbroken
+      // source of truth from the API. Pairs buttons to values by index after
+      // applying the same sort that fixVariantSelection uses below, so the
+      // mapping survives even when buttons render in a different order than
+      // the variants array.
+      function _repairVariantButtons() {
+        if (!_variantProduct || !_variantProduct.variants) return;
+        var vs = _getVariants();
+        if (vs.length === 0) return;
+        var _so = {'xxxs':0,'xxs':1,'xs':2,'s':3,'m':4,'l':5,'xl':6,'xxl':7,'2xl':7,'xxxl':8,'3xl':8,'4xl':9,'5xl':10};
+        function _cmp(a, b) {
+          var sa = _so[String(a).toLowerCase()], sb = _so[String(b).toLowerCase()];
+          var na = sa === undefined ? parseFloat(a) : NaN;
+          var nb = sb === undefined ? parseFloat(b) : NaN;
+          if (!isNaN(na) && !isNaN(nb)) return na - nb;
+          if (sa !== undefined && sb !== undefined) return sa - sb;
+          var ca = !isNaN(na) ? 0 : sa !== undefined ? 1 : 2;
+          var cb = !isNaN(nb) ? 0 : sb !== undefined ? 1 : 2;
+          if (ca !== cb) return ca - cb;
+          return String(a).localeCompare(String(b));
+        }
+        document.querySelectorAll('.variant-group').forEach(function(grp) {
+          var ak = grp.getAttribute('data-group');
+          if (!ak || ak === 'variant') return;
+          var btns = Array.prototype.slice.call(grp.querySelectorAll('.variant-option'));
+          if (btns.length === 0) return;
+          var seen = {}, vals = [];
+          vs.forEach(function(v) {
+            if (v.attributes && Object.prototype.hasOwnProperty.call(v.attributes, ak)) {
+              var val = v.attributes[ak];
+              if (val != null && !seen[val]) { seen[val] = true; vals.push(val); }
+            }
+          });
+          if (vals.length === 0 || vals.length !== btns.length) return;
+          vals.sort(_cmp);
+          btns.forEach(function(btn, i) {
+            var correct = String(vals[i]);
+            var current = btn.getAttribute('data-value') || '';
+            if (current === correct) return;
+            btn.setAttribute('data-value', correct);
+            btn.setAttribute('data-display-value', correct);
+            if (!btn.classList.contains('color-swatch')) { btn.textContent = correct; }
+            if (btn.title) { btn.title = correct; }
+          });
+        });
+      }
+      _ensureCardVariantOptionButtons();
+      _repairVariantButtons();
+
+      // Sort variant options (numeric, then known sizes, then alphabetical)
+      var _sizeOrder = {'xxxs':0,'xxs':1,'xs':2,'s':3,'m':4,'l':5,'xl':6,'xxl':7,'2xl':7,'xxxl':8,'3xl':8,'4xl':9,'5xl':10};
+      document.querySelectorAll('.variant-options').forEach(function(container) {
+        var btns = Array.from(container.querySelectorAll('.variant-option'));
+        if (btns.length < 2) return;
+        btns.sort(function(a, b) {
+          var va = a.getAttribute('data-value') || '', vb = b.getAttribute('data-value') || '';
+          var sa = _sizeOrder[va.toLowerCase()], sb = _sizeOrder[vb.toLowerCase()];
+          var na = sa === undefined ? parseFloat(va) : NaN;
+          var nb = sb === undefined ? parseFloat(vb) : NaN;
+          if (!isNaN(na) && !isNaN(nb)) return na - nb;
+          if (sa !== undefined && sb !== undefined) return sa - sb;
+          var ca = !isNaN(na) ? 0 : sa !== undefined ? 1 : 2;
+          var cb = !isNaN(nb) ? 0 : sb !== undefined ? 1 : 2;
+          if (ca !== cb) return ca - cb;
+          return va.localeCompare(vb);
+        });
+        btns.forEach(function(b) { container.appendChild(b); });
+      });
+      
+      // Also override addProductToCart as a safety net
+      var origAddToCart = window.addProductToCart;
+      window.addProductToCart = function() {
+        if (_isMultiQtyProduct(window.currentProduct)) {
+          if (origAddToCart) return origAddToCart.apply(this, arguments);
+          return;
+        }
+        var keys = _getAttributeKeys();
+        for (var i = 0; i < keys.length; i++) {
+          if (!selectedAttributes.hasOwnProperty(keys[i])) {
+            var grp = document.querySelector('.variant-group[data-group="' + keys[i] + '"]');
+            var lbl = grp ? grp.querySelector('.variant-group-label') : null;
+            var name = lbl ? lbl.textContent.replace(/[:\s]+$/, '').trim() : keys[i];
+            var sd = document.getElementById('product-stock-display');
+            if (sd) {
+              sd.className = 'product-stock select-required';
+              sd.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>' +
+                (t.pleaseSelect || 'Please select') + ' ' + name;
+            }
+            if (grp) {
+              grp.style.transition = 'background 0.3s';
+              grp.style.background = 'rgba(255,0,0,0.05)';
+              grp.style.borderRadius = '8px';
+              setTimeout(function() { grp.style.background = ''; }, 2000);
+            }
+            return;
+          }
+        }
+        var matching = _findMatching(selectedAttributes);
+        if (matching.length > 0 && matching.every(function(v) { return _isOOS(v); })) return;
+        if (origAddToCart) origAddToCart.apply(this, arguments);
+      };
+      
+      // Clear all, update visuals
+      selectedAttributes = {};
+      document.querySelectorAll('.variant-option').forEach(function(b) {
+        b.classList.remove('selected', 'disabled', 'out-of-stock');
+        b.disabled = false;
+      });
+
+      // Auto-select any variant group that only has one possible value, so a
+      // shopper choosing the remaining options gets a fully-matched variant
+      // (image/SKU/price update) instead of being silently blocked because a
+      // single-option dimension was left implicitly unselected.
+      function _autoSelectSingles() {
+        document.querySelectorAll('.variant-group').forEach(function(grp) {
+          var ak = grp.getAttribute('data-group');
+          if (!ak || ak === 'variant') return;
+          if (grp.querySelector('.variant-option.selected')) return;
+          var btns = Array.prototype.slice.call(grp.querySelectorAll('.variant-option')).filter(function(b) {
+            return b.getAttribute('data-attr')
+              && b.getAttribute('data-value')
+              && !b.classList.contains('disabled')
+              && !b.classList.contains('out-of-stock');
+          });
+          if (btns.length !== 1) return;
+          var btn = btns[0];
+          var av = btn.getAttribute('data-value');
+          btn.classList.add('selected');
+          selectedAttributes[ak] = av;
+          var sp = grp.querySelector('.variant-selected-value');
+          if (sp) sp.textContent = btn.getAttribute('data-display-value') || av;
+        });
+      }
+
+      _autoSelectSingles();
+      _updateVisuals();
+      // Re-run after availability has been recomputed: a multi-option group may
+      // have collapsed to a single non-disabled choice once cross-group stock
+      // constraints were applied.
+      _autoSelectSingles();
+      _updateProductDisplay();
+    }
+    
+    function tryFix() { setTimeout(fixVariantSelection, 100); }
+    if (document.readyState === 'complete') {
+      tryFix();
+    } else {
+      window.addEventListener('load', tryFix);
+    }
+    setTimeout(fixVariantSelection, 2000);
+  })();
+
+  // ===== CHECKOUT TERMS CHECKBOX FIX =====
+  // Ensure the terms checkbox label is properly styled on all sites (including those generated
+  // before these styles were added). Injects missing CSS for proper flex layout and spacing.
+  (function() {
+    if (document.getElementById('zappy-terms-checkbox-css')) return;
+    var s = document.createElement('style');
+    s.id = 'zappy-terms-checkbox-css';
+    s.textContent =
+      '.terms-checkbox-wrapper { margin: 16px 0; padding: 12px; background: var(--surface-color, var(--surface, #f9fafb)); border-radius: 8px; }' +
+      '.terms-checkbox-label { display: flex !important; align-items: center !important; gap: 10px !important; cursor: pointer; font-size: 14px; color: var(--text-color, var(--text, #374151)); }' +
+      '.terms-checkbox { width: 18px; height: 18px; cursor: pointer; accent-color: var(--primary-color, var(--primary, #ff0083)); flex-shrink: 0; }' +
+      '.terms-link { color: var(--primary-color, var(--primary, #ff0083)); text-decoration: underline; font-weight: 500; }';
+    document.head.appendChild(s);
+  })();
+
+  // ===== CART COLOR SWATCH PATCH =====
+  // Replace color text in cart items with a color circle swatch.
+  // Observes the cart drawer for changes and converts color attribute text to circles.
+  (function() {
+    function patchCartColorSwatches(container) {
+      if (!container) return;
+      var attrs = container.querySelectorAll('.cart-item-attr');
+      attrs.forEach(function(span) {
+        if (span.querySelector('.cart-item-color-swatch')) return; // already patched
+        var labelEl = span.querySelector('.cart-item-attr-label');
+        if (!labelEl) return;
+        var labelText = (labelEl.textContent || '').replace(/[:\s]+$/, '').toLowerCase();
+        // Match color-related labels in multiple languages
+        var colorLabels = ['color', 'colour', 'צבע', 'لون', 'farbe', 'couleur', 'color', 'colore'];
+        if (colorLabels.indexOf(labelText) === -1) return;
+        // The color value is the text after the label
+        var fullText = span.textContent || '';
+        var labelFull = labelEl.textContent || '';
+        var colorValue = fullText.replace(labelFull, '').trim();
+        if (!colorValue) return;
+        var bgColor = colorValue;
+        if (!/^#[0-9A-Fa-f]{3,6}$/.test(colorValue)) {
+          var lc = colorValue.toLowerCase();
+          var _clr = {'dark grey':'#555','dark gray':'#555','light grey':'#d3d3d3','light gray':'#d3d3d3','light blue':'lightblue','dark blue':'darkblue','light green':'lightgreen','dark green':'darkgreen','dark red':'darkred','light pink':'lightpink','dark orange':'darkorange','sky blue':'skyblue','royal blue':'royalblue','navy blue':'navy','forest green':'forestgreen','olive green':'olivedrab','hot pink':'hotpink','deep pink':'deeppink','dark violet':'darkviolet','slate grey':'slategrey','slate gray':'slategray','dim grey':'dimgrey','dim gray':'dimgray','off white':'#f5f5f0','burgundy':'#800020','charcoal':'#36454f','champagne':'#f7e7ce','sand':'#c2b280','taupe':'#483c32','wine':'#722f37','rust':'#b7410e','sage':'#bcb88a','mint':'#98ff98','peach':'#ffcba4','cream':'#fffdd0','mauve':'#e0b0ff'};
+          bgColor = _clr[lc] || lc;
+        }
+        var swatch = document.createElement('span');
+        swatch.className = 'cart-item-color-swatch';
+        swatch.title = colorValue;
+        swatch.style.cssText = 'display:inline-block;width:14px;height:14px;border-radius:50%;background-color:' + bgColor + ';border:1px solid rgba(0,0,0,0.15);vertical-align:middle;margin-inline-start:4px;';
+        // Remove the text value, keep only label + swatch
+        span.textContent = '';
+        span.appendChild(labelEl.cloneNode(true));
+        span.appendChild(document.createTextNode(' '));
+        span.appendChild(swatch);
+      });
+    }
+
+    // Observe the cart drawer for content changes
+    function observeCartDrawer() {
+      var drawer = document.getElementById('cart-drawer') || document.getElementById('cart-drawer-items');
+      if (!drawer) return;
+      patchCartColorSwatches(drawer);
+      var observer = new MutationObserver(function() { patchCartColorSwatches(drawer); });
+      observer.observe(drawer, { childList: true, subtree: true });
+    }
+
+    // Try on load and also watch for the drawer being added to DOM
+    if (document.readyState === 'complete') {
+      setTimeout(observeCartDrawer, 200);
+    } else {
+      window.addEventListener('load', function() { setTimeout(observeCartDrawer, 200); });
+    }
+    // Safety net: also observe body for the drawer being dynamically added
+    var bodyObserver = new MutationObserver(function() {
+      var d = document.getElementById('cart-drawer');
+      if (d) { observeCartDrawer(); bodyObserver.disconnect(); }
+    });
+    if (document.body) {
+      bodyObserver.observe(document.body, { childList: true, subtree: true });
+    } else {
+      document.addEventListener('DOMContentLoaded', function() {
+        bodyObserver.observe(document.body, { childList: true, subtree: true });
+      });
+    }
+  })();
+
+  // ===== CART FORMATTED PRICE TOTAL PATCH =====
+  // Older generated storefront scripts used parseFloat directly, which returns NaN for
+  // persisted cart prices such as "₪55.00". Keep existing preview carts accurate until
+  // the site is refreshed with the generated-code fix.
+  (function() {
+    function parseCartPrice(value) {
+      if (value === null || value === undefined || value === '') return NaN;
+      if (typeof value === 'number') return isFinite(value) ? value : NaN;
+      var normalized = String(value).replace(/[^\d.,-]/g, '').replace(/,/g, '');
+      var parsed = parseFloat(normalized);
+      return isFinite(parsed) ? parsed : NaN;
+    }
+
+    function getItemPrice(item) {
+      if (!item) return 0;
+      if (item.selectedVariant && item.selectedVariant.price !== null && item.selectedVariant.price !== undefined && item.selectedVariant.price !== '') {
+        var variantPrice = parseCartPrice(item.selectedVariant.price);
+        if (isFinite(variantPrice)) return variantPrice;
+      }
+      var displayPrice = parseCartPrice(item.displayPrice);
+      if (isFinite(displayPrice)) return displayPrice;
+      var regularPrice = parseCartPrice(item.price);
+      var salePrice = parseCartPrice(item.sale_price);
+      if (isFinite(salePrice) && isFinite(regularPrice) && salePrice < regularPrice) return salePrice;
+      return isFinite(regularPrice) ? regularPrice : 0;
+    }
+
+    function getLineTotal(item) {
+      var price = getItemPrice(item);
+      var quantity = parseFloat(item && item.quantity) || 1;
+      var step = parseFloat((item && (item.quantityStep || item.quantity_step))) || 1;
+      var unit = (item && (item.quantityUnit || item.quantity_unit)) || 'piece';
+      return unit === 'piece' ? price * quantity : price * (quantity / step);
+    }
+
+    function getCartItems() {
+      var websiteId = window.ZAPPY_WEBSITE_ID || (window.CONFIG && window.CONFIG.websiteId);
+      if (!websiteId) return [];
+      try {
+        return JSON.parse(localStorage.getItem('zappy_cart_' + websiteId) || '[]');
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function convertDisplayAmount(baseAmount, exchangeRate) {
+      var n = parseFloat(baseAmount);
+      if (!isFinite(n)) n = 0;
+      var rate = parseFloat(exchangeRate);
+      if (!isFinite(rate) || rate <= 0) rate = 1;
+      var converted = n * rate;
+      if (rate === 1) return Math.round(converted * 100) / 100;
+      return Math.round(converted * 10) / 10;
+    }
+
+    function formatCartDisplayAmount(amount) {
+      if (typeof window.zappyFormatMoney === 'function') {
+        return window.zappyFormatMoney(amount);
+      }
+      var n = parseFloat(amount);
+      if (!isFinite(n)) n = 0;
+      var sym = (window.ZAPPY_CURRENCY_SYMBOL || '').trim() || '₪';
+      var rate = getCartDisplayExchangeRate();
+      try {
+        if (window.ZAPPY_MULTI_CURRENCY && window.ZAPPY_MULTI_CURRENCY.enabled) {
+          var lang = '';
+          try { lang = new URLSearchParams(window.location.search).get('lang') || ''; } catch (e) {}
+          if (!lang && window.zappyI18n && typeof window.zappyI18n.getCurrentLanguage === 'function') {
+            lang = window.zappyI18n.getCurrentLanguage();
+          }
+          if (!lang) lang = document.documentElement.getAttribute('lang') || '';
+          lang = String(lang).split('-')[0].toLowerCase();
+          var langs = window.ZAPPY_MULTI_CURRENCY.languages || {};
+          if (lang && langs[lang]) {
+            if (langs[lang].symbol) sym = langs[lang].symbol;
+          } else if (window.ZAPPY_MULTI_CURRENCY.base && window.ZAPPY_MULTI_CURRENCY.base.symbol) {
+            sym = window.ZAPPY_MULTI_CURRENCY.base.symbol;
+          }
+        }
+      } catch (e) {}
+      return sym + convertDisplayAmount(n, rate).toFixed(2);
+    }
+
+    function getCartDisplayExchangeRate() {
+      var rate = 1;
+      try {
+        if (window.ZAPPY_MULTI_CURRENCY && window.ZAPPY_MULTI_CURRENCY.enabled) {
+          var lang = '';
+          try { lang = new URLSearchParams(window.location.search).get('lang') || ''; } catch (e) {}
+          if (!lang && window.zappyI18n && typeof window.zappyI18n.getCurrentLanguage === 'function') {
+            lang = window.zappyI18n.getCurrentLanguage();
+          }
+          if (!lang) lang = document.documentElement.getAttribute('lang') || '';
+          lang = String(lang).split('-')[0].toLowerCase();
+          var langs = window.ZAPPY_MULTI_CURRENCY.languages || {};
+          if (lang && langs[lang]) {
+            var r = parseFloat(langs[lang].exchangeRate);
+            if (isFinite(r) && r > 0) rate = r;
+          }
+        }
+      } catch (e) {}
+      return rate;
+    }
+
+    function parseDisplayedCartAmount(text) {
+      var match = String(text || '').match(/-?[\d,.]+/);
+      if (!match) return NaN;
+      var parsed = parseFloat(match[0].replace(/,/g, ''));
+      if (!isFinite(parsed)) return NaN;
+      var rate = getCartDisplayExchangeRate();
+      return rate > 0 ? Math.abs(parsed) / rate : Math.abs(parsed);
+    }
+
+    function getCartTotalTarget(drawer) {
+      if (!drawer) return null;
+      var totalEl = document.getElementById('cart-drawer-total');
+      if (totalEl) return totalEl;
+      var legacyTotal = drawer.querySelector('.cart-drawer-total');
+      if (!legacyTotal) return null;
+      var existingText = legacyTotal.textContent || '';
+      var labelMatch = existingText.match(/^([^:]+):/);
+      var label = labelMatch ? labelMatch[1].trim() : (window.zappyI18n && window.zappyI18n.t ? window.zappyI18n.t('ecom_total') : 'Total');
+      if (!label || label === 'ecom_total') label = existingText.indexOf('סה') !== -1 ? 'סה"כ' : 'Total';
+      legacyTotal.innerHTML = '<span>' + label + ':</span><span id="cart-drawer-total">' + formatCartDisplayAmount(0) + '</span>';
+      return document.getElementById('cart-drawer-total');
+    }
+
+    /** Auto discounts already rendered by updateCartDrawerSummary (bundle, seasonal, customer, etc.). */
+    function readDrawerAutoDiscount(totalEl) {
+      if (totalEl) {
+        var attrDiscount = parseFloat(totalEl.getAttribute('data-zappy-auto-discount'));
+        if (isFinite(attrDiscount) && attrDiscount > 0.005) return attrDiscount;
+      }
+
+      var subtotalEl = document.getElementById('cart-drawer-subtotal');
+      if (subtotalEl && totalEl) {
+        var subtotal = parseDisplayedCartAmount(subtotalEl.textContent);
+        var renderedTotal = parseDisplayedCartAmount(totalEl.textContent);
+        if (isFinite(subtotal) && isFinite(renderedTotal) && subtotal >= renderedTotal) {
+          var renderedDiscount = subtotal - renderedTotal;
+          if (renderedDiscount > 0.005) return renderedDiscount;
+        }
+      }
+
+      var discount = 0;
+      var discountRows = document.querySelectorAll('#cart-drawer .zappy-cart-discount-row');
+      for (var i = 0; i < discountRows.length; i++) {
+        var row = discountRows[i];
+        if (!row || row.style.display === 'none') continue;
+        var valueEl = row.querySelector('span:last-child') || row;
+        var amount = parseDisplayedCartAmount(valueEl.textContent);
+        if (isFinite(amount)) discount += amount;
+      }
+      if (discount > 0.005) return discount;
+
+      var bundleRow = document.querySelector('.cart-drawer-bundle-discount');
+      if (!bundleRow || bundleRow.style.display === 'none') return 0;
+      var bundleEl = document.getElementById('cart-drawer-bundle-discount');
+      if (!bundleEl) return 0;
+      var bundleAmount = parseDisplayedCartAmount(bundleEl.textContent);
+      return isFinite(bundleAmount) ? bundleAmount : 0;
+    }
+
+    function patchCartTotals() {
+      var drawer = document.getElementById('cart-drawer');
+      if (!drawer) return;
+      var items = getCartItems();
+      if (!items.length) return;
+      var totalEl = getCartTotalTarget(drawer);
+      var total = 0;
+      var priceEls = drawer.querySelectorAll('.cart-item-price, .cart-drawer-item-price');
+      items.forEach(function(item, index) {
+        var lineTotal = getLineTotal(item);
+        total += lineTotal;
+        if (priceEls[index]) {
+          var nextText = formatCartDisplayAmount(lineTotal);
+          if (priceEls[index].textContent !== nextText) {
+            priceEls[index].textContent = nextText;
+          }
+        }
+      });
+      if (totalEl) {
+        var autoDiscount = readDrawerAutoDiscount(totalEl);
+        var displayTotal = Math.max(0, total - autoDiscount);
+        var nextTotal = formatCartDisplayAmount(displayTotal);
+        if (totalEl.textContent !== nextTotal) totalEl.textContent = nextTotal;
+      }
+    }
+
+    function observeCartTotals() {
+      patchCartTotals();
+      var drawer = document.getElementById('cart-drawer') || document.body;
+      if (!drawer) return;
+      var scheduled = false;
+      var observer = new MutationObserver(function() {
+        if (scheduled) return;
+        scheduled = true;
+        setTimeout(function() {
+          scheduled = false;
+          patchCartTotals();
+        }, 0);
+      });
+      observer.observe(drawer, { childList: true, subtree: true, characterData: true });
+    }
+
+    if (document.readyState === 'complete') {
+      setTimeout(observeCartTotals, 250);
+    } else {
+      window.addEventListener('load', function() { setTimeout(observeCartTotals, 250); });
+    }
+  })();
+
+  // ===== PRODUCT DETAIL RUNTIME I18N PATCH =====
+  // Existing preview product pages can keep source-language labels for stock and
+  // variant groups after switching languages. Keep those labels tied to runtime lang.
+  (function() {
+    var TEXT = {
+      en: {
+        inStock: 'In Stock',
+        outOfStock: 'Out of Stock',
+        selectVariant: 'Select option',
+        pleaseSelect: 'Please select',
+        color: 'Color',
+        size: 'Size',
+        material: 'Material',
+        style: 'Style',
+        weight: 'Weight',
+        capacity: 'Capacity',
+        length: 'Length'
+      },
+      he: {
+        inStock: 'במלאי',
+        outOfStock: 'אזל מהמלאי',
+        selectVariant: 'בחר אפשרות',
+        pleaseSelect: 'נא לבחור',
+        color: 'צבע',
+        size: 'מידה',
+        material: 'חומר',
+        style: 'סגנון',
+        weight: 'משקל',
+        capacity: 'קיבולת',
+        length: 'אורך'
+      }
+    };
+
+    function getLang() {
+      if (window.zappyI18n && typeof window.zappyI18n.getCurrentLanguage === 'function') {
+        var runtimeLang = String(window.zappyI18n.getCurrentLanguage() || '').split('-')[0].toLowerCase();
+        if (runtimeLang) return runtimeLang;
+      }
+      var htmlLang = String(document.documentElement.lang || '').split('-')[0].toLowerCase();
+      if (htmlLang) return htmlLang;
+      try {
+        var storedLang = String(localStorage.getItem('zappy_lang') || localStorage.getItem('zappy-language') || localStorage.getItem('selectedLanguage') || '').split('-')[0].toLowerCase();
+        if (storedLang) return storedLang;
+      } catch (e) {}
+      return 'en';
+    }
+
+    function getText(key) {
+      var lang = getLang();
+      if (TEXT[lang] && TEXT[lang][key]) return TEXT[lang][key];
+      if (window.zappyI18n && typeof window.zappyI18n.t === 'function') {
+        var translated = window.zappyI18n.t('ecom_' + key);
+        if (translated && translated !== 'ecom_' + key) return translated;
+      }
+      return (TEXT.en && TEXT.en[key]) || key;
+    }
+
+    function getVariantValueTranslation(attr, sourceValue) {
+      var product = window.currentProduct;
+      var variants = product && Array.isArray(product.variants) ? product.variants : [];
+      var lang = getLang();
+      function translateKnownColor(rawValue) {
+        if (lang !== 'he') return '';
+        if (String(attr || '').toLowerCase().indexOf('color') === -1 && String(attr || '').toLowerCase() !== 'colour') return '';
+        var raw = String(rawValue == null ? '' : rawValue).trim();
+        if (!raw || /[\u0590-\u05FF]/.test(raw)) return '';
+        var map = { black:'שחור', white:'לבן', gray:'אפור', grey:'אפור', red:'אדום', green:'ירוק', blue:'כחול', navy:'כחול כהה', pink:'ורוד', purple:'סגול', yellow:'צהוב', orange:'כתום', brown:'חום', beige:'בז׳', gold:'זהב', silver:'כסף', teal:'טורקיז', mint:'מנטה', cream:'קרם', ivory:'שנהב' };
+        var direct = map[raw.toLowerCase().replace(/\s+/g, ' ')];
+        if (direct) return direct;
+        var parts = raw.split(/\s*-\s*/).filter(Boolean);
+        if (parts.length > 1) {
+          var translated = parts.map(function(part) { return map[String(part).toLowerCase().replace(/\s+/g, ' ')]; });
+          if (translated.every(Boolean)) return translated.join('-');
+        }
+        return '';
+      }
+      for (var i = 0; i < variants.length; i++) {
+        var variant = variants[i];
+        var attrs = variant && (variant.attributes_source || variant.attributes || {});
+        if (String(attrs[attr]) !== String(sourceValue)) continue;
+        var translatedAttrs = variant.attributes_translations && variant.attributes_translations[lang];
+        if (translatedAttrs && translatedAttrs[attr]) return translateKnownColor(translatedAttrs[attr]) || translatedAttrs[attr];
+        var displayAttrs = variant.attributes_display || {};
+        if (displayAttrs[attr]) return translateKnownColor(displayAttrs[attr]) || displayAttrs[attr];
+      }
+      return translateKnownColor(sourceValue) || sourceValue;
+    }
+
+    function patchProductDetailI18n() {
+      if (typeof window.getVariantAttributeLabels === 'function' && !window.getVariantAttributeLabels.__zappyRuntimeI18nWrapped) {
+        var originalGetVariantAttributeLabels = window.getVariantAttributeLabels;
+        window.getVariantAttributeLabels = function(source, t) {
+          var labels = originalGetVariantAttributeLabels(source, t) || {};
+          ['color', 'size', 'material', 'style', 'weight', 'capacity', 'length'].forEach(function(key) {
+            labels[key] = getText(key);
+          });
+          return labels;
+        };
+        window.getVariantAttributeLabels.__zappyRuntimeI18nWrapped = true;
+      }
+
+      function getVariantGroupLabel(attr) {
+        var product = window.currentProduct;
+        var t = window.productTranslations || {};
+        if (typeof window.getVariantAttributeLabels === 'function' && product) {
+          var attrLabels = window.getVariantAttributeLabels(product, t) || {};
+          var resolved = attrLabels[attr] || attrLabels[String(attr).toLowerCase()];
+          if (resolved) return resolved;
+        }
+        return getText(String(attr).toLowerCase());
+      }
+
+      document.querySelectorAll('.variant-group').forEach(function(group) {
+        var attr = group.getAttribute('data-group');
+        if (!attr) return;
+        var labelText = getVariantGroupLabel(attr);
+        var label = group.querySelector('.variant-group-label');
+        if (label) {
+          var selected = label.querySelector('.variant-selected-value');
+          var selectedText = selected ? selected.textContent : '';
+          if ((label.textContent || '').trim() !== (labelText + ': ' + selectedText).trim()) {
+            label.textContent = labelText + ': ';
+            if (selected) label.appendChild(selected);
+          }
+        }
+        group.querySelectorAll('.variant-option').forEach(function(option) {
+          var value = option.getAttribute('data-value');
+          var translatedValue = getVariantValueTranslation(attr, value);
+          if (option.getAttribute('data-display-value') !== translatedValue) option.setAttribute('data-display-value', translatedValue);
+          if (option.getAttribute('title') !== translatedValue) option.setAttribute('title', translatedValue);
+          if (!option.classList.contains('color-swatch') && option.textContent !== translatedValue) option.textContent = translatedValue;
+        });
+      });
+
+      var stock = document.getElementById('product-stock-display');
+      if (stock) {
+        // Three-state: in-stock / out-of-stock / select-required.
+        // Also preserve "Please select <Attr>" prompts (ATC validation) — those
+        // used to ship with class out-of-stock, and this rewriter then replaced
+        // them with "Out of Stock" ~100ms later via MutationObserver.
+        var svg = stock.querySelector('svg');
+        var current = (stock.textContent || '').trim();
+        var please = getText('pleaseSelect');
+        var isPleasePrompt = !!(current && (
+          current.indexOf(please) === 0
+          || /^please select\b/i.test(current)
+          || current.indexOf('נא לבחור') === 0
+        ));
+        var nextText;
+        if (isPleasePrompt) {
+          nextText = current;
+        } else if (stock.classList.contains('select-required')) {
+          nextText = (typeof getEcomText === 'function')
+            ? getEcomText('selectVariant', getText('selectVariant'))
+            : getText('selectVariant');
+        } else if (stock.classList.contains('in-stock') && !stock.classList.contains('out-of-stock')) {
+          nextText = getText('inStock');
+        } else {
+          nextText = getText('outOfStock');
+        }
+        if (current !== nextText) {
+          stock.textContent = '';
+          if (svg) stock.appendChild(svg);
+          stock.appendChild(document.createTextNode(nextText));
+        }
+      }
+    }
+
+    function schedulePatch() {
+      setTimeout(patchProductDetailI18n, 100);
+      setTimeout(patchProductDetailI18n, 500);
+    }
+
+    if (document.readyState === 'complete') {
+      schedulePatch();
+    } else {
+      window.addEventListener('load', schedulePatch);
+    }
+    if (window.zappyI18n && typeof window.zappyI18n.onLanguageChange === 'function') {
+      window.zappyI18n.onLanguageChange(schedulePatch);
+    }
+    var observer = new MutationObserver(function() { schedulePatch(); });
+    if (document.body) observer.observe(document.body, { childList: true, subtree: true });
+  })();
+
+  // ===== CHECKOUT RUNTIME I18N PATCH =====
+  // Existing generated checkout pages may have Hebrew UI fragments baked into dynamic
+  // totals and shipping rows. Patch them from the active runtime language in preview.
+  (function() {
+    var TEXT = {
+      en: {
+        agreeToTerms: 'I agree to the',
+        termsAndConditions: 'Terms of Use',
+        subtotal: 'Subtotal',
+        vatIncluded: 'Including VAT',
+        shipping: 'Shipping',
+        pickup: 'Pickup',
+        discount: 'Discount',
+        totalToPay: 'Total to Pay',
+        days: 'days',
+        free: 'Free'
+      },
+      he: {
+        agreeToTerms: 'אני מסכים/ה ל',
+        termsAndConditions: 'תנאי השימוש',
+        subtotal: 'סכום ביניים',
+        vatIncluded: 'כולל מע"מ',
+        shipping: 'משלוח',
+        pickup: 'איסוף',
+        discount: 'הנחה',
+        totalToPay: 'סה"כ לתשלום',
+        days: 'ימים',
+        free: 'חינם'
+      }
+    };
+
+    function getLang() {
+      if (window.zappyI18n && typeof window.zappyI18n.getCurrentLanguage === 'function') {
+        var runtimeLang = String(window.zappyI18n.getCurrentLanguage() || '').split('-')[0].toLowerCase();
+        if (runtimeLang) return runtimeLang;
+      }
+      var htmlLang = String(document.documentElement.lang || '').split('-')[0].toLowerCase();
+      if (htmlLang) return htmlLang;
+      try {
+        var storedLang = String(localStorage.getItem('zappy_lang') || '').split('-')[0].toLowerCase();
+        if (storedLang) return storedLang;
+      } catch (e) {}
+      return 'en';
+    }
+
+    function getText(key) {
+      var lang = getLang();
+      return (TEXT[lang] && TEXT[lang][key]) || (TEXT.en && TEXT.en[key]) || '';
+    }
+
+    function setLabelForValue(valueSelector, key) {
+      var valueEl = document.querySelector(valueSelector);
+      if (!valueEl || !valueEl.parentElement) return;
+      var labelEl = valueEl.parentElement.querySelector('span:first-child');
+      if (labelEl && labelEl !== valueEl) {
+        var nextLabel = getText(key) + ':';
+        if (labelEl.textContent !== nextLabel) labelEl.textContent = nextLabel;
+      }
+    }
+
+    function ensureCheckoutTotalsStructure() {
+      var rows = document.querySelectorAll('.order-totals-row');
+      if (!rows.length) return;
+      var specs = [
+        { key: 'subtotal', id: 'subtotal', fallback: '₪0' },
+        { key: 'vatIncluded', id: 'vat-amount', fallback: '₪0' },
+        { key: 'shipping', id: 'shipping-cost', fallback: '₪0' },
+        { key: 'discount', id: 'checkout-discount-amount', fallback: '₪0.00' },
+        { key: 'totalToPay', id: 'order-total', fallback: '₪0' }
+      ];
+      specs.forEach(function(spec, index) {
+        var row = rows[index];
+        if (!row || row.querySelector('#' + spec.id)) return;
+        var text = row.textContent || '';
+        var valueMatch = text.match(/-?\s*[₪$€£]\s*\d[\d,.]*/);
+        var value = valueMatch ? valueMatch[0].replace(/\s+/g, '') : spec.fallback;
+        row.innerHTML = '<span data-ecom-label="' + spec.key + '">' + getText(spec.key) + ':</span><span id="' + spec.id + '">' + value + '</span>';
+      });
+    }
+
+    function parseMoney(value) {
+      var normalized = String(value || '').replace(/[^\d.,-]/g, '').replace(/,/g, '');
+      var parsed = parseFloat(normalized);
+      return isFinite(parsed) ? parsed : 0;
+    }
+
+    function getCheckoutDisplaySymbol() {
+      var subtotalEl = document.getElementById('subtotal');
+      if (subtotalEl) {
+        var m = (subtotalEl.textContent || '').match(/^[^\d\s.-]+/);
+        if (m && m[0]) return m[0];
+      }
+      try {
+        if (window.ZAPPY_MULTI_CURRENCY && window.ZAPPY_MULTI_CURRENCY.enabled) {
+          var lang = getLang();
+          var langs = window.ZAPPY_MULTI_CURRENCY.languages || {};
+          if (lang && langs[lang] && langs[lang].symbol) return langs[lang].symbol;
+          if (window.ZAPPY_MULTI_CURRENCY.base && window.ZAPPY_MULTI_CURRENCY.base.symbol) {
+            return window.ZAPPY_MULTI_CURRENCY.base.symbol;
+          }
+        }
+      } catch (e) {}
+      return window.ZAPPY_CURRENCY_SYMBOL || '₪';
+    }
+
+    function normalizeCheckoutValues() {
+      var discountEl = document.getElementById('checkout-discount-amount') || document.getElementById('discount');
+      var discountRow = document.getElementById('discount-row') || (discountEl && discountEl.closest('.discount-row, .order-totals-row'));
+      if (discountEl && Math.abs(parseMoney(discountEl.textContent)) < 0.005) {
+        if (discountRow) discountRow.classList.add('zappy-discount-hidden');
+        var sym = getCheckoutDisplaySymbol();
+        var zeroDiscountText = sym + '0.00';
+        if (discountEl.textContent !== zeroDiscountText) discountEl.textContent = zeroDiscountText;
+      } else if (discountRow) {
+        discountRow.classList.remove('zappy-discount-hidden');
+      }
+      var shippingCost = document.getElementById('shipping-cost');
+      if (shippingCost && /^(חינם|FREE)$/i.test((shippingCost.textContent || '').trim())) {
+        var freeText = getText('free');
+        if (shippingCost.textContent !== freeText) shippingCost.textContent = freeText;
+      }
+    }
+
+    function transliterateKnownAddress(value) {
+      if (!value) return '';
+      return String(value)
+        .replace(/הוד השרון/g, 'Hod Hasharon')
+        .replace(/הרדוף/g, 'Harduf');
+    }
+
+    function formatPickupAddress(method) {
+      var address = method && method.pickup_address;
+      if (!address || !address.street) return '';
+      var lang = getLang();
+      if (address.translations && address.translations[lang]) {
+        address = Object.assign({}, address, address.translations[lang]);
+      }
+      var street = address.street;
+      var city = address.city;
+      if (lang === 'en') {
+        street = transliterateKnownAddress(street);
+        city = transliterateKnownAddress(city);
+      }
+      return [street, city].filter(Boolean).join(', ');
+    }
+
+    function isPickupShippingSelected() {
+      // Prefer the live checkout flag set by updateOrderTotals / zappySelectShipping.
+      if (typeof window.__zappySelectedShippingIsPickup === 'boolean') {
+        return window.__zappySelectedShippingIsPickup;
+      }
+      var checked = document.querySelector('input[name="shipping"]:checked');
+      var option = checked
+        ? checked.closest('.shipping-option')
+        : document.querySelector('.shipping-option.selected');
+      if (!option) return false;
+      var attr = option.getAttribute('data-is-pickup');
+      if (attr === 'true') return true;
+      if (attr === 'false') return false;
+      if (option.querySelector('.shipping-address')) return true;
+      var methodId = (checked && checked.value) || option.getAttribute('data-method-id');
+      var cached = window.__zappyShippingMethodsCache;
+      if (methodId && Array.isArray(cached)) {
+        for (var i = 0; i < cached.length; i++) {
+          if (String(cached[i].id) === String(methodId)) return !!cached[i].is_pickup;
+        }
+      }
+      return false;
+    }
+
+    function patchCheckoutStaticText() {
+      ensureCheckoutTotalsStructure();
+      var agree = document.querySelector('[data-i18n="ecom_agreeToTerms"]') || document.querySelector('.terms-checkbox-label > span > span:first-child');
+      if (agree && agree.textContent !== getText('agreeToTerms')) agree.textContent = getText('agreeToTerms');
+      var terms = document.querySelector('[data-i18n="ecom_termsAndConditions"]') || document.querySelector('.terms-checkbox-label .terms-link');
+      if (terms && terms.textContent !== getText('termsAndConditions')) terms.textContent = getText('termsAndConditions');
+      setLabelForValue('#subtotal', 'subtotal');
+      setLabelForValue('#vat-amount', 'vatIncluded');
+      // Must NOT force "Shipping:" over a selected pickup method — the MutationObserver
+      // re-runs this after updateOrderTotals sets "Pickup:" and was flipping it back.
+      setLabelForValue('#shipping-cost', isPickupShippingSelected() ? 'pickup' : 'shipping');
+      setLabelForValue('#checkout-discount-amount', 'discount');
+      setLabelForValue('#discount', 'discount');
+      setLabelForValue('#order-total', 'totalToPay');
+      var shippingCost = document.getElementById('shipping-cost');
+      if (shippingCost && /^(חינם|FREE)$/i.test((shippingCost.textContent || '').trim())) {
+        shippingCost.textContent = getText('free');
+      }
+      normalizeCheckoutValues();
+    }
+
+    var shippingPatchInFlight = false;
+    async function patchShippingMethods() {
+      var container = document.getElementById('shipping-methods');
+      var websiteId = window.ZAPPY_WEBSITE_ID || (window.CONFIG && window.CONFIG.websiteId);
+      if (!container || !websiteId || shippingPatchInFlight) return;
+      shippingPatchInFlight = true;
+      try {
+        var lang = getLang();
+        var apiBase = window.ZAPPY_API_BASE || '';
+        var res = await fetch(apiBase + '/api/ecommerce/storefront/shipping?websiteId=' + encodeURIComponent(websiteId) + '&lang=' + encodeURIComponent(lang));
+        var data = await res.json();
+        var methods = data && data.data ? data.data : [];
+        window.__zappyShippingMethodsCache = methods;
+        methods.forEach(function(method) {
+          var block = container.querySelector('.shipping-method-block[data-method-id="' + method.id + '"]');
+          if (!block) return;
+          var nameEl = block.querySelector('.shipping-name');
+          if (nameEl && method.name) nameEl.textContent = method.name;
+          var descEl = block.querySelector('.shipping-desc');
+          var daysText = method.estimated_days ? String(method.estimated_days) + ' ' + getText('days') : '';
+          var description = method.description || '';
+          var descText = description && daysText ? description + ' (' + daysText + ')' : (description || daysText);
+          if (descEl) {
+            descEl.textContent = descText;
+          } else if (descText) {
+            var info = block.querySelector('.shipping-info');
+            if (info) {
+              var created = document.createElement('div');
+              created.className = 'shipping-desc';
+              created.textContent = descText;
+              info.appendChild(created);
+            }
+          }
+          var priceEl = block.querySelector('.shipping-price.free');
+          if (priceEl) priceEl.textContent = getText('free');
+          var addressEl = block.querySelector('.shipping-address');
+          var addressText = formatPickupAddress(method);
+          if (addressEl && addressText) addressEl.textContent = addressText;
+        });
+      } catch (e) {
+        // Non-blocking compatibility patch.
+      } finally {
+        shippingPatchInFlight = false;
+      }
+    }
+
+    function patchCheckoutI18n() {
+      patchCheckoutStaticText();
+      patchShippingMethods();
+      normalizeCheckoutValues();
+    }
+
+    var style = document.createElement('style');
+    style.id = 'zappy-checkout-runtime-i18n-css';
+    style.textContent = '.checkout-order-details .order-totals-row{display:flex!important;justify-content:space-between!important;align-items:baseline!important;gap:12px!important}.checkout-order-details .order-totals-row.zappy-discount-hidden{display:none!important}.checkout-order-details .order-totals-row span:first-child{flex:1 1 auto;min-width:0}.checkout-order-details .order-totals-row span:last-child{flex:0 0 auto;text-align:end}';
+    if (!document.getElementById(style.id)) document.head.appendChild(style);
+
+    if (document.readyState === 'complete') {
+      setTimeout(patchCheckoutI18n, 300);
+    } else {
+      window.addEventListener('load', function() { setTimeout(patchCheckoutI18n, 300); });
+    }
+    setTimeout(patchCheckoutI18n, 1500);
+    setTimeout(patchCheckoutI18n, 3500);
+    var scheduled = false;
+    var observer = new MutationObserver(function() {
+      if (scheduled) return;
+      scheduled = true;
+      setTimeout(function() {
+        scheduled = false;
+        patchCheckoutStaticText();
+      }, 50);
+    });
+    if (document.body) {
+      observer.observe(document.body, { childList: true, subtree: true, characterData: true });
+    }
+    if (window.zappyI18n && typeof window.zappyI18n.onLanguageChange === 'function') {
+      window.zappyI18n.onLanguageChange(function() { setTimeout(patchCheckoutI18n, 300); });
+    }
+  })();
+
+  function reviveCanonicalHeroBackgroundWrappers() {
+    try {
+      var imgs = document.querySelectorAll('img[data-hero-bg], img[data-hero-background="true"]');
+      for (var i = 0; i < imgs.length; i++) {
+        var img = imgs[i];
+        var parent = img.parentElement;
+        while (parent && parent !== document.body && parent.tagName !== 'SECTION') {
+          parent.style.display = '';
+          parent.removeAttribute('data-zappy-original-bg');
+          parent.removeAttribute('data-zappy-preview-hidden');
+          parent = parent.parentElement;
+        }
+        img.removeAttribute('data-zappy-original-bg');
+      }
+    } catch (e) {}
+  }
+
+  function scheduleCanonicalHeroWrapperRevival() {
+    reviveCanonicalHeroBackgroundWrappers();
+    [100, 500, 1500, 3000, 6000, 10000].forEach(function(delay) {
+      setTimeout(reviveCanonicalHeroBackgroundWrappers, delay);
+    });
+    try {
+      if (window.__zappyHeroWrapperRevivalObserver) return;
+      var observer = new MutationObserver(function(mutations) {
+        for (var i = 0; i < mutations.length; i++) {
+          var target = mutations[i].target;
+          if (!target || !target.querySelector) continue;
+          if (
+            (target.matches && target.matches('img[data-hero-bg], img[data-hero-background="true"]')) ||
+            target.querySelector('img[data-hero-bg], img[data-hero-background="true"]')
+          ) {
+            reviveCanonicalHeroBackgroundWrappers();
+            break;
+          }
+        }
+      });
+      observer.observe(document.documentElement, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: ['style', 'data-zappy-original-bg', 'data-zappy-preview-hidden']
+      });
+      window.__zappyHeroWrapperRevivalObserver = observer;
+      setTimeout(function() {
+        try {
+          observer.disconnect();
+          if (window.__zappyHeroWrapperRevivalObserver === observer) {
+            window.__zappyHeroWrapperRevivalObserver = null;
+          }
+        } catch (e) {}
+      }, 15000);
+    } catch (e) {}
+  }
+
+  scheduleCanonicalHeroWrapperRevival();
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', scheduleCanonicalHeroWrapperRevival, { once: true });
+  }
+  window.addEventListener('load', scheduleCanonicalHeroWrapperRevival, { once: true });
+
+})();
+
+
+/* ZAPPY_ECOM_LANGUAGE_ROUTING_RUNTIME_V26 */
+(function() {
+  if (window.__zappyEcomLanguageRoutingRuntime >= 26) return;
+  window.__zappyEcomLanguageRoutingRuntime = 26;
+
+  // Routing strategy: use path-based language URLs for ALL storefront pages
+  // (including dynamic /product/:slug and /category/:slug). The publish
+  // pipeline pre-renders /<lang>/product/:slug/index.html with the correct
+  // navbar / catalog / lang-switcher baked in, and render.yaml rewrites
+  // /<lang>/product/* → that file. The script.js loaded inside is
+  // language-aware (reads the active language from the URL prefix) so dynamic
+  // labels (Add to Cart, In Stock, etc.) render in the right language too.
+  // This eliminates the source-language flash entirely — no runtime
+  // translation needed.
+
+  function getPathLang() {
+    return (window.location.pathname.match(/^\/([a-z]{2})(?:\/|$)/i) || [])[1];
+  }
+
+  function getQueryLang() {
+    try {
+      return new URLSearchParams(window.location.search).get('lang');
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function getBakedDefaultLang() {
+    try {
+      if (typeof window.__zappyDefaultLang === 'string' && window.__zappyDefaultLang) return window.__zappyDefaultLang.toLowerCase();
+      if (typeof zappyAdditionalDefaultLanguage === 'string' && zappyAdditionalDefaultLanguage) return zappyAdditionalDefaultLanguage.toLowerCase();
+      if (typeof zappyEcomDefaultLanguage === 'string' && zappyEcomDefaultLanguage) return zappyEcomDefaultLanguage.toLowerCase();
+    } catch (e) {}
+    var htmlLang = document.documentElement.getAttribute('lang');
+    return htmlLang ? htmlLang.split('-')[0].toLowerCase() : 'he';
+  }
+
+  // Seed the runtime language so any code that reads localStorage / html lang
+  // ends up agreeing with the URL the user actually loaded. URLs are the
+  // source of truth here:
+  //   /<lang>/...   → that prefix language
+  //   ?lang=<x>     → that query language (legacy / preview)
+  //   /            (no prefix) → site's baked-in default language
+  // Without the no-prefix branch, visiting the default-language root with a
+  // stale localStorage from an earlier session (e.g. user toggled to English
+  // last week) keeps the dynamic catalog/featured/category fetches in the
+  // stale language, which is the "catalog menu stays in English on the
+  // Hebrew page" bug.
+  (function seedLanguageFromUrl() {
+    var urlLang = getQueryLang() || getPathLang() || getBakedDefaultLang();
+    if (!urlLang) return;
+    urlLang = String(urlLang).split('-')[0].toLowerCase();
+    try {
+      localStorage.setItem('zappy_lang', urlLang);
+      localStorage.setItem('zappy-language', urlLang);
+      localStorage.setItem('selectedLanguage', urlLang);
+      localStorage.setItem('language', urlLang);
+    } catch (e) {}
+    document.documentElement.setAttribute('lang', urlLang);
+    document.documentElement.setAttribute('dir', urlLang === 'he' || urlLang === 'ar' || urlLang === 'iw' ? 'rtl' : 'ltr');
+  })();
+
+  // Backward-compat soft redirect: any in-flight bookmarks / external links of
+  // the form /product/<slug>?lang=en (issued by older builds) get rewritten
+  // immediately to the path-based equivalent /en/product/<slug>. Done before
+  // the rest of the runtime so the user lands on the correct pre-rendered HTML
+  // instead of seeing the source-language navbar flash. Skipped when we are
+  // already on a language-prefixed path (no redirect loop).
+  (function softRedirectQueryLangToPath() {
+    var queryLang = getQueryLang();
+    if (!queryLang) return;
+    var pathLang = getPathLang();
+    if (pathLang) return;
+    var path = window.location.pathname || '';
+    if (!/^\/(product|category)(?:\/|$)/i.test(path)) return;
+    try {
+      var url = new URL(window.location.href);
+      url.searchParams.delete('lang');
+      var nextPath = '/' + queryLang.toLowerCase() + path;
+      var nextHref = url.origin + nextPath + (url.searchParams.toString() ? '?' + url.searchParams.toString() : '') + url.hash;
+      window.location.replace(nextHref);
+    } catch (e) {}
+  })();
+
+  function getLang() {
+    try {
+      if (window.zappyI18n && typeof window.zappyI18n.getCurrentLanguage === 'function') {
+        var i18nLang = window.zappyI18n.getCurrentLanguage();
+        if (i18nLang) return String(i18nLang).split('-')[0].toLowerCase();
+      }
+      if (window.zappyI18n && window.zappyI18n.language) {
+        return String(window.zappyI18n.language).split('-')[0].toLowerCase();
+      }
+    } catch (e) {}
+    var queryLang = getQueryLang();
+    if (queryLang) return queryLang.toLowerCase();
+    var pathLang = getPathLang();
+    if (pathLang) return pathLang.toLowerCase();
+    var htmlLang = document.documentElement.getAttribute('lang');
+    if (htmlLang) return htmlLang.split('-')[0].toLowerCase();
+    try {
+      var stored = localStorage.getItem('zappy_lang') || localStorage.getItem('zappy-language') || localStorage.getItem('selectedLanguage') || localStorage.getItem('language');
+      if (stored) return String(stored).split('-')[0].toLowerCase();
+    } catch (e) {}
+    return '';
+  }
+
+  function getDefaultLang() {
+    // Must mirror getBakedDefaultLang() so buildPath() agrees with the
+    // zappyAdditionalDefaultLanguage / zappyEcomDefaultLanguage baked at
+    // generation time. A hardcoded 'he' fallback here caused English-only
+    // sites (post language removal) to rewrite /products → /en/products.
+    return getBakedDefaultLang();
+  }
+
+  function buildPath(path) {
+    if (!path || /^https?:\/\//i.test(path) || path.charAt(0) === '#') return path;
+    var normalized = path.charAt(0) === '/' ? path : '/' + path;
+    var lang = getLang();
+    var defaultLang = getDefaultLang();
+    if (!lang || lang === defaultLang) return normalized.replace(/^\/[a-z]{2}(?=\/)/i, '');
+    // Always use path-based language prefix — including dynamic
+    // /product/:slug + /category/:slug, which the publish pipeline serves via
+    // pre-rendered /<lang>/<base>/:slug/index.html. No more ?lang= query.
+    var withoutLang = normalized.replace(/^\/[a-z]{2}(?=\/)/i, '');
+    var prefix = '/' + lang;
+    return withoutLang === prefix || withoutLang.indexOf(prefix + '/') === 0 ? withoutLang : prefix + withoutLang;
+  }
+
+  function isStorefrontPath(href) {
+    // Includes the static account/login/cart/checkout pages (in addition to
+    // product/category/products) so the navbar login/account icon, the
+    // "please sign in" CTA, etc. keep the active language prefix — otherwise
+    // an English shopper clicking the account icon lands on the unprefixed
+    // default-language /account static file (Hebrew navbar + footer + body).
+    return /^\/(?:[a-z]{2}\/)?(?:product|category|products|account|login|cart|checkout)(?:\/|\?|#|$)/i.test(href || '');
+  }
+
+  function patchLinks(root) {
+    var scope = root && root.querySelectorAll ? root : document;
+    scope.querySelectorAll('a[href]').forEach(function(anchor) {
+      var href = anchor.getAttribute('href');
+      if (!isStorefrontPath(href)) return;
+      var next = buildPath(href);
+      if (href !== next) anchor.setAttribute('href', next);
+    });
+  }
+
+  function ensureProductsChevron() {
+    var trigger = document.querySelector('.zappy-products-dropdown > a');
+    if (!trigger) return;
+    trigger.setAttribute('href', buildPath('/products'));
+    if (trigger.querySelector('svg.dropdown-arrow')) return;
+    var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('class', 'dropdown-arrow');
+    svg.setAttribute('width', '12');
+    svg.setAttribute('height', '12');
+    svg.setAttribute('viewBox', '0 0 24 24');
+    svg.setAttribute('fill', 'none');
+    svg.setAttribute('stroke', 'currentColor');
+    svg.setAttribute('stroke-width', '2');
+    var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', 'M6 9l6 6 6-6');
+    svg.appendChild(path);
+    trigger.appendChild(document.createTextNode(' '));
+    trigger.appendChild(svg);
+  }
+
+  // On mobile the inline chevron (rendered inside the <a>) is unusable: tapping
+  // it just navigates to /products instead of expanding the submenu, and it sits
+  // hugged to the link text instead of on the far side of the row. The
+  // generation pipelines for e-commerce per-language pages do not inject the
+  // shared initMobileSubmenuToggles helper, so we own that here. Below 768px
+  // we materialise a dedicated <button class="mobile-submenu-toggle"> as a
+  // sibling of the link; existing styles.css already styles its chevron and
+  // expands .sub-menu.mobile-expanded, and our V5 ensureRuntimeCssInjected
+  // pins the button to the far edge of the row (right in LTR, left in RTL).
+  // Above 768px we tear it back down so the desktop hover dropdown is intact.
+  // normalizeMobileSubmenuLayout writes inline !important locks (display /
+  // visibility / height / position / …). Those beat stylesheet :hover
+  // flyouts, so desktop teardown MUST remove them — not just the toggle
+  // and .mobile-expanded class. Otherwise a visit below 768px (or a
+  // resize/rotate across the breakpoint) leaves dropdowns hidden or stuck
+  // in-flow.
+  function ensureMobileSubmenuToggles() {
+    var isMobile = window.matchMedia ? window.matchMedia('(max-width: 768px)').matches : window.innerWidth <= 768;
+
+    if (!isMobile) {
+      document.querySelectorAll('.mobile-submenu-toggle[data-zappy-runtime="ecom-routing"]').forEach(function(btn) {
+        btn.remove();
+      });
+      document.querySelectorAll('.sub-menu.mobile-expanded').forEach(function(menu) {
+        menu.classList.remove('mobile-expanded');
+      });
+      document.querySelectorAll('.zappy-products-dropdown > a > svg.dropdown-arrow[data-zappy-mobile-hidden="1"]').forEach(function(arrow) {
+        arrow.style.display = '';
+        arrow.removeAttribute('data-zappy-mobile-hidden');
+      });
+      clearMobileSubmenuLayoutLocks();
+      return;
+    }
+
+    var dropdowns = document.querySelectorAll('.zappy-products-dropdown, .menu-item-has-children, .nav-menu li:has(> .sub-menu), nav li:has(> .sub-menu)');
+    dropdowns.forEach(function(li) {
+      if (!li || !li.querySelector) return;
+      var submenu = li.querySelector(':scope > .sub-menu');
+      var trigger = li.querySelector(':scope > a') || li.querySelector(':scope > .menu-group-title');
+      if (!submenu || !trigger) return;
+
+      // Hide the inline SVG chevron on mobile so we don't render two chevrons.
+      var inlineArrow = trigger.querySelector('svg.dropdown-arrow');
+      if (inlineArrow && !inlineArrow.hasAttribute('data-zappy-mobile-hidden')) {
+        inlineArrow.style.display = 'none';
+        inlineArrow.setAttribute('data-zappy-mobile-hidden', '1');
+      }
+
+      var btn = li.querySelector(':scope > .mobile-submenu-toggle');
+      if (!btn) {
+        btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'mobile-submenu-toggle';
+        btn.setAttribute('aria-label', 'Toggle submenu');
+        trigger.insertAdjacentElement('afterend', btn);
+      }
+      btn.setAttribute('aria-expanded', submenu.classList.contains('mobile-expanded') ? 'true' : 'false');
+      btn.setAttribute('data-zappy-runtime', 'ecom-routing');
+
+      if (btn.getAttribute('data-zappy-runtime-bound') === '1') return;
+      btn.setAttribute('data-zappy-runtime-bound', '1');
+
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (typeof e.stopImmediatePropagation === 'function') e.stopImmediatePropagation();
+
+        // Close any other open submenus so only one is open at a time.
+        document.querySelectorAll('.sub-menu.mobile-expanded').forEach(function(other) {
+          if (other === submenu) return;
+          other.classList.remove('mobile-expanded');
+          var otherBtn = other.parentElement && other.parentElement.querySelector(':scope > .mobile-submenu-toggle');
+          if (otherBtn) {
+            otherBtn.classList.remove('expanded');
+            otherBtn.setAttribute('aria-expanded', 'false');
+          }
+        });
+
+        var willOpen = !submenu.classList.contains('mobile-expanded');
+        submenu.classList.toggle('mobile-expanded', willOpen);
+        btn.classList.toggle('expanded', willOpen);
+        btn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+        normalizeMobileSubmenuLayout();
+      }, true);
+    });
+    normalizeMobileSubmenuLayout();
+  }
+
+  function setImportant(el, prop, value) {
+    if (!el || !el.style || !el.style.setProperty) return;
+    el.style.setProperty(prop, value, 'important');
+    if (!el.setAttribute) return;
+    el.setAttribute('data-zappy-mobile-layout-lock', '1');
+    // Record each property THIS lock wrote. Desktop teardown must not
+    // removeProperty a name we never set — that races the transparent-
+    // navbar scroll helper's inline frosted color on Products triggers.
+    var recorded = (el.getAttribute('data-zappy-mobile-layout-lock-props') || '');
+    var written = recorded ? recorded.split(',') : [];
+    if (written.indexOf(prop) === -1) {
+      written.push(prop);
+      el.setAttribute('data-zappy-mobile-layout-lock-props', written.join(','));
+    }
+  }
+
+  function clearImportant(el, props) {
+    if (!el || !el.style || !el.style.removeProperty) return;
+    for (var i = 0; i < props.length; i++) el.style.removeProperty(props[i]);
+  }
+
+  // Allowlist of properties normalizeMobileSubmenuLayout may lock.
+  // Teardown intersects the per-element recorded list with this — never
+  // a blanket wipe. A full-list removeProperty also dropped inline
+  // color the scroll helper (sTC) set on dropdown triggers, so a
+  // mobile→desktop resize lost frosted contrast until the next scroll.
+  var MOBILE_SUBMENU_LOCK_PROPS = [
+    'align-items', 'background', 'border', 'box-sizing', 'color', 'direction',
+    'display', 'flex', 'flex-wrap', 'font-size', 'font-weight', 'height',
+    'inset-inline-end', 'inset-inline-start', 'justify-content', 'left',
+    'line-height', 'margin', 'max-height', 'max-width', 'min-height',
+    'min-width', 'opacity', 'order', 'overflow', 'overflow-wrap', 'padding',
+    'padding-left', 'padding-right', 'pointer-events', 'position', 'right',
+    'text-align', 'transform', 'visibility', 'white-space', 'width'
+  ];
+
+  function clearMobileSubmenuLayoutLocks() {
+    document.querySelectorAll('[data-zappy-mobile-layout-lock="1"]').forEach(function(el) {
+      var recorded = (el.getAttribute('data-zappy-mobile-layout-lock-props') || '').split(',');
+      var written = [];
+      for (var i = 0; i < recorded.length; i++) {
+        var prop = recorded[i];
+        if (prop && MOBILE_SUBMENU_LOCK_PROPS.indexOf(prop) !== -1) written.push(prop);
+      }
+      clearImportant(el, written);
+      el.removeAttribute('data-zappy-mobile-layout-lock');
+      el.removeAttribute('data-zappy-mobile-layout-lock-props');
+    });
+  }
+
+  function normalizeMobileSubmenuLayout() {
+    var isMobile = window.matchMedia ? window.matchMedia('(max-width: 768px)').matches : window.innerWidth <= 768;
+    if (!isMobile) {
+      clearMobileSubmenuLayoutLocks();
+      return;
+    }
+    var isRtl = (document.documentElement.getAttribute('dir') || document.body.getAttribute('dir')) === 'rtl';
+    document.querySelectorAll('.nav-menu li:has(> .sub-menu), nav li:has(> .sub-menu), .navbar li:has(> .sub-menu)').forEach(function(li) {
+      var submenu = li.querySelector(':scope > .sub-menu');
+      var trigger = li.querySelector(':scope > a') || li.querySelector(':scope > .menu-group-title');
+      var btn = li.querySelector(':scope > .mobile-submenu-toggle');
+      if (!submenu || !trigger || !btn) return;
+
+      // Keep the layout direction LTR even on RTL pages. Flexbox otherwise
+      // places the full-width submenu from the right edge and clips it outside
+      // the mobile drawer; text direction is restored on the children below.
+      setImportant(li, 'direction', 'ltr');
+      setImportant(li, 'display', 'flex');
+      setImportant(li, 'flex-wrap', 'wrap');
+      setImportant(li, 'align-items', 'flex-start');
+      setImportant(li, 'width', '100%');
+      setImportant(li, 'max-width', '100%');
+      setImportant(li, 'min-width', '0');
+      setImportant(li, 'overflow', 'visible');
+      setImportant(li, 'box-sizing', 'border-box');
+
+      // Match ensureMobileNavMenuItemPadding (12px 16px / 44px tap target).
+      // Legacy padding-inline:8px + CSS padding:0 on .menu-group-title
+      // squashed group labels (סיום והעברות / בלוג) vs sibling <a> rows.
+      setImportant(trigger, 'display', 'flex');
+      setImportant(trigger, 'align-items', 'center');
+      setImportant(trigger, 'direction', isRtl ? 'rtl' : 'ltr');
+      setImportant(trigger, 'flex', '1 1 0');
+      setImportant(trigger, 'min-width', '0');
+      setImportant(trigger, 'max-width', 'calc(100% - 48px)');
+      setImportant(trigger, 'width', 'auto');
+      setImportant(trigger, 'box-sizing', 'border-box');
+      setImportant(trigger, 'white-space', 'normal');
+      setImportant(trigger, 'overflow-wrap', 'anywhere');
+      setImportant(trigger, 'padding', '12px 16px');
+      setImportant(trigger, 'min-height', '44px');
+      setImportant(trigger, 'line-height', '1.4');
+      setImportant(trigger, 'font-weight', '600');
+      setImportant(trigger, 'text-align', isRtl ? 'right' : 'left');
+      setImportant(trigger, 'order', isRtl ? '2' : '1');
+
+      // Open mobile drawer: paint .menu-group-title like sibling links.
+      // Scrolled-nav CSS often sets titles to --frosted-text (near-black),
+      // which is invisible on the dark full-bleed panel (Dubai Plus 2026-07).
+      var menuRoot = li.closest('.nav-menu, #navMenu');
+      if (menuRoot && (menuRoot.classList.contains('active') || menuRoot.classList.contains('open'))) {
+        var sampleLink = menuRoot.querySelector(':scope > li > a');
+        var linkColor = '';
+        try { linkColor = sampleLink ? (window.getComputedStyle(sampleLink).color || '') : ''; } catch (e) {}
+        if (!linkColor || linkColor === 'rgba(0, 0, 0, 0)') {
+          try {
+            linkColor = (window.getComputedStyle(menuRoot).getPropertyValue('--nav-text') || '').trim()
+              || (window.getComputedStyle(document.documentElement).getPropertyValue('--nav-text') || '').trim()
+              || '#fff7ed';
+          } catch (e2) { linkColor = '#fff7ed'; }
+        }
+        setImportant(trigger, 'color', linkColor);
+      }
+
+      setImportant(btn, 'display', 'flex');
+      setImportant(btn, 'position', 'static');
+      setImportant(btn, 'flex', '0 0 48px');
+      setImportant(btn, 'width', '48px');
+      setImportant(btn, 'height', '44px');
+      setImportant(btn, 'min-height', '44px');
+      setImportant(btn, 'align-items', 'center');
+      setImportant(btn, 'justify-content', 'center');
+      setImportant(btn, 'margin', '0');
+      setImportant(btn, 'padding', '0');
+      setImportant(btn, 'background', 'transparent');
+      setImportant(btn, 'border', 'none');
+      setImportant(btn, 'order', isRtl ? '1' : '2');
+
+      setImportant(submenu, 'order', '3');
+      setImportant(submenu, 'direction', isRtl ? 'rtl' : 'ltr');
+      setImportant(submenu, 'text-align', isRtl ? 'right' : 'left');
+      setImportant(submenu, 'flex', '0 0 100%');
+      setImportant(submenu, 'width', '100%');
+      setImportant(submenu, 'min-width', '0');
+      setImportant(submenu, 'max-width', '100%');
+      setImportant(submenu, 'box-sizing', 'border-box');
+      setImportant(submenu, 'margin', '0');
+      setImportant(submenu, 'transform', 'none');
+      setImportant(submenu, 'left', 'auto');
+      setImportant(submenu, 'right', 'auto');
+      setImportant(submenu, 'inset-inline-start', 'auto');
+      setImportant(submenu, 'inset-inline-end', 'auto');
+      setImportant(submenu, 'position', 'static');
+      if (submenu.classList.contains('mobile-expanded')) {
+        setImportant(submenu, 'display', 'block');
+        setImportant(submenu, 'visibility', 'visible');
+        setImportant(submenu, 'opacity', '1');
+        setImportant(submenu, 'height', 'auto');
+        setImportant(submenu, 'max-height', 'none');
+        setImportant(submenu, 'overflow', 'visible');
+        setImportant(submenu, 'pointer-events', 'auto');
+        setImportant(submenu, 'padding', '8px 0');
+      } else {
+        setImportant(submenu, 'display', 'none');
+        setImportant(submenu, 'visibility', 'hidden');
+        setImportant(submenu, 'opacity', '0');
+        setImportant(submenu, 'height', '0');
+        setImportant(submenu, 'max-height', '0');
+        setImportant(submenu, 'overflow', 'hidden');
+        setImportant(submenu, 'pointer-events', 'none');
+      }
+
+      submenu.querySelectorAll('a, .menu-group-title').forEach(function(item) {
+        var parentItem = item.closest && item.closest('li');
+        setImportant(item, 'display', 'block');
+        setImportant(item, 'direction', isRtl ? 'rtl' : 'ltr');
+        setImportant(item, 'width', '100%');
+        setImportant(item, 'min-width', '0');
+        setImportant(item, 'max-width', '100%');
+        setImportant(item, 'box-sizing', 'border-box');
+        setImportant(item, 'white-space', 'normal');
+        setImportant(item, 'overflow-wrap', 'anywhere');
+        setImportant(item, 'padding', '10px 8px');
+        setImportant(item, 'text-align', isRtl ? 'right' : 'left');
+        if (parentItem && parentItem.classList && parentItem.classList.contains('zappy-nav-parent')) {
+          setImportant(item, 'font-weight', '700');
+        }
+        if (parentItem && parentItem.classList && parentItem.classList.contains('zappy-nav-child')) {
+          setImportant(item, 'padding-left', isRtl ? '16px' : '36px');
+          setImportant(item, 'padding-right', isRtl ? '36px' : '16px');
+          setImportant(item, 'font-size', '0.94em');
+          setImportant(item, 'opacity', '0.85');
+        }
+      });
+    });
+  }
+
+  function scheduleMobileSubmenuRefresh() {
+    [0, 60, 160, 320, 700, 1200, 2200].forEach(function(delay) {
+      setTimeout(function() {
+        ensureMobileSubmenuToggles();
+        normalizeMobileSubmenuLayout();
+      }, delay);
+    });
+  }
+
+  function installMobileMenuRefreshHooks() {
+    if (window.__zappyMobileSubmenuRefreshHooksInstalled) return;
+    window.__zappyMobileSubmenuRefreshHooksInstalled = true;
+
+    document.addEventListener('click', function(e) {
+      var target = e.target && e.target.closest && e.target.closest(
+        '.mobile-toggle,.menu-toggle,.hamburger,.navbar-toggle,.mobile-submenu-toggle,[aria-label="תפריט"],[aria-label="Menu"],[aria-label="menu"]'
+      );
+      if (target) scheduleMobileSubmenuRefresh();
+    }, true);
+
+    if (!window.MutationObserver) return;
+    var observeNav = function() {
+      var nav = document.getElementById('navMenu') || document.querySelector('.nav-menu');
+      if (!nav || nav.getAttribute('data-zappy-mobile-submenu-observed') === '1') return;
+      nav.setAttribute('data-zappy-mobile-submenu-observed', '1');
+      var handleMutations = function(mutations) {
+        var shouldRefresh = mutations.some(function(mutation) {
+          if (mutation.type === 'attributes') return mutation.attributeName === 'class' || mutation.attributeName === 'style';
+          return Array.prototype.some.call(mutation.addedNodes || [], function(node) {
+            return node.nodeType === 1 && (
+              node.classList && node.classList.contains('mobile-submenu-toggle')
+              || node.querySelector && node.querySelector('.mobile-submenu-toggle')
+            );
+          });
+        });
+        if (shouldRefresh) scheduleMobileSubmenuRefresh();
+      };
+      var navObserver = new MutationObserver(handleMutations);
+      navObserver.observe(nav, { attributes: true, attributeFilter: ['class', 'style'], childList: true });
+      var childObserver = new MutationObserver(handleMutations);
+      childObserver.observe(nav, { childList: true, subtree: true });
+    };
+    observeNav();
+    setTimeout(observeNav, 500);
+  }
+
+  var __zappyMobileSubmenuResizeTimer = null;
+  window.addEventListener('resize', function() {
+    if (__zappyMobileSubmenuResizeTimer) clearTimeout(__zappyMobileSubmenuResizeTimer);
+    __zappyMobileSubmenuResizeTimer = setTimeout(ensureMobileSubmenuToggles, 200);
+  }, { passive: true });
+
+  function patchCatalogDirection() {
+    var catalog = document.getElementById('zappy-catalog-menu');
+    if (!catalog) return;
+    var dir = document.documentElement.getAttribute('dir') || (getLang() === 'he' ? 'rtl' : 'ltr');
+    catalog.classList.toggle('rtl', dir === 'rtl');
+    catalog.classList.toggle('ltr', dir !== 'rtl');
+    catalog.setAttribute('dir', dir);
+    catalog.querySelectorAll('.catalog-menu-item, .sub-menu').forEach(function(el) {
+      el.setAttribute('dir', dir);
+    });
+  }
+
+  // Inject the small CSS rules we need at runtime. Doing this from JS instead of
+  // a separate CSS ensure step makes us robust to clean-css comment stripping +
+  // declaration merging that was eating the standalone CSS injection.
+  function ensureRuntimeCssInjected() {
+    var existing = document.getElementById('zappy-ecom-routing-runtime-css');
+    if (existing && existing.getAttribute('data-v') === '33') return;
+    if (existing) existing.remove();
+    var style = document.createElement('style');
+    style.id = 'zappy-ecom-routing-runtime-css';
+    style.setAttribute('data-zappy-runtime', 'ecom-routing');
+    style.setAttribute('data-v', '33');
+    style.textContent =
+      '@media (min-width: 769px){' +
+        'html[dir="ltr"] .nav-container > .nav-brand,body[dir="ltr"] .nav-container > .nav-brand,html[dir="ltr"] .nav-right-group > .nav-brand,body[dir="ltr"] .nav-right-group > .nav-brand{order:-1!important}' +
+        'html[dir="ltr"] .nav-container > .nav-menu,body[dir="ltr"] .nav-container > .nav-menu,html[dir="ltr"] .nav-right-group > .nav-menu,body[dir="ltr"] .nav-right-group > .nav-menu{order:1!important;margin-inline-start:0!important;flex:1 1 0!important;min-width:0!important;overflow:visible!important;align-items:center!important}' +
+        'html[dir="ltr"] .nav-container > .nav-menu > li,body[dir="ltr"] .nav-container > .nav-menu > li,html[dir="ltr"] .nav-right-group > .nav-menu > li,body[dir="ltr"] .nav-right-group > .nav-menu > li{flex:0 0 auto!important}' +
+        'html[dir="ltr"] .nav-container > .lang-switcher,body[dir="ltr"] .nav-container > .lang-switcher,html[dir="ltr"] .nav-container > .nav-ecommerce-icons,body[dir="ltr"] .nav-container > .nav-ecommerce-icons,html[dir="ltr"] .nav-container > .nav-cta-container,body[dir="ltr"] .nav-container > .nav-cta-container,html[dir="ltr"] .nav-right-group > .lang-switcher,body[dir="ltr"] .nav-right-group > .lang-switcher,html[dir="ltr"] .nav-right-group > .nav-ecommerce-icons,body[dir="ltr"] .nav-right-group > .nav-ecommerce-icons,html[dir="ltr"] .nav-right-group > .nav-cta-container,body[dir="ltr"] .nav-right-group > .nav-cta-container{order:2!important;flex:0 0 auto!important;min-width:max-content!important}' +
+        '.nav-ecommerce-icons .nav-search-box{order:1!important}.nav-ecommerce-icons .lang-switcher{order:2!important}.nav-ecommerce-icons .login-link.nav-login{order:3!important}.nav-ecommerce-icons .cart-link.nav-cart{order:4!important}' +
+        'html[dir="ltr"] .nav-container > .nav-ecommerce-icons.nav-icons-left,body[dir="ltr"] .nav-container > .nav-ecommerce-icons.nav-icons-left,html[dir="ltr"] .nav-right-group > .nav-ecommerce-icons.nav-icons-left,body[dir="ltr"] .nav-right-group > .nav-ecommerce-icons.nav-icons-left{margin-inline-start:auto!important;flex:0 0 auto!important;min-width:max-content!important}' +
+        'html[dir="rtl"] .nav-container > .nav-menu,body[dir="rtl"] .nav-container > .nav-menu,html[dir="rtl"] .nav-right-group > .nav-menu,body[dir="rtl"] .nav-right-group > .nav-menu{flex:1 1 0!important;min-width:0!important;overflow:visible!important;align-items:center!important}' +
+        'html[dir="rtl"] .nav-container > .nav-menu > li,body[dir="rtl"] .nav-container > .nav-menu > li,html[dir="rtl"] .nav-right-group > .nav-menu > li,body[dir="rtl"] .nav-right-group > .nav-menu > li{flex:0 0 auto!important}' +
+        'html[dir="rtl"] .nav-container > .nav-ecommerce-icons,body[dir="rtl"] .nav-container > .nav-ecommerce-icons,html[dir="rtl"] .nav-right-group > .nav-ecommerce-icons,body[dir="rtl"] .nav-right-group > .nav-ecommerce-icons,html[dir="rtl"] .nav-container > .nav-ecommerce-icons.nav-icons-left,body[dir="rtl"] .nav-container > .nav-ecommerce-icons.nav-icons-left,html[dir="rtl"] .nav-right-group > .nav-ecommerce-icons.nav-icons-left,body[dir="rtl"] .nav-right-group > .nav-ecommerce-icons.nav-icons-left{flex:0 0 auto!important;min-width:max-content!important}' +
+        'html[dir="ltr"] .nav-search-btn,body[dir="ltr"] .nav-search-btn{position:absolute!important;left:auto!important;right:4px!important}' +
+        'html[dir="ltr"] .nav-search-input,body[dir="ltr"] .nav-search-input,html[dir="ltr"] .nav-search-box input,body[dir="ltr"] .nav-search-box input{direction:ltr!important;text-align:left!important;padding-left:14px!important;padding-right:40px!important}' +
+        '.nav-right-group>.nav-menu,.nav-container>.nav-menu{min-width:0!important;flex-shrink:1!important}' +
+        'html[dir="ltr"] .zappy-products-dropdown > a .dropdown-arrow,body[dir="ltr"] .zappy-products-dropdown > a .dropdown-arrow{display:inline-block!important;flex:0 0 auto!important;margin-inline-start:6px!important}' +
+        'html[dir="ltr"] .zappy-catalog-menu,html[dir="ltr"] .zappy-catalog-menu .catalog-menu-container,html[dir="ltr"] .zappy-catalog-menu .catalog-menu-categories{direction:ltr!important}' +
+        'html[dir="ltr"] .zappy-catalog-menu .catalog-menu-container{align-items:flex-start!important}' +
+        'html[dir="ltr"] .zappy-catalog-menu .catalog-menu-categories{display:flex!important;align-items:flex-start!important;align-content:flex-start!important;row-gap:4px!important;column-gap:2px!important}' +
+        'html[dir="ltr"] .zappy-catalog-menu .catalog-menu-item{padding-inline:10px!important}' +
+        'html[dir="ltr"] .zappy-catalog-menu .catalog-menu-all{margin-top:0!important;align-self:flex-start!important}' +
+        '.navbar .nav-menu>li:has(>.sub-menu),nav.navbar .nav-menu>li:has(>.sub-menu),#navMenu>li:has(>.sub-menu){position:relative!important}' +
+        /* Desktop flyouts: wrap long labels (Hebrew kosher titles etc). nowrap +
+           overflow-x:hidden + max-width:280px clipped mid-sentence (2026-07). */
+        '.navbar .nav-menu>li:not(.zappy-nav-more-item)>.sub-menu,nav.navbar .nav-menu>li:not(.zappy-nav-more-item)>.sub-menu,#navMenu>li:not(.zappy-nav-more-item)>.sub-menu{display:block!important;position:absolute!important;top:100%!important;inset-inline-start:0!important;inset-inline-end:auto!important;min-width:220px!important;max-width:min(420px,calc(100vw - 24px))!important;width:max-content!important;max-height:calc(100vh - 150px)!important;overflow-x:hidden!important;overflow-y:auto!important;border-radius:12px!important;box-shadow:0 8px 30px rgba(0,0,0,.15),0 2px 8px rgba(0,0,0,.06)!important;padding:8px!important;margin:0!important;list-style:none!important;opacity:0!important;visibility:hidden!important;pointer-events:none!important;transform:translateY(6px)!important;z-index:100001!important;box-sizing:border-box!important}' +
+        '.navbar .nav-menu>li:not(.zappy-nav-more-item):hover>.sub-menu,.navbar .nav-menu>li:not(.zappy-nav-more-item):focus-within>.sub-menu,nav.navbar .nav-menu>li:not(.zappy-nav-more-item):hover>.sub-menu,nav.navbar .nav-menu>li:not(.zappy-nav-more-item):focus-within>.sub-menu,#navMenu>li:not(.zappy-nav-more-item):hover>.sub-menu,#navMenu>li:not(.zappy-nav-more-item):focus-within>.sub-menu{opacity:1!important;visibility:visible!important;pointer-events:auto!important;transform:translateY(0)!important}' +
+        '.navbar .nav-menu>li:not(.zappy-nav-more-item)>.sub-menu>li,nav.navbar .nav-menu>li:not(.zappy-nav-more-item)>.sub-menu>li,#navMenu>li:not(.zappy-nav-more-item)>.sub-menu>li{display:block!important;width:100%!important;list-style:none!important;margin:0!important;padding:0!important}' +
+        '.navbar .nav-menu>li:not(.zappy-nav-more-item)>.sub-menu a,nav.navbar .nav-menu>li:not(.zappy-nav-more-item)>.sub-menu a,#navMenu>li:not(.zappy-nav-more-item)>.sub-menu a{display:block!important;white-space:normal!important;overflow-wrap:anywhere!important;word-break:break-word!important;max-width:100%!important;padding:10px 16px!important;border-radius:8px!important;text-decoration:none!important;box-sizing:border-box!important}' +
+        '.nav-menu .zappy-products-dropdown>.sub-menu,#navMenu .zappy-products-dropdown>.sub-menu{left:50%!important;right:auto!important;transform:translateX(-50%) translateY(8px)!important}' +
+        '.nav-menu .zappy-products-dropdown:hover>.sub-menu,#navMenu .zappy-products-dropdown:hover>.sub-menu,.nav-menu .zappy-products-dropdown:focus-within>.sub-menu,#navMenu .zappy-products-dropdown:focus-within>.sub-menu{transform:translateX(-50%) translateY(0)!important}' +
+        '.nav-menu.zappy-desktop-wrap,#navMenu.zappy-desktop-wrap{flex-wrap:wrap!important;max-height:44px!important;align-content:flex-start!important;row-gap:4px!important}' +
+      '}' +
+      '@media (max-width:768px){' +
+        '.nav-menu li:has(.sub-menu),.navbar li:has(.sub-menu),nav li:has(.sub-menu){direction:ltr!important;display:flex!important;flex-wrap:wrap!important;align-items:flex-start!important;max-width:100%!important;width:100%!important;overflow:visible!important;box-sizing:border-box!important}' +
+        // Beat any ".nav-menu.active > li { display:block }" (preview/generated)
+        // so non-products dropdowns keep the chevron beside the label.
+        '.navbar .nav-menu.active>li:has(>.sub-menu),nav.navbar .nav-menu.active>li:has(>.sub-menu),#navMenu.active>li:has(>.sub-menu),.nav-menu.open>li:has(>.sub-menu),.navbar .nav-menu.active>li.menu-item-has-children,nav.navbar .nav-menu.active>li.menu-item-has-children,#navMenu.active>li.menu-item-has-children,.nav-menu.open>li.menu-item-has-children{display:flex!important;flex-wrap:wrap!important;align-items:center!important;position:relative!important}' +
+        '.nav-menu li:has(.sub-menu)>a,.navbar li:has(.sub-menu)>a,nav li:has(.sub-menu)>a,li:has(.sub-menu)>.menu-group-title{display:flex!important;align-items:center!important;flex:1 1 0!important;order:1!important;width:auto!important;min-width:0!important;max-width:calc(100% - 48px)!important;padding:12px 16px!important;min-height:44px!important;box-sizing:border-box!important;white-space:normal!important;overflow-wrap:anywhere!important;line-height:1.4!important;font-weight:600!important;text-align:left!important;direction:ltr!important}' +
+        /* Open drawer: beat .navbar.scrolled frosted-text on .menu-group-title
+           (dark-on-dark missing labels on non-home pages). */
+        '.navbar .nav-menu.active>li>.menu-group-title,.navbar #navMenu.active>li>.menu-group-title,.nav-menu.open>li>.menu-group-title,html body .navbar.scrolled .nav-menu.active>li>.menu-group-title,html body .navbar.scrolled #navMenu.active>li>.menu-group-title{color:var(--nav-text,var(--text-light,#fff7ed))!important}' +
+        'html[dir="rtl"] .nav-menu li:has(.sub-menu)>a,body[dir="rtl"] .nav-menu li:has(.sub-menu)>a,html[dir="rtl"] .navbar li:has(.sub-menu)>a,body[dir="rtl"] .navbar li:has(.sub-menu)>a,html[dir="rtl"] nav li:has(.sub-menu)>a,body[dir="rtl"] nav li:has(.sub-menu)>a,html[dir="rtl"] li:has(.sub-menu)>.menu-group-title,body[dir="rtl"] li:has(.sub-menu)>.menu-group-title{direction:rtl!important;text-align:right!important;order:2!important}' +
+        '.nav-menu li:has(.sub-menu)>.mobile-submenu-toggle,.navbar li:has(.sub-menu)>.mobile-submenu-toggle,nav li:has(.sub-menu)>.mobile-submenu-toggle{display:flex!important;position:static!important;flex:0 0 48px!important;order:2!important;width:48px!important;height:44px!important;min-height:44px!important;align-items:center!important;justify-content:center!important;z-index:5!important;pointer-events:auto!important;margin:0!important;padding:0!important;background:transparent!important;border:none!important}' +
+        'html[dir="rtl"] .nav-menu li:has(.sub-menu)>.mobile-submenu-toggle,body[dir="rtl"] .nav-menu li:has(.sub-menu)>.mobile-submenu-toggle,html[dir="rtl"] .navbar li:has(.sub-menu)>.mobile-submenu-toggle,body[dir="rtl"] .navbar li:has(.sub-menu)>.mobile-submenu-toggle,html[dir="rtl"] nav li:has(.sub-menu)>.mobile-submenu-toggle,body[dir="rtl"] nav li:has(.sub-menu)>.mobile-submenu-toggle{order:1!important}' +
+        '.nav-menu li:has(.sub-menu)>.sub-menu,.navbar li:has(.sub-menu)>.sub-menu,nav li:has(.sub-menu)>.sub-menu{order:3!important;flex:0 0 100%!important;width:100%!important;min-width:0!important;max-width:100%!important;box-sizing:border-box!important;margin:0!important;transform:none!important;left:auto!important;right:auto!important;inset-inline-start:auto!important;inset-inline-end:auto!important}' +
+        '.nav-menu .sub-menu.mobile-expanded,.navbar .sub-menu.mobile-expanded,nav .sub-menu.mobile-expanded{padding:8px 0!important}' +
+        '.sub-menu a,.sub-menu .menu-group-title{display:block!important;width:100%!important;white-space:normal!important;overflow-wrap:anywhere!important;min-width:0!important;max-width:100%!important;box-sizing:border-box!important;padding:10px 8px!important}' +
+        '.zappy-products-dropdown>.sub-menu .zappy-nav-parent>a,.zappy-products-dropdown>.sub-menu .zappy-nav-parent>.menu-group-title{font-weight:700!important}' +
+        '.zappy-products-dropdown>.sub-menu .zappy-nav-child>a,.zappy-products-dropdown>.sub-menu .zappy-nav-child>.menu-group-title{padding-left:36px!important;padding-right:16px!important;font-size:.94em!important;opacity:.85!important}' +
+        'html[dir="rtl"] .zappy-products-dropdown>.sub-menu .zappy-nav-child>a,body[dir="rtl"] .zappy-products-dropdown>.sub-menu .zappy-nav-child>a,html[dir="rtl"] .zappy-products-dropdown>.sub-menu .zappy-nav-child>.menu-group-title,body[dir="rtl"] .zappy-products-dropdown>.sub-menu .zappy-nav-child>.menu-group-title{padding-left:16px!important;padding-right:36px!important}' +
+        '.navbar .nav-menu:not(.active):not(.open),nav.navbar .nav-menu:not(.active):not(.open),#navMenu:not(.active):not(.open){visibility:hidden!important;opacity:0!important;pointer-events:none!important}' +
+        '.navbar .nav-menu:not(.active):not(.open) *,nav.navbar .nav-menu:not(.active):not(.open) *,#navMenu:not(.active):not(.open) *{visibility:hidden!important;pointer-events:none!important}' +
+        '.navbar .nav-menu:not(.active):not(.open) .sub-menu,nav.navbar .nav-menu:not(.active):not(.open) .sub-menu,#navMenu:not(.active):not(.open) .sub-menu{display:none!important}' +
+        '#navMenu.active,#navMenu.open,.nav-menu.active,.nav-menu.open{display:flex!important;flex-direction:column!important;flex-wrap:nowrap!important;overflow-x:hidden!important;overflow-y:auto!important}' +
+        '#navMenu.active>li,#navMenu.open>li,.nav-menu.active>li,.nav-menu.open>li{position:static!important;width:100%!important;max-width:100%!important;flex:0 0 auto!important;top:auto!important;bottom:auto!important;left:auto!important;right:auto!important;inset:auto!important;transform:none!important}' +
+        '#navMenu .sub-menu,.nav-menu .sub-menu,.navbar .sub-menu,.zappy-products-dropdown>.sub-menu,.nav-menu .zappy-products-dropdown>.sub-menu,.nav-menu.active .zappy-products-dropdown>.sub-menu,.nav-menu.active .zappy-products-dropdown .sub-menu,#navMenu li:hover>.sub-menu,.nav-menu li:hover>.sub-menu,.navbar li:hover>.sub-menu,#navMenu li:focus-within>.sub-menu,.nav-menu li:focus-within>.sub-menu{display:none!important;visibility:hidden!important;opacity:0!important;height:0!important;max-height:0!important;overflow:hidden!important;pointer-events:none!important;position:static!important;transform:none!important}' +
+        '#navMenu .sub-menu.mobile-expanded,.nav-menu .sub-menu.mobile-expanded,.navbar .sub-menu.mobile-expanded,.zappy-products-dropdown>.sub-menu.mobile-expanded,.nav-menu.active .zappy-products-dropdown>.sub-menu.mobile-expanded,.nav-menu.active .zappy-products-dropdown .sub-menu.mobile-expanded{display:block!important;visibility:visible!important;opacity:1!important;height:auto!important;max-height:none!important;overflow:visible!important;pointer-events:auto!important;position:static!important;transform:none!important;width:100%!important;left:auto!important;right:auto!important;top:auto!important;float:none!important}' +
+      '}';
+    (document.head || document.documentElement).appendChild(style);
+  }
+
+  function tuneDesktopNavWrapping() {
+    if (window.innerWidth <= 768) return;
+    // The "More" overflow runtime (ZAPPY_NAV_OVERFLOW_MENU_V1) fully supersedes
+    // the legacy two-line wrapping: it collapses overflowing items into a
+    // "More" dropdown and strips zappy-desktop-wrap on every reflow. When it is
+    // active we MUST NOT re-add the wrap class here — this patch() pass runs at
+    // 1500ms, AFTER the overflow runtime's final reflow (1200ms), and nothing
+    // reflows the overflow menu again, so re-adding zappy-desktop-wrap would
+    // regress the desktop nav to the clipped/wrapped layout permanently. Defer
+    // entirely: strip any stale class and let the overflow runtime own overflow.
+    if (window.__zappyNavOverflowInit) {
+      document.querySelectorAll('.nav-menu.zappy-desktop-wrap, #navMenu.zappy-desktop-wrap').forEach(function(menu) {
+        menu.classList.remove('zappy-desktop-wrap');
+      });
+      return;
+    }
+    document.querySelectorAll('.nav-container > .nav-menu, .nav-right-group > .nav-menu, .nav-container > #navMenu, .nav-right-group > #navMenu').forEach(function(menu) {
+      if (!menu || !menu.querySelectorAll) return;
+      menu.classList.remove('zappy-desktop-wrap');
+
+      var styles = window.getComputedStyle(menu);
+      var gap = parseFloat(styles.columnGap || styles.gap || '0') || 0;
+      var items = Array.prototype.filter.call(menu.children || [], function(child) {
+        return child && child.nodeType === 1 && child.tagName !== 'SCRIPT' && child.tagName !== 'STYLE';
+      });
+      if (items.length < 2) return;
+
+      var required = items.reduce(function(total, item) {
+        return total + item.getBoundingClientRect().width;
+      }, 0) + (items.length - 1) * gap;
+
+      // A tiny tolerance prevents sub-pixel/browser-font differences from
+      // wrapping a menu that visually fits in the editor preview.
+      if (required > menu.getBoundingClientRect().width + 8) {
+        menu.classList.add('zappy-desktop-wrap');
+      }
+    });
+  }
+
+  function patch() {
+    ensureRuntimeCssInjected();
+    installMobileMenuRefreshHooks();
+    patchLinks(document);
+    ensureProductsChevron();
+    ensureMobileSubmenuToggles();
+    patchCatalogDirection();
+    tuneDesktopNavWrapping();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', patch);
+  } else {
+    patch();
+  }
+  window.addEventListener('popstate', function() { setTimeout(patch, 0); });
+  window.addEventListener('zappy:languageChanged', function() { setTimeout(patch, 0); });
+  window.addEventListener('languageChanged', function() { setTimeout(patch, 0); });
+  window.addEventListener('resize', function() { setTimeout(tuneDesktopNavWrapping, 100); }, { passive: true });
+  new MutationObserver(function(mutations) {
+    var shouldPatch = mutations.some(function(mutation) {
+      // Re-patch when a storefront anchor's href is RESET by other runtime code
+      // after our initial patch. The baked-in updateHeaderAuthState (shipped in
+      // the stored script.js, which re-publishing does NOT regenerate) pins the
+      // navbar account/login icon back to the unprefixed default-language page
+      // once the customer profile finishes loading — often AFTER our scheduled
+      // patch() passes. On courses pages there is no language signal in the URL
+      // (language lives in localStorage), so the clobbered icon sends an English
+      // shopper to the Hebrew /account static file. Watching href mutations lets
+      // us immediately re-prefix it. The href !== buildPath(href) guard makes
+      // our own corrective setAttribute idempotent (no observer loop).
+      if (mutation.type === 'attributes') {
+        var tgt = mutation.target;
+        if (tgt && tgt.nodeType === 1 && tgt.tagName === 'A') {
+          var href = tgt.getAttribute('href');
+          return isStorefrontPath(href) && href !== buildPath(href);
+        }
+        return false;
+      }
+      return Array.prototype.some.call(mutation.addedNodes || [], function(node) {
+        return node.nodeType === 1 && (
+          (node.matches && node.matches('a[href], .zappy-products-dropdown, #zappy-catalog-menu')) ||
+          (node.querySelector && node.querySelector('a[href], .zappy-products-dropdown, #zappy-catalog-menu'))
+        );
+      });
+    });
+    if (shouldPatch) setTimeout(patch, 0);
+  }).observe(document.documentElement, { childList: true, subtree: true, attributes: true, attributeFilter: ['href'] });
+  setTimeout(patch, 250);
+  setTimeout(patch, 1500);
+})();
+/* ZAPPY_CHECKOUT_FOCUS_UX_V2 */
+(function(){
+  if (window.__zappyCheckoutFocusUX >= 2) return;
+  window.__zappyCheckoutFocusUX = 2;
+
+  var CSS =
+    'body.zappy-cart-open #cc-main,body.zappy-cart-open #zappy-cookie-banner{display:none!important;visibility:hidden!important;opacity:0!important;pointer-events:none!important}' +
+    'body.zappy-checkout-page #zappy-cookie-banner{display:none!important;visibility:hidden!important;opacity:0!important;pointer-events:none!important}' +
+    'body.zappy-checkout-page nav.navbar:not(.zappy-catalog-menu) .nav-menu,' +
+    'body.zappy-checkout-page nav.navbar:not(.zappy-catalog-menu) .nav-links,' +
+    'body.zappy-checkout-page nav.navbar:not(.zappy-catalog-menu) .nav-cta,' +
+    'body.zappy-checkout-page nav.navbar:not(.zappy-catalog-menu) .nav-right-group .nav-menu,' +
+    'body.zappy-checkout-page .lang-switcher,' +
+    'body.zappy-checkout-page .nav-icons-right,' +
+    'body.zappy-checkout-page .nav-search-box,' +
+    'body.zappy-checkout-page .nav-search-toggle,' +
+    'body.zappy-checkout-page #mobile-search-toggle,' +
+    'body.zappy-checkout-page .mobile-search-panel,' +
+    'body.zappy-checkout-page .login-link.nav-login,' +
+    'body.zappy-checkout-page .nav-ecommerce-icons>*:not(.cart-link),' +
+    'body.zappy-checkout-page .mobile-hamburger-btn,' +
+    'body.zappy-checkout-page .mobile-toggle,' +
+    'body.zappy-checkout-page .hamburger,' +
+    'body.zappy-checkout-page .menu-toggle,' +
+    'body.zappy-checkout-page #mobileToggle,' +
+    'body.zappy-checkout-page nav.navbar:not(.zappy-catalog-menu) .phone-header-btn,' +
+    'body.zappy-checkout-page nav.navbar:not(.zappy-catalog-menu) .mobile-close-btn{display:none!important;visibility:hidden!important;pointer-events:none!important}' +
+    'body.zappy-checkout-page nav.navbar:not(.zappy-catalog-menu) .nav-container{display:flex!important;align-items:center!important;justify-content:space-between!important;width:100%!important}' +
+    'body.zappy-checkout-page .nav-brand,body.zappy-checkout-page .cart-link.nav-cart,body.zappy-checkout-page #cart-drawer-toggle{display:flex!important;visibility:visible!important;pointer-events:auto!important}' +
+    'body.zappy-checkout-page .nav-ecommerce-icons{display:inline-flex!important;align-items:center!important;margin-inline-start:auto!important}' +
+    '@media (max-width:768px){body.zappy-checkout-page nav.navbar:not(.zappy-catalog-menu) .nav-menu,body.zappy-checkout-page nav.navbar:not(.zappy-catalog-menu) .nav-menu.active,body.zappy-checkout-page nav.navbar:not(.zappy-catalog-menu) .nav-menu.open{display:none!important;visibility:hidden!important}}' +
+    'body.zappy-checkout-page .site-footer>*:not(.footer-bottom),body.zappy-checkout-page footer.site-footer>*:not(.footer-bottom){display:none!important;visibility:hidden!important}' +
+    'body.zappy-checkout-page .site-footer .footer-bottom,body.zappy-checkout-page footer.site-footer .footer-bottom{display:block!important;visibility:visible!important}' +
+    'body.zappy-checkout-page .site-footer:not(:has(.footer-bottom)),body.zappy-checkout-page footer.site-footer:not(:has(.footer-bottom)){display:none!important}';
+
+  function resolvePagePath() {
+    var pagePath = window.location.pathname || '';
+    try {
+      var pageParam = new URLSearchParams(window.location.search).get('page');
+      if (pageParam) pagePath = pageParam;
+    } catch (e) {}
+    return pagePath.toLowerCase();
+  }
+
+  function applyCheckoutFocusState() {
+    var path = resolvePagePath();
+    var isCheckoutPage = path.indexOf('/checkout') !== -1;
+    var isFocusedPage = (
+      path.indexOf('/product/') !== -1 ||
+      path === '/product' ||
+      path.indexOf('/cart') !== -1 ||
+      isCheckoutPage ||
+      path.indexOf('/order-success') !== -1 ||
+      path.indexOf('/order') !== -1
+    );
+    document.body.classList.toggle('zappy-focused-page', isFocusedPage);
+    document.body.classList.toggle('zappy-checkout-page', isCheckoutPage);
+  }
+
+  function injectCss() {
+    var existing = document.getElementById('zappy-checkout-focus-ux-css');
+    if (existing && existing.getAttribute('data-v') === '2') return;
+    if (existing) existing.remove();
+    var style = document.createElement('style');
+    style.id = 'zappy-checkout-focus-ux-css';
+    style.setAttribute('data-zappy-runtime', 'checkout-focus');
+    style.setAttribute('data-v', '2');
+    style.textContent = CSS;
+    (document.head || document.documentElement).appendChild(style);
+  }
+
+  function syncCartOpenFromDom() {
+    var drawer = document.getElementById('cart-drawer');
+    var overlay = document.getElementById('cart-drawer-overlay');
+    var isOpen = (drawer && drawer.classList.contains('active')) ||
+      (overlay && overlay.classList.contains('active'));
+    document.body.classList.toggle('zappy-cart-open', !!isOpen);
+  }
+
+  function watchCartDrawer() {
+    syncCartOpenFromDom();
+    var obs = new MutationObserver(function() { syncCartOpenFromDom(); });
+    ['cart-drawer', 'cart-drawer-overlay'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) obs.observe(el, { attributes: true, attributeFilter: ['class'] });
+    });
+    document.addEventListener('click', function(e) {
+      var t = e.target && e.target.closest
+        ? e.target.closest('#cart-drawer-toggle,.cart-link.nav-cart,a.nav-cart,[data-cart-toggle],.cart-drawer-close,#cart-drawer-overlay')
+        : null;
+      if (t) setTimeout(syncCartOpenFromDom, 0);
+    }, true);
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') setTimeout(syncCartOpenFromDom, 0);
+    });
+  }
+
+  function boot() {
+    injectCss();
+    applyCheckoutFocusState();
+    watchCartDrawer();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+  window.addEventListener('popstate', function() { setTimeout(applyCheckoutFocusState, 0); });
+  setTimeout(boot, 250);
+  setTimeout(boot, 1500);
+})();
+
+/* Cookie Consent */
+
+// Helper function to check cookie consent
+function hasConsentFor(category) {
+  if (typeof window.CookieConsent === 'undefined') {
+    return false; // Default to no consent if cookie consent not loaded
+  }
+  
+  return window.CookieConsent.validConsent(category);
+}
+
+// Helper function to execute code only with consent
+function withConsent(category, callback) {
+  if (hasConsentFor(category)) {
+    callback();
+  } else {
+    console.log(`[WARNING] Skipping ${category} code - no user consent`);
+  }
+}
+
+// Cookie Consent Initialization (multi-language) /* __ccConfigCustomBannerV1 */
+
+(function() {
+  'use strict';
+  
+  var initAttempts = 0;
+  var maxAttempts = 50;
+  var cookieConsentScriptSrc = 'https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.umd.js';
+  var cookieConsentLoadPromise = null;
+
+  function loadCookieConsentLibrary() {
+    if (typeof window.CookieConsent !== 'undefined') {
+      return Promise.resolve(window.CookieConsent);
+    }
+    if (cookieConsentLoadPromise) {
+      return cookieConsentLoadPromise;
+    }
+    cookieConsentLoadPromise = new Promise(function(resolve, reject) {
+      var existing = document.querySelector('script[data-zappy-cookie-consent="true"]');
+      if (existing) {
+        // A previously failed/already-complete tag never fires load again.
+        if (existing.getAttribute('data-zappy-load-error') === 'true') {
+          existing.parentNode && existing.parentNode.removeChild(existing);
+        } else if (existing.getAttribute('data-zappy-loaded') === 'true' || existing.readyState === 'complete') {
+          resolve(window.CookieConsent);
+          return;
+        } else {
+          existing.addEventListener('load', function() {
+            existing.setAttribute('data-zappy-loaded', 'true');
+            resolve(window.CookieConsent);
+          }, { once: true });
+          existing.addEventListener('error', function(error) {
+            existing.setAttribute('data-zappy-load-error', 'true');
+            reject(error);
+          }, { once: true });
+          return;
+        }
+      }
+      var script = document.createElement('script');
+      script.src = cookieConsentScriptSrc;
+      script.async = true;
+      script.defer = true;
+      script.setAttribute('data-zappy-cookie-consent', 'true');
+      script.onload = function() {
+        script.setAttribute('data-zappy-loaded', 'true');
+        resolve(window.CookieConsent);
+      };
+      script.onerror = function(error) {
+        script.setAttribute('data-zappy-load-error', 'true');
+        reject(error);
+      };
+      document.head.appendChild(script);
+    }).catch(function() {
+      cookieConsentLoadPromise = null;
+    });
+    return cookieConsentLoadPromise;
+  }
+
+  function initCookieConsent() {
+    initAttempts++;
+
+    if (typeof window.CookieConsent === 'undefined') {
+      if (initAttempts < maxAttempts) {
+        // Keep the previous backoff so we wait for the UMD global to attach
+        // after the script load event, instead of exhausting attempts immediately.
+        setTimeout(function() {
+          loadCookieConsentLibrary().then(initCookieConsent);
+        }, 100);
+      }
+      return;
+    }
+
+    if (window.__zappyCookieConsentInitialized) {
+      return;
+    }
+    window.__zappyCookieConsentInitialized = true;
+
+    var cc = window.CookieConsent;
+    
+    try {
+      var __ccConfig = {
+  "autoShow": false,
+  "mode": "opt-in",
+  "revision": 0,
+  "categories": {
+    "necessary": {
+      "enabled": true,
+      "readOnly": true
+    },
+    "analytics": {
+      "enabled": false,
+      "readOnly": false,
+      "autoClear": {
+        "cookies": [
+          {
+            "name": "_ga"
+          },
+          {
+            "name": "_ga_*"
+          },
+          {
+            "name": "_gid"
+          },
+          {
+            "name": "_gat"
+          }
+        ]
+      }
+    },
+    "marketing": {
+      "enabled": false,
+      "readOnly": false,
+      "autoClear": {
+        "cookies": [
+          {
+            "name": "_fbp"
+          },
+          {
+            "name": "_fbc"
+          },
+          {
+            "name": "fr"
+          }
+        ]
+      }
+    }
+  },
+  "language": {
+    "default": "he",
+    "translations": {
+      "en": {
+        "consentModal": {
+          "description": "We use cookies to improve your experience and analyze site usage.",
+          "acceptAllBtn": "Accept",
+          "showPreferencesBtn": "Customize"
+        },
+        "preferencesModal": {
+          "title": "Cookie Preferences",
+          "acceptAllBtn": "Accept",
+          "acceptNecessaryBtn": "Accept Necessary",
+          "savePreferencesBtn": "Save Preferences",
+          "closeIconLabel": "Close",
+          "sections": [
+            {
+              "title": "Essential Cookies",
+              "description": "These cookies are necessary for the website to function and cannot be disabled.",
+              "linkedCategory": "necessary"
+            },
+            {
+              "title": "Analytics Cookies",
+              "description": "These cookies help us understand how visitors interact with our website.",
+              "linkedCategory": "analytics"
+            },
+            {
+              "title": "Marketing Cookies",
+              "description": "These cookies are used to deliver personalized advertisements.",
+              "linkedCategory": "marketing"
+            }
+          ]
+        }
+      },
+      "es": {
+        "consentModal": {
+          "description": "Usamos cookies para mejorar tu experiencia y analizar el uso del sitio.",
+          "acceptAllBtn": "Aceptar",
+          "showPreferencesBtn": "Personalizar"
+        },
+        "preferencesModal": {
+          "title": "Preferencias de Cookies",
+          "acceptAllBtn": "Aceptar",
+          "acceptNecessaryBtn": "Solo Necesarias",
+          "savePreferencesBtn": "Guardar Preferencias",
+          "closeIconLabel": "Cerrar",
+          "sections": [
+            {
+              "title": "Cookies Esenciales",
+              "description": "Estas cookies son necesarias para que el sitio web funcione y no se pueden desactivar.",
+              "linkedCategory": "necessary"
+            },
+            {
+              "title": "Cookies de Análisis",
+              "description": "Estas cookies nos ayudan a entender cómo los visitantes interactúan con nuestro sitio web.",
+              "linkedCategory": "analytics"
+            },
+            {
+              "title": "Cookies de Marketing",
+              "description": "Estas cookies se utilizan para entregar anuncios personalizados.",
+              "linkedCategory": "marketing"
+            }
+          ]
+        }
+      },
+      "fr": {
+        "consentModal": {
+          "description": "Nous utilisons des cookies pour améliorer votre expérience et analyser l'utilisation du site.",
+          "acceptAllBtn": "Accepter",
+          "showPreferencesBtn": "Personnaliser"
+        },
+        "preferencesModal": {
+          "title": "Préférences des Cookies",
+          "acceptAllBtn": "Accepter",
+          "acceptNecessaryBtn": "Accepter les Nécessaires",
+          "savePreferencesBtn": "Enregistrer les Préférences",
+          "closeIconLabel": "Fermer",
+          "sections": [
+            {
+              "title": "Cookies Essentiels",
+              "description": "Ces cookies sont nécessaires au fonctionnement du site web et ne peuvent pas être désactivés.",
+              "linkedCategory": "necessary"
+            },
+            {
+              "title": "Cookies Analytiques",
+              "description": "Ces cookies nous aident à comprendre comment les visiteurs interagissent avec notre site web.",
+              "linkedCategory": "analytics"
+            },
+            {
+              "title": "Cookies Marketing",
+              "description": "Ces cookies sont utilisés pour diffuser des publicités personnalisées.",
+              "linkedCategory": "marketing"
+            }
+          ]
+        }
+      },
+      "de": {
+        "consentModal": {
+          "description": "Wir verwenden Cookies, um Ihr Erlebnis zu verbessern und die Nutzung der Website zu analysieren.",
+          "acceptAllBtn": "Akzeptieren",
+          "showPreferencesBtn": "Anpassen"
+        },
+        "preferencesModal": {
+          "title": "Cookie-Einstellungen",
+          "acceptAllBtn": "Akzeptieren",
+          "acceptNecessaryBtn": "Nur Notwendige",
+          "savePreferencesBtn": "Einstellungen speichern",
+          "closeIconLabel": "Schließen",
+          "sections": [
+            {
+              "title": "Notwendige Cookies",
+              "description": "Diese Cookies sind für die Funktion der Website erforderlich und können nicht deaktiviert werden.",
+              "linkedCategory": "necessary"
+            },
+            {
+              "title": "Analyse-Cookies",
+              "description": "Diese Cookies helfen uns zu verstehen, wie Besucher mit unserer Website interagieren.",
+              "linkedCategory": "analytics"
+            },
+            {
+              "title": "Marketing-Cookies",
+              "description": "Diese Cookies werden verwendet, um personalisierte Werbung zu liefern.",
+              "linkedCategory": "marketing"
+            }
+          ]
+        }
+      },
+      "it": {
+        "consentModal": {
+          "description": "Utilizziamo i cookie per migliorare la tua esperienza e analizzare l'utilizzo del sito.",
+          "acceptAllBtn": "Accetta",
+          "showPreferencesBtn": "Personalizza"
+        },
+        "preferencesModal": {
+          "title": "Preferenze Cookie",
+          "acceptAllBtn": "Accetta",
+          "acceptNecessaryBtn": "Solo Necessari",
+          "savePreferencesBtn": "Salva Preferenze",
+          "closeIconLabel": "Chiudi",
+          "sections": [
+            {
+              "title": "Cookie Essenziali",
+              "description": "Questi cookie sono necessari per il funzionamento del sito web e non possono essere disattivati.",
+              "linkedCategory": "necessary"
+            },
+            {
+              "title": "Cookie Analitici",
+              "description": "Questi cookie ci aiutano a capire come i visitatori interagiscono con il nostro sito web.",
+              "linkedCategory": "analytics"
+            },
+            {
+              "title": "Cookie di Marketing",
+              "description": "Questi cookie vengono utilizzati per fornire pubblicità personalizzate.",
+              "linkedCategory": "marketing"
+            }
+          ]
+        }
+      },
+      "pt": {
+        "consentModal": {
+          "description": "Usamos cookies para melhorar sua experiência e analisar o uso do site.",
+          "acceptAllBtn": "Aceitar",
+          "showPreferencesBtn": "Personalizar"
+        },
+        "preferencesModal": {
+          "title": "Preferências de Cookies",
+          "acceptAllBtn": "Aceitar",
+          "acceptNecessaryBtn": "Apenas Necessários",
+          "savePreferencesBtn": "Salvar Preferências",
+          "closeIconLabel": "Fechar",
+          "sections": [
+            {
+              "title": "Cookies Essenciais",
+              "description": "Estes cookies são necessários para o funcionamento do site e não podem ser desativados.",
+              "linkedCategory": "necessary"
+            },
+            {
+              "title": "Cookies Analíticos",
+              "description": "Estes cookies nos ajudam a entender como os visitantes interagem com nosso site.",
+              "linkedCategory": "analytics"
+            },
+            {
+              "title": "Cookies de Marketing",
+              "description": "Estes cookies são usados para exibir anúncios personalizados.",
+              "linkedCategory": "marketing"
+            }
+          ]
+        }
+      },
+      "nl": {
+        "consentModal": {
+          "description": "Wij gebruiken cookies om uw ervaring te verbeteren en het sitegebruik te analyseren.",
+          "acceptAllBtn": "Accepteren",
+          "showPreferencesBtn": "Aanpassen"
+        },
+        "preferencesModal": {
+          "title": "Cookie-voorkeuren",
+          "acceptAllBtn": "Accepteren",
+          "acceptNecessaryBtn": "Alleen noodzakelijke",
+          "savePreferencesBtn": "Voorkeuren opslaan",
+          "closeIconLabel": "Sluiten",
+          "sections": [
+            {
+              "title": "Noodzakelijke Cookies",
+              "description": "Deze cookies zijn nodig voor het functioneren van de website en kunnen niet worden uitgeschakeld.",
+              "linkedCategory": "necessary"
+            },
+            {
+              "title": "Analytische Cookies",
+              "description": "Deze cookies helpen ons te begrijpen hoe bezoekers onze website gebruiken.",
+              "linkedCategory": "analytics"
+            },
+            {
+              "title": "Marketing Cookies",
+              "description": "Deze cookies worden gebruikt om gepersonaliseerde advertenties te tonen.",
+              "linkedCategory": "marketing"
+            }
+          ]
+        }
+      },
+      "he": {
+        "consentModal": {
+          "description": "אנחנו משתמשים בעוגיות כדי לשפר את החוויה שלך ולנתח שימוש באתר.",
+          "acceptAllBtn": "אישור",
+          "showPreferencesBtn": "התאמה אישית"
+        },
+        "preferencesModal": {
+          "title": "העדפות עוגיות",
+          "acceptAllBtn": "אישור",
+          "acceptNecessaryBtn": "רק הכרחי",
+          "savePreferencesBtn": "שמור העדפות",
+          "closeIconLabel": "סגור",
+          "sections": [
+            {
+              "title": "עוגיות חיוניות",
+              "description": "עוגיות אלה הכרחיות לתפקוד האתר ולא ניתן להשבית אותן.",
+              "linkedCategory": "necessary"
+            },
+            {
+              "title": "עוגיות ניתוח",
+              "description": "עוגיות אלה עוזרות לנו להבין איך המבקרים מתקשרים עם האתר שלנו.",
+              "linkedCategory": "analytics"
+            },
+            {
+              "title": "עוגיות שיווקיות",
+              "description": "עוגיות אלה משמשות להצגת פרסומות מותאמות אישית.",
+              "linkedCategory": "marketing"
+            }
+          ]
+        }
+      },
+      "ar": {
+        "consentModal": {
+          "description": "نستخدم ملفات تعريف الارتباط لتحسين تجربتك وتحليل استخدام الموقع.",
+          "acceptAllBtn": "قبول",
+          "showPreferencesBtn": "تخصيص"
+        },
+        "preferencesModal": {
+          "title": "تفضيلات ملفات تعريف الارتباط",
+          "acceptAllBtn": "قبول",
+          "acceptNecessaryBtn": "الضرورية فقط",
+          "savePreferencesBtn": "حفظ التفضيلات",
+          "closeIconLabel": "إغلاق",
+          "sections": [
+            {
+              "title": "ملفات تعريف الارتباط الأساسية",
+              "description": "هذه الملفات ضرورية لعمل الموقع ولا يمكن تعطيلها.",
+              "linkedCategory": "necessary"
+            },
+            {
+              "title": "ملفات تعريف الارتباط التحليلية",
+              "description": "تساعدنا هذه الملفات في فهم كيفية تفاعل الزوار مع موقعنا.",
+              "linkedCategory": "analytics"
+            },
+            {
+              "title": "ملفات تعريف الارتباط التسويقية",
+              "description": "تُستخدم هذه الملفات لعرض إعلانات مخصصة.",
+              "linkedCategory": "marketing"
+            }
+          ]
+        }
+      },
+      "tr": {
+        "consentModal": {
+          "description": "Deneyiminizi geliştirmek ve site kullanımını analiz etmek için çerezler kullanırız.",
+          "acceptAllBtn": "Kabul Et",
+          "showPreferencesBtn": "Özelleştir"
+        },
+        "preferencesModal": {
+          "title": "Çerez Tercihleri",
+          "acceptAllBtn": "Kabul Et",
+          "acceptNecessaryBtn": "Sadece Gerekli",
+          "savePreferencesBtn": "Tercihleri Kaydet",
+          "closeIconLabel": "Kapat",
+          "sections": [
+            {
+              "title": "Zorunlu Çerezler",
+              "description": "Bu çerezler web sitesinin çalışması için gereklidir ve devre dışı bırakılamaz.",
+              "linkedCategory": "necessary"
+            },
+            {
+              "title": "Analiz Çerezleri",
+              "description": "Bu çerezler, ziyaretçilerin web sitemizle nasıl etkileşime girdiğini anlamamıza yardımcı olur.",
+              "linkedCategory": "analytics"
+            },
+            {
+              "title": "Pazarlama Çerezleri",
+              "description": "Bu çerezler kişiselleştirilmiş reklamlar sunmak için kullanılır.",
+              "linkedCategory": "marketing"
+            }
+          ]
+        }
+      },
+      "ru": {
+        "consentModal": {
+          "description": "Мы используем файлы cookie для улучшения вашего опыта и анализа использования сайта.",
+          "acceptAllBtn": "Принять",
+          "showPreferencesBtn": "Настроить"
+        },
+        "preferencesModal": {
+          "title": "Настройки cookie",
+          "acceptAllBtn": "Принять",
+          "acceptNecessaryBtn": "Только необходимые",
+          "savePreferencesBtn": "Сохранить настройки",
+          "closeIconLabel": "Закрыть",
+          "sections": [
+            {
+              "title": "Необходимые cookie",
+              "description": "Эти файлы cookie необходимы для работы сайта и не могут быть отключены.",
+              "linkedCategory": "necessary"
+            },
+            {
+              "title": "Аналитические cookie",
+              "description": "Эти файлы cookie помогают нам понять, как посетители взаимодействуют с нашим сайтом.",
+              "linkedCategory": "analytics"
+            },
+            {
+              "title": "Маркетинговые cookie",
+              "description": "Эти файлы cookie используются для показа персонализированной рекламы.",
+              "linkedCategory": "marketing"
+            }
+          ]
+        }
+      },
+      "zh": {
+        "consentModal": {
+          "description": "我们使用 Cookie 来改善您的体验并分析网站使用情况。",
+          "acceptAllBtn": "接受",
+          "showPreferencesBtn": "自定义"
+        },
+        "preferencesModal": {
+          "title": "Cookie 偏好设置",
+          "acceptAllBtn": "接受",
+          "acceptNecessaryBtn": "仅接受必要",
+          "savePreferencesBtn": "保存偏好",
+          "closeIconLabel": "关闭",
+          "sections": [
+            {
+              "title": "必要 Cookie",
+              "description": "这些 Cookie 是网站正常运行所必需的，无法禁用。",
+              "linkedCategory": "necessary"
+            },
+            {
+              "title": "分析 Cookie",
+              "description": "这些 Cookie 帮助我们了解访问者如何与我们的网站互动。",
+              "linkedCategory": "analytics"
+            },
+            {
+              "title": "营销 Cookie",
+              "description": "这些 Cookie 用于投放个性化广告。",
+              "linkedCategory": "marketing"
+            }
+          ]
+        }
+      },
+      "ja": {
+        "consentModal": {
+          "description": "お客様の体験向上とサイト利用状況の分析のためにCookieを使用しています。",
+          "acceptAllBtn": "許可する",
+          "showPreferencesBtn": "カスタマイズ"
+        },
+        "preferencesModal": {
+          "title": "Cookie設定",
+          "acceptAllBtn": "許可する",
+          "acceptNecessaryBtn": "必要なもののみ",
+          "savePreferencesBtn": "設定を保存",
+          "closeIconLabel": "閉じる",
+          "sections": [
+            {
+              "title": "必要なCookie",
+              "description": "これらのCookieはウェブサイトの機能に必要であり、無効にすることはできません。",
+              "linkedCategory": "necessary"
+            },
+            {
+              "title": "分析Cookie",
+              "description": "これらのCookieは、訪問者がウェブサイトとどのように対話するかを理解するのに役立ちます。",
+              "linkedCategory": "analytics"
+            },
+            {
+              "title": "マーケティングCookie",
+              "description": "これらのCookieはパーソナライズされた広告を配信するために使用されます。",
+              "linkedCategory": "marketing"
+            }
+          ]
+        }
+      },
+      "ko": {
+        "consentModal": {
+          "description": "경험 향상과 사이트 사용 분석을 위해 쿠키를 사용합니다.",
+          "acceptAllBtn": "수락",
+          "showPreferencesBtn": "사용자 지정"
+        },
+        "preferencesModal": {
+          "title": "쿠키 설정",
+          "acceptAllBtn": "수락",
+          "acceptNecessaryBtn": "필수만 수락",
+          "savePreferencesBtn": "설정 저장",
+          "closeIconLabel": "닫기",
+          "sections": [
+            {
+              "title": "필수 쿠키",
+              "description": "이 쿠키는 웹사이트 작동에 필요하며 비활성화할 수 없습니다.",
+              "linkedCategory": "necessary"
+            },
+            {
+              "title": "분석 쿠키",
+              "description": "이 쿠키는 방문자가 웹사이트와 어떻게 상호작용하는지 이해하는 데 도움이 됩니다.",
+              "linkedCategory": "analytics"
+            },
+            {
+              "title": "마케팅 쿠키",
+              "description": "이 쿠키는 맞춤형 광고를 제공하는 데 사용됩니다.",
+              "linkedCategory": "marketing"
+            }
+          ]
+        }
+      },
+      "pl": {
+        "consentModal": {
+          "description": "Używamy plików cookie, aby poprawić Twoje wrażenia i analizować korzystanie z witryny.",
+          "acceptAllBtn": "Akceptuję",
+          "showPreferencesBtn": "Dostosuj"
+        },
+        "preferencesModal": {
+          "title": "Preferencje cookie",
+          "acceptAllBtn": "Akceptuję",
+          "acceptNecessaryBtn": "Tylko niezbędne",
+          "savePreferencesBtn": "Zapisz preferencje",
+          "closeIconLabel": "Zamknij",
+          "sections": [
+            {
+              "title": "Niezbędne pliki cookie",
+              "description": "Te pliki cookie są niezbędne do działania strony i nie można ich wyłączyć.",
+              "linkedCategory": "necessary"
+            },
+            {
+              "title": "Analityczne pliki cookie",
+              "description": "Te pliki cookie pomagają nam zrozumieć, w jaki sposób odwiedzający korzystają z naszej strony.",
+              "linkedCategory": "analytics"
+            },
+            {
+              "title": "Marketingowe pliki cookie",
+              "description": "Te pliki cookie służą do wyświetlania spersonalizowanych reklam.",
+              "linkedCategory": "marketing"
+            }
+          ]
+        }
+      },
+      "uk": {
+        "consentModal": {
+          "description": "Ми використовуємо файли cookie для покращення вашого досвіду та аналізу використання сайту.",
+          "acceptAllBtn": "Прийняти",
+          "showPreferencesBtn": "Налаштувати"
+        },
+        "preferencesModal": {
+          "title": "Налаштування cookie",
+          "acceptAllBtn": "Прийняти",
+          "acceptNecessaryBtn": "Лише необхідні",
+          "savePreferencesBtn": "Зберегти налаштування",
+          "closeIconLabel": "Закрити",
+          "sections": [
+            {
+              "title": "Необхідні cookie",
+              "description": "Ці файли cookie необхідні для роботи сайту і не можуть бути вимкнені.",
+              "linkedCategory": "necessary"
+            },
+            {
+              "title": "Аналітичні cookie",
+              "description": "Ці файли cookie допомагають нам зрозуміти, як відвідувачі взаємодіють з нашим сайтом.",
+              "linkedCategory": "analytics"
+            },
+            {
+              "title": "Маркетингові cookie",
+              "description": "Ці файли cookie використовуються для показу персоналізованої реклами.",
+              "linkedCategory": "marketing"
+            }
+          ]
+        }
+      },
+      "ro": {
+        "consentModal": {
+          "description": "Folosim cookie-uri pentru a vă îmbunătăți experiența și a analiza utilizarea site-ului.",
+          "acceptAllBtn": "Acceptă",
+          "showPreferencesBtn": "Personalizează"
+        },
+        "preferencesModal": {
+          "title": "Preferințe cookie",
+          "acceptAllBtn": "Acceptă",
+          "acceptNecessaryBtn": "Doar necesare",
+          "savePreferencesBtn": "Salvează preferințele",
+          "closeIconLabel": "Închide",
+          "sections": [
+            {
+              "title": "Cookie-uri esențiale",
+              "description": "Aceste cookie-uri sunt necesare pentru funcționarea site-ului și nu pot fi dezactivate.",
+              "linkedCategory": "necessary"
+            },
+            {
+              "title": "Cookie-uri analitice",
+              "description": "Aceste cookie-uri ne ajută să înțelegem cum interacționează vizitatorii cu site-ul nostru.",
+              "linkedCategory": "analytics"
+            },
+            {
+              "title": "Cookie-uri de marketing",
+              "description": "Aceste cookie-uri sunt folosite pentru a afișa reclame personalizate.",
+              "linkedCategory": "marketing"
+            }
+          ]
+        }
+      },
+      "bg": {
+        "consentModal": {
+          "description": "Използваме бисквитки, за да подобрим изживяването ви и да анализираме използването на сайта.",
+          "acceptAllBtn": "Приемам",
+          "showPreferencesBtn": "Персонализиране"
+        },
+        "preferencesModal": {
+          "title": "Настройки за бисквитки",
+          "acceptAllBtn": "Приемам",
+          "acceptNecessaryBtn": "Само необходимите",
+          "savePreferencesBtn": "Запазване на предпочитанията",
+          "closeIconLabel": "Затвори",
+          "sections": [
+            {
+              "title": "Необходими бисквитки",
+              "description": "Тези бисквитки са необходими за функционирането на уебсайта и не могат да бъдат деактивирани.",
+              "linkedCategory": "necessary"
+            },
+            {
+              "title": "Аналитични бисквитки",
+              "description": "Тези бисквитки ни помагат да разберем как посетителите взаимодействат с нашия уебсайт.",
+              "linkedCategory": "analytics"
+            },
+            {
+              "title": "Маркетингови бисквитки",
+              "description": "Тези бисквитки се използват за показване на персонализирани реклами.",
+              "linkedCategory": "marketing"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "guiOptions": {
+    "consentModal": {
+      "layout": "bar inline",
+      "position": "bottom",
+      "equalWeightButtons": false,
+      "flipButtons": false
+    },
+    "preferencesModal": {
+      "layout": "box",
+      "equalWeightButtons": false,
+      "flipButtons": false
+    }
+  }
+};
+      var __ccCloseLabels = {"en":"Close","es":"Cerrar","fr":"Fermer","de":"Schließen","it":"Chiudi","pt":"Fechar","nl":"Sluiten","he":"סגור","ar":"إغلاق","tr":"Kapat","ru":"Закрыть","zh":"关闭","ja":"閉じる","ko":"닫기","pl":"Zamknij","uk":"Закрити","ro":"Închide","bg":"Затвори"};
+
+      // Detect the current page language and override the build-time default.
+      // Published multi-language sites set <html lang="…"> per URL prefix;
+      // preview pages may store the active language on zappyI18n.
+      var pageLang = (document.documentElement.getAttribute('lang') || '').split('-')[0].toLowerCase();
+      if (!pageLang && typeof zappyI18n !== 'undefined' && zappyI18n.language) {
+        pageLang = String(zappyI18n.language).split('-')[0].toLowerCase();
+      }
+      if (pageLang && __ccConfig.language.translations[pageLang]) {
+        __ccConfig.language.default = pageLang;
+      }
+
+      function getActiveLanguage() {
+        var lang = (document.documentElement.getAttribute('lang') || '').split('-')[0].toLowerCase();
+        if (!lang && typeof zappyI18n !== 'undefined' && zappyI18n.language) {
+          lang = String(zappyI18n.language).split('-')[0].toLowerCase();
+        }
+        if (!lang || !__ccConfig.language.translations[lang]) {
+          lang = __ccConfig.language.default || 'en';
+        }
+        return __ccConfig.language.translations[lang] ? lang : 'en';
+      }
+
+      function getConsentText() {
+        var lang = getActiveLanguage();
+        var translations = __ccConfig.language.translations || {};
+        var current = translations[lang] || translations.en || {};
+        var consent = current.consentModal || {};
+        var labels = __ccCloseLabels || {};
+        return {
+          description: consent.description || '',
+          accept: consent.acceptAllBtn || 'Accept',
+          customize: consent.showPreferencesBtn || 'Customize',
+          close: labels[lang] || labels.en || 'Close'
+        };
+      }
+
+      function removeCustomBanner() {
+        var banner = document.getElementById('zappy-cookie-banner');
+        if (banner && banner.parentNode) {
+          banner.parentNode.removeChild(banner);
+        }
+        document.documentElement.classList.remove('zappy-cookie-banner-visible');
+      }
+
+      function updateCustomBannerText() {
+        var banner = document.getElementById('zappy-cookie-banner');
+        if (!banner) return;
+        var text = getConsentText();
+        var desc = banner.querySelector('[data-zappy-cookie-description]');
+        var accept = banner.querySelector('[data-zappy-cookie-accept]');
+        var customize = banner.querySelector('[data-zappy-cookie-customize]');
+        var close = banner.querySelector('[data-zappy-cookie-close]');
+        banner.setAttribute('aria-label', text.description || text.close);
+        if (desc) desc.textContent = text.description;
+        if (accept) accept.textContent = text.accept;
+        if (customize) customize.textContent = text.customize;
+        if (close) close.setAttribute('aria-label', text.close);
+      }
+
+      // Google Consent Mode v2 integration
+      function updateGoogleConsentMode() {
+        if (typeof gtag !== 'function') {
+          window.dataLayer = window.dataLayer || [];
+          window.gtag = function(){dataLayer.push(arguments);};
+        }
+        
+        var analyticsAccepted = cc.acceptedCategory('analytics');
+        var marketingAccepted = cc.acceptedCategory('marketing');
+        
+        gtag('consent', 'update', {
+          'analytics_storage': analyticsAccepted ? 'granted' : 'denied',
+          'ad_storage': marketingAccepted ? 'granted' : 'denied',
+          'ad_user_data': marketingAccepted ? 'granted' : 'denied',
+          'ad_personalization': marketingAccepted ? 'granted' : 'denied'
+        });
+      }
+
+      function acceptAndClose(categories) {
+        try { cc.acceptCategory(categories); } catch (_) {}
+        removeCustomBanner();
+        updateGoogleConsentMode();
+      }
+
+      function renderCustomBanner() {
+        try {
+          if (typeof cc.validConsent === 'function' && cc.validConsent()) {
+            removeCustomBanner();
+            return;
+          }
+          if (!document.body) {
+            setTimeout(renderCustomBanner, 50);
+            return;
+          }
+          var existing = document.getElementById('zappy-cookie-banner');
+          if (existing) {
+            updateCustomBannerText();
+            return;
+          }
+
+          var text = getConsentText();
+          var banner = document.createElement('div');
+          banner.id = 'zappy-cookie-banner';
+          banner.className = 'zappy-cookie-banner';
+          banner.setAttribute('role', 'region');
+          banner.setAttribute('aria-label', text.description || text.close);
+
+          var inner = document.createElement('div');
+          inner.className = 'zappy-cookie-banner__inner';
+
+          var description = document.createElement('p');
+          description.className = 'zappy-cookie-banner__text';
+          description.setAttribute('data-zappy-cookie-description', 'true');
+          description.textContent = text.description;
+
+          var actions = document.createElement('div');
+          actions.className = 'zappy-cookie-banner__actions';
+
+          var customizeBtn = document.createElement('button');
+          customizeBtn.type = 'button';
+          customizeBtn.className = 'zappy-cookie-banner__button zappy-cookie-banner__button--customize';
+          customizeBtn.setAttribute('data-zappy-cookie-customize', 'true');
+          customizeBtn.textContent = text.customize;
+          customizeBtn.addEventListener('click', function(ev) {
+            ev.preventDefault();
+            ev.stopPropagation();
+            try { cc.showPreferences(); } catch (_) {}
+          });
+
+          var acceptBtn = document.createElement('button');
+          acceptBtn.type = 'button';
+          acceptBtn.className = 'zappy-cookie-banner__button zappy-cookie-banner__button--accept';
+          acceptBtn.setAttribute('data-zappy-cookie-accept', 'true');
+          acceptBtn.textContent = text.accept;
+          acceptBtn.addEventListener('click', function(ev) {
+            ev.preventDefault();
+            ev.stopPropagation();
+            acceptAndClose('all');
+          });
+
+          var closeBtn = document.createElement('button');
+          closeBtn.type = 'button';
+          closeBtn.className = 'zappy-cookie-banner__close';
+          closeBtn.setAttribute('data-zappy-cookie-close', 'true');
+          closeBtn.setAttribute('aria-label', text.close);
+          closeBtn.textContent = '\u00D7';
+          closeBtn.addEventListener('click', function(ev) {
+            ev.preventDefault();
+            ev.stopPropagation();
+            acceptAndClose([]);
+          });
+
+          actions.appendChild(customizeBtn);
+          actions.appendChild(acceptBtn);
+          inner.appendChild(description);
+          inner.appendChild(actions);
+          inner.appendChild(closeBtn);
+          banner.appendChild(inner);
+          document.body.appendChild(banner);
+          document.documentElement.classList.add('zappy-cookie-banner-visible');
+        } catch (_) {
+          // Defensive — never let the custom banner break the page.
+        }
+      }
+
+      function handleConsentResolved() {
+        removeCustomBanner();
+        updateGoogleConsentMode();
+      }
+
+      __ccConfig.onFirstConsent = handleConsentResolved;
+      __ccConfig.onConsent = handleConsentResolved;
+      __ccConfig.onChange = handleConsentResolved;
+
+      var runResult = cc.run(__ccConfig);
+      var afterRun = function() {
+        updateGoogleConsentMode();
+        if (!cc.validConsent || !cc.validConsent()) {
+          renderCustomBanner();
+        }
+      };
+      if (runResult && typeof runResult.then === 'function') {
+        runResult.then(afterRun).catch(afterRun);
+      } else {
+        setTimeout(afterRun, 0);
+      }
+
+      // Keep cookie consent in sync when the user switches language without
+      // a full navigation (preview / embedded-resources path).
+      if (typeof zappyI18n !== 'undefined' && typeof zappyI18n.onLanguageChange === 'function') {
+        zappyI18n.onLanguageChange(function(newLang) {
+          try {
+            if (__ccConfig.language.translations[newLang]) {
+              __ccConfig.language.default = newLang;
+              cc.setLanguage(newLang, true);
+              updateCustomBannerText();
+            }
+          } catch (_) {}
+        });
+      }
+    } catch (error) {
+      window.__zappyCookieConsentInitialized = false;
+    }
+  }
+
+  function scheduleCookieConsentLoad() {
+    var start = function() {
+      loadCookieConsentLibrary().then(initCookieConsent);
+    };
+    if (typeof window.requestIdleCallback === 'function') {
+      window.requestIdleCallback(start, { timeout: 7000 });
+    } else {
+      setTimeout(start, 7000);
+    }
+  }
+
+  if (document.readyState === 'complete') {
+    scheduleCookieConsentLoad();
+  } else if (typeof window !== 'undefined' && window.addEventListener) {
+    window.addEventListener('load', scheduleCookieConsentLoad, { once: true });
+  } else {
+    setTimeout(scheduleCookieConsentLoad, 1000);
+  }
+})();
+
+
+/* ZAPPY_MOBILE_NAV_ICON_ALIGNMENT_RUNTIME */
+/* ZAPPY_MOBILE_NAV_ICON_ALIGNMENT_RUNTIME_V2 */
+(function(){
+  try {
+    function injectMobileNavIconAlignmentFix() {
+      if (document.getElementById('zappy-mobile-nav-icon-alignment-fix')) return;
+      var style = document.createElement('style');
+      style.id = 'zappy-mobile-nav-icon-alignment-fix';
+      style.textContent = "\n\n/* ZAPPY_MOBILE_NAV_ICON_ALIGNMENT_FIX */\n/* ZAPPY_MOBILE_NAV_ICON_ALIGNMENT_FIX_V3 */\n/* ZAPPY_MOBILE_NAV_ICON_ALIGNMENT_FIX_V4 */\n/* ZAPPY_MOBILE_NAV_ICON_ALIGNMENT_FIX_V5 */\n/* The mobile hamburger / phone buttons are absolutely positioned. Keep the\n   navbar itself as a non-collapsing containing block so auto-margin centering\n   stays aligned even when generated mobile CSS moves every nav child out of flow. */\n@media (max-width: 768px) {\n  .navbar,\n  nav.navbar {\n    min-height: 70px !important;\n  }\n\n  /* V5: Desktop .nav-search-box must stay hidden on mobile. AI/customization CSS\n     often force-shows it with higher specificity than the generator's plain\n     .nav-search-box { display:none } (e.g. .navbar .nav-ecommerce-icons.nav-icons-left\n     .nav-search-box { display:flex; background: cream }), which paints an empty\n     cream/white square left of the cart on RTL ecommerce navs. Beat that chain. */\n  html body .navbar .nav-search-box,\n  html body nav.navbar .nav-search-box,\n  html body .navbar .nav-ecommerce-icons .nav-search-box,\n  html body .navbar .nav-ecommerce-icons.nav-icons-left .nav-search-box,\n  html body .navbar .nav-container .nav-ecommerce-icons.nav-icons-left .nav-search-box {\n    display: none !important;\n    visibility: hidden !important;\n    width: 0 !important;\n    height: 0 !important;\n    min-width: 0 !important;\n    max-width: 0 !important;\n    overflow: hidden !important;\n    padding: 0 !important;\n    margin: 0 !important;\n    border: none !important;\n    background: transparent !important;\n    pointer-events: none !important;\n  }\n\n  /* V5: Search-toggle SVG is frequently recolored to --nav-text (cream/white) by\n     AI customization at .navbar .nav-container .nav-ecommerce-icons.nav-icons-right\n     .nav-search-toggle svg, while the pill button itself keeps the correct\n     contrasting color from the luminance-aware pill rules. Inherit that color\n     with a selector that out-ranks the nav-text stroke paint so the icon stays\n     legible on light AND dark pills (no hardcoded text-dark). */\n  html body .navbar .nav-container .nav-ecommerce-icons.nav-icons-right .nav-search-toggle svg,\n  html body .navbar .nav-container .nav-ecommerce-icons.nav-icons-right .nav-search-toggle svg *,\n  html body .navbar .nav-ecommerce-icons.nav-icons-right .nav-search-toggle svg,\n  html body .navbar .nav-ecommerce-icons.nav-icons-right .nav-search-toggle svg * {\n    color: inherit !important;\n    stroke: currentColor !important;\n    fill: none !important;\n  }\n\n  /* V5: Keep the three mobile icon couples on one baseline — absolute groups +\n     hamburger all center against the same navbar box. */\n  html body .navbar .nav-ecommerce-icons.nav-icons-left,\n  html body .navbar .nav-ecommerce-icons.nav-icons-right,\n  html body .navbar .nav-icons-left,\n  html body .navbar .nav-icons-right {\n    top: 50% !important;\n    bottom: auto !important;\n    transform: translateY(-50%) !important;\n    align-items: center !important;\n  }\n  html body .navbar .nav-ecommerce-icons.nav-icons-right .nav-search-toggle,\n  html body .navbar .nav-search-toggle {\n    width: 36px !important;\n    height: 36px !important;\n    min-width: 36px !important;\n    padding: 0 !important;\n    margin: 0 !important;\n    border-radius: 9999px !important;\n    align-self: center !important;\n  }\n\n  /* E-commerce mobile navbar icon-group alignment.\n     The icon couples (search after the hamburger; login+cart at the end edge)\n     are absolutely positioned with inset-inline offsets — inset-inline-start:52px\n     to clear the 36px hamburger that sits at left:12px on the .navbar, and\n     inset-inline-end:12px to hug the end edge. Those offsets are authored in the\n     NAVBAR's full-width coordinate space (the hamburger uses the same one). But\n     the offsets are resolved against the nearest positioned ancestor, and the\n     generated CSS makes .nav-container position:relative. When .nav-container is\n     ALSO inset by the navbar's horizontal padding (max-width / padding from the\n     LLM-authored navbar), the groups resolve to that inset box instead of the\n     full-width navbar: the search drifts ~20px away from the hamburger and the\n     cart leaves a fat asymmetric gap before the screen edge. Dropping\n     .nav-container out of the containing-block chain on mobile makes both couples\n     resolve to .navbar (always full-bleed) so they line up tightly with the\n     hamburger and sit symmetrically against both edges regardless of any\n     navbar/container padding. Scoped via :has() to navbars that actually carry\n     the e-commerce icon couples so non-ecommerce navs are untouched. */\n  .navbar:has(.nav-ecommerce-icons) .nav-container,\n  nav.navbar:has(.nav-ecommerce-icons) .nav-container,\n  header:has(.nav-ecommerce-icons) .nav-container {\n    position: static !important;\n  }\n\n  /* Some generated RTL nav CSS sets both left:50% and right:50% on the\n     absolute .nav-brand. That collapses it to 0px wide, so the logo flows\n     left from the center instead of being centered on it. */\n  .navbar .nav-brand,\n  nav.navbar .nav-brand,\n  html[dir=\"rtl\"] .navbar .nav-brand,\n  html[dir=\"rtl\"] nav.navbar .nav-brand,\n  html[lang=\"he\"] .navbar .nav-brand,\n  html[lang=\"he\"] nav.navbar .nav-brand,\n  html[lang=\"ar\"] .navbar .nav-brand,\n  html[lang=\"ar\"] nav.navbar .nav-brand {\n    position: absolute !important;\n    left: 50% !important;\n    right: auto !important;\n    top: 50% !important;\n    width: auto !important;\n    min-width: max-content !important;\n    max-width: calc(100% - 168px) !important;\n    transform: translate(-50%, -50%) !important;\n    margin: 0 !important;\n    text-align: center !important;\n    justify-content: center !important;\n  }\n\n  .navbar .nav-brand .logo-link,\n  nav.navbar .nav-brand .logo-link,\n  .navbar .nav-brand a,\n  nav.navbar .nav-brand a {\n    display: inline-flex !important;\n    justify-content: center !important;\n    align-items: center !important;\n    margin-left: auto !important;\n    margin-right: auto !important;\n  }\n\n  .navbar > .mobile-toggle,\n  nav.navbar > .mobile-toggle,\n  .navbar .mobile-toggle,\n  nav.navbar .mobile-toggle,\n  #mobileToggle,\n  .navbar > .phone-header-btn,\n  nav.navbar > .phone-header-btn,\n  .navbar .phone-header-btn,\n  nav.navbar .phone-header-btn {\n    position: absolute !important;\n    top: 0 !important;\n    bottom: 0 !important;\n    transform: none !important;\n    margin-top: auto !important;\n    margin-bottom: auto !important;\n    align-self: center !important;\n    align-items: center !important;\n    justify-content: center !important;\n    line-height: 0 !important;\n  }\n\n  .navbar > .mobile-toggle,\n  nav.navbar > .mobile-toggle,\n  .navbar .mobile-toggle,\n  nav.navbar .mobile-toggle,\n  #mobileToggle {\n    display: flex !important;\n  }\n\n  html:not([data-zappy-site-type=\"ecommerce\"]) .navbar > .phone-header-btn,\n  html:not([data-zappy-site-type=\"ecommerce\"]) nav.navbar > .phone-header-btn,\n  html:not([data-zappy-site-type=\"ecommerce\"]) .navbar .phone-header-btn,\n  html:not([data-zappy-site-type=\"ecommerce\"]) nav.navbar .phone-header-btn {\n    display: flex !important;\n  }\n\n  html[data-zappy-site-type=\"ecommerce\"] .phone-header-btn,\n  body[data-zappy-site-type=\"ecommerce\"] .phone-header-btn,\n  html[data-zappy-site-type=\"ecommerce\"] header .phone-header-btn,\n  html[data-zappy-site-type=\"ecommerce\"] nav .phone-header-btn {\n    display: none !important;\n    visibility: hidden !important;\n    width: 0 !important;\n    height: 0 !important;\n    min-width: 0 !important;\n    overflow: hidden !important;\n  }\n}\n";
+      document.head.appendChild(style);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', injectMobileNavIconAlignmentFix);
+    } else {
+      injectMobileNavIconAlignmentFix();
+    }
+    window.addEventListener('load', injectMobileNavIconAlignmentFix);
+    setTimeout(injectMobileNavIconAlignmentFix, 250);
+    setTimeout(injectMobileNavIconAlignmentFix, 1000);
+  } catch (e) {}
+})();
+
+
+/* ZAPPY_NAV_OVERFLOW_MENU_V1 */
+(function(){
+  try {
+    if (window.__zappyNavOverflowInit) return;
+    window.__zappyNavOverflowInit = true;
+
+    var MORE_LABELS = {en:'More',he:'עוד',es:'Más',fr:'Plus',de:'Mehr',it:'Altro',pt:'Mais',ar:'المزيد',ru:'Ещё',nl:'Meer',pl:'Więcej',tr:'Daha',ja:'その他',zh:'更多',hi:'और',sv:'Mer',uk:'Ще',ro:'Mai mult',cs:'Více',da:'Mere',fi:'Lisää',no:'Mer',el:'Περισσότερα'};
+    var TOL = 2;
+    var mo = null;
+
+    function moreLabel() {
+      var lang = (document.documentElement.getAttribute('lang') || 'en').slice(0,2).toLowerCase();
+      return MORE_LABELS[lang] || 'More';
+    }
+
+    function injectCss() {
+      // Always (re)append so our !important rules win the cascade against
+      // later site <style> blocks that also target .navbar .sub-menu with
+      // position:absolute !important (bug 2026-07: nested dropdowns drained
+      // into More stayed absolute and painted over later siblings like Contact).
+      var s = document.getElementById('zappy-nav-overflow-css');
+      if (!s) {
+        s = document.createElement('style');
+        s.id = 'zappy-nav-overflow-css';
+      }
+      s.textContent =
+        '@media (min-width:769px){' +
+          '.zappy-nav-more-item{position:relative!important;flex:0 0 auto!important;}' +
+          '.zappy-nav-more-item>.zappy-nav-more-toggle{cursor:pointer;display:inline-flex!important;align-items:center;gap:6px;white-space:nowrap;}' +
+          /* pointer-events:none!important while closed is critical: nested
+             flattened submenus used to set pointer-events:auto and re-enable
+             hit-testing under an invisible More panel (hover 100px+ below
+             still opened עוד). */
+          '.navbar .zappy-nav-more-item>.sub-menu{display:block!important;left:auto!important;right:0!important;min-width:200px!important;opacity:0!important;visibility:hidden!important;pointer-events:none!important;transform:translateY(6px);transition:opacity .18s ease,visibility .18s ease,transform .18s ease;}' +
+          /* Keep right:0 in RTL too. The old left:0 flip made the panel grow
+             rightward over the nav links; on RTL More sits on the left of the
+             item cluster so the panel must open left under עוד. */
+          '.navbar .zappy-nav-more-item:hover>.sub-menu,.navbar .zappy-nav-more-item:focus-within>.sub-menu,.navbar .zappy-nav-more-item.open>.sub-menu{opacity:1!important;visibility:visible!important;pointer-events:auto!important;transform:translateY(0)!important;}' +
+          '.zappy-nav-more-item>.sub-menu>li{display:block!important;width:100%!important;flex:0 0 auto!important;}' +
+          /* Mobile-only items (hamburger-overlay contact CTA) must never render
+             inside the desktop More panel — the display:block above would
+             otherwise resurrect them there (duplicate CTA bug, 2026-07). */
+          '.zappy-nav-more-item>.sub-menu>li.mobile-contact-link,.zappy-nav-more-item>.sub-menu>li.nav-cta-mobile-item,.zappy-nav-more-item>.sub-menu>li.mobile-only{display:none!important;}' +
+          /* Wrap long labels — nowrap + max-content from ecom-routing caused a
+             horizontal scrollbar inside More (publish screenshot 2026-07). */
+          '.zappy-nav-more-item>.sub-menu{width:min(420px,calc(100vw - 24px))!important;max-width:min(420px,calc(100vw - 24px))!important;overflow-x:hidden!important;overflow-y:auto!important;box-sizing:border-box!important;}' +
+          '.zappy-nav-more-item>.sub-menu>li>a{display:block!important;white-space:normal!important;overflow-wrap:anywhere!important;word-break:break-word!important;padding:10px 16px!important;max-width:100%!important;box-sizing:border-box!important;}' +
+          /* Nested dropdowns inside More stay in normal flow (not absolute
+             flyouts that cover Contact). Collapsed by default — expand only
+             when the parent row has .zappy-more-nested-open (chevron toggle). */
+          'html body .navbar .zappy-nav-more-item .sub-menu .sub-menu,' +
+          'html body .navbar .zappy-nav-more-item > .sub-menu > li > .sub-menu,' +
+          'html body nav.navbar .zappy-nav-more-item .sub-menu ul.sub-menu,' +
+          'html body .zappy-nav-more-item .sub-menu .sub-menu{' +
+            'position:static!important;top:auto!important;left:auto!important;right:auto!important;' +
+            'transform:none!important;box-shadow:none!important;min-width:0!important;' +
+            'width:100%!important;max-width:100%!important;margin:0!important;' +
+            'display:none!important;opacity:0!important;visibility:hidden!important;' +
+            'pointer-events:none!important;height:0!important;overflow:hidden!important;padding:0!important;' +
+          '}' +
+          'html body .navbar .zappy-nav-more-item .zappy-more-nested-open > .sub-menu,' +
+          'html body .navbar .zappy-nav-more-item > .sub-menu > li.zappy-more-nested-open > .sub-menu,' +
+          'html body .zappy-nav-more-item .zappy-more-nested-open > .sub-menu{' +
+            'display:block!important;opacity:1!important;visibility:visible!important;' +
+            'pointer-events:auto!important;height:auto!important;' +
+            'overflow-x:hidden!important;overflow-y:visible!important;' +
+            'padding-inline-start:12px!important;' +
+          '}' +
+          /* Chevron for nested parents inside More (desktop accordion).
+             width:100% + margin-inline-start:auto pins the chevron to the
+             inline-start edge of the row in both LTR and RTL (matches preview). */
+          '.zappy-nav-more-item>.sub-menu>li.zappy-more-nested-parent>a{' +
+            'display:flex!important;align-items:center!important;justify-content:space-between!important;' +
+            'gap:8px!important;width:100%!important;max-width:100%!important;box-sizing:border-box!important;' +
+          '}' +
+          '.zappy-nav-more-item>.sub-menu>li.zappy-more-nested-parent>a .dropdown-arrow{' +
+            'display:inline-block!important;flex:0 0 auto!important;width:12px!important;height:12px!important;' +
+            'margin-inline-start:auto!important;pointer-events:auto!important;cursor:pointer!important;' +
+            'transition:transform .2s ease!important;opacity:1!important;visibility:visible!important;' +
+          '}' +
+          '.zappy-nav-more-item>.sub-menu>li.zappy-more-nested-open>a .dropdown-arrow{transform:rotate(180deg)!important;}' +
+        '}' +
+        '@media (max-width:768px){.zappy-nav-more-item{display:none!important;}}';
+      (document.head || document.documentElement).appendChild(s);
+    }
+
+    // Belt-and-suspenders: when a dropdown parent is drained into More, force
+    // its nested .sub-menu into normal flow via inline !important so site CSS
+    // cannot resurrect position:absolute and cover later More siblings.
+    // Do NOT set pointer-events/opacity/visibility here — those must follow
+    // the More panel open/closed state (see CSS above) or an invisible nested
+    // submenu re-enables hover far below the trigger.
+    function flattenNestedSubmenusForMore(li) {
+      if (!li || !li.querySelectorAll) return;
+      var nested = li.querySelectorAll('.sub-menu');
+      for (var i = 0; i < nested.length; i++) {
+        var ul = nested[i];
+        if (ul.classList && ul.classList.contains('zappy-nav-more-menu')) continue;
+        ul.setAttribute('data-zappy-more-flattened', '1');
+        ul.style.setProperty('position', 'static', 'important');
+        ul.style.setProperty('top', 'auto', 'important');
+        ul.style.setProperty('left', 'auto', 'important');
+        ul.style.setProperty('right', 'auto', 'important');
+        ul.style.setProperty('transform', 'none', 'important');
+        ul.style.setProperty('box-shadow', 'none', 'important');
+        ul.style.setProperty('min-width', '0', 'important');
+        ul.style.setProperty('width', '100%', 'important');
+        // Clear any prior pe/opacity/visibility inline locks from older runtimes.
+        ul.style.removeProperty('pointer-events');
+        ul.style.removeProperty('opacity');
+        ul.style.removeProperty('visibility');
+        ul.style.removeProperty('display');
+        ul.style.removeProperty('height');
+      }
+    }
+
+    function unflattenNestedSubmenusFromMore(li) {
+      if (!li || !li.querySelectorAll) return;
+      var nested = li.querySelectorAll('[data-zappy-more-flattened]');
+      for (var i = 0; i < nested.length; i++) {
+        var ul = nested[i];
+        ul.removeAttribute('data-zappy-more-flattened');
+        ul.style.removeProperty('position');
+        ul.style.removeProperty('top');
+        ul.style.removeProperty('left');
+        ul.style.removeProperty('right');
+        ul.style.removeProperty('opacity');
+        ul.style.removeProperty('visibility');
+        ul.style.removeProperty('pointer-events');
+        ul.style.removeProperty('transform');
+        ul.style.removeProperty('box-shadow');
+        ul.style.removeProperty('min-width');
+        ul.style.removeProperty('width');
+        ul.style.removeProperty('display');
+        ul.style.removeProperty('height');
+      }
+      if (li.classList) {
+        li.classList.remove('zappy-more-nested-open', 'zappy-more-nested-parent');
+        // Restore dropdown class stripped while nested under More so mobile
+        // chevron CSS (.menu-item-has-children > .mobile-submenu-toggle) matches.
+        var hasDirectSub = false;
+        for (var c = 0; c < li.children.length; c++) {
+          if (li.children[c].tagName === 'UL') { hasDirectSub = true; break; }
+        }
+        if (hasDirectSub) li.classList.add('menu-item-has-children');
+      }
+    }
+
+    /** Wire chevron accordion for nested dropdowns drained into More (desktop). */
+    function ensureMoreNestedAccordion(moreLi) {
+      if (!moreLi) return;
+      var topSub = moreLi.querySelector(':scope > .sub-menu');
+      if (!topSub) return;
+      var kids = topSub.children;
+      for (var i = 0; i < kids.length; i++) {
+        var li = kids[i];
+        if (!li || li.tagName !== 'LI') continue;
+        var nested = null;
+        for (var c = 0; c < li.children.length; c++) {
+          if (li.children[c].tagName === 'UL') { nested = li.children[c]; break; }
+        }
+        if (!nested) {
+          li.classList.remove('zappy-more-nested-parent', 'zappy-more-nested-open');
+          continue;
+        }
+        li.classList.add('zappy-more-nested-parent');
+        // Always start collapsed when (re)wired after overflow reflow.
+        if (!li.__zappyMoreNestedUserOpened) li.classList.remove('zappy-more-nested-open');
+        var trigger = li.querySelector(':scope > a');
+        if (!trigger) continue;
+        var arrow = trigger.querySelector('svg.dropdown-arrow');
+        if (!arrow) {
+          arrow = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+          arrow.setAttribute('class', 'dropdown-arrow');
+          arrow.setAttribute('width', '12');
+          arrow.setAttribute('height', '12');
+          arrow.setAttribute('viewBox', '0 0 24 24');
+          arrow.setAttribute('fill', 'none');
+          arrow.setAttribute('stroke', 'currentColor');
+          arrow.setAttribute('stroke-width', '2');
+          arrow.setAttribute('aria-hidden', 'true');
+          var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+          path.setAttribute('d', 'M6 9l6 6 6-6');
+          arrow.appendChild(path);
+          trigger.appendChild(arrow);
+        }
+        if (li.__zappyMoreNestedBound) continue;
+        li.__zappyMoreNestedBound = true;
+        (function(parentLi, arrowEl) {
+          arrowEl.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var open = parentLi.classList.toggle('zappy-more-nested-open');
+            parentLi.__zappyMoreNestedUserOpened = open;
+          });
+        })(li, arrow);
+      }
+    }
+
+    function getMenu() {
+      return document.querySelector('.nav-container > .nav-menu, .nav-right-group > .nav-menu')
+        || document.getElementById('navMenu')
+        || document.querySelector('.nav-menu');
+    }
+
+    // Visual extent (px) of just the IN-FLOW top-level <li> items — the true
+    // width the menu's content needs. Measured from the left-most item edge to
+    // the right-most item edge so the REAL gaps are captured by geometry (never
+    // guessed). Absolutely-positioned dropdown sub-menus (the auto "More" panel,
+    // the Products/Categories dropdowns) are excluded: they hang out of flow yet
+    // still inflate menu.scrollWidth, which was the false signal that drained
+    // almost every item into "More" on a near-empty navbar (bug 2026-06).
+    function inflowItemsExtent(menu) {
+      var left = Infinity, right = -Infinity, found = false, kids = menu.children;
+      for (var i = 0; i < kids.length; i++) {
+        var li = kids[i];
+        if (!li || li.tagName !== 'LI') continue;
+        var pos = '';
+        try { pos = getComputedStyle(li).position; } catch (e) {}
+        if (pos === 'absolute' || pos === 'fixed') continue;
+        var r = li.getBoundingClientRect();
+        if (r.width === 0 && r.height === 0) continue; // skip display:none items
+        if (r.left < left) left = r.left;
+        if (r.right > right) right = r.right;
+        found = true;
+      }
+      return found ? (right - left) : 0;
+    }
+
+    // Drop any width/flex sizing override we previously pinned on the menu so
+    // the next reflow re-measures from the site's natural layout. flex-basis +
+    // flex-grow are cleared alongside width/flex-shrink: many navbars (V2
+    // ecommerce, RTL) ship .nav-menu{flex:1 1 0% important}, and a DEFINITE
+    // flex-basis (0%) makes the width property a no-op for the flex item's
+    // main size (CSS Flexbox spec). Without neutralizing flex-basis/flex-grow
+    // our width pin was silently ignored — the menu kept its flex-distributed
+    // box while its items spilled over the search/cart icons, and the overflow
+    // detector measured the capped box (not the overflowing items) so it never
+    // drained anything into "More" (bug 2026-06, RTL navbars).
+    function clearMenuWidthOverride(menu) {
+      if (!menu) return;
+      menu.style.removeProperty('width');
+      menu.style.removeProperty('flex-shrink');
+      menu.style.removeProperty('flex-basis');
+      menu.style.removeProperty('flex-grow');
+      menu.removeAttribute('data-zappy-nav-fitted');
+    }
+
+    // Force the menu so its inline width actually governs the flex item's main
+    // size, regardless of any flex:1 1 0% the site baked in. Sets flex-shrink:0
+    // (don't compress), flex-grow:0 (don't stretch) and flex-basis:auto (so width
+    // wins). Returns a token array to pass to restoreMenuSizing(). Pass the
+    // desired width (px) or null to only freeze the flex triplet.
+    function forceMenuSizing(menu, widthPx) {
+      var saved = [
+        menu.style.getPropertyValue('width'), menu.style.getPropertyPriority('width'),
+        menu.style.getPropertyValue('flex-shrink'), menu.style.getPropertyPriority('flex-shrink'),
+        menu.style.getPropertyValue('flex-grow'), menu.style.getPropertyPriority('flex-grow'),
+        menu.style.getPropertyValue('flex-basis'), menu.style.getPropertyPriority('flex-basis')
+      ];
+      menu.style.setProperty('flex-shrink', '0', 'important');
+      menu.style.setProperty('flex-grow', '0', 'important');
+      menu.style.setProperty('flex-basis', 'auto', 'important');
+      if (widthPx != null) menu.style.setProperty('width', widthPx + 'px', 'important');
+      return saved;
+    }
+
+    function restoreMenuSizing(menu, saved) {
+      if (saved[0]) menu.style.setProperty('width', saved[0], saved[1]); else menu.style.removeProperty('width');
+      if (saved[2]) menu.style.setProperty('flex-shrink', saved[2], saved[3]); else menu.style.removeProperty('flex-shrink');
+      if (saved[4]) menu.style.setProperty('flex-grow', saved[4], saved[5]); else menu.style.removeProperty('flex-grow');
+      if (saved[6]) menu.style.setProperty('flex-basis', saved[6], saved[7]); else menu.style.removeProperty('flex-basis');
+    }
+
+    // The NATURAL (un-shrunk) content width the menu's in-flow items need. The
+    // menu carries flex-shrink:1 (and often flex:1 1 0%), so on a tight navbar
+    // the browser compresses/expands its box and a plain inflowItemsExtent()
+    // read can under-report. Force the flex triplet (shrink:0, grow:0,
+    // basis:auto) + a huge width so the items lay out at full size, read the
+    // real span (gaps captured by geometry, abs sub-menus excluded), restore.
+    function naturalMenuWidth(menu) {
+      var saved = forceMenuSizing(menu, 100000);
+      var ext = inflowItemsExtent(menu);
+      restoreMenuSizing(menu, saved);
+      return ext;
+    }
+
+    // Would the navbar ROW overflow its container if the menu were sized to
+    // widthPx? This is the authoritative "do the items fit?" test. It is
+    // deliberately NOT based on container.scrollWidth > clientWidth, which is
+    // unreliable here for THREE reasons:
+    //   (a) abs-positioned dropdown sub-menus inflate the menu's own scrollWidth,
+    //   (b) RTL: a flex child overflowing past the container's edge does NOT grow
+    //       the container scrollWidth (measured: menu right=942 over an 817 box,
+    //       scrollWidth still 817) — the original bug that left RTL navbars with
+    //       no "More" and overlapping links, and
+    //   (c) a flexible sibling (the search/cart icon group) silently CRUSHES to
+    //       absorb the overflow, hiding it from scrollWidth entirely.
+    // Instead we pin the menu to widthPx AND freeze every in-flow sibling at
+    // flex-shrink:0 (so none can crush), then measure the geometric UNION SPAN of
+    // all in-flow children (leftmost edge → rightmost edge) and compare it to the
+    // container's content width. This is fully direction-agnostic (LTR + RTL) and
+    // immune to scrollWidth quirks. margin:auto gaps collapse to 0 exactly at
+    // the fit boundary, so a row WITH free space spans ≈ clientWidth (not over)
+    // while a genuinely too-wide row spans past it. Styles restored exactly.
+    //
+    // The MENU must be frozen with the full flex triplet (shrink:0, grow:0,
+    // basis:auto) — not just flex-shrink:0 — so widthPx actually sizes its box.
+    // A navbar that baked .nav-menu{flex:1 1 0%} has a DEFINITE flex-basis,
+    // which makes width a no-op: without this the menu kept its narrow
+    // flex-distributed box, getBoundingClientRect read that capped box (NOT the
+    // overflowing items), the span stayed inside the container, and "More" was
+    // never triggered (bug 2026-06). Siblings keep flex-shrink:0 + natural width.
+    function rowOverflowsAtWidth(menu, widthPx) {
+      var c = menu.parentElement;
+      if (!c) return false;
+      var saved = [];
+      function freezeSibling(el) {
+        saved.push([
+          el,
+          el.style.getPropertyValue('flex-shrink'), el.style.getPropertyPriority('flex-shrink')
+        ]);
+        el.style.setProperty('flex-shrink', '0', 'important');
+      }
+      var kids = c.children, i, ch, pos;
+      var menuSaved = forceMenuSizing(menu, widthPx);
+      for (i = 0; i < kids.length; i++) {
+        ch = kids[i];
+        if (ch === menu) continue;
+        pos = '';
+        try { pos = getComputedStyle(ch).position; } catch (e) {}
+        if (pos === 'absolute' || pos === 'fixed') continue;
+        freezeSibling(ch); // flex-shrink:0 only — keep the sibling's natural width
+      }
+      var left = Infinity, right = -Infinity, b;
+      for (i = 0; i < kids.length; i++) {
+        ch = kids[i];
+        pos = '';
+        try { pos = getComputedStyle(ch).position; } catch (e) {}
+        if (pos === 'absolute' || pos === 'fixed') continue;
+        b = ch.getBoundingClientRect();
+        if (b.width === 0 && b.height === 0) continue;
+        if (b.left < left) left = b.left;
+        if (b.right > right) right = b.right;
+      }
+      var span = (right > left) ? (right - left) : 0;
+      var over = span > c.clientWidth + TOL;
+      for (i = saved.length - 1; i >= 0; i--) {
+        var s = saved[i], el = s[0];
+        if (s[1]) el.style.setProperty('flex-shrink', s[1], s[2]); else el.style.removeProperty('flex-shrink');
+      }
+      restoreMenuSizing(menu, menuSaved);
+      return over;
+    }
+
+    function makeMoreItem() {
+      var li = document.createElement('li');
+      li.className = 'menu-item-has-children zappy-nav-more-item';
+      li.setAttribute('data-zappy-nav-more', '1');
+      var a = document.createElement('a');
+      a.href = '#';
+      a.className = 'zappy-nav-more-toggle nav-link';
+      a.setAttribute('aria-haspopup', 'true');
+      a.setAttribute('aria-expanded', 'false');
+      a.innerHTML = '<span class="zappy-nav-more-label"></span><svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg>';
+      a.querySelector('.zappy-nav-more-label').textContent = moreLabel();
+      var ul = document.createElement('ul');
+      ul.className = 'sub-menu zappy-nav-more-menu';
+      ul.setAttribute('role', 'menu');
+      li.appendChild(a);
+      li.appendChild(ul);
+      a.addEventListener('click', function(e) {
+        e.preventDefault();
+        var open = li.classList.toggle('open');
+        a.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      return li;
+    }
+
+    function restore(menu) {
+      var more = menu.querySelector(':scope > .zappy-nav-more-item');
+      if (!more) return;
+      var sub = more.querySelector('.sub-menu');
+      while (sub && sub.firstElementChild) {
+        var child = sub.firstElementChild;
+        unflattenNestedSubmenusFromMore(child);
+        menu.insertBefore(child, more);
+      }
+      more.remove();
+    }
+
+    // Is this anchor href the site home/root? Handles BOTH the preview shape
+    // (.../preview-fullscreen/<id>?page=%2F) and the published shape (/, /index.html,
+    // /en/, etc.), language prefixes and absolute origins included.
+    function isHomeHref(href) {
+      if (!href) return false;
+      href = ('' + href).trim();
+      if (!href || href.charAt(0) === '#') return false;
+      var pIdx = href.indexOf('page=');
+      if (pIdx !== -1) {
+        var val = href.slice(pIdx + 5);
+        var stop = val.search(/[&#]/);
+        if (stop !== -1) val = val.slice(0, stop);
+        try { val = decodeURIComponent(val); } catch (e) {}
+        val = val.replace(/index\.html$/i, '').replace(/^\/[a-z]{2}\/$/i, '/');
+        return val === '/' || val === '';
+      }
+      var clean = href.split('?')[0].split('#')[0].trim();
+      clean = clean.replace(/^https?:\/\/[^/]+/i, '').replace(/^\.\//, '/').replace(/index\.html$/i, '');
+      if (clean === '' || clean === '/') return true;
+      return /^\/[a-z]{2}\/?$/i.test(clean);
+    }
+
+    // The "Home" link must always be the FIRST top-level nav item. The
+    // ecommerce generator injects the auto-built Products dropdown by replacing
+    // the catalog/products link IN PLACE, so when the LLM happened to emit that
+    // link before "Home" the dropdown rendered first (bug 2026-06: "Products,
+    // Home, ..." across e-commerce sites). This deterministically hoists the
+    // Home item back to the front on every reflow — runs before the overflow
+    // pass so Home can never be pushed into "More".
+    function reorderHomeFirst(menu) {
+      var home = menu.querySelector(':scope > li.nav-home-item');
+      if (!home) {
+        var lis = Array.prototype.filter.call(menu.children, function (el) {
+          return el.tagName === 'LI' && !(el.classList && el.classList.contains('zappy-nav-more-item'));
+        });
+        for (var i = 0; i < lis.length; i++) {
+          var a = lis[i].querySelector(':scope > a');
+          if (a && isHomeHref(a.getAttribute('href'))) { home = lis[i]; break; }
+        }
+      }
+      if (home && menu.firstElementChild !== home) {
+        menu.insertBefore(home, menu.firstElementChild);
+      }
+    }
+
+    function reflow() {
+      var menu = getMenu();
+      if (!menu) return;
+      if (mo) mo.disconnect();
+      try {
+        menu.classList.remove('zappy-desktop-wrap');
+        clearMenuWidthOverride(menu);
+        restore(menu);
+        reorderHomeFirst(menu);
+        if (window.innerWidth <= 768) return;
+
+        // Drain trailing items into "More" until the items, AT THEIR NATURAL
+        // CONTENT WIDTH, fit the navbar row. Using the row-fit test (instead of
+        // the menu's own scrollWidth/clientWidth) means we never over-drain on a
+        // navbar that actually has room: the abs-positioned dropdown panels no
+        // longer count, and the flex gap intrinsic-sizing quirk (a content-
+        // sized menu under-reporting its width by the total gap) no longer
+        // matters. "More" is appended last and items leave from the END, so the
+        // maximum number of items stays visible before "More".
+        var more = null, sub = null, guard = 0;
+        while (guard < 200) {
+          guard++;
+          if (!rowOverflowsAtWidth(menu, Math.ceil(naturalMenuWidth(menu)))) break;
+          var reals = Array.prototype.filter.call(menu.children, function(li) {
+            if (li === more || li.tagName !== 'LI') return false;
+            // Never drain mobile-only items (the hamburger-overlay contact CTA
+            // <li class="mobile-contact-link nav-cta-mobile-item">): they are
+            // display:none on desktop and take no row space, but once moved
+            // into the More panel its display:block li rule made them visible,
+            // duplicating the navbar CTA inside "More" (bug 2026-07).
+            if (li.classList && (li.classList.contains('mobile-contact-link') || li.classList.contains('nav-cta-mobile-item') || li.classList.contains('mobile-only'))) return false;
+            try { if (getComputedStyle(li).display === 'none') return false; } catch (e) {}
+            return true;
+          });
+          if (reals.length <= 1) break;
+          if (!more) {
+            more = makeMoreItem();
+            menu.appendChild(more);
+            sub = more.querySelector('.sub-menu');
+          }
+          var drained = reals[reals.length - 1];
+          flattenNestedSubmenusForMore(drained);
+          sub.insertBefore(drained, sub.firstChild);
+        }
+        if (more && sub && !sub.firstElementChild) more.remove();
+        if (more) ensureMoreNestedAccordion(more);
+
+        // The site's flex gap is excluded from a flex-basis:auto menu's
+        // intrinsic width, so the menu box can be narrower than its items and
+        // they spill over the search/cart icons. Pin the menu to its real
+        // NATURAL content extent (only when it currently under-fits) so every
+        // remaining item is fully visible. We drained until the row fits at this
+        // natural width, so the pin is always safe. Cleared on the next reflow /
+        // resize. Using naturalMenuWidth (not the possibly-shrunk inflow extent)
+        // is what makes this correct on a tight RTL navbar.
+        var ext = naturalMenuWidth(menu);
+        if (ext > menu.clientWidth + TOL) {
+          // forceMenuSizing pins width + neutralizes flex-grow/flex-basis so the
+          // pin holds even under .nav-menu{flex:1 1 0%}. Cleared on next reflow.
+          forceMenuSizing(menu, Math.ceil(ext));
+          menu.setAttribute('data-zappy-nav-fitted', '1');
+        }
+      } finally {
+        observe();
+      }
+    }
+
+    function relabel() {
+      var menu = getMenu();
+      if (!menu) return;
+      var lbl = menu.querySelector('.zappy-nav-more-label');
+      if (lbl) lbl.textContent = moreLabel();
+    }
+
+    var t = null;
+    function schedule() {
+      if (t) clearTimeout(t);
+      t = setTimeout(reflow, 150);
+    }
+
+    function observe() {
+      if (!window.MutationObserver) return;
+      var menu = getMenu();
+      if (!menu) return;
+      if (!mo) mo = new MutationObserver(function() { schedule(); });
+      mo.observe(menu, { childList: true, subtree: true });
+    }
+
+    function init() {
+      injectCss();
+      reflow();
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+    window.addEventListener('load', function() { injectCss(); reflow(); });
+    window.addEventListener('resize', schedule, { passive: true });
+    window.addEventListener('orientationchange', schedule, { passive: true });
+    window.addEventListener('popstate', function() { setTimeout(reflow, 0); });
+    window.addEventListener('zappy:languageChanged', function() { setTimeout(function() { relabel(); reflow(); }, 0); });
+    window.addEventListener('languageChanged', function() { setTimeout(function() { relabel(); reflow(); }, 0); });
+    document.addEventListener('click', function(e) {
+      var menu = getMenu();
+      if (!menu) return;
+      var more = menu.querySelector(':scope > .zappy-nav-more-item');
+      if (more && more.classList.contains('open') && !more.contains(e.target)) {
+        more.classList.remove('open');
+        var tog = more.querySelector('.zappy-nav-more-toggle');
+        if (tog) tog.setAttribute('aria-expanded', 'false');
+      }
+    }, true);
+    setTimeout(reflow, 300);
+    setTimeout(reflow, 1200);
+  } catch (e) {}
+})();
+
+/* ZAPPY_NAV_MORE_POINTER_FIX_V4 */
+(function(){
+  try {
+    if (window.__zappyNavMorePointerFixV4) return;
+    window.__zappyNavMorePointerFixV4 = true;
+    window.__zappyNavMorePointerFixV3 = true;
+    window.__zappyNavMorePointerFixV2 = true;
+    window.__zappyNavMorePointerFixV1 = true;
+
+    var STYLE_ID = 'zappy-nav-more-pointer-fix';
+    var applying = false;
+    var cssText =
+      '@media (min-width:769px){' +
+        'html[dir="rtl"] body .navbar .zappy-nav-more-item > .sub-menu,' +
+        'html[dir="rtl"] body .navbar .zappy-nav-more-item:hover > .sub-menu,' +
+        'html[dir="rtl"] body .navbar .zappy-nav-more-item:focus-within > .sub-menu,' +
+        'html[dir="rtl"] body .navbar .zappy-nav-more-item.open > .sub-menu{' +
+          'left:auto!important;right:0!important;' +
+        '}' +
+        'html body .navbar .zappy-nav-more-item:not(:hover):not(:focus-within):not(.open) > .sub-menu,' +
+        'html body .navbar .zappy-nav-more-item:not(:hover):not(:focus-within):not(.open) > .sub-menu *{' +
+          'pointer-events:none!important;' +
+        '}' +
+        /* Constrain More panel: ecom-routing gives width:max-content + nowrap
+           + overflow-y:auto (which promotes overflow-x:auto) → horizontal
+           scrollbar on long Hebrew nested titles. */
+        'html body .navbar .zappy-nav-more-item > .sub-menu{' +
+          'width:min(420px,calc(100vw - 24px))!important;max-width:min(420px,calc(100vw - 24px))!important;' +
+          'overflow-x:hidden!important;overflow-y:auto!important;box-sizing:border-box!important;' +
+        '}' +
+        'html body .navbar .zappy-nav-more-item > .sub-menu a{' +
+          'white-space:normal!important;overflow-wrap:anywhere!important;word-break:break-word!important;' +
+          'max-width:100%!important;box-sizing:border-box!important;' +
+        '}' +
+        'html body .navbar .zappy-nav-more-item .sub-menu .sub-menu,' +
+        'html body .navbar .zappy-nav-more-item > .sub-menu > li > .sub-menu,' +
+        'html body .zappy-nav-more-item [data-zappy-more-flattened]{' +
+          'position:static!important;display:none!important;opacity:0!important;visibility:hidden!important;' +
+          'pointer-events:none!important;height:0!important;overflow:hidden!important;padding:0!important;margin:0!important;' +
+          'box-shadow:none!important;transform:none!important;width:100%!important;max-width:100%!important;' +
+        '}' +
+        'html body .navbar .zappy-nav-more-item .zappy-more-nested-open > .sub-menu,' +
+        'html body .navbar .zappy-nav-more-item > .sub-menu > li.zappy-more-nested-open > .sub-menu{' +
+          'display:block!important;opacity:1!important;visibility:visible!important;' +
+          'pointer-events:auto!important;height:auto!important;' +
+          'overflow-x:hidden!important;overflow-y:visible!important;' +
+          'padding-inline-start:12px!important;width:100%!important;max-width:100%!important;' +
+        '}' +
+        '.zappy-nav-more-item>.sub-menu>li.zappy-more-nested-parent>a{' +
+          'display:flex!important;align-items:center!important;justify-content:space-between!important;' +
+          'gap:8px!important;width:100%!important;max-width:100%!important;box-sizing:border-box!important;' +
+        '}' +
+        '.zappy-nav-more-item>.sub-menu>li.zappy-more-nested-parent>a .dropdown-arrow{' +
+          'display:inline-block!important;flex:0 0 auto!important;width:12px!important;height:12px!important;' +
+          'margin-inline-start:auto!important;pointer-events:auto!important;cursor:pointer!important;' +
+          'transition:transform .2s ease!important;opacity:1!important;visibility:visible!important;' +
+        '}' +
+        '.zappy-nav-more-item>.sub-menu>li.zappy-more-nested-open>a .dropdown-arrow{transform:rotate(180deg)!important;}' +
+        'html body .navbar .zappy-nav-more-item:hover > .sub-menu,' +
+        'html body .navbar .zappy-nav-more-item:focus-within > .sub-menu,' +
+        'html body .navbar .zappy-nav-more-item.open > .sub-menu{' +
+          'pointer-events:auto!important;' +
+        '}' +
+      '}';
+
+    function ensureCss() {
+      var s = document.getElementById(STYLE_ID);
+      if (!s) {
+        s = document.createElement('style');
+        s.id = STYLE_ID;
+      }
+      if (s.textContent !== cssText) s.textContent = cssText;
+      if (s.parentNode !== (document.head || document.documentElement)) {
+        (document.head || document.documentElement).appendChild(s);
+      } else if (s.nextSibling) {
+        (document.head || document.documentElement).appendChild(s);
+      }
+    }
+
+    function scrubFlattenedInlineLocks() {
+      var nodes = document.querySelectorAll('[data-zappy-more-flattened]');
+      for (var i = 0; i < nodes.length; i++) {
+        var ul = nodes[i];
+        if (ul.style.getPropertyValue('pointer-events')) ul.style.removeProperty('pointer-events');
+        if (ul.style.getPropertyValue('opacity')) ul.style.removeProperty('opacity');
+        if (ul.style.getPropertyValue('visibility')) ul.style.removeProperty('visibility');
+        if (ul.style.getPropertyValue('display')) ul.style.removeProperty('display');
+      }
+    }
+
+    function wireMoreNestedAccordion() {
+      var more = document.querySelector('.zappy-nav-more-item');
+      if (!more) return;
+      var topSub = more.querySelector(':scope > .sub-menu');
+      if (!topSub) return;
+      var kids = topSub.children;
+      for (var i = 0; i < kids.length; i++) {
+        var li = kids[i];
+        if (!li || li.tagName !== 'LI') continue;
+        var nested = null;
+        for (var c = 0; c < li.children.length; c++) {
+          if (li.children[c].tagName === 'UL') { nested = li.children[c]; break; }
+        }
+        if (!nested) {
+          li.classList.remove('zappy-more-nested-parent', 'zappy-more-nested-open');
+          continue;
+        }
+        li.classList.add('zappy-more-nested-parent');
+        if (!li.__zappyMoreNestedUserOpened) li.classList.remove('zappy-more-nested-open');
+        var trigger = null;
+        for (var t = 0; t < li.children.length; t++) {
+          if (li.children[t].tagName === 'A') { trigger = li.children[t]; break; }
+        }
+        if (!trigger) continue;
+        var arrow = trigger.querySelector('svg.dropdown-arrow');
+        if (!arrow) {
+          arrow = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+          arrow.setAttribute('class', 'dropdown-arrow');
+          arrow.setAttribute('width', '12');
+          arrow.setAttribute('height', '12');
+          arrow.setAttribute('viewBox', '0 0 24 24');
+          arrow.setAttribute('fill', 'none');
+          arrow.setAttribute('stroke', 'currentColor');
+          arrow.setAttribute('stroke-width', '2');
+          arrow.setAttribute('aria-hidden', 'true');
+          var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+          path.setAttribute('d', 'M6 9l6 6 6-6');
+          arrow.appendChild(path);
+          trigger.appendChild(arrow);
+        }
+        if (li.__zappyMoreNestedBound) continue;
+        li.__zappyMoreNestedBound = true;
+        (function(parentLi, arrowEl) {
+          arrowEl.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var open = parentLi.classList.toggle('zappy-more-nested-open');
+            parentLi.__zappyMoreNestedUserOpened = open;
+          });
+        })(li, arrow);
+      }
+    }
+
+    function apply() {
+      if (applying) return;
+      applying = true;
+      try {
+        ensureCss();
+        scrubFlattenedInlineLocks();
+        wireMoreNestedAccordion();
+      } finally {
+        applying = false;
+      }
+    }
+
+    var scheduled = false;
+    function scheduleApply() {
+      if (scheduled || applying) return;
+      scheduled = true;
+      setTimeout(function() {
+        scheduled = false;
+        apply();
+      }, 0);
+    }
+
+    apply();
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', scheduleApply);
+    }
+    if (typeof MutationObserver === 'function') {
+      var mo = new MutationObserver(scheduleApply);
+      mo.observe(document.documentElement, {
+        subtree: true,
+        childList: true,
+        attributes: true,
+        attributeFilter: ['style', 'data-zappy-more-flattened']
+      });
+    }
+  } catch (e) {}
+})();
+
+/* ZAPPY_ANNOUNCEMENT_HEADER_SYNC_V4 */
+(function(){
+  if (window.__zappyAnnouncementHeaderSyncV4) return;
+  window.__zappyAnnouncementHeaderSyncV4 = true;
+  window.__zappyAnnouncementHeaderSyncV3 = true;
+  window.__zappyAnnouncementHeaderSyncV2 = true;
+  window.__zappyAnnouncementHeaderSyncV1 = true; // legacy guards
+
+  function primaryHeader() {
+    var selectors = [
+      'nav#navbar',
+      'nav.navbar',
+      '.navbar:not(.zappy-catalog-menu)',
+      'nav[class*="nav"]',
+      'header.navbar',
+      'header:not([class*="gallery"]):not([class*="hero"]):not([class*="section"])'
+    ];
+    for (var i = 0; i < selectors.length; i++) {
+      var el = document.querySelector(selectors[i]);
+      if (!el) continue;
+      if (el.classList && el.classList.contains('zappy-catalog-menu')) continue;
+      if (el.id === 'zappy-catalog-menu') continue;
+      if (el.classList && el.classList.contains('mobile-search-panel')) continue;
+      if (el.tagName === 'HEADER' && el.closest('section')) continue;
+      if (el.classList && (
+        el.classList.contains('lookbook-gallery-header') ||
+        el.classList.contains('hero-header') ||
+        el.classList.contains('section-header') ||
+        el.classList.contains('page-header')
+      )) continue;
+      return el;
+    }
+    return null;
+  }
+
+  function visibleHeight(el) {
+    if (!el) return 0;
+    var cs;
+    try { cs = window.getComputedStyle(el); } catch (e) {}
+    if (cs && (cs.display === 'none' || cs.visibility === 'hidden')) return 0;
+    var r = el.getBoundingClientRect ? el.getBoundingClientRect() : null;
+    return Math.ceil((r && r.height) || el.offsetHeight || 0);
+  }
+
+  function sync() {
+    var header = primaryHeader();
+    var bar = document.querySelector('.zappy-announcement-bar');
+    var catalog = document.querySelector('.zappy-catalog-menu');
+    var barHeight = visibleHeight(bar);
+    if (!header) {
+      if (barHeight > 0) document.body.style.setProperty('padding-top', barHeight + 'px', 'important');
+      return;
+    }
+
+    header.style.setProperty('position', 'fixed', 'important');
+    header.style.setProperty('top', barHeight + 'px', 'important');
+    header.style.setProperty('left', '0', 'important');
+    header.style.setProperty('right', '0', 'important');
+    header.style.setProperty('z-index', '100000', 'important');
+    header.style.marginBottom = '0';
+
+    var headerHeight = visibleHeight(header);
+    var totalHeight = barHeight + headerHeight;
+    if (catalog && visibleHeight(catalog) > 0) {
+      catalog.style.marginTop = '0';
+      catalog.style.setProperty('top', totalHeight + 'px', 'important');
+      totalHeight += visibleHeight(catalog);
+    }
+
+    document.documentElement.style.setProperty('--header-height', headerHeight + 'px');
+    document.documentElement.style.setProperty('--total-header-height', totalHeight + 'px');
+    document.documentElement.style.setProperty('--zappy-mobile-menu-top', (barHeight + headerHeight) + 'px');
+    document.documentElement.style.setProperty('--zappy-announcement-height', barHeight + 'px');
+    document.documentElement.style.setProperty('--zappy-header-stack-height', totalHeight + 'px');
+    document.body.style.setProperty('padding-top', totalHeight + 'px', 'important');
+
+    // Transparent nav: pull hero behind the fixed stack immediately.
+    // Measure the navbar itself rather than trusting --nav-bg, which can be
+    // absent on older published pages or during stylesheet failure. Critical
+    // CSS also paints known opaque navbar colors before this runtime executes.
+    // Keep selectors aligned with ZAPPY_ANNOUNCEMENT_HEADER_OFFSET_CSS_V3 —
+    // never underlap bare main>section:first-child (catalog /products pages).
+    var heroEl = document.querySelector('section[data-hero-type^="fullscreen"], .index-hero-section, main > section[class*="hero"]:first-of-type');
+    if (heroEl && totalHeight > 0) {
+      var headerIsTransparent = false;
+      try {
+        var headerStyle = getComputedStyle(header);
+        var backgroundColor = headerStyle.backgroundColor || '';
+        var backgroundImage = headerStyle.backgroundImage || 'none';
+        var alphaMatch = backgroundColor.match(/rgba?\([^)]*[,\s]([0-9.]+)\s*\)$/i);
+        headerIsTransparent =
+          backgroundImage === 'none' &&
+          (backgroundColor === 'transparent' || (alphaMatch && parseFloat(alphaMatch[1]) < 0.3));
+      } catch (e) {}
+      if (headerIsTransparent) {
+        heroEl.style.setProperty('margin-top', '-' + totalHeight + 'px', 'important');
+        heroEl.style.setProperty('padding-top', totalHeight + 'px', 'important');
+        heroEl.setAttribute('data-zappy-nav-underlap', 'true');
+      } else if (
+        heroEl.getAttribute('data-zappy-nav-underlap') === 'true' ||
+        (heroEl.style.marginTop === '-' + totalHeight + 'px' && heroEl.style.paddingTop === totalHeight + 'px')
+      ) {
+        heroEl.style.removeProperty('margin-top');
+        heroEl.style.removeProperty('padding-top');
+        heroEl.removeAttribute('data-zappy-nav-underlap');
+      }
+    }
+  }
+
+  var timer = null;
+  function schedule(delay) {
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(sync, delay || 0);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function(){ schedule(0); });
+  } else {
+    schedule(0);
+  }
+  window.addEventListener('load', function(){ schedule(0); });
+  window.addEventListener('resize', function(){ schedule(50); }, { passive: true });
+  window.addEventListener('zappy:languageChanged', function(){ schedule(50); });
+  window.addEventListener('languageChanged', function(){ schedule(50); });
+  [50, 150, 350, 750, 1500, 3000].forEach(function(ms){ setTimeout(sync, ms); });
+
+  try {
+    new MutationObserver(function(mutations) {
+      for (var i = 0; i < mutations.length; i++) {
+        var mutation = mutations[i];
+        var t = mutation.target;
+        var classes = t && t.classList;
+        if (mutation.type === 'childList') {
+          for (var j = 0; j < mutation.addedNodes.length; j++) {
+            var node = mutation.addedNodes[j];
+            var nodeClasses = node && node.classList;
+            if (nodeClasses && (
+              nodeClasses.contains('zappy-announcement-bar') ||
+              nodeClasses.contains('zappy-catalog-menu') ||
+              nodeClasses.contains('navbar')
+            )) {
+              schedule(0);
+              return;
+            }
+          }
+        }
+        if (
+          (t === document.body && mutation.attributeName === 'class') ||
+          (classes && (
+          classes.contains('zappy-announcement-bar') ||
+          classes.contains('zappy-catalog-menu')
+        ))
+        ) {
+          schedule(0);
+          return;
+        }
+      }
+    }).observe(document.body || document.documentElement, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['class', 'style']
+    });
+  } catch (e) {}
+})();
+
+/* ZAPPY_ANNOUNCEMENT_BAR_ROTATION_V4 */
+(function(){
+  if (window.__zappyAnnouncementBarRotationV4) return;
+  window.__zappyAnnouncementBarRotationV4 = true;
+  window.__zappyAnnouncementBarRotationV3 = true; // legacy guards
+  window.__zappyAnnouncementBarRotationV2 = true;
+
+  function readInterval(bar) {
+    var raw = bar && bar.getAttribute && bar.getAttribute('data-interval');
+    var ms = parseInt(raw, 10);
+    if (!isFinite(ms) || ms < 1000) ms = 4000;
+    return ms;
+  }
+
+  function remountMessages(bar) {
+    // Neutralize orphaned anonymous setIntervals from pre-V2 inline fallbacks
+    // that never stored their timer id — their NodeList closures keep ticking
+    // on the OLD nodes after we replace them with clones.
+    if (!bar) return;
+    var stale = bar.querySelectorAll('.zappy-announcement-message');
+    for (var s = 0; s < stale.length; s++) {
+      var node = stale[s];
+      if (!node || !node.parentNode) continue;
+      node.parentNode.replaceChild(node.cloneNode(true), node);
+    }
+  }
+
+  function startRotation(bar, intervalMs, force) {
+    if (!bar) return;
+    var ms = isFinite(intervalMs) && intervalMs >= 1000 ? intervalMs : readInterval(bar);
+    var messages = bar.querySelectorAll('.zappy-announcement-message');
+    if (messages.length <= 1) {
+      if (window.__zappyAnnouncementRotateTimer) {
+        clearInterval(window.__zappyAnnouncementRotateTimer);
+        window.__zappyAnnouncementRotateTimer = null;
+      }
+      window.__zappyAnnouncementRotateBar = null;
+      window.__zappyAnnouncementRotateMs = null;
+      return;
+    }
+    // Already driving this bar at this interval — leave the active slide alone.
+    if (
+      !force &&
+      window.__zappyAnnouncementRotateTimer &&
+      window.__zappyAnnouncementRotateBar === bar &&
+      window.__zappyAnnouncementRotateMs === ms
+    ) {
+      return;
+    }
+    if (window.__zappyAnnouncementRotateTimer) {
+      clearInterval(window.__zappyAnnouncementRotateTimer);
+      window.__zappyAnnouncementRotateTimer = null;
+    }
+    remountMessages(bar);
+    messages = bar.querySelectorAll('.zappy-announcement-message');
+    if (messages.length <= 1) return;
+    var current = 0;
+    for (var i = 0; i < messages.length; i++) {
+      if (i === 0) messages[i].classList.add('active');
+      else messages[i].classList.remove('active');
+    }
+    window.__zappyAnnouncementRotateBar = bar;
+    window.__zappyAnnouncementRotateMs = ms;
+    window.__zappyAnnouncementRotateTimer = setInterval(function() {
+      var all = bar.querySelectorAll('.zappy-announcement-message');
+      if (!all || all.length <= 1) return;
+      if (current >= all.length) current = 0;
+      all[current].classList.remove('active');
+      current = (current + 1) % all.length;
+      all[current].classList.add('active');
+    }, ms);
+  }
+
+  // Shared entry point — pass force:true after rebuilding message nodes.
+  window.zappyStartAnnouncementRotation = startRotation;
+
+  function boot() {
+    if (document.body && document.body.classList.contains('zappy-focused-page')) return;
+    var bar = document.querySelector('.zappy-announcement-bar');
+    if (!bar) return;
+    startRotation(bar, readInterval(bar), false);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+  // Settings fetch / dynamic bar create may land after first paint.
+  [300, 1000, 2500].forEach(function(ms){ setTimeout(boot, ms); });
+})();
+
+/* ZAPPY_MOBILE_MENU_CLOSED_ICONS_V2 */
+(function(){
+  if (window.__zappyMobileMenuClosedIconsV2) return;
+  window.__zappyMobileMenuClosedIconsV2 = true;
+  function closeBaked() {
+    var menu = document.querySelector('#navMenu, .nav-menu, .navbar-menu');
+    if (menu) {
+      menu.classList.remove('active');
+      menu.classList.remove('open');
+      menu.style.removeProperty('display');
+    }
+    var toggle = document.querySelector('.mobile-toggle, #mobileToggle');
+    if (toggle) {
+      toggle.classList.remove('active');
+      if (toggle.setAttribute) toggle.setAttribute('aria-expanded', 'false');
+      var hi = toggle.querySelector('.hamburger-icon');
+      var ci = toggle.querySelector('.close-icon');
+      if (hi) hi.style.setProperty('display', 'block', 'important');
+      if (ci) ci.style.setProperty('display', 'none', 'important');
+    }
+    document.body.style.overflow = '';
+  }
+  closeBaked();
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', closeBaked, { once: true });
+  }
+})();
+
+
+/* ZAPPY_MOBILE_CATEGORIES_SUBMENU_GUARD_V1 */
+(function(){
+  if (window.__zappyMobileCategoriesSubmenuGuardV1) return;
+  window.__zappyMobileCategoriesSubmenuGuardV1 = true;
+
+  function injectCss() {
+    if (document.getElementById('zappy-mobile-categories-submenu-css')) return;
+    var s = document.createElement('style');
+    s.id = 'zappy-mobile-categories-submenu-css';
+    s.textContent =
+      '.mobile-categories-submenu{display:none!important}' +
+      '.mobile-categories-submenu.active{display:block!important}';
+    (document.head || document.documentElement).appendChild(s);
+  }
+
+  function scrubOrphans() {
+    document.querySelectorAll('.zappy-products-dropdown > .mobile-categories-submenu:not(.active), li.menu-item-has-children > .mobile-categories-submenu:not(.active)').forEach(function(el) {
+      var parent = el.parentElement;
+      if (parent && parent.querySelector(':scope > .sub-menu, :scope > ul.sub-menu')) {
+        el.remove();
+      }
+    });
+  }
+
+  function wrapLegacyInit() {
+    var orig = null;
+    try {
+      if (typeof window.initMobileCategoriesSubmenu === 'function') orig = window.initMobileCategoriesSubmenu;
+    } catch (e) {}
+    if (!orig) {
+      try { if (typeof initMobileCategoriesSubmenu === 'function') orig = initMobileCategoriesSubmenu; } catch (e2) {}
+    }
+    if (!orig) return;
+    var wrapped = function() {
+      if (document.querySelector('.zappy-products-dropdown > .sub-menu, .zappy-products-dropdown > ul.sub-menu, #zappy-nav-category-links')) {
+        scrubOrphans();
+        return;
+      }
+      return orig.apply(this, arguments);
+    };
+    try { window.initMobileCategoriesSubmenu = wrapped; } catch (e3) {}
+    try { initMobileCategoriesSubmenu = wrapped; } catch (e4) {}
+  }
+
+  injectCss();
+  wrapLegacyInit();
+  scrubOrphans();
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function(){ wrapLegacyInit(); scrubOrphans(); });
+  }
+  [50, 200, 800, 1600, 3200].forEach(function(ms){ setTimeout(function(){ wrapLegacyInit(); scrubOrphans(); }, ms); });
+})();
+
+
+/* ZAPPY_CUSTOMER_DISCOUNT_DELAYED_REFRESH_V1 */
+
+/* ZAPPY_ECOM_STARTUP_PERF_GUARDS_V4 */
+
+/* ZAPPY_ECOM_STARTUP_PERF_GUARDS_V1 */
+
+
+/* ZAPPY_CUSTOMER_DISCOUNT_RUNTIME_V1 */
+;(function() {
+  if (window.__zappyCustomerDiscountRuntimeV1) return;
+  window.__zappyCustomerDiscountRuntimeV1 = true;
+
+  function apiUrl(path) {
+    var base = window.ZAPPY_API_BASE || '';
+    if (base.endsWith('/')) base = base.slice(0, -1);
+    return base + path;
+  }
+
+  function getDiscount(productId) {
+    var cfg = window.__zappyCustomerDiscountConfig;
+    if (!cfg || !cfg.discountPercent) return null;
+    var excluded = cfg.excludedProductIds || [];
+    if (excluded.indexOf(productId) !== -1) return null;
+    return cfg;
+  }
+
+  function applyPercent(basePrice, productId) {
+    var d = getDiscount(productId);
+    if (!d || !Number.isFinite(basePrice) || basePrice <= 0) {
+      return { price: basePrice, applied: false };
+    }
+    var discounted = basePrice - (basePrice * parseFloat(d.discountPercent) / 100);
+    if (!Number.isFinite(discounted) || discounted >= basePrice) {
+      return { price: basePrice, applied: false };
+    }
+    return { price: discounted, applied: true, originalPrice: basePrice };
+  }
+
+  window.__zappyApplyCustomerPercentToPrice = applyPercent;
+
+  function currencyFromText(text) {
+    var m = String(text || '').match(/[₪$€£]/);
+    return m ? m[0] : '₪';
+  }
+
+  function isPriceAlreadyCustomerDiscounted(priceEl, productId) {
+    if (!priceEl) return true;
+    if (priceEl.getAttribute('data-customer-discount-applied')) return true;
+    // Sale / seasonal strikethrough also uses .original-price — only skip when the
+    // visible price already matches a customer discount computed from the
+    // strikethrough base (generator path that omits data-customer-discount-applied).
+    var origEl = priceEl.querySelector('.original-price');
+    if (!origEl || !productId) return false;
+    var raw = priceEl.textContent || '';
+    var nums = raw.match(/[\d,.]+/g);
+    if (!nums || !nums.length) return false;
+    var displayed = parseFloat(nums[0].replace(/,/g, ''));
+    var origNums = (origEl.textContent || '').match(/[\d,.]+/g);
+    if (!origNums || !origNums.length) return false;
+    var preCustomerBase = parseFloat(origNums[origNums.length - 1].replace(/,/g, ''));
+    if (!Number.isFinite(displayed) || !Number.isFinite(preCustomerBase)) return false;
+    var adj = applyPercent(preCustomerBase, productId);
+    if (!adj.applied) return false;
+    return Math.abs(displayed - adj.price) < 0.02;
+  }
+
+  function applyPricesToCards() {
+    if (!window.__zappyCustomerDiscountConfig || !window.__zappyCustomerDiscountConfig.discountPercent) return;
+    document.querySelectorAll('[data-product-id]').forEach(function(card) {
+      var pid = card.getAttribute('data-product-id');
+      var priceEl = card.querySelector('.price') || card.querySelector('.product-price');
+      if (!priceEl || isPriceAlreadyCustomerDiscounted(priceEl, pid)) return;
+      var raw = priceEl.textContent || '';
+      var starting = /(?:Starting at|החל מ)/i.test(raw);
+      var nums = raw.match(/[\d,.]+/g);
+      if (!nums || !nums.length) return;
+      var base = parseFloat(nums[0].replace(/,/g, ''));
+      if (!Number.isFinite(base) || base <= 0) return;
+      var adj = applyPercent(base, pid);
+      if (!adj.applied) return;
+      var sym = currencyFromText(raw);
+      if (starting) {
+        var prefix = raw.match(/(?:Starting at|החל מ)/i);
+        var label = prefix ? prefix[0] : 'Starting at';
+        priceEl.innerHTML = label + ' ' + sym + adj.price.toFixed(2) + ' <span class="original-price">' + sym + base.toFixed(2) + '</span>';
+      } else {
+        priceEl.innerHTML = sym + adj.price.toFixed(2) + ' <span class="original-price">' + sym + base.toFixed(2) + '</span>';
+      }
+      priceEl.setAttribute('data-customer-discount-applied', '1');
+    });
+  }
+
+  function refreshProductDetailPrice() {
+    if (!window.currentProduct || !window.__zappyCustomerDiscountConfig) return;
+    if (typeof window.__zappyUpdateVariantUI === 'function' && window.productTranslations) {
+      window.__zappyUpdateVariantUI(window.selectedVariant || null, window.currentProduct, window.productTranslations, {});
+      return;
+    }
+    var priceEl = document.getElementById('product-price-display');
+    if (!priceEl || isPriceAlreadyCustomerDiscounted(priceEl, window.currentProduct.id)) return;
+    var raw = priceEl.textContent || '';
+    var starting = /(?:Starting at|החל מ)/i.test(raw);
+    var nums = raw.match(/[\d,.]+/g);
+    if (!nums || !nums.length) return;
+    var base = parseFloat((starting && nums.length > 1 ? nums[nums.length - 1] : nums[0]).replace(/,/g, ''));
+    if (!Number.isFinite(base) || base <= 0) return;
+    var adj = applyPercent(base, window.currentProduct.id);
+    if (!adj.applied) return;
+    var sym = currencyFromText(raw);
+    if (starting) {
+      var prefix = raw.match(/(?:Starting at|החל מ)/i);
+      var label = prefix ? prefix[0] : 'Starting at';
+      priceEl.innerHTML = label + ' ' + sym + adj.price.toFixed(2) + ' <span class="original-price">' + sym + base.toFixed(2) + '</span>';
+    } else {
+      priceEl.innerHTML = sym + adj.price.toFixed(2) + ' <span class="original-price">' + sym + base.toFixed(2) + '</span>';
+    }
+    priceEl.setAttribute('data-customer-discount-applied', '1');
+  }
+
+  async function syncCustomerDiscount() {
+    if (typeof window.__zappyFetchCustomerDiscount === 'function') {
+      try {
+        await window.__zappyFetchCustomerDiscount();
+      } catch (e) {
+        console.warn('[ZAPPY] Customer discount runtime delegate failed', e);
+      }
+      applyPricesToCards();
+      refreshProductDetailPrice();
+      if (typeof window.loadProducts === 'function') {
+        try { window.loadProducts(); } catch (e) {}
+      }
+      if (typeof window.__zappyScheduleDynamicProductGridsDiscountRefresh === 'function') {
+        try { window.__zappyScheduleDynamicProductGridsDiscountRefresh(); } catch (e) {}
+      }
+      [800, 2500].forEach(function(ms) {
+        setTimeout(refreshProductDetailPrice, ms);
+      });
+      return;
+    }
+    var wid = window.ZAPPY_WEBSITE_ID;
+    if (!wid) return;
+    var token = localStorage.getItem('zappy_customer_token_' + wid);
+    if (!token) {
+      window.__zappyCustomerDiscountConfig = null;
+      return;
+    }
+    try {
+      var res = await fetch(apiUrl('/api/ecommerce/storefront/customer-discount?websiteId=' + encodeURIComponent(wid)), {
+        headers: { Authorization: 'Bearer ' + token }
+      });
+      var data = await res.json();
+      if (data.success && data.data && data.data.discountPercent > 0) {
+        window.__zappyCustomerDiscountConfig = data.data;
+      } else {
+        window.__zappyCustomerDiscountConfig = null;
+      }
+    } catch (e) {
+      console.warn('[ZAPPY] Customer discount runtime fetch failed', e);
+      window.__zappyCustomerDiscountConfig = null;
+    }
+    applyPricesToCards();
+    refreshProductDetailPrice();
+    if (typeof window.loadProducts === 'function') {
+      try { window.loadProducts(); } catch (e) {}
+    }
+    if (typeof window.__zappyScheduleDynamicProductGridsDiscountRefresh === 'function') {
+      try { window.__zappyScheduleDynamicProductGridsDiscountRefresh(); } catch (e) {}
+    }
+    [800, 2500].forEach(function(ms) {
+      setTimeout(refreshProductDetailPrice, ms);
+    });
+  }
+
+  function boot() {
+    syncCustomerDiscount();
+    var detail = document.getElementById('product-detail');
+    if (detail && typeof MutationObserver !== 'undefined') {
+      new MutationObserver(function() {
+        refreshProductDetailPrice();
+      }).observe(detail, { childList: true, subtree: true });
+    }
+    var grid = document.getElementById('zappy-product-grid');
+    if (grid && typeof MutationObserver !== 'undefined') {
+      new MutationObserver(function() {
+        applyPricesToCards();
+      }).observe(grid, { childList: true, subtree: true });
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+})();
+
+/* ZAPPY_CART_BUNDLE_DISCOUNT_V4 */
+;(function() {
+  if (window.__zappyCartAutomaticDiscountRuntimeV4) return;
+  window.__zappyCartAutomaticDiscountRuntimeV4 = true;
+
+  function getWebsiteId() {
+    return window.ZAPPY_WEBSITE_ID || document.body.getAttribute('data-website-id') || document.documentElement.getAttribute('data-website-id') || '';
+  }
+
+  function apiUrl(path) {
+    var base = window.ZAPPY_API_BASE || window.location.origin || '';
+    if (base.endsWith('/')) base = base.slice(0, -1);
+    return base + path;
+  }
+
+  function readCart() {
+    var wid = getWebsiteId();
+    if (!wid) return [];
+    try {
+      var cart = JSON.parse(localStorage.getItem('zappy_cart_' + wid) || '[]');
+      return Array.isArray(cart) ? cart : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function formatMoney(amount) {
+    if (typeof window.zappyFormatMoney === 'function') {
+      try { return window.zappyFormatMoney(amount); } catch (e) {}
+    }
+    var sym = '₪';
+    try {
+      if (window.zappyStoreSettings && window.zappyStoreSettings.currencySymbol) {
+        sym = window.zappyStoreSettings.currencySymbol;
+      }
+    } catch (e) {}
+    return sym + (parseFloat(amount) || 0).toFixed(2);
+  }
+
+  function getEcomLabel(key, fallback) {
+    if (typeof getEcomText === 'function') {
+      try {
+        var v = getEcomText(key, fallback);
+        if (v) return v;
+      } catch (e) {}
+    }
+    return fallback;
+  }
+
+  function getUnitPrice(item) {
+    if (item && item.selectedVariant && item.selectedVariant.price != null && item.selectedVariant.price !== '') {
+      var vp = parseFloat(item.selectedVariant.price);
+      if (Number.isFinite(vp)) return vp;
+    }
+    if (item && item.displayPrice != null && item.displayPrice !== '') {
+      var dp = parseFloat(item.displayPrice);
+      if (Number.isFinite(dp)) return dp;
+    }
+    var reg = parseFloat(item && item.price);
+    var sale = parseFloat(item && item.sale_price);
+    if (Number.isFinite(sale) && Number.isFinite(reg) && sale < reg) return sale;
+    return Number.isFinite(reg) ? reg : 0;
+  }
+
+  function getLineTotal(item) {
+    var price = getUnitPrice(item);
+    var qty = parseInt(item.quantity, 10) || 1;
+    var step = parseFloat(item.quantityStep || item.quantity_step) || 1;
+    var unit = (item.quantityUnit || item.quantity_unit || 'piece');
+    if (unit === 'piece') return price * qty;
+    return price * (qty / step);
+  }
+
+  function getProductId(item) {
+    return String((item && (item.productId || item.id)) || '');
+  }
+
+  function idListContains(ids, id) {
+    var idStr = String(id || '');
+    for (var i = 0; i < ids.length; i++) {
+      if (String(ids[i]) === idStr) return true;
+    }
+    return false;
+  }
+
+  function getCartSubtotal(cart) {
+    var total = 0;
+    for (var i = 0; i < cart.length; i++) total += getLineTotal(cart[i]);
+    return total;
+  }
+
+  function calcBestBundleGroupDiscount(groupBundles, unitPrices) {
+    if (!groupBundles.length || !unitPrices.length) return 0;
+    unitPrices.sort(function(a, c) { return c - a; });
+
+    var prefixSums = [0];
+    for (var i = 0; i < unitPrices.length; i++) {
+      prefixSums.push(prefixSums[prefixSums.length - 1] + unitPrices[i]);
+    }
+
+    var dp = [0];
+    for (var n = 1; n <= unitPrices.length; n++) {
+      var best = dp[n - 1] || 0;
+      for (var b = 0; b < groupBundles.length; b++) {
+        var tier = groupBundles[b];
+        if (n < tier.qty) continue;
+        var groupSum = prefixSums[n] - prefixSums[n - tier.qty];
+        var saving = Math.max(0, groupSum - tier.bPrice);
+        if (saving <= 0) continue;
+        best = Math.max(best, (dp[n - tier.qty] || 0) + saving);
+      }
+      dp[n] = best;
+    }
+    return dp[unitPrices.length] || 0;
+  }
+
+  function calcBundleDiscount(bundles, cart) {
+    var groups = {};
+    for (var i = 0; i < bundles.length; i++) {
+      var b = bundles[i];
+      var qty = parseInt(b.quantity, 10);
+      var bPrice = parseFloat(b.bundlePrice);
+      if (!qty || qty < 2 || !Number.isFinite(bPrice) || bPrice < 0) continue;
+
+      var ids = Array.isArray(b.eligibleProductIds) ? b.eligibleProductIds.map(function(id) { return String(id || ''); }).filter(Boolean).sort() : [];
+      var appliesToAll = b.appliesTo === 'all';
+      if (!appliesToAll && ids.length === 0) continue;
+
+      var key = appliesToAll ? 'all' : ('products:' + ids.join('|'));
+      if (!groups[key]) groups[key] = { appliesToAll: appliesToAll, ids: ids, bundles: [] };
+      groups[key].bundles.push({ qty: qty, bPrice: bPrice });
+    }
+
+    var totalDiscount = 0;
+    Object.keys(groups).forEach(function(key) {
+      var group = groups[key];
+      var unitPrices = [];
+      for (var j = 0; j < cart.length; j++) {
+        var item = cart[j];
+        var itemId = getProductId(item);
+        if (!group.appliesToAll && !idListContains(group.ids, itemId)) continue;
+        var uPrice = getUnitPrice(item);
+        var itemQty = parseInt(item.quantity, 10) || 1;
+        for (var k = 0; k < itemQty; k++) unitPrices.push(uPrice);
+      }
+      totalDiscount += calcBestBundleGroupDiscount(group.bundles, unitPrices);
+    });
+    return totalDiscount;
+  }
+
+  function calcSeasonalDiscount(discounts, cart) {
+    var totalDiscount = 0;
+    for (var i = 0; i < discounts.length; i++) {
+      var d = discounts[i];
+      var ids = Array.isArray(d.product_ids) ? d.product_ids : [];
+      var appliesToAll = d.applies_to === 'all' || ids.length === 0;
+      var eligibleSubtotal = 0;
+
+      for (var j = 0; j < cart.length; j++) {
+        var item = cart[j];
+        if (appliesToAll || idListContains(ids, getProductId(item))) {
+          eligibleSubtotal += getLineTotal(item);
+        }
+      }
+
+      var value = parseFloat(d.value);
+      if (!Number.isFinite(value) || eligibleSubtotal <= 0) continue;
+      if (d.type === 'percentage') {
+        totalDiscount += (eligibleSubtotal * value) / 100;
+      } else if (d.type === 'fixed') {
+        totalDiscount += Math.min(value, eligibleSubtotal);
+      }
+    }
+    return totalDiscount;
+  }
+
+  function calcCustomerDiscount(cart) {
+    var cfg = window.__zappyCustomerDiscountConfig;
+    var percent = parseFloat(cfg && (cfg.discountPercent || cfg.discount_percent));
+    if (!Number.isFinite(percent) || percent <= 0) return 0;
+
+    var excluded = Array.isArray(cfg.excludedProductIds)
+      ? cfg.excludedProductIds
+      : (Array.isArray(cfg.excluded_product_ids) ? cfg.excluded_product_ids : []);
+    var eligibleSubtotal = 0;
+    for (var i = 0; i < cart.length; i++) {
+      var item = cart[i];
+      if (!idListContains(excluded, getProductId(item))) {
+        eligibleSubtotal += getLineTotal(item);
+      }
+    }
+    return eligibleSubtotal > 0 ? (eligibleSubtotal * percent) / 100 : 0;
+  }
+
+  function injectCss() {
+    var css =
+      '.cart-drawer-footer .zappy-cart-summary-row{display:flex;justify-content:space-between;align-items:center;font-size:.95rem;margin-bottom:8px}' +
+      '.cart-drawer-footer .cart-drawer-subtotal,.cart-drawer-footer .cart-drawer-subtotal span{color:var(--zappy-cart-drawer-total-color,var(--text-light,#f9fafb))}' +
+      '.cart-drawer-footer .zappy-cart-discount-row{color:var(--primary-color,var(--accent,var(--primary,#059669)));font-weight:500}' +
+      '.cart-drawer-subtotal,.cart-drawer-bundle-discount,.cart-drawer-seasonal-discount,.cart-drawer-customer-discount{display:none}';
+    var style = document.getElementById('zappy-cart-bundle-discount-css');
+    if (style) {
+      style.textContent = css;
+      return;
+    }
+    style = document.createElement('style');
+    style.id = 'zappy-cart-bundle-discount-css';
+    style.textContent = css;
+    (document.head || document.documentElement).appendChild(style);
+  }
+
+  function ensureSummaryRows() {
+    var footer = document.querySelector('#cart-drawer .cart-drawer-footer');
+    if (!footer) return null;
+    var totalRow = footer.querySelector('.cart-drawer-total');
+    if (!totalRow) return null;
+
+    var subtotalRow = footer.querySelector('.cart-drawer-subtotal');
+    if (!subtotalRow) {
+      subtotalRow = document.createElement('div');
+      subtotalRow.className = 'cart-drawer-subtotal zappy-cart-summary-row';
+      subtotalRow.innerHTML = '<span class="cart-drawer-subtotal-label"></span><span id="cart-drawer-subtotal"></span>';
+      footer.insertBefore(subtotalRow, totalRow);
+    }
+
+    var bundleRow = footer.querySelector('.cart-drawer-bundle-discount');
+    if (!bundleRow) {
+      bundleRow = document.createElement('div');
+      bundleRow.className = 'cart-drawer-bundle-discount zappy-cart-summary-row zappy-cart-discount-row';
+      bundleRow.innerHTML = '<span class="cart-drawer-bundle-discount-label"></span><span id="cart-drawer-bundle-discount"></span>';
+      footer.insertBefore(bundleRow, totalRow);
+    }
+
+    var seasonalRow = footer.querySelector('.cart-drawer-seasonal-discount');
+    if (!seasonalRow) {
+      seasonalRow = document.createElement('div');
+      seasonalRow.className = 'cart-drawer-seasonal-discount zappy-cart-summary-row zappy-cart-discount-row';
+      seasonalRow.innerHTML = '<span class="cart-drawer-seasonal-discount-label"></span><span id="cart-drawer-seasonal-discount"></span>';
+      footer.insertBefore(seasonalRow, totalRow);
+    }
+
+    var customerRow = footer.querySelector('.cart-drawer-customer-discount');
+    if (!customerRow) {
+      customerRow = document.createElement('div');
+      customerRow.className = 'cart-drawer-customer-discount zappy-cart-summary-row zappy-cart-discount-row';
+      customerRow.innerHTML = '<span class="cart-drawer-customer-discount-label"></span><span id="cart-drawer-customer-discount"></span>';
+      footer.insertBefore(customerRow, totalRow);
+    }
+
+    return { subtotalRow: subtotalRow, bundleRow: bundleRow, seasonalRow: seasonalRow, customerRow: customerRow, totalRow: totalRow };
+  }
+
+  function getDrawerTotalEl() {
+    var el = document.getElementById('cart-drawer-total');
+    if (el) return el;
+    var legacy = document.querySelector('#cart-drawer .cart-drawer-total');
+    if (!legacy) return null;
+    legacy.innerHTML = '<span>' + getEcomLabel('total', 'Total') + ':</span><span id="cart-drawer-total">' + formatMoney(0) + '</span>';
+    return document.getElementById('cart-drawer-total');
+  }
+
+  var bundlesCache = null;
+  var bundlesLoading = null;
+  var seasonalCache = null;
+  var seasonalLoading = null;
+  var customerLoading = null;
+
+  function loadBundles() {
+    if (bundlesCache) return Promise.resolve(bundlesCache);
+    if (bundlesLoading) return bundlesLoading;
+    var wid = getWebsiteId();
+    if (!wid) return Promise.resolve([]);
+    bundlesLoading = fetch(apiUrl('/api/ecommerce/storefront/quantity-bundles?websiteId=' + encodeURIComponent(wid)))
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
+        bundlesCache = (data && data.success && Array.isArray(data.data)) ? data.data : [];
+        return bundlesCache;
+      })
+      .catch(function() {
+        bundlesCache = [];
+        return bundlesCache;
+      })
+      .finally(function() { bundlesLoading = null; });
+    return bundlesLoading;
+  }
+
+  function loadSeasonalDiscounts() {
+    if (seasonalCache) return Promise.resolve(seasonalCache);
+    if (seasonalLoading) return seasonalLoading;
+    var wid = getWebsiteId();
+    if (!wid) return Promise.resolve([]);
+    seasonalLoading = fetch(apiUrl('/api/ecommerce/storefront/seasonal-discounts?websiteId=' + encodeURIComponent(wid)))
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
+        seasonalCache = (data && data.success && Array.isArray(data.data)) ? data.data : [];
+        return seasonalCache;
+      })
+      .catch(function() {
+        seasonalCache = [];
+        return seasonalCache;
+      })
+      .finally(function() { seasonalLoading = null; });
+    return seasonalLoading;
+  }
+
+  function hasActiveCustomerDiscount() {
+    var cfg = window.__zappyCustomerDiscountConfig;
+    var percent = parseFloat(cfg && (cfg.discountPercent || cfg.discount_percent));
+    return Number.isFinite(percent) && percent > 0;
+  }
+
+  function loadCustomerDiscount() {
+    var wid = getWebsiteId();
+    if (!wid) return Promise.resolve(null);
+    var token = null;
+    try { token = localStorage.getItem('zappy_customer_token_' + wid); } catch (e) {}
+    if (!token) {
+      window.__zappyCustomerDiscountConfig = null;
+      return Promise.resolve(null);
+    }
+    if (hasActiveCustomerDiscount()) {
+      return Promise.resolve(window.__zappyCustomerDiscountConfig);
+    }
+    if (customerLoading) return customerLoading;
+
+    if (typeof window.__zappyFetchCustomerDiscount === 'function') {
+      customerLoading = Promise.resolve(window.__zappyFetchCustomerDiscount())
+        .then(function() { return window.__zappyCustomerDiscountConfig || null; })
+        .catch(function() { return null; })
+        .finally(function() { customerLoading = null; });
+      return customerLoading;
+    }
+
+    customerLoading = fetch(apiUrl('/api/ecommerce/storefront/customer-discount?websiteId=' + encodeURIComponent(wid)), {
+      headers: { Authorization: 'Bearer ' + token }
+    })
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
+        window.__zappyCustomerDiscountConfig = (data && data.success && data.data && data.data.discountPercent > 0) ? data.data : null;
+        return window.__zappyCustomerDiscountConfig;
+      })
+      .catch(function() {
+        window.__zappyCustomerDiscountConfig = null;
+        return null;
+      })
+      .finally(function() { customerLoading = null; });
+    return customerLoading;
+  }
+
+  function updateCartDrawerSummary() {
+    injectCss();
+    var drawerTotal = getDrawerTotalEl();
+    var rows = ensureSummaryRows();
+    if (!drawerTotal || !rows) return;
+    try {
+      var totalColor = window.getComputedStyle(rows.totalRow || drawerTotal).color;
+      if (totalColor) {
+        rows.subtotalRow.style.setProperty('--zappy-cart-drawer-total-color', totalColor);
+      }
+    } catch (e) {}
+
+    var cart = readCart();
+    if (!cart.length) {
+      rows.subtotalRow.style.display = 'none';
+      rows.bundleRow.style.display = 'none';
+      rows.seasonalRow.style.display = 'none';
+      rows.customerRow.style.display = 'none';
+      drawerTotal.setAttribute('data-zappy-auto-discount', '0');
+      drawerTotal.textContent = formatMoney(0);
+      return;
+    }
+
+    var subtotal = getCartSubtotal(cart);
+    var bundleDisc = calcBundleDiscount(bundlesCache || [], cart);
+    var seasonalDisc = calcSeasonalDiscount(seasonalCache || [], cart);
+    var customerDisc = calcCustomerDiscount(cart);
+    var autoDiscount = (bundleDisc || 0) + (seasonalDisc || 0) + (customerDisc || 0);
+    if (autoDiscount > subtotal) autoDiscount = subtotal;
+    var finalTotal = subtotal - autoDiscount;
+    var showBreakdown = autoDiscount > 0.005;
+    var remainingDiscount = autoDiscount;
+    var displayBundleDiscount = Math.min(Math.max(bundleDisc || 0, 0), remainingDiscount);
+    remainingDiscount -= displayBundleDiscount;
+    var displaySeasonalDiscount = Math.min(Math.max(seasonalDisc || 0, 0), remainingDiscount);
+    remainingDiscount -= displaySeasonalDiscount;
+    var displayCustomerDiscount = Math.min(Math.max(customerDisc || 0, 0), remainingDiscount);
+
+    rows.subtotalRow.style.display = showBreakdown ? 'flex' : 'none';
+    rows.bundleRow.style.display = displayBundleDiscount > 0.005 ? 'flex' : 'none';
+    rows.seasonalRow.style.display = displaySeasonalDiscount > 0.005 ? 'flex' : 'none';
+    rows.customerRow.style.display = displayCustomerDiscount > 0.005 ? 'flex' : 'none';
+
+    if (showBreakdown) {
+      var subLabel = rows.subtotalRow.querySelector('.cart-drawer-subtotal-label');
+      if (subLabel) subLabel.textContent = getEcomLabel('subtotal', 'Subtotal') + ':';
+      var subEl = document.getElementById('cart-drawer-subtotal');
+      if (subEl) subEl.textContent = formatMoney(subtotal);
+    }
+
+    if (displayBundleDiscount > 0.005) {
+      var bundleLabel = rows.bundleRow.querySelector('.cart-drawer-bundle-discount-label');
+      if (bundleLabel) bundleLabel.textContent = getEcomLabel('bundleDiscount', 'Bundle Discount') + ':';
+      var bundleEl = document.getElementById('cart-drawer-bundle-discount');
+      if (bundleEl) bundleEl.textContent = '-' + formatMoney(displayBundleDiscount);
+    }
+
+    if (displaySeasonalDiscount > 0.005) {
+      var seasonalLabel = rows.seasonalRow.querySelector('.cart-drawer-seasonal-discount-label');
+      if (seasonalLabel) seasonalLabel.textContent = getEcomLabel('seasonalDiscount', 'Seasonal Discount') + ':';
+      var seasonalEl = document.getElementById('cart-drawer-seasonal-discount');
+      if (seasonalEl) seasonalEl.textContent = '-' + formatMoney(displaySeasonalDiscount);
+    }
+
+    if (displayCustomerDiscount > 0.005) {
+      var customerLabel = rows.customerRow.querySelector('.cart-drawer-customer-discount-label');
+      if (customerLabel) customerLabel.textContent = getEcomLabel('customerDiscount', 'Customer Discount') + ':';
+      var customerEl = document.getElementById('cart-drawer-customer-discount');
+      if (customerEl) customerEl.textContent = '-' + formatMoney(displayCustomerDiscount);
+    }
+
+    drawerTotal.setAttribute('data-zappy-auto-discount', String(autoDiscount));
+    drawerTotal.textContent = formatMoney(finalTotal);
+  }
+
+  function refreshSummary() {
+    Promise.all([loadBundles(), loadSeasonalDiscounts(), loadCustomerDiscount()]).then(function() {
+      updateCartDrawerSummary();
+    });
+  }
+
+  function wrapRenderCartDrawer() {
+    var orig = window.zappyRenderCartDrawer;
+    if (typeof orig === 'function' && !orig.__zappyAutomaticDiscountWrappedV4) {
+      window.zappyRenderCartDrawer = function() {
+        var result = orig.apply(this, arguments);
+        refreshSummary();
+        return result;
+      };
+      window.zappyRenderCartDrawer.__zappyAutomaticDiscountWrappedV4 = true;
+    }
+  }
+
+  function wrapFn(name) {
+    var orig = window[name];
+    if (typeof orig !== 'function' || orig.__zappyAutomaticDiscountWrappedV4) return;
+    window[name] = function() {
+      var result = orig.apply(this, arguments);
+      refreshSummary();
+      return result;
+    };
+    window[name].__zappyAutomaticDiscountWrappedV4 = true;
+  }
+
+  function wrapCartMutators() {
+    // addToCart/saveCart call the closure's renderCartDrawer directly (not
+    // window.zappyRenderCartDrawer), so wrap zappyAddToCart too — otherwise
+    // adding a line while the drawer is already open leaves discount rows stale.
+    wrapFn('zappyAddToCart');
+    wrapFn('zappyUpdateQty');
+    wrapFn('zappyRemoveFromCart');
+    wrapRenderCartDrawer();
+  }
+
+  // Ignore MutationObserver callbacks caused by our own summary DOM writes so
+  // we can watch cart line item updates (childList) without the V3 feedback loop.
+  var summaryWriteDepth = 0;
+  var _updateCartDrawerSummary = updateCartDrawerSummary;
+  updateCartDrawerSummary = function() {
+    summaryWriteDepth++;
+    try {
+      return _updateCartDrawerSummary.apply(this, arguments);
+    } finally {
+      summaryWriteDepth--;
+    }
+  };
+
+  function watchCartDrawer() {
+    var drawer = document.getElementById('cart-drawer');
+    if (!drawer || drawer.__zappyAutomaticDiscountObservedV4) return;
+    drawer.__zappyAutomaticDiscountObservedV4 = true;
+    // Also stamp V3 so a leftover V3 IIFE cannot attach the looping observer.
+    drawer.__zappyAutomaticDiscountObservedV3 = true;
+    var scheduled = false;
+    var obs = new MutationObserver(function() {
+      if (!drawer.classList.contains('active')) return;
+      if (summaryWriteDepth > 0) return;
+      if (scheduled) return;
+      scheduled = true;
+      setTimeout(function() {
+        scheduled = false;
+        if (summaryWriteDepth > 0) return;
+        refreshSummary();
+      }, 0);
+    });
+    // class = open/close; childList/subtree = line-item re-renders from the
+    // closure's renderCartDrawer (addToCart while drawer already open).
+    // Do NOT observe characterData without the summaryWriteDepth guard — and
+    // never call refreshSummary synchronously from the observer (V3 freeze).
+    obs.observe(drawer, { attributes: true, attributeFilter: ['class'], childList: true, subtree: true });
+  }
+
+  function boot() {
+    wrapCartMutators();
+    watchCartDrawer();
+    refreshSummary();
+  }
+
+  boot();
+  document.addEventListener('DOMContentLoaded', boot);
+  window.addEventListener('load', function() { setTimeout(boot, 100); });
+  setTimeout(boot, 500);
+  setTimeout(boot, 1500);
+  document.addEventListener('click', function(event) {
+    if (event.target && event.target.closest && event.target.closest('#cart-drawer-toggle, [data-cart-toggle], .cart-link.nav-cart, a.nav-cart')) {
+      setTimeout(refreshSummary, 50);
+      setTimeout(refreshSummary, 400);
+    }
+  }, true);
+})();
+
+/* ZAPPY_CART_BUNDLE_SUMMARY_COLOR_V3 */
+;(function(){var id='zappy-cart-bundle-summary-color-css';var css='.cart-drawer-footer .zappy-cart-summary-row{display:flex;justify-content:space-between;align-items:center;font-size:.95rem;margin-bottom:8px}.cart-drawer-footer .cart-drawer-subtotal,.cart-drawer-footer .cart-drawer-subtotal span{color:var(--zappy-cart-drawer-total-color,var(--text-light,#f9fafb))}.cart-drawer-footer .zappy-cart-discount-row{color:var(--primary-color,var(--accent,var(--primary,#059669)));font-weight:500}';var el=document.getElementById(id);if(el){el.textContent=css;}else{var s=document.createElement('style');s.id=id;s.textContent=css;(document.head||document.documentElement).appendChild(s);}function sync(){var f=document.querySelector('.cart-drawer-footer');var total=document.querySelector('.cart-drawer-footer .cart-drawer-total');if(!f||!total)return;try{var c=getComputedStyle(total).color;if(c)f.style.setProperty('--zappy-cart-drawer-total-color',c);}catch(e){}}sync();document.addEventListener('DOMContentLoaded',sync);window.addEventListener('load',sync);setTimeout(sync,50);setTimeout(sync,500);})();

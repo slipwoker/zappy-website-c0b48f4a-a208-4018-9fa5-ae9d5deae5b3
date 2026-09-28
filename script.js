@@ -1501,48 +1501,28 @@ document.addEventListener('DOMContentLoaded', function () {
 })();
 /* ZAPPY_CUSTOM_JS_END:2c102084a9e7 */
 
-/* ZAPPY_CUSTOM_JS_START:56e552e36510 */
+/* ZAPPY_CUSTOM_JS_START:7ef37c6393fe */
 (function () {
   function __zappyCustomInit() {
     try {
 (function () {
-  // Access code gate for the reservation form: code = 1234
   var form = document.getElementById('reservation-form');
-  if (!form) return;
-
-  var section = document.getElementById('reservation-request-contact-form-section');
-  var panel = form.closest('.rrcf-form-panel');
-  if (!panel || !section) return;
+  var gate = document.getElementById('rrcf-access-gate');
+  if (!form || !gate) return;
 
   var CODE = '1234';
-
-  // Build the gate overlay
-  var gate = document.createElement('div');
-  gate.id = 'rrcf-access-gate';
-  gate.style.cssText = 'padding:48px 32px;text-align:center;direction:rtl;font-family:"Nunito Sans","DM Sans",sans-serif;';
-  gate.innerHTML =
-    '<h3 style="font-family:\'Cormorant Garamond\',serif;font-size:1.5rem;color:#8D542E;margin:0 0 8px;">הזמנה מוגנת</h3>' +
-    '<p style="color:#6F675F;margin:0 0 20px;">יש להזין קוד כניסה כדי לפתוח את טופס ההזמנה.</p>' +
-    '<div style="display:flex;flex-direction:row;gap:10px;justify-content:center;align-items:center;flex-wrap:wrap;">' +
-    '<input type="password" inputmode="numeric" id="rrcf-access-input" placeholder="קוד כניסה" style="font-family:inherit;direction:ltr;text-align:center;padding:12px 16px;border:1.5px solid rgba(122,130,100,0.35);border-radius:12px;font-size:1rem;width:160px;outline:none;">' +
-    '<button type="button" id="rrcf-access-btn" style="background:#7A8264;color:#F8F3EA;border:none;border-radius:12px;padding:12px 24px;font-size:1rem;font-weight:600;cursor:pointer;">כניסה</button>' +
-    '</div>' +
-    '<p id="rrcf-access-err" style="color:#B96F52;margin:14px 0 0;min-height:20px;font-size:0.875rem;"></p>';
-
-  panel.parentNode.insertBefore(gate, panel);
-  panel.style.display = 'none';
-
   var input = document.getElementById('rrcf-access-input');
   var btn = document.getElementById('rrcf-access-btn');
   var err = document.getElementById('rrcf-access-err');
+  if (!input || !btn) return;
 
   function tryUnlock() {
     if (input.value.trim() === CODE) {
       gate.style.display = 'none';
-      panel.style.display = '';
-      panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      form.style.display = '';
+      form.classList.remove('rrcf-hidden-by-gate');
     } else {
-      err.textContent = 'הקוד שגוי, נסו שוב.';
+      if (err) { err.textContent = 'הקוד שגוי, נסו שוב.'; }
       input.value = '';
       input.focus();
     }
@@ -1561,7 +1541,7 @@ document.addEventListener('DOMContentLoaded', function () {
     __zappyCustomInit();
   }
 })();
-/* ZAPPY_CUSTOM_JS_END:56e552e36510 */
+/* ZAPPY_CUSTOM_JS_END:7ef37c6393fe */
 
 
 /* ZAPPY_PUBLISHED_LIGHTBOX_RUNTIME */

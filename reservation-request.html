@@ -3331,9 +3331,11 @@ body:has(.zappy-announcement-bar) main > section[class*="hero"]:first-of-type {
       btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> שולח...';
       btn.disabled = true;
 
-      // Submit via mailto (opens email client with all form data)
+      // Submit to WhatsApp AND email (opens both with all form data)
       try {
+        var waLink = 'https://wa.me/972528282481?text=' + encodeURIComponent(subject + '\n' + body);
         var mailtoLink = 'mailto:oritaskayo@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+        window.open(waLink, '_blank');
         window.location.href = mailtoLink;
 
         // Show success message after short delay
@@ -3345,7 +3347,7 @@ body:has(.zappy-announcement-bar) main > section[class*="hero"]:first-of-type {
           msgDiv.style.background = '#F0F7ED';
           msgDiv.style.border = '1px solid #7A8264';
           msgDiv.style.color = '#3A4F2A';
-          msgDiv.innerHTML = '<strong>✓ נפתח חלון שליחת מייל!</strong><br>אם לא נפתח אוטומטית, שלחו מייל ישירות אל: <a href="mailto:oritaskayo@gmail.com" style="color:#7A8264;font-weight:700;">oritaskayo@gmail.com</a>';
+          msgDiv.innerHTML = '<strong>✓ הבקשה נשלחה לוואטסאפ ולמייל!</strong><br>אם נפתח חלון המייל ולא נשלח אוטומטית, שלחו מייל ישירות אל: <a href="mailto:oritaskayo@gmail.com" style="color:#7A8264;font-weight:700;">oritaskayo@gmail.com</a>';
           msgDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }, 800);
       } catch(err) {

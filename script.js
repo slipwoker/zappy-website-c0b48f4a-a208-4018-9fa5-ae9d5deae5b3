@@ -1543,6 +1543,52 @@ document.addEventListener('DOMContentLoaded', function () {
 })();
 /* ZAPPY_CUSTOM_JS_END:7ef37c6393fe */
 
+/* ZAPPY_CUSTOM_JS_START:ca8fe7a00183 */
+(function () {
+  function __zappyCustomInit() {
+    try {
+(function () {
+  function unlock() {
+    var input = document.getElementById('rrcf-access-input');
+    var gate = document.getElementById('rrcf-access-gate');
+    var form = document.getElementById('reservation-form');
+    var err = document.getElementById('rrcf-access-err');
+    if (!input || !gate || !form) return;
+    if (input.value.replace(/\s/g, '') === '1234') {
+      gate.style.display = 'none';
+      form.style.display = '';
+      form.removeAttribute('style');
+    } else {
+      if (err) err.textContent = 'הקוד שגוי, נסו שוב.';
+      input.value = '';
+      input.focus();
+    }
+  }
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    if (t && (t.id === 'rrcf-access-btn' || t.closest('#rrcf-access-btn'))) {
+      unlock();
+    }
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') {
+      var a = document.activeElement;
+      if (a && a.id === 'rrcf-access-input') unlock();
+    }
+  });
+})();
+    } catch (e) {
+      if (typeof console !== 'undefined' && console.warn) { console.warn('[zappy-custom-js]', e); }
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', __zappyCustomInit);
+  } else {
+    __zappyCustomInit();
+  }
+})();
+/* ZAPPY_CUSTOM_JS_END:ca8fe7a00183 */
+
 
 /* ZAPPY_PUBLISHED_LIGHTBOX_RUNTIME */
 (function(){

@@ -1501,6 +1501,68 @@ document.addEventListener('DOMContentLoaded', function () {
 })();
 /* ZAPPY_CUSTOM_JS_END:2c102084a9e7 */
 
+/* ZAPPY_CUSTOM_JS_START:56e552e36510 */
+(function () {
+  function __zappyCustomInit() {
+    try {
+(function () {
+  // Access code gate for the reservation form: code = 1234
+  var form = document.getElementById('reservation-form');
+  if (!form) return;
+
+  var section = document.getElementById('reservation-request-contact-form-section');
+  var panel = form.closest('.rrcf-form-panel');
+  if (!panel || !section) return;
+
+  var CODE = '1234';
+
+  // Build the gate overlay
+  var gate = document.createElement('div');
+  gate.id = 'rrcf-access-gate';
+  gate.style.cssText = 'padding:48px 32px;text-align:center;direction:rtl;font-family:"Nunito Sans","DM Sans",sans-serif;';
+  gate.innerHTML =
+    '<h3 style="font-family:\'Cormorant Garamond\',serif;font-size:1.5rem;color:#8D542E;margin:0 0 8px;">הזמנה מוגנת</h3>' +
+    '<p style="color:#6F675F;margin:0 0 20px;">יש להזין קוד כניסה כדי לפתוח את טופס ההזמנה.</p>' +
+    '<div style="display:flex;flex-direction:row;gap:10px;justify-content:center;align-items:center;flex-wrap:wrap;">' +
+    '<input type="password" inputmode="numeric" id="rrcf-access-input" placeholder="קוד כניסה" style="font-family:inherit;direction:ltr;text-align:center;padding:12px 16px;border:1.5px solid rgba(122,130,100,0.35);border-radius:12px;font-size:1rem;width:160px;outline:none;">' +
+    '<button type="button" id="rrcf-access-btn" style="background:#7A8264;color:#F8F3EA;border:none;border-radius:12px;padding:12px 24px;font-size:1rem;font-weight:600;cursor:pointer;">כניסה</button>' +
+    '</div>' +
+    '<p id="rrcf-access-err" style="color:#B96F52;margin:14px 0 0;min-height:20px;font-size:0.875rem;"></p>';
+
+  panel.parentNode.insertBefore(gate, panel);
+  panel.style.display = 'none';
+
+  var input = document.getElementById('rrcf-access-input');
+  var btn = document.getElementById('rrcf-access-btn');
+  var err = document.getElementById('rrcf-access-err');
+
+  function tryUnlock() {
+    if (input.value.trim() === CODE) {
+      gate.style.display = 'none';
+      panel.style.display = '';
+      panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      err.textContent = 'הקוד שגוי, נסו שוב.';
+      input.value = '';
+      input.focus();
+    }
+  }
+
+  btn.addEventListener('click', tryUnlock);
+  input.addEventListener('keydown', function (e) { if (e.key === 'Enter') tryUnlock(); });
+})();
+    } catch (e) {
+      if (typeof console !== 'undefined' && console.warn) { console.warn('[zappy-custom-js]', e); }
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', __zappyCustomInit);
+  } else {
+    __zappyCustomInit();
+  }
+})();
+/* ZAPPY_CUSTOM_JS_END:56e552e36510 */
+
 
 /* ZAPPY_PUBLISHED_LIGHTBOX_RUNTIME */
 (function(){
@@ -6073,12 +6135,12 @@ function fixContrast(){
   // declaration merging that was eating the standalone CSS injection.
   function ensureRuntimeCssInjected() {
     var existing = document.getElementById('zappy-ecom-routing-runtime-css');
-    if (existing && existing.getAttribute('data-v') === '33') return;
+    if (existing && existing.getAttribute('data-v') === '34') return;
     if (existing) existing.remove();
     var style = document.createElement('style');
     style.id = 'zappy-ecom-routing-runtime-css';
     style.setAttribute('data-zappy-runtime', 'ecom-routing');
-    style.setAttribute('data-v', '33');
+    style.setAttribute('data-v', '34');
     style.textContent =
       '@media (min-width: 769px){' +
         'html[dir="ltr"] .nav-container > .nav-brand,body[dir="ltr"] .nav-container > .nav-brand,html[dir="ltr"] .nav-right-group > .nav-brand,body[dir="ltr"] .nav-right-group > .nav-brand{order:-1!important}' +
@@ -6134,7 +6196,7 @@ function fixContrast(){
         '#navMenu.active,#navMenu.open,.nav-menu.active,.nav-menu.open{display:flex!important;flex-direction:column!important;flex-wrap:nowrap!important;overflow-x:hidden!important;overflow-y:auto!important}' +
         '#navMenu.active>li,#navMenu.open>li,.nav-menu.active>li,.nav-menu.open>li{position:static!important;width:100%!important;max-width:100%!important;flex:0 0 auto!important;top:auto!important;bottom:auto!important;left:auto!important;right:auto!important;inset:auto!important;transform:none!important}' +
         '#navMenu .sub-menu,.nav-menu .sub-menu,.navbar .sub-menu,.zappy-products-dropdown>.sub-menu,.nav-menu .zappy-products-dropdown>.sub-menu,.nav-menu.active .zappy-products-dropdown>.sub-menu,.nav-menu.active .zappy-products-dropdown .sub-menu,#navMenu li:hover>.sub-menu,.nav-menu li:hover>.sub-menu,.navbar li:hover>.sub-menu,#navMenu li:focus-within>.sub-menu,.nav-menu li:focus-within>.sub-menu{display:none!important;visibility:hidden!important;opacity:0!important;height:0!important;max-height:0!important;overflow:hidden!important;pointer-events:none!important;position:static!important;transform:none!important}' +
-        '#navMenu .sub-menu.mobile-expanded,.nav-menu .sub-menu.mobile-expanded,.navbar .sub-menu.mobile-expanded,.zappy-products-dropdown>.sub-menu.mobile-expanded,.nav-menu.active .zappy-products-dropdown>.sub-menu.mobile-expanded,.nav-menu.active .zappy-products-dropdown .sub-menu.mobile-expanded{display:block!important;visibility:visible!important;opacity:1!important;height:auto!important;max-height:none!important;overflow:visible!important;pointer-events:auto!important;position:static!important;transform:none!important;width:100%!important;left:auto!important;right:auto!important;top:auto!important;float:none!important}' +
+        '#navMenu .sub-menu.mobile-expanded,.nav-menu .sub-menu.mobile-expanded,.navbar .sub-menu.mobile-expanded,.zappy-products-dropdown>.sub-menu.mobile-expanded,.nav-menu.active .zappy-products-dropdown>.sub-menu.mobile-expanded,.nav-menu.active .zappy-products-dropdown .sub-menu.mobile-expanded,#navMenu li:hover>.sub-menu.mobile-expanded,#navMenu li:focus-within>.sub-menu.mobile-expanded,.nav-menu li:hover>.sub-menu.mobile-expanded,.nav-menu li:focus-within>.sub-menu.mobile-expanded,.navbar li:hover>.sub-menu.mobile-expanded,.navbar li:focus-within>.sub-menu.mobile-expanded{display:block!important;visibility:visible!important;opacity:1!important;height:auto!important;max-height:none!important;overflow:visible!important;pointer-events:auto!important;position:static!important;transform:none!important;width:100%!important;left:auto!important;right:auto!important;top:auto!important;float:none!important}' +
       '}';
     (document.head || document.documentElement).appendChild(style);
   }

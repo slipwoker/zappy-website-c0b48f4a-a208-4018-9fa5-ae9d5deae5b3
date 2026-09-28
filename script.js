@@ -1589,6 +1589,53 @@ document.addEventListener('DOMContentLoaded', function () {
 })();
 /* ZAPPY_CUSTOM_JS_END:ca8fe7a00183 */
 
+/* ZAPPY_CUSTOM_JS_START:4c063ae14810 */
+(function () {
+  function __zappyCustomInit() {
+    try {
+(function () {
+  var gate = document.getElementById('rrcf-access-gate');
+  var form = document.getElementById('reservation-form');
+  var input = document.getElementById('rrcf-access-input');
+  var btn = document.getElementById('rrcf-access-btn');
+  var err = document.getElementById('rrcf-access-err');
+
+  if (!gate || !form || !input || !btn) return;
+
+  function reset() {
+    gate.style.display = 'block';
+    form.style.display = 'none';
+  }
+  function open() {
+    gate.style.display = 'none';
+    form.style.display = 'block';
+    form.classList.remove('rrcf-hidden-by-gate');
+    form.removeAttribute('style');
+  }
+  function submit() {
+    var v = (input.value || '').replace(/\s+/g, '');
+    if (v === '1234') { open(); }
+    else { if (err) err.textContent = 'הקוד שגוי, נסו שוב.'; input.value = ''; input.focus(); }
+  }
+
+  btn.onclick = submit;
+  input.onkeydown = function (e) { if (e.key === 'Enter') submit(); };
+
+  // Initial state
+  reset();
+})();
+    } catch (e) {
+      if (typeof console !== 'undefined' && console.warn) { console.warn('[zappy-custom-js]', e); }
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', __zappyCustomInit);
+  } else {
+    __zappyCustomInit();
+  }
+})();
+/* ZAPPY_CUSTOM_JS_END:4c063ae14810 */
+
 
 /* ZAPPY_PUBLISHED_LIGHTBOX_RUNTIME */
 (function(){

@@ -1636,6 +1636,52 @@ document.addEventListener('DOMContentLoaded', function () {
 })();
 /* ZAPPY_CUSTOM_JS_END:4c063ae14810 */
 
+/* ZAPPY_CUSTOM_JS_START:fab252c02d5f */
+(function () {
+  function __zappyCustomInit() {
+    try {
+(function() {
+  var form = document.getElementById('fb-lead-form');
+  if (!form) return;
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    var name = (document.getElementById('fb-lead-name')?.value || '').trim();
+    var phone = (document.getElementById('fb-lead-phone')?.value || '').trim();
+    var email = (document.getElementById('fb-lead-email')?.value || '').trim();
+    var guests = document.getElementById('fb-lead-guests')?.value || '';
+    if (!name) { alert('נא למלא שם מלא'); return; }
+    if (!phone) { alert('נא למלא מספר טלפון'); return; }
+    // Send lead details via WhatsApp
+    var msg = '🌟 *ליד חדש - וילה בית הלוגים* 🌟\n\n';
+    msg += '👤 *שם מלא:* ' + name + '\n';
+    msg += '📞 *טלפון:* ' + phone + '\n';
+    if (email) msg += '📧 *אימייל:* ' + email + '\n';
+    if (guests) msg += '👥 *מספר אורחים:* ' + guests + '\n';
+    if (typeof fbq !== 'undefined') { fbq('track', 'Lead', {content_name: 'fb_lead_form'}); }
+    var url = 'https://wa.me/972528282481?text=' + encodeURIComponent(msg);
+    var a = document.createElement('a');
+    a.href = url;
+    a.target = '_top';
+    a.rel = 'noopener';
+    a.click();
+    // Show thank-you message
+    var ty = document.getElementById('fb-lead-thankyou');
+    if (ty) ty.style.display = 'block';
+  });
+})();
+    } catch (e) {
+      if (typeof console !== 'undefined' && console.warn) { console.warn('[zappy-custom-js]', e); }
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', __zappyCustomInit);
+  } else {
+    __zappyCustomInit();
+  }
+})();
+/* ZAPPY_CUSTOM_JS_END:fab252c02d5f */
+
 
 /* ZAPPY_PUBLISHED_LIGHTBOX_RUNTIME */
 (function(){

@@ -1787,6 +1787,59 @@ document.addEventListener('DOMContentLoaded', function () {
 })();
 /* ZAPPY_CUSTOM_JS_END:637d05ba9a0d */
 
+/* ZAPPY_CUSTOM_JS_START:40f58923720d */
+(function () {
+  function __zappyCustomInit() {
+    try {
+(function () {
+  var faqRoot = document.querySelector('.villa-faq');
+  if (!faqRoot) return;
+  faqRoot.addEventListener('click', function (e) {
+    var btn = e.target.closest('.faq-question');
+    if (!btn || !faqRoot.contains(btn)) return;
+    var item = btn.closest('.faq-item');
+    if (!item) return;
+    var answer = item.querySelector('.faq-answer');
+    if (!answer) return;
+    e.preventDefault();
+    var isOpen = item.classList.contains('active');
+    // collapse all
+    faqRoot.querySelectorAll('.faq-item').forEach(function (it) {
+      it.classList.remove('active');
+      var b = it.querySelector('.faq-question');
+      var a = it.querySelector('.faq-answer');
+      if (b) b.setAttribute('aria-expanded', 'false');
+      if (a) {
+        a.style.setProperty('max-height', '0px', 'important');
+        a.style.setProperty('opacity', '0', 'important');
+        a.style.setProperty('overflow', 'hidden', 'important');
+      }
+    });
+    if (!isOpen) {
+      item.classList.add('active');
+      btn.setAttribute('aria-expanded', 'true');
+      // temporarily unhide to measure
+      answer.style.setProperty('max-height', 'none', 'important');
+      answer.style.setProperty('overflow', 'visible', 'important');
+      var h = answer.scrollHeight;
+      answer.style.setProperty('max-height', h + 'px', 'important');
+      answer.style.setProperty('opacity', '1', 'important');
+      answer.style.setProperty('overflow', 'hidden', 'important');
+    }
+  });
+})();
+    } catch (e) {
+      if (typeof console !== 'undefined' && console.warn) { console.warn('[zappy-custom-js]', e); }
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', __zappyCustomInit);
+  } else {
+    __zappyCustomInit();
+  }
+})();
+/* ZAPPY_CUSTOM_JS_END:40f58923720d */
+
 
 /* ZAPPY_PUBLISHED_LIGHTBOX_RUNTIME */
 (function(){

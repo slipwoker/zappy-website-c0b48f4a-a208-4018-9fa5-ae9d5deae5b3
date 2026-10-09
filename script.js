@@ -1682,7 +1682,7 @@ document.addEventListener('DOMContentLoaded', function () {
 })();
 /* ZAPPY_CUSTOM_JS_END:fab252c02d5f */
 
-/* ZAPPY_CUSTOM_JS_START:88bc31a6ac14 */
+/* ZAPPY_CUSTOM_JS_START:8183a6077ffb */
 (function () {
   function __zappyCustomInit() {
     try {
@@ -1696,17 +1696,30 @@ document.addEventListener('DOMContentLoaded', function () {
       if (!btn || !answer) return;
       if (btn.__zappyFaqBound) return;
       btn.__zappyFaqBound = true;
+      // set initial collapsed inline state
+      answer.style.maxHeight = '0px';
+      answer.style.opacity = '0';
+      answer.style.overflow = 'hidden';
       btn.addEventListener('click', function () {
         var isOpen = item.classList.contains('active');
-        // close all
+        // close all others
         items.forEach(function (other) {
           other.classList.remove('active');
           var ob = other.querySelector('.faq-question');
+          var oa = other.querySelector('.faq-answer');
           if (ob) ob.setAttribute('aria-expanded', 'false');
+          if (oa) {
+            oa.style.maxHeight = '0px';
+            oa.style.opacity = '0';
+            oa.style.overflow = 'hidden';
+          }
         });
         if (!isOpen) {
           item.classList.add('active');
           btn.setAttribute('aria-expanded', 'true');
+          answer.style.maxHeight = answer.scrollHeight + 'px';
+          answer.style.opacity = '1';
+          answer.style.overflow = 'hidden';
         }
       });
     });
@@ -1727,7 +1740,7 @@ document.addEventListener('DOMContentLoaded', function () {
     __zappyCustomInit();
   }
 })();
-/* ZAPPY_CUSTOM_JS_END:88bc31a6ac14 */
+/* ZAPPY_CUSTOM_JS_END:8183a6077ffb */
 
 
 /* ZAPPY_PUBLISHED_LIGHTBOX_RUNTIME */

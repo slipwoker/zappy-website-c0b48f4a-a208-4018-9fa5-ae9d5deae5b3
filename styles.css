@@ -11559,6 +11559,12 @@ body > .flatpickr-calendar .flatpickr-next-month {
     height: 22px;
   }
 }
+
+body .whatsapp-float {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,

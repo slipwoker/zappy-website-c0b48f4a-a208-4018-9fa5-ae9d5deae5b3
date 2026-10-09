@@ -11565,6 +11565,26 @@ body .whatsapp-float {
   align-items: center !important;
   justify-content: center !important;
 }
+
+.villa-faq .faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.35s ease, opacity 0.35s ease;
+}
+
+.villa-faq .faq-item.active .faq-answer {
+  max-height: 800px;
+  opacity: 1;
+}
+
+.villa-faq .faq-chevron {
+  transition: transform 0.3s ease;
+}
+
+.villa-faq .faq-item.active .faq-chevron {
+  transform: rotate(180deg);
+}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,

@@ -1787,46 +1787,50 @@ document.addEventListener('DOMContentLoaded', function () {
 })();
 /* ZAPPY_CUSTOM_JS_END:637d05ba9a0d */
 
-/* ZAPPY_CUSTOM_JS_START:40f58923720d */
+/* ZAPPY_CUSTOM_JS_START:7892d201a643 */
 (function () {
   function __zappyCustomInit() {
     try {
 (function () {
-  var faqRoot = document.querySelector('.villa-faq');
-  if (!faqRoot) return;
-  faqRoot.addEventListener('click', function (e) {
-    var btn = e.target.closest('.faq-question');
-    if (!btn || !faqRoot.contains(btn)) return;
-    var item = btn.closest('.faq-item');
-    if (!item) return;
-    var answer = item.querySelector('.faq-answer');
-    if (!answer) return;
-    e.preventDefault();
-    var isOpen = item.classList.contains('active');
-    // collapse all
-    faqRoot.querySelectorAll('.faq-item').forEach(function (it) {
-      it.classList.remove('active');
-      var b = it.querySelector('.faq-question');
-      var a = it.querySelector('.faq-answer');
-      if (b) b.setAttribute('aria-expanded', 'false');
-      if (a) {
-        a.style.setProperty('max-height', '0px', 'important');
-        a.style.setProperty('opacity', '0', 'important');
-        a.style.setProperty('overflow', 'hidden', 'important');
+  function initFaq() {
+    var container = document.querySelector('.villa-faq');
+    if (!container) return;
+    var list = container.querySelector('.faq-list');
+    if (!list) return;
+    // Mark container so we attach once
+    if (list.getAttribute('data-faq-bound') === '1') return;
+    list.setAttribute('data-faq-bound', '1');
+
+    list.addEventListener('click', function (e) {
+      var btn = e.target.closest('.faq-question');
+      if (!btn) return;
+      var item = btn.closest('.faq-item');
+      if (!item) return;
+      e.preventDefault();
+
+      var answer = item.querySelector('.faq-answer');
+      var isActive = item.classList.contains('active');
+
+      // Close all items
+      list.querySelectorAll('.faq-item.active').forEach(function (open) {
+        open.classList.remove('active');
+        var q = open.querySelector('.faq-question');
+        if (q) q.setAttribute('aria-expanded', 'false');
+      });
+
+      // Open the clicked item if it was closed
+      if (!isActive) {
+        item.classList.add('active');
+        btn.setAttribute('aria-expanded', 'true');
       }
     });
-    if (!isOpen) {
-      item.classList.add('active');
-      btn.setAttribute('aria-expanded', 'true');
-      // temporarily unhide to measure
-      answer.style.setProperty('max-height', 'none', 'important');
-      answer.style.setProperty('overflow', 'visible', 'important');
-      var h = answer.scrollHeight;
-      answer.style.setProperty('max-height', h + 'px', 'important');
-      answer.style.setProperty('opacity', '1', 'important');
-      answer.style.setProperty('overflow', 'hidden', 'important');
-    }
-  });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initFaq);
+  } else {
+    initFaq();
+  }
 })();
     } catch (e) {
       if (typeof console !== 'undefined' && console.warn) { console.warn('[zappy-custom-js]', e); }
@@ -1838,7 +1842,24 @@ document.addEventListener('DOMContentLoaded', function () {
     __zappyCustomInit();
   }
 })();
-/* ZAPPY_CUSTOM_JS_END:40f58923720d */
+/* ZAPPY_CUSTOM_JS_END:7892d201a643 */
+
+/* ZAPPY_CUSTOM_JS_START:e684960903ae */
+(function () {
+  function __zappyCustomInit() {
+    try {
+// FAQ accordion handled by the dedicated toggle script; this block intentionally does nothing.
+    } catch (e) {
+      if (typeof console !== 'undefined' && console.warn) { console.warn('[zappy-custom-js]', e); }
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', __zappyCustomInit);
+  } else {
+    __zappyCustomInit();
+  }
+})();
+/* ZAPPY_CUSTOM_JS_END:e684960903ae */
 
 
 /* ZAPPY_PUBLISHED_LIGHTBOX_RUNTIME */

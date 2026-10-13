@@ -1921,6 +1921,71 @@ document.addEventListener('DOMContentLoaded', function () {
 })();
 /* ZAPPY_CUSTOM_JS_END:f85cdedf905d */
 
+/* ZAPPY_CUSTOM_JS_START:5184cd34459c */
+(function () {
+  function __zappyCustomInit() {
+    try {
+(function () {
+  function initMobileMenu() {
+    var toggle = document.getElementById('mobileToggle') || document.querySelector('.mobile-toggle');
+    var menu = document.getElementById('navMenu') || document.querySelector('.nav-menu');
+    if (!toggle || !menu) return;
+
+    // Remove any prior handler by cloning
+    var newToggle = toggle.cloneNode(true);
+    toggle.parentNode.replaceChild(newToggle, toggle);
+    toggle = newToggle;
+
+    toggle.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      var hamburger = toggle.querySelector('.hamburger-icon');
+      var close = toggle.querySelector('.close-icon');
+      var isOpen = menu.classList.contains('active');
+      if (isOpen) {
+        menu.classList.remove('active');
+        if (hamburger) hamburger.style.display = 'block';
+        if (close) close.style.display = 'none';
+        document.body.style.overflow = '';
+      } else {
+        menu.classList.add('active');
+        if (hamburger) hamburger.style.display = 'none';
+        if (close) close.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+      }
+    });
+
+    // Close when a link is clicked
+    menu.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () {
+        menu.classList.remove('active');
+        var hamburger = toggle.querySelector('.hamburger-icon');
+        var close = toggle.querySelector('.close-icon');
+        if (hamburger) hamburger.style.display = 'block';
+        if (close) close.style.display = 'none';
+        document.body.style.overflow = '';
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMobileMenu);
+  } else {
+    initMobileMenu();
+  }
+})();
+    } catch (e) {
+      if (typeof console !== 'undefined' && console.warn) { console.warn('[zappy-custom-js]', e); }
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', __zappyCustomInit);
+  } else {
+    __zappyCustomInit();
+  }
+})();
+/* ZAPPY_CUSTOM_JS_END:5184cd34459c */
+
 
 /* ZAPPY_PUBLISHED_LIGHTBOX_RUNTIME */
 (function(){

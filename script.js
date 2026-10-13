@@ -2005,6 +2005,84 @@ document.addEventListener('DOMContentLoaded', function () {
 })();
 /* ZAPPY_CUSTOM_JS_END:6ecd387913fd */
 
+/* ZAPPY_CUSTOM_JS_START:703045499b46 */
+(function () {
+  function __zappyCustomInit() {
+    try {
+(function(){
+  var menu = null, btn = null;
+
+  function findBySel() {
+    menu = document.getElementById('navMenu') || document.querySelector('.nav-menu');
+    btn  = document.getElementById('mobileToggle') || document.querySelector('.mobile-toggle');
+  }
+
+  function show(open){
+    if (!menu) return;
+    // Direct inline style — immune to any CSS cascade
+    menu.style.setProperty('display', open ? 'block' : 'none', 'important');
+    if (open) {
+      menu.style.setProperty('position', 'fixed', 'important');
+      menu.style.setProperty('top', '64px', 'important');
+      menu.style.setProperty('left', '0', 'important');
+      menu.style.setProperty('right', '0', 'important');
+      menu.style.setProperty('width', '100%', 'important');
+      menu.style.setProperty('z-index', '99999', 'important');
+      menu.style.setProperty('background', '#2F2925', 'important');
+      menu.style.setProperty('padding', '20px', 'important');
+      menu.style.setProperty('max-height', '80vh', 'important');
+      menu.style.setProperty('overflow-y', 'auto', 'important');
+    }
+    var h = btn ? btn.querySelector('.hamburger-icon') : null;
+    var c = btn ? btn.querySelector('.close-icon') : null;
+    if (h && h.style) h.style.display = open ? 'none' : 'block';
+    if (c && c.style) c.style.display = open ? 'block' : 'none';
+  }
+
+  function toggle(e){
+    if (e) { e.preventDefault(); e.stopPropagation(); }
+    if (!menu) findBySel();
+    if (!menu) return;
+    var currentlyOpen = menu.style.display === 'block';
+    show(!currentlyOpen);
+  }
+
+  // Attach after everything settles
+  window.addEventListener('load', function(){
+    findBySel();
+    if (!btn || !menu) return;
+    // Use a fresh cloned node to drop stale handlers
+    var fresh = btn.cloneNode(true);
+    if (btn.parentNode) btn.parentNode.replaceChild(fresh, btn);
+    btn = fresh;
+    btn.addEventListener('click', toggle, false);
+    show(false);
+  }, false);
+
+  // Also bind via delegation as a fallback (capture phase)
+  document.addEventListener('click', function(e){
+    var t = e.target;
+    while (t && t !== document) {
+      if (t.id === 'mobileToggle' || (t.classList && t.classList.contains('mobile-toggle'))) {
+        toggle(e);
+        return;
+      }
+      t = t.parentNode;
+    }
+  }, true);
+})();
+    } catch (e) {
+      if (typeof console !== 'undefined' && console.warn) { console.warn('[zappy-custom-js]', e); }
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', __zappyCustomInit);
+  } else {
+    __zappyCustomInit();
+  }
+})();
+/* ZAPPY_CUSTOM_JS_END:703045499b46 */
+
 
 /* ZAPPY_PUBLISHED_LIGHTBOX_RUNTIME */
 (function(){

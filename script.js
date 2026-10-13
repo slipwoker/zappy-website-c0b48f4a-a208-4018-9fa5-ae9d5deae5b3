@@ -2083,6 +2083,59 @@ document.addEventListener('DOMContentLoaded', function () {
 })();
 /* ZAPPY_CUSTOM_JS_END:703045499b46 */
 
+/* ZAPPY_CUSTOM_JS_START:3bf93476533c */
+(function () {
+  function __zappyCustomInit() {
+    try {
+(function() {
+  function toggleMobileMenu() {
+    var toggle = document.getElementById('mobileToggle') || document.querySelector('.mobile-toggle, .hamburger, .menu-toggle, .burger-menu');
+    var menu = document.getElementById('navMenu') || document.querySelector('.nav-menu');
+    if (!toggle || !menu) return;
+    // Remove any prior listener guard by using a data flag
+    if (toggle.dataset.zhInit) return;
+    toggle.dataset.zhInit = '1';
+    toggle.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      var open = menu.classList.toggle('active');
+      // Force the menu visible/invisible with inline style so no CSS can override it
+      if (open) {
+        menu.style.setProperty('display', 'flex', 'important');
+        menu.style.setProperty('flex-direction', 'column', 'important');
+        menu.style.setProperty('position', 'fixed', 'important');
+        menu.style.setProperty('top', '70px', 'important');
+        menu.style.setProperty('left', '0', 'important');
+        menu.style.setProperty('right', '0', 'important');
+        menu.style.setProperty('background', '#2F2925', 'important');
+        menu.style.setProperty('padding', '16px 24px', 'important');
+        menu.style.setProperty('z-index', '2000', 'important');
+        menu.style.setProperty('max-height', 'calc(100vh - 70px)', 'important');
+        menu.style.setProperty('overflow-y', 'auto', 'important');
+      } else {
+        menu.style.setProperty('display', 'none', 'important');
+      }
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', toggleMobileMenu);
+  } else {
+    toggleMobileMenu();
+  }
+})();
+    } catch (e) {
+      if (typeof console !== 'undefined' && console.warn) { console.warn('[zappy-custom-js]', e); }
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', __zappyCustomInit);
+  } else {
+    __zappyCustomInit();
+  }
+})();
+/* ZAPPY_CUSTOM_JS_END:3bf93476533c */
+
 
 /* ZAPPY_PUBLISHED_LIGHTBOX_RUNTIME */
 (function(){

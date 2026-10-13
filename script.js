@@ -1926,31 +1926,72 @@ document.addEventListener('DOMContentLoaded', function () {
 })();
 /* ZAPPY_CUSTOM_JS_END:5184cd34459c */
 
-/* ZAPPY_CUSTOM_JS_START:e88950fe551c */
+/* ZAPPY_CUSTOM_JS_START:6ecd387913fd */
 (function () {
   function __zappyCustomInit() {
     try {
 (function(){
-  // Reconciliation: ensure the mobile menu toggle works reliably.
-  // The site's own inline navbar script already toggles .active on #navMenu.
-  // This handler only REINFORCES the correct behavior via event delegation
-  // on the document, so it works even if the inline script's cloned node changes.
+  var OPEN_KEY = '__zappyNavOpen';
+
+  function applyState(menu, open){
+    if (open){
+      menu.style.setProperty('display', 'block', 'important');
+      menu.style.setProperty('position', 'fixed', 'important');
+      menu.style.setProperty('top', '70px', 'important');
+      menu.style.setProperty('left', '0', 'important');
+      menu.style.setProperty('right', '0', 'important');
+      menu.style.setProperty('width', '100%', 'important');
+      menu.style.setProperty('z-index', '999', 'important');
+      menu.style.setProperty('background', '#2F2925', 'important');
+      menu.style.setProperty('padding', '16px 24px', 'important');
+      menu.style.setProperty('max-height', 'none', 'important');
+      menu.style.setProperty('overflow', 'visible', 'important');
+    } else {
+      menu.style.setProperty('display', 'none', 'important');
+    }
+  }
+
+  function syncIcons(btn, open){
+    var h = btn.querySelector('.hamburger-icon');
+    var c = btn.querySelector('.close-icon');
+    if (h) h.style.display = open ? 'none' : 'block';
+    if (c) c.style.display = open ? 'block' : 'none';
+  }
+
+  // Delegated handler: works no matter how many times the button node is cloned/replaced
   document.addEventListener('click', function(e){
-    var btn = e.target.closest('.mobile-toggle, #mobileToggle');
+    var btn = e.target.closest && e.target.closest('#mobileToggle, .mobile-toggle');
     if (!btn) return;
     var menu = document.getElementById('navMenu') || document.querySelector('.nav-menu');
     if (!menu) return;
-    // Defer to allow the inline script's handler to run first, then ensure state is coherent
-    setTimeout(function(){
-      var open = menu.classList.contains('active');
-      var h = btn.querySelector('.hamburger-icon');
-      var c = btn.querySelector('.close-icon');
-      if (h && c) {
-        h.style.display = open ? 'none' : 'block';
-        c.style.display = open ? 'block' : 'none';
-      }
-    }, 10);
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    var open = !(menu[OPEN_KEY]);
+    menu[OPEN_KEY] = open;
+    applyState(menu, open);
+    syncIcons(btn, open);
+  }, true);
+
+  // Close menu when a nav link inside it is tapped
+  document.addEventListener('click', function(e){
+    var menu = document.getElementById('navMenu') || document.querySelector('.nav-menu');
+    if (!menu) return;
+    var a = e.target.closest && e.target.closest('#navMenu a, .nav-menu a');
+    if (a && menu[OPEN_KEY]) {
+      menu[OPEN_KEY] = false;
+      applyState(menu, false);
+      var btn = document.getElementById('mobileToggle');
+      if (btn) syncIcons(btn, false);
+    }
   }, false);
+
+  // Force clean initial closed state on load (after inline scripts settle)
+  window.addEventListener('load', function(){
+    var menu = document.getElementById('navMenu') || document.querySelector('.nav-menu');
+    if (menu) { menu[OPEN_KEY] = false; applyState(menu, false); }
+  });
 })();
     } catch (e) {
       if (typeof console !== 'undefined' && console.warn) { console.warn('[zappy-custom-js]', e); }
@@ -1962,7 +2003,7 @@ document.addEventListener('DOMContentLoaded', function () {
     __zappyCustomInit();
   }
 })();
-/* ZAPPY_CUSTOM_JS_END:e88950fe551c */
+/* ZAPPY_CUSTOM_JS_END:6ecd387913fd */
 
 
 /* ZAPPY_PUBLISHED_LIGHTBOX_RUNTIME */

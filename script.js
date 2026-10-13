@@ -1926,59 +1926,31 @@ document.addEventListener('DOMContentLoaded', function () {
 })();
 /* ZAPPY_CUSTOM_JS_END:5184cd34459c */
 
-/* ZAPPY_CUSTOM_JS_START:1e0d9874898e */
+/* ZAPPY_CUSTOM_JS_START:e88950fe551c */
 (function () {
   function __zappyCustomInit() {
     try {
 (function(){
-  function initMobileMenu(){
-    var toggle = document.getElementById('mobileToggle') || document.querySelector('.mobile-toggle');
+  // Reconciliation: ensure the mobile menu toggle works reliably.
+  // The site's own inline navbar script already toggles .active on #navMenu.
+  // This handler only REINFORCES the correct behavior via event delegation
+  // on the document, so it works even if the inline script's cloned node changes.
+  document.addEventListener('click', function(e){
+    var btn = e.target.closest('.mobile-toggle, #mobileToggle');
+    if (!btn) return;
     var menu = document.getElementById('navMenu') || document.querySelector('.nav-menu');
-    if (!toggle || !menu) return;
-    if (toggle.dataset.cleanMenuBound === '1') return;
-    toggle.dataset.cleanMenuBound = '1';
-
-    // Remove any previously attached click listeners by replacing the node
-    var fresh = toggle.cloneNode(true);
-    toggle.parentNode.replaceChild(fresh, toggle);
-    toggle = fresh;
-
-    toggle.addEventListener('click', function(e){
-      e.preventDefault();
-      e.stopPropagation();
+    if (!menu) return;
+    // Defer to allow the inline script's handler to run first, then ensure state is coherent
+    setTimeout(function(){
       var open = menu.classList.contains('active');
-      if (open) {
-        menu.classList.remove('active');
-        document.body.style.overflow = '';
-      } else {
-        menu.classList.add('active');
-        document.body.style.overflow = 'hidden';
-      }
-      var h = toggle.querySelector('.hamburger-icon');
-      var c = toggle.querySelector('.close-icon');
+      var h = btn.querySelector('.hamburger-icon');
+      var c = btn.querySelector('.close-icon');
       if (h && c) {
-        h.style.display = open ? 'block' : 'none';
-        c.style.display = open ? 'none' : 'block';
+        h.style.display = open ? 'none' : 'block';
+        c.style.display = open ? 'block' : 'none';
       }
-    });
-
-    menu.querySelectorAll('a').forEach(function(a){
-      a.addEventListener('click', function(){
-        menu.classList.remove('active');
-        document.body.style.overflow = '';
-        var h = toggle.querySelector('.hamburger-icon');
-        var c = toggle.querySelector('.close-icon');
-        if (h && c) { h.style.display = 'block'; c.style.display = 'none'; }
-      });
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initMobileMenu);
-  } else {
-    initMobileMenu();
-  }
-  setTimeout(initMobileMenu, 600);
-  setTimeout(initMobileMenu, 1200);
+    }, 10);
+  }, false);
 })();
     } catch (e) {
       if (typeof console !== 'undefined' && console.warn) { console.warn('[zappy-custom-js]', e); }
@@ -1990,7 +1962,7 @@ document.addEventListener('DOMContentLoaded', function () {
     __zappyCustomInit();
   }
 })();
-/* ZAPPY_CUSTOM_JS_END:1e0d9874898e */
+/* ZAPPY_CUSTOM_JS_END:e88950fe551c */
 
 
 /* ZAPPY_PUBLISHED_LIGHTBOX_RUNTIME */

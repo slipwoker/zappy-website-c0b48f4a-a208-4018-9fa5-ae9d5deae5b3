@@ -11927,6 +11927,12 @@ body .whatsapp-float {
   color: var(--background-color, var(--background, var(--bg-light, var(--background-color, var(--background, var(--bg-light, #2F2925)))))) !important;
 }
 }
+
+@media (max-width: 768px) {
+.navbar #navMenu li a {
+  color: var(--background-color, var(--background, var(--bg-light, var(--background-color, var(--background, var(--bg-light, #2F2925)))))) !important;
+}
+}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,

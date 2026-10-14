@@ -11909,6 +11909,18 @@ body .whatsapp-float {
   border-bottom: 1px solid rgba(246,241,231,0.12) !important;
 }
 }
+
+@media (max-width: 768px) {
+.navbar .mobile-toggle, .navbar .phone-header-btn {
+  background-color: rgba(47, 41, 37, 0.55) !important;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.navbar .mobile-toggle svg, .navbar .phone-header-btn svg {
+  color: #FFFFFF !important;
+}
+}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,

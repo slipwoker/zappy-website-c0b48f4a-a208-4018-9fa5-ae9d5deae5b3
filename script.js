@@ -2136,6 +2136,117 @@ document.addEventListener('DOMContentLoaded', function () {
 })();
 /* ZAPPY_CUSTOM_JS_END:3bf93476533c */
 
+/* ZAPPY_CUSTOM_JS_START:a61f69841cae */
+(function () {
+  function __zappyCustomInit() {
+    try {
+(function() {
+  function initMobileMenu() {
+    var toggle = document.getElementById('mobileToggle') || document.querySelector('.mobile-toggle');
+    var menu = document.getElementById('navMenu') || document.querySelector('.nav-menu');
+    if (!toggle || !menu) return;
+
+    // Remove existing listener by cloning
+    var newToggle = toggle.cloneNode(true);
+    if (toggle.parentNode) {
+      toggle.parentNode.replaceChild(newToggle, toggle);
+      toggle = newToggle;
+    }
+
+    var isOpen = false;
+
+    function openMenu() {
+      isOpen = true;
+      // Force display via inline style to beat any !important CSS
+      menu.style.setProperty('display', 'flex', 'important');
+      menu.style.setProperty('flex-direction', 'column', 'important');
+      menu.style.setProperty('position', 'fixed', 'important');
+      menu.style.setProperty('top', '70px', 'important');
+      menu.style.setProperty('right', '0', 'important');
+      menu.style.setProperty('left', '0', 'important');
+      menu.style.setProperty('width', '100%', 'important');
+      menu.style.setProperty('max-height', '85vh', 'important');
+      menu.style.setProperty('overflow-y', 'auto', 'important');
+      menu.style.setProperty('background', '#2F2925', 'important');
+      menu.style.setProperty('padding', '16px 24px', 'important');
+      menu.style.setProperty('margin', '0', 'important');
+      menu.style.setProperty('z-index', '1000', 'important');
+      menu.style.setProperty('visibility', 'visible', 'important');
+      menu.style.setProperty('opacity', '1', 'important');
+      // Style links
+      var links = menu.querySelectorAll('a');
+      for (var i = 0; i < links.length; i++) {
+        links[i].style.setProperty('display', 'block', 'important');
+        links[i].style.setProperty('padding', '12px 0', 'important');
+        links[i].style.setProperty('color', '#F6F1E7', 'important');
+        links[i].style.setProperty('font-size', '17px', 'important');
+        links[i].style.setProperty('text-align', 'right', 'important');
+      }
+      // Toggle icons
+      var ham = toggle.querySelector('.hamburger-icon');
+      var cls = toggle.querySelector('.close-icon');
+      if (ham) ham.style.setProperty('display', 'none', 'important');
+      if (cls) cls.style.setProperty('display', 'block', 'important');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMenu() {
+      isOpen = false;
+      menu.style.setProperty('display', 'none', 'important');
+      menu.style.setProperty('visibility', 'hidden', 'important');
+      menu.style.setProperty('opacity', '0', 'important');
+      var ham = toggle.querySelector('.hamburger-icon');
+      var cls = toggle.querySelector('.close-icon');
+      if (ham) ham.style.setProperty('display', 'block', 'important');
+      if (cls) cls.style.setProperty('display', 'none', 'important');
+      document.body.style.overflow = '';
+    }
+
+    toggle.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      isOpen ? closeMenu() : openMenu();
+    });
+
+    // Close when a nav link is clicked
+    var navLinks = menu.querySelectorAll('a');
+    for (var j = 0; j < navLinks.length; j++) {
+      navLinks[j].addEventListener('click', function() {
+        closeMenu();
+      });
+    }
+  }
+
+  function run() {
+    // Only enable full behavior on mobile; on desktop reset
+    if (window.innerWidth <= 768) {
+      initMobileMenu();
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', run);
+  } else {
+    run();
+  }
+  window.addEventListener('resize', function() {
+    if (window.innerWidth <= 768) {
+      run();
+    }
+  });
+})();
+    } catch (e) {
+      if (typeof console !== 'undefined' && console.warn) { console.warn('[zappy-custom-js]', e); }
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', __zappyCustomInit);
+  } else {
+    __zappyCustomInit();
+  }
+})();
+/* ZAPPY_CUSTOM_JS_END:a61f69841cae */
+
 
 /* ZAPPY_PUBLISHED_LIGHTBOX_RUNTIME */
 (function(){

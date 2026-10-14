@@ -12108,6 +12108,24 @@ nav.navbar .sub-menu li a {
 .nav-menu > .nav-item > a {
   color: #000000 !important;
 }
+
+@media (max-width: 768px) {
+.navbar #navMenu.active li,
+  .navbar .nav-menu.active li {
+  width: 100% !important;
+}
+
+.navbar #navMenu.active a,
+  .navbar .nav-menu.active a {
+  display: block !important;
+  width: 100% !important;
+  padding: 12px 0 !important;
+  font-size: 17px !important;
+  color: #F6F1E7 !important;
+  text-align: right !important;
+  border-bottom: 1px solid rgba(246,241,231,0.12) !important;
+}
+}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,

@@ -651,6 +651,8 @@ window.onload = function() {
 
 
 /* Added Component Script */
+/* ZAPPY_ISOLATED_COMPONENT_SCRIPT */
+try {
 /* Optional: accessible keyboard navigation for gallery items */
 document.addEventListener('DOMContentLoaded', function () {
   const items = document.querySelectorAll('.villa-gallery-item');
@@ -669,8 +671,12 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 });
-
+} catch (e) {
+  if (typeof console !== 'undefined' && console.error) console.error('[Zappy] Added component script failed', e);
+}
 /* Added Component Script */
+/* ZAPPY_ISOLATED_COMPONENT_SCRIPT */
+try {
 document.addEventListener('DOMContentLoaded', function() {
   const form = document.getElementById('bookingForm');
   const phoneInput = document.getElementById('phone');
@@ -834,8 +840,12 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 });
-
+} catch (e) {
+  if (typeof console !== 'undefined' && console.error) console.error('[Zappy] Added component script failed', e);
+}
 /* Added Component Script */
+/* ZAPPY_ISOLATED_COMPONENT_SCRIPT */
+try {
 (function() {
   const form = document.getElementById('bookingForm');
   const successMsg = document.getElementById('bookingSuccess');
@@ -967,7 +977,9 @@ document.addEventListener('DOMContentLoaded', function() {
   `;
   document.head.appendChild(style);
 })();
-
+} catch (e) {
+  if (typeof console !== 'undefined' && console.error) console.error('[Zappy] Added component script failed', e);
+}
 /* ZAPPY_CUSTOM_JS_START:e8fb5d2ecb47 */
 (function () {
   function __zappyCustomInit() {
@@ -1088,6 +1100,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 /* Added Component Script */
+/* ZAPPY_ISOLATED_COMPONENT_SCRIPT */
+try {
 document.addEventListener('DOMContentLoaded', function() {
   const form = document.getElementById('whatsapp-booking-form');
   const phoneNumber = '972528282481';
@@ -1155,7 +1169,9 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
-
+} catch (e) {
+  if (typeof console !== 'undefined' && console.error) console.error('[Zappy] Added component script failed', e);
+}
 /* ZAPPY_CUSTOM_JS_START:ae54b3d9753c */
 (function () {
   function __zappyCustomInit() {
@@ -1212,6 +1228,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 /* Added Component Script */
+/* ZAPPY_ISOLATED_COMPONENT_SCRIPT */
+try {
 (function() {
   const floatBtn = document.querySelector('.wa-float-btn');
   const formWrapper = document.getElementById('wa-lead-form');
@@ -1391,8 +1409,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 800);
   });
 })();
-
+} catch (e) {
+  if (typeof console !== 'undefined' && console.error) console.error('[Zappy] Added component script failed', e);
+}
 /* Added Component Script */
+/* ZAPPY_ISOLATED_COMPONENT_SCRIPT */
+try {
 document.addEventListener('DOMContentLoaded', function() {
   const form = document.getElementById('villaContactForm');
   const successMessage = document.getElementById('villaSuccessMessage');
@@ -1426,8 +1448,12 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
-
+} catch (e) {
+  if (typeof console !== 'undefined' && console.error) console.error('[Zappy] Added component script failed', e);
+}
 /* Added Component Script */
+/* ZAPPY_ISOLATED_COMPONENT_SCRIPT */
+try {
 document.addEventListener('DOMContentLoaded', function () {
   const form = document.getElementById('fb-lead-form');
   const thankyou = document.getElementById('fb-lead-thankyou');
@@ -1473,7 +1499,9 @@ document.addEventListener('DOMContentLoaded', function () {
     form.reset();
   });
 });
-
+} catch (e) {
+  if (typeof console !== 'undefined' && console.error) console.error('[Zappy] Added component script failed', e);
+}
 /* ZAPPY_CUSTOM_JS_START:2c102084a9e7 */
 (function () {
   function __zappyCustomInit() {

@@ -1,57 +1,166 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://villabethalogim.co.il</loc>
     <lastmod>2026-10-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="he" href="https://villabethalogim.co.il" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://villabethalogim.co.il/en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://villabethalogim.co.il" />
+  </url>
+  <url>
+    <loc>https://villabethalogim.co.il/en</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="he" href="https://villabethalogim.co.il" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://villabethalogim.co.il/en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://villabethalogim.co.il" />
   </url>
   <url>
     <loc>https://villabethalogim.co.il/villa</loc>
     <lastmod>2026-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="he" href="https://villabethalogim.co.il/villa" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://villabethalogim.co.il/en/villa" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://villabethalogim.co.il/villa" />
+  </url>
+  <url>
+    <loc>https://villabethalogim.co.il/en/villa</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="he" href="https://villabethalogim.co.il/villa" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://villabethalogim.co.il/en/villa" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://villabethalogim.co.il/villa" />
   </url>
   <url>
     <loc>https://villabethalogim.co.il/experience</loc>
     <lastmod>2026-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="he" href="https://villabethalogim.co.il/experience" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://villabethalogim.co.il/en/experience" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://villabethalogim.co.il/experience" />
+  </url>
+  <url>
+    <loc>https://villabethalogim.co.il/en/experience</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="he" href="https://villabethalogim.co.il/experience" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://villabethalogim.co.il/en/experience" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://villabethalogim.co.il/experience" />
   </url>
   <url>
     <loc>https://villabethalogim.co.il/contact</loc>
     <lastmod>2026-10-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="he" href="https://villabethalogim.co.il/contact" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://villabethalogim.co.il/en/contact" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://villabethalogim.co.il/contact" />
+  </url>
+  <url>
+    <loc>https://villabethalogim.co.il/en/contact</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="he" href="https://villabethalogim.co.il/contact" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://villabethalogim.co.il/en/contact" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://villabethalogim.co.il/contact" />
   </url>
   <url>
     <loc>https://villabethalogim.co.il/reservation-request</loc>
     <lastmod>2026-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="he" href="https://villabethalogim.co.il/reservation-request" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://villabethalogim.co.il/en/reservation-request" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://villabethalogim.co.il/reservation-request" />
+  </url>
+  <url>
+    <loc>https://villabethalogim.co.il/en/reservation-request</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="he" href="https://villabethalogim.co.il/reservation-request" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://villabethalogim.co.il/en/reservation-request" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://villabethalogim.co.il/reservation-request" />
   </url>
   <url>
     <loc>https://villabethalogim.co.il/nearby</loc>
     <lastmod>2026-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="he" href="https://villabethalogim.co.il/nearby" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://villabethalogim.co.il/en/nearby" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://villabethalogim.co.il/nearby" />
+  </url>
+  <url>
+    <loc>https://villabethalogim.co.il/en/nearby</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="he" href="https://villabethalogim.co.il/nearby" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://villabethalogim.co.il/en/nearby" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://villabethalogim.co.il/nearby" />
   </url>
   <url>
     <loc>https://villabethalogim.co.il/privacy</loc>
     <lastmod>2026-10-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="he" href="https://villabethalogim.co.il/privacy" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://villabethalogim.co.il/en/privacy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://villabethalogim.co.il/privacy" />
+  </url>
+  <url>
+    <loc>https://villabethalogim.co.il/en/privacy</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="he" href="https://villabethalogim.co.il/privacy" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://villabethalogim.co.il/en/privacy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://villabethalogim.co.il/privacy" />
   </url>
   <url>
     <loc>https://villabethalogim.co.il/terms</loc>
     <lastmod>2026-10-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="he" href="https://villabethalogim.co.il/terms" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://villabethalogim.co.il/en/terms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://villabethalogim.co.il/terms" />
+  </url>
+  <url>
+    <loc>https://villabethalogim.co.il/en/terms</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="he" href="https://villabethalogim.co.il/terms" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://villabethalogim.co.il/en/terms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://villabethalogim.co.il/terms" />
   </url>
   <url>
     <loc>https://villabethalogim.co.il/accessibility</loc>
     <lastmod>2026-10-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="he" href="https://villabethalogim.co.il/accessibility" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://villabethalogim.co.il/en/accessibility" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://villabethalogim.co.il/accessibility" />
+  </url>
+  <url>
+    <loc>https://villabethalogim.co.il/en/accessibility</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="he" href="https://villabethalogim.co.il/accessibility" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://villabethalogim.co.il/en/accessibility" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://villabethalogim.co.il/accessibility" />
   </url>
 </urlset>

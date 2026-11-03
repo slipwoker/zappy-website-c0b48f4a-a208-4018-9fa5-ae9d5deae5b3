@@ -11624,6 +11624,28 @@ nav.navbar .sub-menu li a {
 .reservation-request-availability-section .rrav-embed-wrap { border-radius: 32px !important; }
 .reservation-request-availability-section .rrav-embed-wrap { padding: 20px !important; }
 
+
+.reservation-request-availability-section .rrav-embed-wrap {
+  display: block !important;
+  width: 100% !important;
+}
+
+.reservation-request-availability-section .rrav-embed-wrap iframe {
+  display: block !important;
+  width: 100% !important;
+  min-width: 100% !important;
+  height: 600px !important;
+}
+
+@media (max-width: 768px) {
+.reservation-request-availability-section .rrav-embed-wrap {
+  padding: 10px !important;
+}
+
+.reservation-request-availability-section .rrav-embed-wrap iframe {
+  height: 480px !important;
+}
+}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,

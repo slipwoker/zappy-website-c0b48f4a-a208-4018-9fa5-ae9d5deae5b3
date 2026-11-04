@@ -11646,43 +11646,6 @@ nav.navbar .sub-menu li a {
   height: 480px !important;
 }
 }
-
-.index-features-section .yt-lazy-facade {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
-  background: #000;
-  overflow: hidden;
-  display: block;
-  border-radius: 8px;
-}
-
-.index-features-section .yt-lazy-facade .yt-lazy-play {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform .15s ease, opacity .15s ease;
-  pointer-events: none;
-}
-
-.index-features-section .yt-lazy-facade:hover .yt-lazy-play {
-  transform: translate(-50%, -50%) scale(1.08);
-}
-
-.index-features-section .yt-lazy-facade img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,

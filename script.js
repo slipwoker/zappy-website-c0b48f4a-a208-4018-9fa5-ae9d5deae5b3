@@ -2275,35 +2275,6 @@ document.addEventListener('DOMContentLoaded', function () {
 })();
 /* ZAPPY_CUSTOM_JS_END:a61f69841cae */
 
-/* ZAPPY_CUSTOM_JS_START:52b829c12b73 */
-(function () {
-  function __zappyCustomInit() {
-    try {
-(function() {
-  // Enable lazy loading for all images below the first screen (not the hero).
-  // The hero background image stays eager (fetchpriority high) for fastest LCP.
-  var images = document.querySelectorAll('img');
-  images.forEach(function(img) {
-    // Skip the hero background image (already eager/fetchpriority high).
-    if (img.classList.contains('index-hero-bg-img')) return;
-    // Skip if already explicitly eager for some other reason (nav logo etc. are fine to lazy too,
-    // but respect any existing explicit attribute except leave hero intact).
-    img.setAttribute('loading', 'lazy');
-    img.setAttribute('decoding', 'async');
-  });
-})();
-    } catch (e) {
-      if (typeof console !== 'undefined' && console.warn) { console.warn('[zappy-custom-js]', e); }
-    }
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', __zappyCustomInit);
-  } else {
-    __zappyCustomInit();
-  }
-})();
-/* ZAPPY_CUSTOM_JS_END:52b829c12b73 */
-
 
 /* ZAPPY_PUBLISHED_LIGHTBOX_RUNTIME */
 (function(){

@@ -3611,8 +3611,8 @@ main { margin-top: 0 !important; padding-top: 0 !important; }/* Footer Styles */
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
+  width: 88px;
+  height: 88px;
   border-radius: 12px;
   background: rgba(122,130,100,0.10);
   color: var(--primary);

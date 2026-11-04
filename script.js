@@ -2275,6 +2275,94 @@ document.addEventListener('DOMContentLoaded', function () {
 })();
 /* ZAPPY_CUSTOM_JS_END:a61f69841cae */
 
+/* ZAPPY_CUSTOM_JS_START:40977733dd3c */
+(function () {
+  function __zappyCustomInit() {
+    try {
+(function() {
+  // Lazy-load YouTube embeds: show a thumbnail facade and only load the
+  // actual iframe (with autoplay) when the user clicks play.
+  var iframes = document.querySelectorAll('iframe[src*="youtube.com/embed"], iframe[src*="youtube-nocookie.com/embed"]');
+  if (!iframes.length) return;
+
+  iframes.forEach(function(iframe) {
+    var src = iframe.getAttribute('src') || '';
+    if (!src || iframe.dataset.ytFacadeApplied) return;
+    iframe.dataset.ytFacadeApplied = '1';
+
+    // Extract video id.
+    var m = src.match(/(?:embed\/|youtube-nocookie\.com\/embed\/)([\w-]{6,})/);
+    if (!m) return;
+    var videoId = m[1];
+
+    var container = iframe.parentElement;
+    if (!container) return;
+
+    // Capture the wrapper's aspect-ratio box so the facade fills it.
+    var wrapper = container;
+
+    // Build the facade.
+    var facade = document.createElement('div');
+    facade.className = 'yt-lazy-facade';
+    facade.setAttribute('role', 'button');
+    facade.setAttribute('tabindex', '0');
+    facade.setAttribute('aria-label', 'הפעל סרטון');
+
+    // Thumbnail via YouTube's high-quality preview (https absolute URL).
+    var thumb = document.createElement('img');
+    thumb.src = 'https://img.youtube.com/vi/' + videoId + '/hqdefault.jpg';
+    thumb.alt = 'צפו בסרטון';
+    thumb.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;';
+
+    // Play button.
+    var play = document.createElement('div');
+    play.className = 'yt-lazy-play';
+    play.innerHTML = '<svg viewBox="0 0 68 48" width="68" height="48" aria-hidden="true"><path d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="#212121" fill-opacity="0.8"></path><path d="M 45,24 27,14 27,34" fill="#fff"></path></svg>';
+
+    facade.appendChild(thumb);
+    facade.appendChild(play);
+
+    // Hide the original iframe and insert the facade in its place.
+    iframe.style.display = 'none';
+    facade.style.cssText =
+      'position:absolute;inset:0;width:100%;height:100%;cursor:pointer;background:#000;overflow:hidden;display:block;';
+
+    if (iframe.nextSibling) {
+      iframe.parentNode.insertBefore(facade, iframe.nextSibling);
+    } else {
+      iframe.parentNode.appendChild(facade);
+    }
+
+    // On click/keydown, replace facade with the real autoplay iframe.
+    function activate() {
+      var real = document.createElement('iframe');
+      real.src = 'https://www.youtube-nocookie.com/embed/' + videoId + '?autoplay=1&rel=0';
+      real.setAttribute('title', 'YouTube video player');
+      real.setAttribute('frameborder', '0');
+      real.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      real.allowFullscreen = true;
+      real.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;border:none;';
+      facade.parentNode.replaceChild(real, facade);
+      iframe.remove();
+    }
+    facade.addEventListener('click', activate);
+    facade.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(); }
+    });
+  });
+})();
+    } catch (e) {
+      if (typeof console !== 'undefined' && console.warn) { console.warn('[zappy-custom-js]', e); }
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', __zappyCustomInit);
+  } else {
+    __zappyCustomInit();
+  }
+})();
+/* ZAPPY_CUSTOM_JS_END:40977733dd3c */
+
 
 /* ZAPPY_PUBLISHED_LIGHTBOX_RUNTIME */
 (function(){

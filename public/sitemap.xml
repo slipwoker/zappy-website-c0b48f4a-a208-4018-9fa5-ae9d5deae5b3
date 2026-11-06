@@ -110,6 +110,24 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://villabethalogim.co.il/nearby" />
   </url>
   <url>
+    <loc>https://villabethalogim.co.il/villa-heated-indoor-pool-north</loc>
+    <lastmod>2026-11-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="he" href="https://villabethalogim.co.il/villa-heated-indoor-pool-north" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://villabethalogim.co.il/en/villa-heated-indoor-pool-north" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://villabethalogim.co.il/villa-heated-indoor-pool-north" />
+  </url>
+  <url>
+    <loc>https://villabethalogim.co.il/en/villa-heated-indoor-pool-north</loc>
+    <lastmod>2026-11-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="he" href="https://villabethalogim.co.il/villa-heated-indoor-pool-north" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://villabethalogim.co.il/en/villa-heated-indoor-pool-north" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://villabethalogim.co.il/villa-heated-indoor-pool-north" />
+  </url>
+  <url>
     <loc>https://villabethalogim.co.il/privacy</loc>
     <lastmod>2026-11-06</lastmod>
     <changefreq>monthly</changefreq>

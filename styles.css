@@ -11650,6 +11650,103 @@ nav.navbar .sub-menu li a {
 .reservation-request-availability-section .rrav-embed-wrap iframe {
   height: 480px !important;
 }
+}.villa-sleeping-section{position: relative;overflow: hidden;background-color: #F1E7D8;background-image: radial-gradient(circle at 15% 25%, rgba(255,255,255,0.32) 0%, rgba(255,255,255,0) 44%), radial-gradient(circle at 85% 70%, rgba(198,164,106,0.09) 0%, rgba(198,164,106,0) 42%), linear-gradient(180deg, #F8F3EA 0%, #F1E7D8 100%);color: var(--text-dark);padding: var(--spacing-section, 96px) 24px;}html[dir="rtl"] .villa-sleeping-section{direction: rtl;}
+
+#zappy-section-sleeping .villa-sleeping-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+#zappy-section-sleeping .villa-sleeping-header {
+  text-align: center;
+  margin-bottom: 40px;
+  max-width: 680px;
+  margin-inline: auto;
+}
+
+#zappy-section-sleeping .villa-sleeping-title {
+  font-family: 'Rubik', sans-serif;
+  font-size: 2.375rem;
+  font-weight: 500;
+  line-height: 1.2;
+  color: #8D542E;
+  margin: 0;
+  text-align: center;
+}
+
+#zappy-section-sleeping .villa-sleeping-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: var(--radius-card, 24px);
+  box-shadow: 0 10px 28px rgba(88,60,29,0.08);
+  background: #FDFAF4;
+  border: 1px solid var(--border-light);
+}#zappy-section-sleeping .villa-sleeping-table{width: 100%;min-width: 640px;border-collapse: collapse;font-family: 'Rubik', sans-serif;text-align: start;}html[dir="rtl"] #zappy-section-sleeping .villa-sleeping-table{direction: rtl;}
+
+#zappy-section-sleeping .villa-sleeping-table thead th {
+  background: rgba(185,111,82,0.10);
+  color: #8D542E;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  padding: 16px 18px;
+  white-space: nowrap;
+  border-bottom: 2px solid var(--border-light);
+}
+
+#zappy-section-sleeping .villa-sleeping-table tbody th {
+  text-align: start;
+  font-weight: 700;
+  color: var(--text-dark);
+  padding: 16px 18px;
+  background: rgba(198,164,106,0.06);
+  white-space: nowrap;
+}
+
+#zappy-section-sleeping .villa-sleeping-table tbody td {
+  padding: 16px 18px;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  border-bottom: 1px solid var(--border-light);
+  vertical-align: top;
+}
+
+#zappy-section-sleeping .villa-sleeping-table tbody tr:last-child td, #zappy-section-sleeping .villa-sleeping-table tbody tr:last-child th {
+  border-bottom: none;
+}
+
+#zappy-section-sleeping .villa-sleeping-note {
+  font-family: 'Rubik', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: var(--text-muted);
+  margin: 24px auto 0;
+  max-width: 720px;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+.villa-sleeping-section {
+  padding: 56px 16px;
+}
+
+#zappy-section-sleeping .villa-sleeping-title {
+  font-size: 1.75rem;
+}
+}
+/* zappy-self-heal */
+.villa-sleeping-section { padding: var(--spacing-section, 96px) 24px !important; }
+#zappy-section-sleeping .villa-sleeping-scroll { -webkit-overflow-scrolling: touch !important; }
+
+/* zappy-self-heal */
+html body #zappy-section-sleeping .villa-sleeping-scroll { -webkit-overflow-scrolling: touch !important; }
+
+
+.villa-sleeping-section .villa-sleeping-scroll .villa-sleeping-table tbody tr:hover td, .villa-sleeping-section .villa-sleeping-scroll .villa-sleeping-table tbody tr:hover th {
+  background: #F8F3EA;
 }
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {

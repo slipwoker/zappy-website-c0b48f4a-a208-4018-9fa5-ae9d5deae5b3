@@ -2275,6 +2275,45 @@ document.addEventListener('DOMContentLoaded', function () {
 })();
 /* ZAPPY_CUSTOM_JS_END:a61f69841cae */
 
+/* ZAPPY_CUSTOM_JS_START:f6d0e1688489 */
+(function () {
+  function __zappyCustomInit() {
+    try {
+(function () {
+  function openAllFaq() {
+    var section = document.querySelector('.villa-heated-indoor-pool-north-guidance-section');
+    if (!section) return;
+    var answers = section.querySelectorAll('.faq-answer');
+    answers.forEach(function (ans) {
+      ans.style.maxHeight = 'none';
+      ans.style.overflow = 'visible';
+      ans.style.visibility = 'visible';
+      ans.style.opacity = '1';
+      ans.style.display = 'block';
+    });
+    var items = section.querySelectorAll('.faq-item, .faq-card');
+    items.forEach(function (it) { it.classList.add('active'); });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', openAllFaq);
+  } else {
+    openAllFaq();
+  }
+  setTimeout(openAllFaq, 500);
+  setTimeout(openAllFaq, 1500);
+})();
+    } catch (e) {
+      if (typeof console !== 'undefined' && console.warn) { console.warn('[zappy-custom-js]', e); }
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', __zappyCustomInit);
+  } else {
+    __zappyCustomInit();
+  }
+})();
+/* ZAPPY_CUSTOM_JS_END:f6d0e1688489 */
+
 
 /* ZAPPY_PUBLISHED_LIGHTBOX_RUNTIME */
 (function(){

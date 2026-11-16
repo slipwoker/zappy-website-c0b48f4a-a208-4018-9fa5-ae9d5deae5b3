@@ -11996,6 +11996,12 @@ html body #zappy-section-sleeping .villa-sleeping-scroll { -webkit-overflow-scro
 .villa-sleeping-section .villa-sleeping-scroll .villa-sleeping-table tbody tr:hover td, .villa-sleeping-section .villa-sleeping-scroll .villa-sleeping-table tbody tr:hover th {
   background: #F8F3EA;
 }
+
+.villa-heated-indoor-pool-north-guidance-section .faq-card .faq-answer {
+  max-height: none !important;
+  overflow: visible !important;
+  opacity: 1 !important;
+}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,
